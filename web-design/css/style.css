@@ -187,9 +187,12 @@ p {
   color: #dfe1e5 !important; }
 
 .navbar-custom {
-  background: transparent; 
+  /*background: transparent; */
+    
 }
 .navbar-fixed{
+    padding-top: 0%;
+    background-color: #37474F;
     position: fixed;
     width: 100%;
     z-index: 9;
