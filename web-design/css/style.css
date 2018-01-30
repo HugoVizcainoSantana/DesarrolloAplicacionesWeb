@@ -52,7 +52,7 @@ p {
     outline: none;
 }
 .emphasis {
-    font-family: Georgia, Times, 'Times New Roman';
+    font-family: Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
     color: #59a0d7;
 }
@@ -213,10 +213,7 @@ p {
     background: #fff;
 }
 .link-white,
-link-white:visited {
-    font-size: .75rem;
-    text-transform: uppercase;
-    font-weight: 700;
+.link-white:visited {
     border-radius: .3rem;
     border: 0;
     color: #fff;
@@ -225,6 +222,10 @@ link-white:visited {
 .link-white:focus,
 .link-white:active {
     color: #dfe1e5 !important;
+}
+
+.dark-bg {
+    background-color: #37474F;
 }
 .navbar-custom-index {
     /*background: transparent; */
@@ -235,8 +236,7 @@ link-white:visited {
     margin-top: -2.5rem;
 }
 .navbar-fixed {
-    padding-top: 0%;
-    background-color: #37474F;
+    padding-top: 1rem;
     position: fixed;
     width: 100%;
     z-index: 9;
@@ -269,7 +269,6 @@ li.nav-item .btn-white {
     border-radius: 0;
     width: 100%;
     color: #fff;
-    padding-top: 1rem;
 }
 .cover-1 h1 {
     font-weight: 200;
@@ -581,4 +580,13 @@ li.nav-item .btn-white {
         display: flex;
         justify-content: center;
     }
+}
+
+.products {
+    background-color: #eeeeee;
+    padding: 5rem 0;
+}
+
+.col-product img {
+    padding: 1rem;
 }
