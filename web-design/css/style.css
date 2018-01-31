@@ -584,9 +584,15 @@ li.nav-item .btn-white {
 
 .products {
     background-color: #eeeeee;
-    padding: 5rem 0;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.col-product {
+    padding: 1rem;
 }
 
 .col-product img {
-    padding: 1rem;
+    height: 20rem;
+    width: 20rem;
 }
