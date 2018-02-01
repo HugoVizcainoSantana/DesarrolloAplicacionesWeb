@@ -22,7 +22,7 @@ body {
 }
 
 .hero {
-    background-image: url('../images/meteorshower.jpg');
+    background-image: url(../../images/meteorshower.jpg);
     background-size: cover;
     background-position: center center;
     min-height: 100%;
