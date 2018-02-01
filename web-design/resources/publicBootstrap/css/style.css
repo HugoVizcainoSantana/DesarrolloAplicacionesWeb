@@ -61,7 +61,7 @@ p {
     margin: 0 auto;
 }
 .rounded-corners {
-    border-radius: .3rem;
+    border-radius: 1rem;
 }
 .pill-btn {
     border-radius: 499rem !important;
@@ -584,12 +584,18 @@ li.nav-item .btn-white {
 
 .products {
     background-color: #eeeeee;
-    padding: 5rem 0;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 
-.col-product img {
+.col-product {
     padding: 1rem;
     width: 20rem;
     height: 20rem;
     border-radius: 3rem;
+}
+
+.col-product img {
+    height: 20rem;
+    width: 20rem;
 }
