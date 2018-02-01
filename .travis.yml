@@ -1,4 +1,7 @@
 language: java
+branches:
+  only:
+    - master
 deploy:
   provider: heroku
   api_key:
@@ -6,4 +9,3 @@ deploy:
   app: desarrollo-aplicaciones-web-18
   on:
     repo: Hgmoa/DesarrolloAplicacionesWeb
-    branch: master
