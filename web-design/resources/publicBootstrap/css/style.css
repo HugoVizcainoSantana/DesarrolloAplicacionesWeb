@@ -61,7 +61,7 @@ p {
     margin: 0 auto;
 }
 .rounded-corners {
-    border-radius: .3rem;
+    border-radius: 1rem;
 }
 .pill-btn {
     border-radius: 499rem !important;
