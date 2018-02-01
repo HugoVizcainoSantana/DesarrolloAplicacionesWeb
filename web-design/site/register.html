@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../resources/publicBootstrap/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/publicBootstrap/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <script src="../resources/publicBootstrap/js/validateRegister.js"></script>
 </head>
 
 <body>
@@ -46,21 +47,21 @@
                                 Regístrese para comenzar
                             </p>
                             <div class="mt-4">
-                                <form>
+                                <form action="" method="post" id="registerForm">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="firstName" value="" placeholder="Nombre">
+                                        <input required type="text" class="form-control" name="firstName" value="" placeholder="Nombre">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="lastName" value="" placeholder="Apellidos">
+                                        <input required type="text" class="form-control" name="lastName" value="" placeholder="Apellidos">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" value="" placeholder="Email">
+                                        <input required type="email" class="form-control" name="email" value="" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="password" value="" placeholder="Contraseña">
+                                        <input required type="password" class="form-control" name="password" value="" placeholder="Contraseña">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="confirm-password" value="" placeholder="Confirmar contraseña">
+                                        <input required type="password" class="form-control" name="confirm-password" value="" placeholder="Confirmar contraseña">
                                     </div>
                                     <button type="submit" formaction="index.html" class="btn btn-primary btn-block">Crear cuenta</button>
                                 </form>
