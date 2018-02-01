@@ -37,29 +37,19 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
           <div class="sidenav-header-inner text-center"><img src="../../resources/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5">Anderson Hardy</h2><span>Web Developer</span>
+            <h2 class="h5">Usuario1</h2><span>User</span>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-          <h5 class="sidenav-heading">Main</h5>
-          <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="index.html"> <i class="icon-home"></i>Home                             </a></li>
-            <li><a href="forms.html"> <i class="icon-form"></i>Forms                             </a></li>
-            <li class="active"><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts                             </a></li>
-            <li><a href="tables.html"> <i class="icon-grid"></i>Tables                             </a></li>
-            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-              </ul>
-            </li>
-            <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page                             </a></li>
-            <li> <a href="#"> <i class="icon-mail"></i>Demo
-                <div class="badge badge-warning">6 New</div></a></li>
+          <h5 class="sidenav-heading">Menú</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">
+            <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
+            <li><a href="forms.html"> <i class="icon-form"></i>Forms</a></li>
+            <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
+            <li><a href="homes.html"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
           </ul>
         </div>
         <div class="admin-menu">
@@ -81,7 +71,7 @@
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span>Bootstrap </span><strong class="text-primary">Dashboard</strong></div></a></div>
+                  <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
                   <ul aria-labelledby="notifications" class="dropdown-menu">
@@ -138,22 +128,58 @@
       <div class="breadcrumb-holder">
         <div class="container-fluid">
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Charts       </li>
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item active">Consumo       </li>
           </ul>
         </div>
       </div>
-      <section class="charts">
+      <!-- Counts Section -->
+      <section class="dashboard-counts">
         <div class="container-fluid">
           <!-- Page Header-->
-          <header> 
-            <h1 class="h3 display">Charts            </h1>
+          <header>
+            <h1 class="h3 display">Consumo de la casa            </h1>
           </header>
           <div class="row">
-            <div class="col-lg-6">
+
+            <!-- Count item widget-->
+            <div class="col-xl-4 col-md-4 col-12">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-user"></i></div>
+                <div class="name"><strong class="text-uppercase">Actuadores contratados</strong>
+                  <div class="count-number">6</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-4 col-md-4 col-12">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-padnote"></i></div>
+                <div class="name"><strong class="text-uppercase">Consumo total en Kilovatios Hora</strong><span>Ultimo mes</span>
+                  <div class="count-number">400</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-4 col-md-4 col-12">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-check"></i></div>
+                <div class="name"><strong class="text-uppercase">Precio del kilovatio hora</strong><span>Hoy</span>
+                  <div class="count-number">0.1224</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </section>
+      <section class="charts">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
               <div class="card line-chart-example">
                 <div class="card-header d-flex align-items-center">
-                  <h4>Line Chart Example</h4>
+                  <h4>Consumo Mensual /*Necesitamos cambiar los datos*/</h4>
                 </div>
                 <div class="card-body">
                   <canvas id="lineChartExample"></canvas>
