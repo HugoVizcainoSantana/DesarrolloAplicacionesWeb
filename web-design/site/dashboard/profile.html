@@ -129,107 +129,77 @@
       <div class="breadcrumb-holder">
         <div class="container-fluid">
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-            <li class="breadcrumb-item active">Consumo       </li>
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Perfil</li>
           </ul>
         </div>
       </div>
-      <!-- Counts Section -->
-      <section class="dashboard-counts">
+      <section class="forms">
         <div class="container-fluid">
           <!-- Page Header-->
-          <header>
-            <h1 class="h3 display">Consumo de la casa            </h1>
+          <header> 
+            <h1 class="h3 display">Perfil usuario            </h1>
           </header>
           <div class="row">
 
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-user"></i></div>
-                <div class="name"><strong class="text-uppercase">Actuadores contratados</strong>
-                  <div class="count-number">6</div>
-                </div>
-              </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-padnote"></i></div>
-                <div class="name"><strong class="text-uppercase">Consumo total en Kilovatios Hora</strong><span>Ultimo mes</span>
-                  <div class="count-number">400</div>
-                </div>
-              </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-check"></i></div>
-                <div class="name"><strong class="text-uppercase">Precio del kilovatio hora</strong><span>Hoy</span>
-                  <div class="count-number">0.1224</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-        </div>
-      </section>
-      <section class="charts">
-        <div class="container-fluid">
-          <div class="row">
+
+
+
             <div class="col-lg-12">
-              <div class="card line-chart-example">
+              <div class="card">
                 <div class="card-header d-flex align-items-center">
-                  <h4>Consumo Mensual /*Necesitamos cambiar los datos*/</h4>
+                  <h4>nombre apellido1 apellido2</h4>
                 </div>
                 <div class="card-body">
-                  <canvas id="lineChartExample"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card bar-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Bar Chart Example</h4>
-                </div>
-                <div class="card-body">
-                  <canvas id="barChartExample"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card pie-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Pie Chart Example</h4>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <canvas id="pieChartExample"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card polar-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Ploar Chart Example</h4>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <canvas id="polarChartExample"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="card radar-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Radar Chart Example</h4>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <canvas id="radarChartExample"></canvas>
-                  </div>
+                  <form class="form-horizontal">
+                    <div class="form-group row">
+                      <img src="../../resources/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">Cambiar imagen : </label>
+                      <div class="col-sm-10">
+                        <label class="file">
+                          <input type="file" id="file" class="file-input">
+                          <span class="file-control"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">Nombre : </label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" value="apellido">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">Apellidos : </label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" value="apellido1 apellido 2">
+                      </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">Contraseña : </label>
+                      <div class="col-sm-10">
+                        <input type="password" name="password" class="form-control" value="********">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">Confirmación contraseña : </label>
+                      <div class="col-sm-10">
+                        <input type="password" name="passwordConfirm" class="form-control" value="********">
+                      </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <div class="col-sm-4 offset-sm-2">
+                        <button type="submit" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Aplicar cambios</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -259,7 +229,6 @@
     <script src="../../resources/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
     <script src="../../resources/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="../../resources/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../../resources/dashboardBootstrap/js/charts-custom.js"></script>
     <!-- Main File-->
     <script src="../../resources/dashboardBootstrap/js/front.js"></script>
   </body>
