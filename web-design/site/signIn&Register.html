@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Startup UI Kit - Free Sample</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="shortcut icon" href="../resources/publicBootstrap/favicon.ico">
+		<link rel="stylesheet" href="../resources/publicBootstrap/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/publicBootstrap/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../resources/publicBootstrap/css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+		<script src="../resources/publicBootstrap/js/smooth-scroll.js"></script>
+		<script>
+	       smootScroll.init({
+               selector: '[data-scroll]',
+               selectorHeader:null,
+               speed:2000,
+               easing: 'easeInOutCubic',
+               offset:0,
+               callback:function(anchor, toggle){}
+           });
+        </script>
+
+		<script>
+            $(document).ready(function(){
+                var i=1;
+                $("#add_row").click(function(){
+                    $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
+
+                    $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+                    i++;
+                });
+                $("#delete_row").click(function(){
+                    if(i>1){
+                        $("#addr"+(i-1)).html('');
+                        i--;
+                    }
+                });
+
+            });
+		</script>
+
+
+	</head>
+	<body>
+
+		<section class="cover-1 text-center">
+			<nav class="navbar navbar-expand-lg dark-bg navbar-custom navbar-fixed">
+				<div class="container" >
+					<a class="navbar-brand" href="#">OnControl</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarSupportedContent">
+						<ul class="navbar-nav mt-2 mt-md-0">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a data-scroll class="nav-link"  href="index.html#our-work">Nuestro trabajo</a>
+							</li>
+
+							<li class="nav-item">
+								<a data-scroll class="nav-link"  href="index.html#map">Contacto</a>
+							</li>
+							<li class="nav-item">
+								<a class="btn btn-outline-white btn-outline" href="#">Acceso</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class="cover-container pb-5">
+				<div class="cover-inner container">
+					<h1 class="jumbotron-heading">Di <em>hola</em> a tu 	<strong>Smart House</strong></h1>
+					<p class="lead">Una colección de instrumentos creados para hacerte la vida más facil en tu casa.</p>
+
+				</div>
+			</div>
+		</section>
+
+
+		<section class="cta-5 text-center">
+			<div class="container">
+
+					<form>
+						<div class="form-group row">
+							<label for="name" class="col-md-2 col-form-label">Name:</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control" id="name" placeholder="Name">
+							</div>
+							<label for="lastName" class="col-md-2 col-form-label">Last Name:</label>
+							<div class="col-md-5">
+								<input type="text" class="form-control" id="lastName" placeholder="Last Name">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputEmail" class="col-md-2 col-form-label">Email:</label>
+							<div class="col-md-4">
+								<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+							<label for="inputPassword" class="col-md-2 col-form-label">Password:</label>
+							<div class="col-md-2">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+							</div>
+						</div>
+						<!--
+						<div class="form-group row">
+							<label for="city" class="col-md-2 col-form-label">City:</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control" id="city" placeholder="Madrid">
+							</div>
+							<label for="country" class="col-md-1 col-form-label">Country:</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" id="country" placeholder="Spain">
+							</div>
+							<label for="zipCode" class="col-md-2 col-form-label">Zip Code:</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" id="zipCode" placeholder="28007" required>
+							</div>
+						</div>
+						-->
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Manage:</label>
+						</div>
+						<!--
+						<div class="form-group row">
+							<label for="blind" class="col-md-2 col-form-label">Blinds:</label>
+							<div class="col-md-2">
+								<select class="custom-select d-block w-100" id="blind" required>
+									<option value="">choose..</option>
+									<option>Yes</option>
+									<option>No</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="temp" class="col-md-2 col-form-label">Temp:</label>
+							<div class="col-md-2">
+								<select class="custom-select d-block w-100" id="temp" required>
+									<option value="">choose..</option>
+									<option>Yes</option>
+									<option>No</option>
+								</select>
+							</div>
+						</div>
+						-->
+						<div class="form-group row">
+							<div class="container">
+								<div class="row clearfix">
+									<div class="col-md-12 column">
+										<table class="table table-bordered table-hover" id="tab_logic">
+											<thead>
+											<tr >
+												<th class="text-center">
+													#
+												</th>
+												<th class="text-center">
+													Name
+												</th>
+												<th class="text-center">
+													City
+												</th>
+												<th class="text-center">
+													Post Code
+												</th>
+												<th class="text-center">
+													Temp
+												</th>
+												<th class="text-center">
+													Blind
+												</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr id='addr0'>
+												<td>
+													1
+												</td>
+												<td>
+													<input type="text" name='name0'  placeholder='Casa' class="form-control"/>
+												</td>
+												<td>
+													<input type="text" name='city0' placeholder='Madrid' class="form-control"/>
+												</td>
+												<td>
+													<input type="text" name='postCode0' placeholder='28007' class="form-control"/>
+												</td>
+												<td>
+													<select class="custom-select d-block " name='temp0' id="temp0" required>
+														<option value="">choose..</option>
+														<option>Yes</option>
+														<option>No</option>
+													</select>
+													<!--<input type="text" name='temp0' placeholder='Temp' class="form-control"/>
+													-->
+												</td>
+												<td>
+													<select class="custom-select d-block " name='blind0' id="blind0" required>
+														<option value="">choose..</option>
+														<option>Yes</option>
+														<option>No</option>
+													</select>
+													<!--<input type="text" name='blind0' placeholder='Blind' class="form-control"/>
+													-->
+												</td>
+											</tr>
+											<tr id='addr1'></tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<button  id="add_row" class="btn btn-default">Add Row</button>
+								</div>
+								<div class="col-md-3">
+									<button  id='delete_row' class="btn btn-default">Delete Row</button>
+								</div>
+
+
+								<!--
+								<a id="add_row" class="btn btn-default pull-left">Add Row</a>
+								<a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+								-->
+							</div>
+						</div>
+						<div class="form-group row">
+						</div>
+						<div class="form-group row">
+							<label for="imgAvatar" class="col-md-2 col-form-label">Avatar:</label>
+							<div class="col-md-10">
+								<input type="file" class="form-control-file" id="imgAvatar">
+							</div>
+							<!--<input type="file" class="custom-file-input" id="customFile">
+							<label class="custom-file-label" for="customFile">Choose file</label>
+							-->
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-primary">Sign in</button>
+							</div>
+						</div>
+					</form>
+
+
+
+
+
+
+			</div>
+		</section>
+
+		<footer class="footer-4">
+			<div class="container">
+				<div class="row mb-5 text-center text-md-left">
+					<div class="col-md-3 col-lg-4 mb-3">
+						<a class="logo" href="#">OnControl</a>
+					</div>
+					<div class="col-md-3 offset-lg-2 col-lg-2 pt-2">
+						<h5>Mapa del sitio</h5>
+						<ul class="nav-footer">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Inicio</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Nuestro trabajo</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contacto</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3 col-lg-2 pt-2">
+						<h5>Category 2</h5>
+						<ul class="nav-footer">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">About</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Our Work</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3 col-lg-2 pt-2">
+						<h5>Category 3</h5>
+						<ul class="nav-footer">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">About</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Our Work</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="divider"></div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 text-center text-md-left mt-2 mb-3 pt-1">
+						<p class="copyright">Copyright &copy; YourStartup. All rights reserved.</p>
+					</div>
+					<div class="col-md-6 text-center text-md-right mb-4">
+						<ul class="social">
+							<li><a href="#" title="Facebook" class="fa fa-facebook"></a></li>
+							<li><a href="#" title="Twitter" class="fa fa-twitter"></a></li>
+							<li><a href="#" title="Google+" class="fa fa-google"></a></li>
+							<li><a href="#" title="Dribbble" class="fa fa-dribbble"></a></li>
+							<li><a href="#" title="Instagram" class="fa fa-instagram"></a></li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="../resources/publicBootstrap/bootstrap/js/bootstrap.min.js"></script>
+
+
+	</body>
+</html>
