@@ -5,20 +5,23 @@ $(document).ready(function () {
 
     var brandPrimary = 'rgba(51, 179, 90, 1)';
 
-    var LINECHARTEXMPLE   = $('#lineChartExample'),
+    var LINECHARTEXMPLE11   = $('#lineChartExample11'),
+        LINECHARTEXMPLE12   = $('#lineChartExample12'),
+        LINECHARTEXMPLE13   = $('#lineChartExample13'),
+        LINECHARTEXMPLE2   = $('#lineChartExample2'),
         PIECHARTEXMPLE    = $('#pieChartExample'),
         BARCHARTEXMPLE    = $('#barChartExample'),
         RADARCHARTEXMPLE  = $('#radarChartExample'),
         POLARCHARTEXMPLE  = $('#polarChartExample');
 
 
-    var lineChartExample = new Chart(LINECHARTEXMPLE, {
+    var lineChartExample = new Chart(LINECHARTEXMPLE11, {
         type: 'line',
         data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
             datasets: [
                 {
-                    label: "Data Set One",
+                    label: "Consumo Casa",
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(51, 179, 90, 0.38)",
@@ -37,11 +40,11 @@ $(document).ready(function () {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [50, 20, 40, 31, 32, 22, 10],
+                    data: [50, 20, 40, 31, 32, 22],
                     spanGaps: false
                 },
                 {
-                    label: "Data Set Two",
+                    label: "Consumo Media de los usuarios",
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(75,192,192,0.4)",
@@ -60,12 +63,177 @@ $(document).ready(function () {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [65, 59, 30, 81, 56, 55, 40],
+                    data: [65, 59, 30, 81, 56, 55],
                     spanGaps: false
                 }
             ]
         }
     });
+
+    var lineChartExample = new Chart(LINECHARTEXMPLE12, {
+            type: 'line',
+            data: {
+                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                datasets: [
+                    {
+                        label: "Consumo Casa",
+                        fill: true,
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(51, 179, 90, 0.38)",
+                        borderColor: brandPrimary,
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 1,
+                        pointBorderColor: brandPrimary,
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: brandPrimary,
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [10, 25, 15, 33, 56, 45],
+                        spanGaps: false
+                    },
+                    {
+                        label: "Consumo Media de los usuarios",
+                        fill: true,
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 1,
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [65, 59, 30, 81, 56, 55],
+                        spanGaps: false
+                    }
+                ]
+            }
+        });
+
+        var lineChartExample = new Chart(LINECHARTEXMPLE13, {
+                type: 'line',
+                data: {
+                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                    datasets: [
+                        {
+                            label: "Consumo Casa",
+                            fill: true,
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(51, 179, 90, 0.38)",
+                            borderColor: brandPrimary,
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            borderWidth: 1,
+                            pointBorderColor: brandPrimary,
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: brandPrimary,
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: [31, 32, 15, 33, 26, 45],
+                            spanGaps: false
+                        },
+                        {
+                            label: "Consumo Media de los usuarios",
+                            fill: true,
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            borderWidth: 1,
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: [65, 59, 30, 81, 56, 55],
+                            spanGaps: false
+                        }
+                    ]
+                }
+            });
+
+    var lineChartExample = new Chart(LINECHARTEXMPLE2, {
+            type: 'line',
+            data: {
+                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                datasets: [
+                    {
+                        label: "Consumo Casa",
+                        fill: true,
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(51, 179, 90, 0.38)",
+                        borderColor: brandPrimary,
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 1,
+                        pointBorderColor: brandPrimary,
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: brandPrimary,
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [50, 20, 40, 31, 32, 22, 10, 25, 15, 33, 56, 45],
+                        spanGaps: false
+                    },
+                    {
+                        label: "Consumo Media de los usuarios",
+                        fill: true,
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 1,
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [65, 59, 30, 81, 56, 55, 40, 20, 80, 67, 44, 50],
+                        spanGaps: false
+                    }
+                ]
+            }
+        });
 
     var pieChartExample = new Chart(PIECHARTEXMPLE, {
         type: 'doughnut',
