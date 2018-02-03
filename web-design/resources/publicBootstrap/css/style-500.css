@@ -29,7 +29,7 @@ img{max-width:100%;}
 /*end reset*/
 html, body{
     font-size: 100%;
-	background: url(../../images/banner.jpg) no-repeat 0px 0px;
+	background: url(../../images/background500.jpeg) no-repeat 0px 0px;
     background-size: cover;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -38,7 +38,7 @@ html, body{
 	font-family: 'Viga', sans-serif;
 }
 h1,h2,h3,h4,h5,h6,a,p{
-	margin:0;
+	margin:0; 
 }
 ul,label{
 	margin:0;
@@ -50,7 +50,7 @@ body a:hover,body a{
 /*-- main --*/
 .copyright p{
 	font-size: 1em;
-    color:#fff;
+    color:#000;
     margin:14em 0 0;
     line-height: 1.8em;
     text-align: center;
@@ -268,7 +268,7 @@ body a:hover,body a{
 }
 .wthree_social_icons a:nth-of-type(2):before {
 	content:'';
-	background:url(../../images/img-sp.png) no-repeat -18px 11px;
+	background:url(../images/img-sp.png) no-repeat -18px 11px;
 	display:block;
 	width:40px;
 	height:40px;
@@ -278,7 +278,7 @@ body a:hover,body a{
 }
 .wthree_social_icons a:nth-of-type(3):before {
 	content:'';
-	background:url(../../images/img-sp.png) no-repeat -53px 11px;
+	background:url(../images/img-sp.png) no-repeat -53px 11px;
 	display:block;
 	width:40px;
 	height:40px;
@@ -288,7 +288,7 @@ body a:hover,body a{
 }
 .wthree_social_icons a:nth-of-type(4):before {
 	content:'';
-	background:url(../../images/img-sp.png) no-repeat -89px 11px;
+	background:url(../images/img-sp.png) no-repeat -89px 11px;
 	display:block;
 	width:40px;
 	height:40px;
@@ -299,7 +299,7 @@ body a:hover,body a{
 .wthree_social_icons a:nth-of-type(5):before {
 /*-- w3layouts --*/
 	content:'';
-	background:url(../../images/img-sp.png) no-repeat -122px 11px;
+	background:url(../images/img-sp.png) no-repeat -122px 11px;
 	display:block;
 	width:40px;
 	height:40px;
@@ -452,7 +452,7 @@ body a:hover,body a{
 		font-size: 5em;
 	}
 	.main h2,.copyright p {
-		font-size: 13px;
+		font-size: 13px;   
 	}
 	.more_w3ls a {
 		font-size: 13px;
