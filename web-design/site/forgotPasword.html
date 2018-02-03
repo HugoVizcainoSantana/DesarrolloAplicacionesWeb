@@ -3,18 +3,28 @@
 
 <head>
     <meta charset="utf-8">
-    <title>OCH</title>
+    <title>Free Bootstrap 4 Login/Register Forms By Wired Dots</title>
     <meta name="description" content="Love Authority." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../resources/publicBootstrap/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../resources/publicBootstrap/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../resources/publicBootstrap/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <link rel="stylesheet" href="../resources/publicBootstrap/css/style-login.css" />
-    <link rel="shortcut icon" href="../resources/images/icono.png">
+    <link rel="shortcut icon" href="../resources/images/favicon.ico">
+    <link rel="stylesheet" href="../resources/publicBootstrap/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../resources/publicBootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../resources/publicBootstrap/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <script src="../resources/publicBootstrap/js/validateLogin.js"></script>
+    <script language="javascript">
+            function visibilidadDiv(id) {
+                div = document.getElementById(id);
+                if (div.style.display == "block") {
+                    div.style.display = "none";
+                } else {
+                    div.style.display = "block";
+                }
+            }
+      </script>
 </head>
 
 <body>
@@ -22,7 +32,7 @@
     <section class="hero">
         <nav class="navbar navbar-expand-lg dark-bg navbar-custom-user navbar-fixed">
             <div class="container">
-                <a class="navbar-brand" href="index.html">OnControlHome</a>
+                <a class="navbar-brand" href="index.html">OnControl</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -44,34 +54,21 @@
                     <div class="card border-none">
                         <div class="card-body">
                             <div class="mt-2">
-                                <img src="../resources/images/icono.png" alt="Male" class="brand-logo mx-auto d-block img-fluid rounded-circle" />
+                                <img src="../resources/images/favicon.ico" alt="Male" class="brand-logo mx-auto d-block img-fluid rounded-circle" />
                             </div>
                             <p class="mt-4 text-white lead text-center">
-                                Inicie sesión para acceder a su cuenta
+                                Inique su email para recuperar la contraseña
                             </p>
                             <div class="mt-4">
-                                <form action="" method="post" id="loginForm">
+                                <form action=""  id="loginForm">
                                     <div class="form-group">
                                         <input required type="email" class="form-control" id="email" value="" placeholder="Email">
                                     </div>
-                                    <div class="form-group">
-                                        <input required type="password" class="form-control" id="password" value="" placeholder="Contraseña">
-                                    </div>
-                                    <label class="custom-control custom-checkbox mt-2">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description text-white">Recuerdame</span>
-                                    </label>
-                                    <button type="submit" formaction="dashboard/index.html" class="btn btn-primary float-right">Entrar</button>
+                                    <button type="submit"  class="btn btn-primary float-right" onClick="javascript: visibilidadDiv('content');">Enviar</button>
                                 </form>
-                                <a href="forgotPasword.html"><span class="custom-control-description text-white">Olvidé mi contraeña</span></a>
                                 <div class="clearfix"></div>
                                 <p class="content-divider center mt-4"><span>o</span></p>
                             </div>
-                            <p class="mt-4 social-login text-center">
-                                <a href="#" class="btn btn-google"><em class="ion-social-google"></em></a>
-                                <a href="#" class="btn btn-facebook"><em class="ion-social-facebook"></em></a>
-                            </p>
                             <p class="text-center">
                                 No tienes cuenta todavía? <a href="register.html">Regístrate ahora
                         </a>
@@ -79,8 +76,15 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="clearfix"></div>
                 <div class="col-sm-12 mt-5 footer">
+                   <div class="alert alert-success" role="alert" id="content" style="display: none;">
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                          Email de recuperación de contraseña enviado.
+                  </div>
                     <p class="text-white small text-center">
                         &copy; 2017 Login/Register Forms. Designed by <a href="https://twitter.com/attacomsian">URJC</a>
                     </p>
@@ -88,7 +92,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
