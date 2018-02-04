@@ -46,7 +46,9 @@ https://github.com/Hgmoa/DesarrolloAplicacionesWeb/projects/1
 ### 1.Capturas de Pantalla 
 SIN REGISTRAR
 ![index](/pantalalzosFase2/cliente/index.jpg "Index")     
-Pagina principal, visualizacion para cualquier usuario, pudiendo ver apartados como, caracteristicas, quienes somo, tansolo con bajar con el raton, como pulsando el los propios nombres.
+![Nuestro Trabajo](/pantalalzosFase2/cliente/nuestroTrabajo.jpg "Nuestro Trabajo")  
+![Productos](/pantalalzosFase2/cliente/Productos.jpg "Productos")  
+Pagina principal, visualizacion para cualquier usuario, pudiendo ver apartados como, caracteristicas, quienes somo, tansolo con bajar con el raton, como pulsando el los propios nombres.(ejemplo nuestro trabajo y productos).
     
 ![Login](/pantalalzosFase2/cliente/login.jpg "Login")
 Para poder entrarcomo usuario, pudiendo recordar contraseña, o registrate.
@@ -63,7 +65,7 @@ Página donde puedes terminar de rellenar tus datos, y poder identificar los art
 ![Error 404](/pantalalzosFase2/cliente/Error404.jpg "Error 404")     
 Página cuando hay error 404
 
-![Error 500](/pantalalzosFase2/cliente/Error404.jpg "Error 500")     
+![Error 500](/pantalalzosFase2/cliente/Error500.jpg "Error 500")     
 Página cuando hay error 500
 
 CON REGISTRO
@@ -71,4 +73,4 @@ CON REGISTRO
 
 ### 2. Diagrama de navegación
 Cliente sin registrar:
-![Navegacion sin registro](/pantalalzosFase2/cliente/esquemaCliente.jpg "Esquema sin registrar") 
+![Navegacion sin registro](/pantalalzosFase2/cliente/sinRegistrar.jpg "Esquema sin registrar") 
