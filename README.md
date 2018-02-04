@@ -59,9 +59,6 @@ Para introducir el correo y que te recuerden la contraseña.
 ![Registro](/pantalalzosFase2/cliente/Registro.jpg "Registro")     
 Página donde deves rellenar los datos más caracteristicos para registrarte en la página, puedes hacerlo via facebook, google...
 
-![Mas datos](/pantalalzosFase2/cliente/MasDatos.jpg "Mas datos")     
-Página donde puedes terminar de rellenar tus datos, y poder identificar los articulos que necesitarias.
-
 ![Error 404](/pantalalzosFase2/cliente/Error404.jpg "Error 404")     
 Página cuando hay error 404
 
