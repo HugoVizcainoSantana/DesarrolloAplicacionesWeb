@@ -2,6 +2,8 @@
 Desarrollo de Aplicaciones Web | GIS | Universidad Rey Juan Carlos 2017/2018
 
 [![Build Status](https://travis-ci.org/Hgmoa/DesarrolloAplicacionesWeb.svg?branch=master)](https://travis-ci.org/Hgmoa/DesarrolloAplicacionesWeb)
+### FASE 1
+
 ### 1. Nombre de la aplicacion Web: OnControlHome [OCH] 
 
 ### 2. Descripcion: 
@@ -40,5 +42,33 @@ https://github.com/Hgmoa/DesarrolloAplicacionesWeb/projects/1
          - API externa del tiempo.    
          - Descarga de datos en PDF.    
     
+### FASE 2
+### 1.Capturas de Pantalla 
+SIN REGISTRAR
+![index](/pantalalzosFase2/cliente/index.jpg "Index")     
+Pagina principal, visualizacion para cualquier usuario, pudiendo ver apartados como, caracteristicas, quienes somo, tansolo con bajar con el raton, como pulsando el los propios nombres.
     
-    
+![Login](/pantalalzosFase2/cliente/login.jpg "Login")
+Para poder entrarcomo usuario, pudiendo recordar contraseña, o registrate.
+
+![Recordar contraseña](/pantalalzosFase2/cliente/RecuerdoContrasena.jpg "Recordar Contraseña")     
+Para introducir el correo y que te recuerden la contraseña.
+
+![Registro](/pantalalzosFase2/cliente/Registro.jpg "Registro")     
+Página donde deves rellenar los datos más caracteristicos para registrarte en la página, puedes hacerlo via facebook, google...
+
+![Mas datos](/pantalalzosFase2/cliente/MasDatos.jpg "Mas datos")     
+Página donde puedes terminar de rellenar tus datos, y poder identificar los articulos que necesitarias.
+
+![Error 404](/pantalalzosFase2/cliente/Error404.jpg "Error 404")     
+Página cuando hay error 404
+
+![Error 500](/pantalalzosFase2/cliente/Error404.jpg "Error 500")     
+Página cuando hay error 500
+
+CON REGISTRO
+
+
+### 2. Diagrama de navegación
+Cliente sin registrar:
+![Navegacion sin registro](/pantalalzosFase2/cliente/esquemaCliente.jpg "Esquema sin registrar") 
