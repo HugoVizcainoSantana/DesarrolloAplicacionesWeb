@@ -590,12 +590,14 @@ li.nav-item .btn-white {
 
 .col-product {
     padding: 1rem;
-    width: 20rem;
-    height: 20rem;
-    border-radius: 3rem;
 }
 
 .col-product img {
     height: 20rem;
     width: 20rem;
+}
+
+.navbar-toggler-icon {
+    background-image: url("../../images/hamburguerIcon.png");
+    filter: invert(100%);
 }
