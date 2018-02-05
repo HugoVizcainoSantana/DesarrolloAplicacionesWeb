@@ -596,3 +596,8 @@ li.nav-item .btn-white {
     height: 20rem;
     width: 20rem;
 }
+
+.navbar-toggler-icon {
+    background-image: url("../../images/hamburguerIcon.png");
+    filter: invert(100%);
+}
