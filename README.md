@@ -67,22 +67,22 @@ Página cuando hay error 500
 
 CON REGISTRO
 
-![index](/pantalalzosFase2/dasboard/IndexDasboard.jpg "Index") 
+![index](/pantalalzosFase2/dasboard/IndexDasboard.png "Index") 
 Desde esta pantalla controlaremos lo general de la casa. Luces persianas,...
 
-![profile](/pantalalzosFase2/dasboard/UserDasboard.jpg "profile") 
+![profile](/pantalalzosFase2/dasboard/UserDasboard.png "profile") 
 Perfil del cliente que está dado de alta en nuestro servicio con información general sobre el.
 
-![forms](/pantalalzosFase2/dasboard/FormDasboard.jpg "forms")
+![forms](/pantalalzosFase2/dasboard/FormDasboard.png "forms")
 Formularios para las diferentes aspectos de la aplicación.
 
-![charts](/pantalalzosFase2/dasboard/GraficDasboard.jpg "charts")
+![charts](/pantalalzosFase2/dasboard/GraficDasboard.png "charts")
 Graficas que muestran el consumo de la casa.
 
-![homes](/pantalalzosFase2/dasboard/HousesDasboard.jpg "homes")
+![homes](/pantalalzosFase2/dasboard/HousesDasboard.png "homes")
 Consumo de las diferentes casas que pueda tener un mismo usuario
 
-![terms-conditions](/pantalalzosFase2/dasboard/Term.jpg "terms-conditions")
+![terms-conditions](/pantalalzosFase2/dasboard/Term.png "terms-conditions")
 Terminios y condiciones legales
 
 
