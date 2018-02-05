@@ -356,7 +356,7 @@ li.nav-item .btn-white {
 }
 .features-4 {
     background: #2b2d34;
-    padding: 5rem 0;
+    padding: 1px;
 }
 .features-4 h2 {
     margin-top: 2rem;
@@ -590,12 +590,14 @@ li.nav-item .btn-white {
 
 .col-product {
     padding: 1rem;
-    width: 20rem;
-    height: 20rem;
-    border-radius: 3rem;
 }
 
 .col-product img {
     height: 20rem;
     width: 20rem;
+}
+
+.navbar-toggler-icon {
+    background-image: url("../../images/hamburguerIcon.png");
+    filter: invert(100%);
 }
