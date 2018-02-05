@@ -67,7 +67,29 @@ Página cuando hay error 500
 
 CON REGISTRO
 
+![index](/pantalalzosFase2/dasboard/IndexDasboard.jpg "Index") 
+Desde esta pantalla controlaremos lo general de la casa. Luces persianas,...
+
+![profile](/pantalalzosFase2/dasboard/UserDasboard.jpg "profile") 
+Perfil del cliente que está dado de alta en nuestro servicio con información general sobre el.
+
+![forms](/pantalalzosFase2/dasboard/FormDasboard.jpg "forms")
+Formularios para las diferentes aspectos de la aplicación.
+
+![charts](/pantalalzosFase2/dasboard/GraficDasboard.jpg "charts")
+Graficas que muestran el consumo de la casa.
+
+![homes](/pantalalzosFase2/dasboard/HousesDasboard.jpg "homes")
+Consumo de las diferentes casas que pueda tener un mismo usuario
+
+![terms-conditions](/pantalalzosFase2/dasboard/Term.jpg "terms-conditions")
+Terminios y condiciones legales
+
+
 
 ### 2. Diagrama de navegación
 Cliente sin registrar:
 ![Navegacion sin registro](/pantalalzosFase2/cliente/sinRegistrar.jpg "Esquema sin registrar") 
+
+Cliente registrado:
+![Navegacion con registro](/pantalalzosFase2/dasboard/NavegacionDasboard.jpg "Esquema con registrar") 
