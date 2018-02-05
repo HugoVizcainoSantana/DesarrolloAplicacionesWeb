@@ -2,7 +2,7 @@
 Desarrollo de Aplicaciones Web | GIS | Universidad Rey Juan Carlos 2017/2018
 
 [![Build Status](https://travis-ci.org/Hgmoa/DesarrolloAplicacionesWeb.svg?branch=master)](https://travis-ci.org/Hgmoa/DesarrolloAplicacionesWeb)
-### FASE 1
+## FASE 1
 
 ### 1. Nombre de la aplicacion Web: OnControlHome [OCH] 
 
@@ -42,7 +42,7 @@ https://github.com/Hgmoa/DesarrolloAplicacionesWeb/projects/1
          - API externa del tiempo.    
          - Descarga de datos en PDF.    
     
-### FASE 2
+## FASE 2
 ### 1.Capturas de Pantalla 
 SIN REGISTRAR
 ![index](/pantalalzosFase2/cliente/index.jpg "Index")     
