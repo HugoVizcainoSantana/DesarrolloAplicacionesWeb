@@ -15,10 +15,7 @@ public class Product {
     private long cost = -1;
     private ProductType type;
 
-    //
-    //@OneToMany()
-    //private List<Producto> listaProductos;
-    //
+
 
     public Product() {
     }

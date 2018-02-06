@@ -11,7 +11,7 @@ public class Home {
     private long id;
     private long postCode;
     private String address;
-
+    private HomeType typeHome;
     //
     @OneToMany()
     private List<Product> productList;
@@ -20,10 +20,11 @@ public class Home {
     public Home() {
     }
 
-    public Home(long id, long postCode, String address, List<Product> productList) {
+    public Home(long id, long postCode, String address, HomeType typeHome, List<Product> productList) {
         this.id = id;
         this.postCode = postCode;
         this.address = address;
+        this.typeHome = typeHome;
         this.productList = productList;
     }
 
@@ -51,6 +52,14 @@ public class Home {
         this.address = address;
     }
 
+    public HomeType getTypeHome() {
+        return typeHome;
+    }
+
+    public void setTypeHome(HomeType typeHome) {
+        this.typeHome = typeHome;
+    }
+
     public List<Product> getProductList() {
         return productList;
     }
@@ -58,5 +67,10 @@ public class Home {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
+
+    public enum HomeType{
+        ORDER, HOUSE   // ORDER ES UN PEDIDO, HOUSE ES CASA CONFIRMADA
+    }
+
 }
 
