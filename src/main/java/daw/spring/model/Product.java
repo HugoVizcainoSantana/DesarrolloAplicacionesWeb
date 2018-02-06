@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Product {
 
-    @id
+    @Id
     private long id;
     private String description;
     private long cost = -1;
