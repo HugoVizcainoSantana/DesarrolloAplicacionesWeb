@@ -1,13 +1,14 @@
 package daw.spring.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
 public class Home {
 
-    @id
+    @Id
     private long id;
     private long postCode;
     private String address;

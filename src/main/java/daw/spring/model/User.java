@@ -1,13 +1,14 @@
 package daw.spring.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class UserClient {
+public class User {
 
-    @id
+    @Id
     private long id;
     private String firstName;
     private String lastName;
@@ -21,11 +22,11 @@ public class UserClient {
     private List<Home> homeList;
     //
 
-    public UserClient(){
+    public User(){
 
     }
 
-    public UserClient(long id, String firstName, String lastName, String email, String password, List<Home> homeList) {
+    public User(long id, String firstName, String lastName, String email, String password, List<Home> homeList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
