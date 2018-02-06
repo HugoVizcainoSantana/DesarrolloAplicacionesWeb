@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 //Entry point
 @SpringBootApplication
-@Controller
 public class Application {
 
     public static void main(String[] args) {
