@@ -15,8 +15,9 @@ public class Analytics {
     private String title;
     private String description;
 
+    /*
     @OneToMany()
-    /*private List<Object> entitiesAnalytics; // All the graphs contains a group of entities...
+    private List<Object> entitiesAnalytics; // All the graphs contains a group of entities...
     private List<Product> productAnalytics;
     private List<User> userAnalytics;
     private List<Home> homeAnalytics;*/
