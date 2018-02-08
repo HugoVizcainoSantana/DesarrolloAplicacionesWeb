@@ -1,6 +1,5 @@
 package daw.spring.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -53,8 +52,8 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public enum TipoProducto{
-        BOMBILLA,PERSIANA
+    public enum TipoProducto {
+        BOMBILLA, PERSIANA
     }
 }
 
