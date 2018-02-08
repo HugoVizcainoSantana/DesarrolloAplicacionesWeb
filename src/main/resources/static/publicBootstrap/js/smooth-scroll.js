@@ -349,7 +349,7 @@
                 var currentLocation = window.pageYOffset;
 
                 // Check if the end location has been reached yet (or we've hit the end of the document)
-                if (position == endLocation || currentLocation == endLocation || ((startLocation < endLocation && window.innerHeight + currentLocation) >= documentHeight )) {
+                if (position == endLocation || currentLocation == endLocation || ((startLocation < endLocation && window.innerHeight + currentLocation) >= documentHeight)) {
 
                     // Clear the animation timer
                     smoothScroll.cancelScroll();
