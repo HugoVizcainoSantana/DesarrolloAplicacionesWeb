@@ -3,7 +3,7 @@ package daw.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Home {
@@ -13,15 +13,14 @@ public class Home {
     private long postCode;
     private String address;
     private Boolean activated;
-    //
+
     @OneToMany()
-    private List<Product> productList;
-    //
+    private ArrayList<Product> productList;
 
     public Home() {
     }
 
-    public Home(long id, long postCode, String address, Boolean activated, List<Product> productList) {
+    public Home(long id, long postCode, String address, Boolean activated, ArrayList<Product> productList) {
         this.id = id;
         this.postCode = postCode;
         this.address = address;
@@ -62,11 +61,11 @@ public class Home {
         this.activated = activated;
     }
 
-    public List<Product> getProductList() {
+    public ArrayList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
 

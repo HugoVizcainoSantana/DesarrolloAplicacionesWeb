@@ -3,7 +3,7 @@ package daw.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Issue {
@@ -17,7 +17,7 @@ public class Issue {
 
     private Home homeIssue;         // The issue always need to have a home attached to it or a bunch
     @OneToMany()
-    private List<Home> homesIssues;
+    private ArrayList<Home> homesIssues;
 
     private boolean solved = false; // The issue can be solved or not
 
@@ -39,7 +39,7 @@ public class Issue {
         this.solved = solved;
     }
 
-    public Issue(long id, String title, String description, List<Home> homesIssues, boolean solved) {
+    public Issue(long id, String title, String description, ArrayList<Home> homesIssues, boolean solved) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -79,11 +79,11 @@ public class Issue {
         this.homeIssue = homeIssue;
     }
 
-    public List<Home> getHomesIssues() {
+    public ArrayList<Home> getHomesIssues() {
         return homesIssues;
     }
 
-    public void setHomesIssues(List<Home> homesIssues) {
+    public void setHomesIssues(ArrayList<Home> homesIssues) {
         this.homesIssues = homesIssues;
     }
 

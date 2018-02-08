@@ -3,7 +3,7 @@ package daw.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class User {
@@ -15,18 +15,14 @@ public class User {
     private String email;
     private String password;
 
-
-
-    //
     @OneToMany()
-    private List<Home> homeList;
-    //
+    private ArrayList<Home> homeList;
 
     public User(){
 
     }
 
-    public User(long id, String firstName, String lastName, String email, String password, List<Home> homeList) {
+    public User(long id, String firstName, String lastName, String email, String password, ArrayList<Home> homeList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -75,11 +71,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Home> getHomeList() {
+    public ArrayList<Home> getHomeList() {
         return homeList;
     }
 
-    public void setHomeList(List<Home> homeList) {
+    public void setHomeList(ArrayList<Home> homeList) {
         this.homeList = homeList;
     }
 }
