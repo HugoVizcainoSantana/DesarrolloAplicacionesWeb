@@ -3,7 +3,9 @@ package daw.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
+import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
+import java.util.List;
 
 @Entity
 public class Issue {
@@ -15,9 +17,12 @@ public class Issue {
     private String title;
     private String description;
 
+    // Preguntar al profesor sobre @Embedded, ya que soluciona los errores cuando una entitiy usa otra entity
+    @Embedded
     private Home homeIssue;         // The issue always need to have a home attached to it or a bunch
-    @OneToMany()
-    private ArrayList<Home> homesIssues;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Home> homesIssues;
 
     private boolean solved = false; // The issue can be solved or not
 
@@ -39,7 +44,7 @@ public class Issue {
         this.solved = solved;
     }
 
-    public Issue(long id, String title, String description, ArrayList<Home> homesIssues, boolean solved) {
+    public Issue(long id, String title, String description, List<Home> homesIssues, boolean solved) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -79,11 +84,11 @@ public class Issue {
         this.homeIssue = homeIssue;
     }
 
-    public ArrayList<Home> getHomesIssues() {
+    public List<Home> getHomesIssues() {
         return homesIssues;
     }
 
-    public void setHomesIssues(ArrayList<Home> homesIssues) {
+    public void setHomesIssues(List<Home> homesIssues) {
         this.homesIssues = homesIssues;
     }
 

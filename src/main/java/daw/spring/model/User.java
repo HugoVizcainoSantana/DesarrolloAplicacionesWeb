@@ -1,9 +1,10 @@
 package daw.spring.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -15,14 +16,14 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany()
-    private ArrayList<Home> homeList;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Home> homeList;
 
     public User(){
 
     }
 
-    public User(long id, String firstName, String lastName, String email, String password, ArrayList<Home> homeList) {
+    public User(long id, String firstName, String lastName, String email, String password, List<Home> homeList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,11 +72,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Home> getHomeList() {
+    public List<Home> getHomeList() {
         return homeList;
     }
 
-    public void setHomeList(ArrayList<Home> homeList) {
+    public void setHomeList(List<Home> homeList) {
         this.homeList = homeList;
     }
 }
