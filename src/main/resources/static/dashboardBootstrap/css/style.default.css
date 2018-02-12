@@ -1148,7 +1148,7 @@ nav.navbar a.menu-btn:hover {
 * ==========================================================
 */
 footer.main-footer {
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
     background: #222;
