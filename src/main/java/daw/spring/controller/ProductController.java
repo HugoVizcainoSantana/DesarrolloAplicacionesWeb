@@ -26,12 +26,12 @@ public class ProductController {
 
     private List<String> imageTitles = new ArrayList<>();
 
-
     @RequestMapping("index/products")
     public String indexConProductos(Model model){
         model.addAttribute("products",productService.findAllProducts());
         return "index";
     }
+
     @PostConstruct
     public void init(){
 
