@@ -1,10 +1,6 @@
 package daw.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Embedded;
-import javax.persistence.CascadeType;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,7 +14,7 @@ public class Issue {
     private String description;
 
     // Preguntar al profesor sobre @Embedded, ya que soluciona los errores cuando una entitiy usa otra entity
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
     private Home homeIssue;         // The issue always need to have a home attached to it or a bunch
 
     @OneToMany(cascade = CascadeType.ALL)

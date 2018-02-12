@@ -2,7 +2,7 @@ package daw.spring.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Embedded;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Notification {
@@ -15,7 +15,7 @@ public class Notification {
     private String description;
     private String date;
 
-    @Embedded
+    @OneToOne
     private User userNotification; // The notification always need to have a user attached to it
 
     public Notification() {
