@@ -63,6 +63,15 @@
         <p class="lead">Todos los elementos necesarios para tu smart home</p>
         <div class="divider"></div>
         <div class="row">
+            {{#products}}
+            <div class="col-sm-6 col-product">
+                <img class="rounded-corners img-fluid" src="/images/{{img}}">
+                <h4>{{type}}</h4>
+                <p><span class="emphasis">{{description}}</span></p>
+                <a href="/products/persianas.html" class="emphasis">Ver más...</a>
+            </div>
+            {{/products}}
+            <!--
             <div class="col-sm-6 col-product">
                 <img class="rounded-corners img-fluid" src="/images/product-1.jpg">
                 <h4>Persianas</h4>
@@ -75,7 +84,9 @@
                 <p><span class="emphasis">Pequeña descripcion sobre el producto de las bombillas</span></p>
                 <a href="/products/bombillas.html" class="emphasis">Ver más...</a>
             </div>
+            -->
         </div>
+
     </div>
     <div>
         <br>
