@@ -1,10 +1,8 @@
 package daw.spring.repository;
 
+import daw.spring.model.Analytics;
 import daw.spring.model.Product;
-import daw.spring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    //metodos de las querys
+public interface AnalyticsRepository extends JpaRepository<Analytics, Long> {
 }
