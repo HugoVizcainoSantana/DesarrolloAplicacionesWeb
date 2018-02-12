@@ -9,18 +9,38 @@ public class Product {
     @Id
     private long id;
     private String description;
-    private long cost = -1;
+    private double cost;
     private ProductType type;
-
-
+    private StateType status;
+    private String img;
 
     public Product() {
     }
 
-    public Product(String description, long cost, ProductType type) {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Product(long id, String description, double cost, ProductType type, StateType status, String img) {
+        this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
+        this.status = status;
+        this.img=img;
+
+    }
+
+    public StateType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StateType status) {
+        this.status = status;
     }
 
     public long getId() {
@@ -39,11 +59,11 @@ public class Product {
         this.description = description;
     }
 
-    public long getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(long cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
@@ -58,5 +78,10 @@ public class Product {
     public enum ProductType{
         BLIND, LIGHT
     }
+
+    public enum StateType{
+        ON, OFF, UP, DOWN
+    }
+
 }
 
