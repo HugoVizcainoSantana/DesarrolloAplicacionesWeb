@@ -7,9 +7,10 @@ import java.util.List;
 public class Issue {
 
     // Entity issue is a message for the admin about a notification of a issue in a home/houses
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;                // Basic info
+
     private String title;
     private String description;
 

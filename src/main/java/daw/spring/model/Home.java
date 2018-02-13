@@ -1,16 +1,15 @@
 package daw.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Home {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private long postCode;
     private String address;
     private Boolean activated;

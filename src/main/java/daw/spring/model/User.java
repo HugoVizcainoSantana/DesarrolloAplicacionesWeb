@@ -1,34 +1,35 @@
 package daw.spring.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
+    private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;
 
-    public User(){
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
 
+    public User() {
     }
 
-    public User(long id, String firstName, String lastName, String email, String password, List<Home> homeList) {
+    public User(long id, String firstName, String lastName, String email, String passwordHash, List<Home> homeList) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.homeList = homeList;
     }
 
@@ -64,12 +65,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public List<Home> getHomeList() {
@@ -78,6 +79,14 @@ public class User {
 
     public void setHomeList(List<Home> homeList) {
         this.homeList = homeList;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
 

@@ -1,8 +1,6 @@
 package daw.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Notification {
@@ -10,7 +8,9 @@ public class Notification {
     // Entity Notification is about a message for the user about expenses, the service or equipment he have hired with us
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;               // Basic info
+
     private String title;
     private String description;
     private String date;

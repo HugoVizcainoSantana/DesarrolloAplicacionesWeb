@@ -1,7 +1,18 @@
 package daw.spring.service;
 
+import daw.spring.model.User;
+import daw.spring.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 
-    //metodos gets usuarios --llama al repositorio y ejecuta la accion
+    @Autowired
+    private UserRepository userRepository;
+
+    public User findByName(String name) {
+        return userRepository.findUserByFirstName(name);
+    }
 
 }
