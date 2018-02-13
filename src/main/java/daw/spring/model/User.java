@@ -19,7 +19,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;
 
-    public User(){
+    public User() {
 
     }
 

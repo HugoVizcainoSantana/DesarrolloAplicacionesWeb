@@ -1,9 +1,9 @@
 package daw.spring.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
 import java.util.List;
 
 @Entity
@@ -69,7 +69,6 @@ public class Home {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
-
 
 
 }

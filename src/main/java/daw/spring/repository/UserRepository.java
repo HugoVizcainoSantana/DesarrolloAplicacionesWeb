@@ -1,6 +1,5 @@
 package daw.spring.repository;
 
-import daw.spring.model.Product;
 import daw.spring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

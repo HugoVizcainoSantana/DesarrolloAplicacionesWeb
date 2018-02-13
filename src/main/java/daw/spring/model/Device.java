@@ -75,11 +75,11 @@ public class Device {
         this.img = img;
     }
 
-    public enum DeviceType{
+    public enum DeviceType {
         BLIND, LIGHT
     }
 
-    public enum StateType{
+    public enum StateType {
         ON, OFF, UP, DOWN
     }
 }

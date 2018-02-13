@@ -16,32 +16,31 @@ public class DeviceService {
     @Autowired
     DeviceRepository deviceRepository;
 
-    public Device findOneById(Long id){
+    public Device findOneById(Long id) {
 
         return deviceRepository.findOne(id);
     }
 
-    public List<Device> findAllDevices(){
+    public List<Device> findAllDevices() {
         return deviceRepository.findAll();
     }
 
 
-    public void saveDevice(Device product){
+    public void saveDevice(Device product) {
         deviceRepository.save(product);
     }
 
-    public void deleteDevice(Device product){
+    public void deleteDevice(Device product) {
         deviceRepository.delete(product);
     }
 
-    public Page<Device> findAllDevicePage(PageRequest pageRequest){
+    public Page<Device> findAllDevicePage(PageRequest pageRequest) {
         return deviceRepository.findAll(pageRequest);
     }
 
     public void save(Device product1) {
         deviceRepository.save(product1);
     }
-
 
 
 }
