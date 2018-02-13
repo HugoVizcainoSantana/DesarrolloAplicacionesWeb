@@ -14,7 +14,6 @@ import java.util.List;
 
 import static daw.spring.model.Product.ProductType.BLIND;
 import static daw.spring.model.Product.ProductType.LIGHT;
-import static daw.spring.model.Product.StateType.*;
 
 @Controller
 public class ProductController {
@@ -35,12 +34,13 @@ public class ProductController {
     @PostConstruct
     public void init(){
 
-        Product product1 = new Product (1, "bombilla 45w", 15.50, LIGHT, ON ,"product-2.jpg");
+        Product product1 = new Product (1, "bombilla 45w", 15.50, LIGHT, "product-2.jpg");
         productService.save(product1);
-        Product product2 = new Product (2, "Laminas de aluminio", 32.50, BLIND, DOWN, "product-1.jpg");
+        Product product2 = new Product (2, "Laminas de aluminio", 32.50, BLIND,  "product-1.jpg");
         productService.save(product2);
     }
 
 
 
 }
+

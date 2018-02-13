@@ -4,25 +4,28 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Product {
+public class Device {
 
     @Id
     private long id;
     private String description;
     private double cost;
-    private ProductType type;
+    private Device.DeviceType type;
+    private Device.StateType status;
     private String img;
 
-    public Product() {
+    public Device() {
     }
 
-    public Product(long id, String description, double cost, ProductType type, String img) {
+    public Device(long id, String description, double cost, DeviceType type, StateType status, String img) {
         this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
+        this.status = status;
         this.img = img;
     }
+
 
     public long getId() {
         return id;
@@ -48,12 +51,20 @@ public class Product {
         this.cost = cost;
     }
 
-    public ProductType getType() {
+    public DeviceType getType() {
         return type;
     }
 
-    public void setType(ProductType type) {
+    public void setType(DeviceType type) {
         this.type = type;
+    }
+
+    public StateType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StateType status) {
+        this.status = status;
     }
 
     public String getImg() {
@@ -64,16 +75,11 @@ public class Product {
         this.img = img;
     }
 
-    public enum ProductType{
+    public enum DeviceType{
         BLIND, LIGHT
     }
 
-
-
-
-
-
-
-
+    public enum StateType{
+        ON, OFF, UP, DOWN
+    }
 }
-
