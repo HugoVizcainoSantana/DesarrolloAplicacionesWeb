@@ -12,9 +12,11 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    private static final String FILES_FOLDER = ".\\src\\main\\resources\\static\\images";
     @Autowired
     private ProductService productService;
+
+    private static final String FILES_FOLDER = ".\\src\\main\\resources\\static\\images";
+
     private List<String> imageTitles = new ArrayList<>();
 
     @RequestMapping("/")
