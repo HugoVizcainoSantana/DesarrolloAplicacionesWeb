@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 
 //Entry point
 @SpringBootApplication
-@Controller
 public class Application {
 
     public static void main(String[] args) {
