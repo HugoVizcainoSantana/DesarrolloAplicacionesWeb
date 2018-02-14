@@ -1,6 +1,8 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -24,13 +26,19 @@ public class User {
     public User() {
     }
 
-    public User(long id, String firstName, String lastName, String email, String passwordHash, List<Home> homeList) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, List<String> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.homeList = homeList;
+        this.roles = roles;
+    }
+
+    public User(  String email, String passwordHash,  String... roles) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.roles = new ArrayList<String>(Arrays.asList(roles));
     }
 
     public long getId() {
