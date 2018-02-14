@@ -34,6 +34,7 @@
 
 <body>
 
+
 <!-- Side Navbar -->
 <nav class="side-navbar">
     <div class="side-navbar-wrapper">
@@ -41,7 +42,9 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">Usuario1</h2><span>User</span>
+                {{#user}}
+                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+                {{/user}}
             </div>
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -269,17 +272,17 @@
 </div>
 
 <!-- Javascript files-->
-<script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
-<script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <!-- Favorite elements JS -->
-<script src="//dashboardBootstrap/js/elementsController.js"></script>
+<script src="/dashboardBootstrap/js/elementsController.js"></script>
 <!-- Main File-->
-<script src="//dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/front.js"></script>
 
 </body>
 
