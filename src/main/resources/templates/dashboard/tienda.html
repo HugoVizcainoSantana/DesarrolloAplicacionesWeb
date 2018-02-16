@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OCH</title>
+    <title>{{titulo}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="/dashboardBootstrap/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
+     <link rel="stylesheet" href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- jQuery Circle-->
-    <link rel="stylesheet" href="/resources/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <link rel="stylesheet" href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
     <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="/resources/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/resources/dashboardBootstrap/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/resources/dashboardBootstrap/css/custom.css">
     <!-- Favicon-->
@@ -202,6 +202,7 @@
                             <div class="col-md-4">
                                 <input type="number" placeholder="Nª Luces" id="light" name="light" class="form-control" disabled>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="container-fluid">
@@ -209,18 +210,18 @@
                             <div class="mt-30px col-lg-12">
                                 <h2>Coste total estimado:</h2>
                                 <div class="row">
-                                    <p class="col-sm-5">Luces: 156,56€</p>
-                                    <p class="col-sm-5">Persianas: 359,20€</p>
+                                    <p class="col-sm-5">Luces: <span id="luces"></span>€</p>
+                                    <p class="col-sm-5">Persianas: <span id="persiana"></span>€</p>
                                 </div>
                                 <div class="text-center col-sm-12">
-                                    <h3>Total: 516,76€</h3>
+                                    <h3>Total: <span id="total"></span>€</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="col-lg-12">
-                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal">Siguiente paso</button>
+                        <button type="button" onClick="oper()" class="btn btn-success btn-lg btn-block" data-dismiss="modal">Calcular</button>
                     </div>
                 </div>
             </div>
@@ -228,7 +229,8 @@
     </section>
     <!-- Statistics Section-->
 
-    <section class="form" id="contentForm" style="display: none;">
+    <section class="form" id="contentForm" >
+    
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
@@ -237,32 +239,40 @@
                             <h4>Información básica</h4>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form th:object="${user}" th:action="@{tienda}"  method="post">
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" placeholder="Nombre" class="form-control" required>
+                                    <input type="text" th:field="*{firstName}" placeholder="Nombre" class="form-control" />
+                                   	<small class="fomr-text text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small> 
+                                   	<small class="fomr-text text-danger" th:text="${errorName}"></small> 
                                 </div>
                                 <div class="form-group">
                                     <label>Apellidos</label>
-                                    <input type="text" placeholder="Apellidos" class="form-control" required>
+                                    <input type="text" th:field="*{lastName}" placeholder="Apellidos" class="form-control" />
+                                    <small class="fomr-text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" placeholder="ejemplo@ejemplo.com" class="form-control" required>
+                                    <input type="text" th:field="*{email}" placeholder="ejemplo@ejemplo.com" class="form-control" />
+                                    <small class="fomr-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Dirección</label>
-                                    <input type="text" placeholder="C/ Desconocida, 1" class="form-control" required>
+                                    <input type="text" th:field="*{direccion}" placeholder="C/ Desconocida, 1" class="form-control"  />
+                                     <small class="fomr-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Código postal</label>
-                                    <input type="text" placeholder="xxxxx" class="form-control" required>
+                                    <input type="text" th:field="*{cp}" placeholder="xxxxx" class="form-control" />
+                                    <small class="fomr-text text-danger" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></small>
                                 </div>
                                 <br>
                                 <br>
                                 <br>
-
+							     <input type="hidden" th:field="*{id}"> 
+							     
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -275,15 +285,16 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nombre en la tarjeta</label>
-                                    <input type="text" placeholder="Nombre Apellidos" class="form-control" required>
+                                    <input type="text" placeholder="Nombre Apellidos" class="form-control" >
+                                   
                                 </div>
                                 <div class="form-group">
                                     <label>Nº de tarjeta bancaria</label>
-                                    <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="form-control" required>
+                                    <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="form-control" >
                                 </div>
                                 <div class="form-group">
                                     <label>CVV</label>
-                                    <input type="text" placeholder="xxx" class="form-control" required>
+                                    <input type="text" placeholder="xxx" class="form-control" >
                                 </div>
                                 <div class="form-group" id="expiration-date">
                                     <label>Fecha de expiración</label>
@@ -317,7 +328,8 @@
                                     <img src="/images/american_express.png" alt="">
                                     <img src="/images/paypal-express-checkout-logo.png" alt="">
                                 </div>
-                                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalCenter">Enviar</button>
+                               
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar"/>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -335,7 +347,8 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" onClick="visibilidadDiv('contentDanger')" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" onClick="visibilidadDiv('content')" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                                                <!--  <button type="submit" onClick="visibilidadDiv('content')" class="btn btn-primary" data-dismiss="modal">Aceptar</button>-->
+                                                <input type="submit" value="Aceptar"/>
                                             </div>
 
                                         </div>
@@ -359,6 +372,7 @@
             </button>
             Ha cancelado el proceso de compra.
         </div>
+        
     </section>
     <!-- Button trigger modal -->
 
@@ -391,5 +405,6 @@
 <script src="/dashboardBootstrap/js/charts-home.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/operation.js"></script>
 </body>
 </html>
