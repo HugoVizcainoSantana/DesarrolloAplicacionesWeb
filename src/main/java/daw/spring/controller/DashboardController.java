@@ -110,7 +110,7 @@ public class DashboardController {
 		 }
 		 userService.saveUser(user);
 		 //status.setComplete();
-		 return "redirect:dashboard/profile";
+		 return "dashboard/profile";
 	 }
 	 
 	 @RequestMapping("/terms-Conditions")
