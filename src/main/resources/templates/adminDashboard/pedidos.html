@@ -37,7 +37,9 @@
       <div class="sidenav-header d-flex align-items-center justify-content-center">
         <!-- User Info-->
         <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-          <h2 class="h5">Usuario1</h2><span>User</span>
+          {{#user}}
+          <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+          {{/user}}
         </div>
         <!-- Small Brand information, appears on minimized sidebar-->
         <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -48,12 +50,13 @@
         <ul id="side-main-menu1" class="side-menu list-unstyled">
           <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
           <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-          <li><a href="usuarios.html"> <i class="fa fa-bar-chart"></i>Usuarios</a></li>
+          <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
           <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
     <div class="page">
       <!-- navbar-->
       <header class="header">
@@ -114,32 +117,26 @@
           </div>
         </nav>
       </header>
-      <!-- Breadcrumb-->
-      <div class="breadcrumb-holder">
-        <div class="container-fluid">
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-            <li class="breadcrumb-item active">Mis casas</li>
-          </ul>
-        </div>
-      </div>
+      <!-- FIN navbar-->
+
       <section>
         <div class="container-fluid">
           <!-- Page Header-->
           <header> 
-            <h1 class="h3 display">Mis casas contratadas</h1>
+            <h1 class="h3 display">Mis Pedidos</h1>
           </header>
+
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
                   <div class="container">
                     <div class="row">
                       <div class="col-md-6">
-                        <h4>Casa 1</h4>
+                        <h4>Pedido #0001</h4>
                       </div>
                       <div class="col-md-6">
-                        <h5 class="text-muted text-right"><a href="home-detail.html">Ver detalles</a></h5>
+                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
                       </div>
                     </div>
                   </div>
@@ -149,48 +146,36 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Actuadores</th>
-                          <th>Bombillas</th>
-                          <th>Persianas</th>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Telefono</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
                           <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                          <td>Calle Tulipan S/N</td>
+                          <td>@916666666</td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter                            </td>
-                        </tr>
+
                       </tbody>
                     </table>
                   </div>
                 </div>
+
                 <div class="card-body text-left">
-                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 1 </button>
+                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación </button>
                   <!-- Modal-->
                   <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 1</h5>
+                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
                           <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                          <button type="button" class="btn btn-primary">Crear factura</button>
+                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
+                          <button type="button" class="btn btn-primary">Fin Instalacion</button>
                         </div>
                       </div>
                     </div>
@@ -198,29 +183,21 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Consumo Mensual y comparación con la media</h4>
-                </div>
-                <div class="card-body">
-                  <canvas id="lineChartExample11"></canvas>
-                </div>
-              </div>
-            </div>
           </div>
+
           <hr>
+
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
                   <div class="container">
                     <div class="row">
                       <div class="col-md-6">
-                        <h4>Casa 2</h4>
+                        <h4>Pedido #0001</h4>
                       </div>
                       <div class="col-md-6">
-                        <h5 class="text-muted text-right"><a href="home-detail.html">Ver detalles</a></h5>
+                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
                       </div>
                     </div>
                   </div>
@@ -230,48 +207,35 @@
                     <table class="table table-striped">
                       <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Actuadores</th>
-                        <th>Bombillas</th>
-                        <th>Persianas</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr>
-                        <th scope="row">1</th>
                         <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter                            </td>
+                        <td>Calle Tulipan S/N</td>
+                        <td>@916666666</td>
                       </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
                 <div class="card-body text-left">
-                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 2 </button>
+                  <button type="button" data-toggle="modal" data-target="#mModal" class="btn btn-primary">Finalizada Instalación </button>
                   <!-- Modal-->
-                  <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                  <div id="mModal" tabindex="-1" role="dialog" aria-labelledby="examplModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 2</h5>
+                          <h5 id="examplModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
                           <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                          <button type="button" class="btn btn-primary">Crear factura</button>
+                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
+                          <button type="button" class="btn btn-primary">Fin Instalacion</button>
                         </div>
                       </div>
                     </div>
@@ -279,29 +243,21 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Consumo Mensual y comparación con la media</h4>
-                </div>
-                <div class="card-body">
-                  <canvas id="lineChartExample12"></canvas>
-                </div>
-              </div>
-            </div>
           </div>
+
           <hr>
+
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
                   <div class="container">
                     <div class="row">
                       <div class="col-md-6">
-                        <h4>Casa 3</h4>
+                        <h4>Pedido #0001</h4>
                       </div>
                       <div class="col-md-6">
-                        <h5 class="text-muted text-right"><a href="home-detail.html">Ver detalles</a></h5>
+                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
                       </div>
                     </div>
                   </div>
@@ -311,48 +267,35 @@
                     <table class="table table-striped">
                       <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Actuadores</th>
-                        <th>Bombillas</th>
-                        <th>Persianas</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr>
-                        <th scope="row">1</th>
                         <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter                            </td>
+                        <td>Calle Tulipan S/N</td>
+                        <td>@916666666</td>
                       </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
                 <div class="card-body text-left">
-                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 3 </button>
+                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación </button>
                   <!-- Modal-->
                   <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 3</h5>
+                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
                           <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                          <button type="button" class="btn btn-primary">Crear factura</button>
+                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
+                          <button type="button" class="btn btn-primary">Fin Instalacion</button>
                         </div>
                       </div>
                     </div>
@@ -360,18 +303,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <h4>Consumo Mensual y comparación con la media</h4>
-                </div>
-                <div class="card-body">
-                  <canvas id="lineChartExample13"></canvas>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+
       </section>
       <footer class="main-footer">
         <div class="container-fluid">

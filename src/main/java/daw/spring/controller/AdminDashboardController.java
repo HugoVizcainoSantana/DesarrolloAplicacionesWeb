@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/adminDashboard")
 
+@RequestMapping("/adminDashboard")
 public class AdminDashboardController {
 
     @Autowired private UserService userService;
@@ -20,10 +20,12 @@ public class AdminDashboardController {
         return "adminDashboard/index";
     }
 
+
     @RequestMapping("/index")
     public void index2(Model model) {
         index(model);
     }
+
 
     @RequestMapping("/inventario")
     public String inventario() {
@@ -36,10 +38,15 @@ public class AdminDashboardController {
         return "adminDashboard/usuarios";
     }
 
+
     @RequestMapping("/pedidos")
     public String pedidos() {
         return "adminDashboard/pedidos";
     }
 
 
+    @RequestMapping("/detail")
+    public String detail() {
+        return "adminDashboard/detail";
+    }
 }

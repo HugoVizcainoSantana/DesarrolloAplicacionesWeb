@@ -18,8 +18,8 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User findOneById(Long id){
 
+    public User findOneById(Long id){
         return userRepository.findOne(id);
     }
 
@@ -27,6 +27,8 @@ public class UserService {
     public void saveUser(User user){
         userRepository.save(user);
     }
+
+
 
    /* public void deleteHome(Home home){
         homeRepository.delete(home);
