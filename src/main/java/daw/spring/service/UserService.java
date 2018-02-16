@@ -6,11 +6,12 @@ package daw.spring.service;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 
+@Service
 public class UserService {
 
     //metodos gets usuarios --llama al repositorio y ejecuta la accion
