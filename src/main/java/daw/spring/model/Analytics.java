@@ -3,6 +3,7 @@ package daw.spring.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 
 @Entity
@@ -15,12 +16,9 @@ public class Analytics {
     private String title;
     private String description;
 
-    /*
-    @OneToMany()
-    private List<Object> entitiesAnalytics; // All the graphs contains a group of entities...
-    private List<Product> productAnalytics;
-    private List<User> userAnalytics;
-    private List<Home> homeAnalytics;*/
+    // We have to add user too as a atribute but, for now, we dont have security implemented
+    // @OneToOne
+    // private User user;
 
     private ArrayList<String> domain; // And a domain in Years, Months, Weeks or Days
 
