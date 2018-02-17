@@ -54,12 +54,13 @@ public class DashboardController {
 	 
 	 @RequestMapping(value="/tienda", method=RequestMethod.POST)
 	 public String save (@Valid User user, BindingResult result,Model model, SessionStatus status) {
+		 User userResult = new User();
 		 if(result.hasErrors()) {
 			 model.addAttribute("errorName", "Nombre requerido");
-			 return "dashboard/tienda";
+			 return "dashboard/created";
 			 
 		 }
-		 userService.saveUser(user);
+		 userService.saveUser(userResult);
 		 status.setComplete();
 		 return "redirect:dashboard/created";
 	 }
@@ -84,16 +85,19 @@ public class DashboardController {
 	 
 	 @RequestMapping("/profile")
 	 public String profile(Model model) {
+		 User user = new User();
 		 model.addAttribute("titulo", "Perfil");
+		 model.addAttribute("nameProfile", "Juan");
+		 
 		 return "dashboard/profile";
 	 }
 	 @RequestMapping(value="/profile", method=RequestMethod.POST)
 	 public String saveProfile (@Valid User user, BindingResult result,Model model,@RequestParam("file") MultipartFile photo, SessionStatus status) {
-		 //if(result.hasErrors()) {
+		 if(result.hasErrors()) {
 			 
-			// return "dashboard/profile";
+			 return "dashboard/profile";
 			 
-		 //}
+		 }
 		 if(! photo.isEmpty()) {
 			 Path directorioRecusrsos= Paths.get("src//main//resources//static//upload");
 			 String rootPath = directorioRecusrsos.toFile().getAbsolutePath();
@@ -109,6 +113,7 @@ public class DashboardController {
 			}
 		 }
 		 userService.saveUser(user);
+		 //model.addAttribute("titulo", "Perfil");
 		 //status.setComplete();
 		 return "dashboard/profile";
 	 }
@@ -125,14 +130,6 @@ public class DashboardController {
 		 return "dashboard/created";
 	 }
 	 
-	// @PostConstruct
-	  //  public void init(){
-
-
-	    //    User user1 = new User (1, "Ramon", "Serrano", "r@r.com", "calle calle", null, 28950, null);
-	      //  userService.saveUser(user1);
-	        //User user2= new User (2, "Ramon", "Serrano", "r@r.com", "calle calle", null, 28950, null);
-	        //userService.saveUser(user2);
-	    //}
+	 
 	 
 }

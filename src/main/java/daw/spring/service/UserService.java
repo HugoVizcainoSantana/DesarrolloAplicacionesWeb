@@ -1,24 +1,21 @@
 package daw.spring.service;
 
-
-
-
-import javax.annotation.PostConstruct;
-
+import daw.spring.model.Home;
+import daw.spring.model.User;
+import daw.spring.repository.HomeRepository;
+import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import daw.spring.model.User;
-import daw.spring.repository.UserRepository;
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class UserService {
 
-    //metodos gets usuarios --llama al repositorio y ejecuta la accion
-	
-	
-	
-	@Autowired
+    @Autowired
     UserRepository userRepository;
 
 
@@ -41,5 +38,9 @@ public class UserService {
     }*/
 
 
-   
+   @PostConstruct
+    public void prueba (){
+       saveUser(new User(1, "Pepe","Lopez","", "a@a.com", "aaa", 0, null, null));
+
+   }
 }
