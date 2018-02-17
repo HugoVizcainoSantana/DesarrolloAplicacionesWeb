@@ -58,6 +58,7 @@
 </nav>
 
 <div class="page">
+
     <!-- navbar-->
     <header class="header">
         <nav class="navbar">
@@ -141,56 +142,93 @@
     <section class="mt-30px mb-30px">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-12 col-md-3">
                     <div id="recent-activities-wrapper" class="card updates activities">
                         <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Ultimos Pedidos</a></h2>
-                            <a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box"><i class="fa fa-angle-down"></i></a>
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedidos #0001</a></h2>
                         </div>
-                        <div id="activities-box" role="tabpanel" class="collapse show">
-                            <ul class="activities list-unstyled">
+                            <ul class="list-unstyled">
                                 <!-- Item-->
                                 <li>
                                     <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>6:00 am</span><span class="text-info">6 hours ago</span></div>
+                                        <div class="col-5 date-holder content text-center">
+                                            <div class="date"><span class="text-info">Nombre del Titular:</span></div>
+                                            <p>Pepe Gonzalez Lopez</p>
                                         </div>
-                                        <div class="col-8 content"><strong>Pedido Nº 0001</strong>
-                                            <p>"Descripcion del pedido"</p>
+                                        <div class="col-3 date-holder content text-center">
+                                            <div class="date"><span class="text-info">DNI:</span></div>
+                                            <p>Pepe Gonzalez Lopez</p>
+                                        </div>
+                                        <div class="col-3 date-holder content text-center">
+                                            <div class="date"><span class="text-info">Teléfono:</span></div>
+                                            <p>P66 666 666</p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- Item-->
+                                <li>
+                                    <div class="row">
+                                        <div class="col-6 date-holder content text-center">
+                                            <div class="date"><span class="text-info">Dirección:</span></div>
+                                            <p>Calle Tulipán S/N</p>
+                                        </div>
+                                        <div class="col-6 date-holder content text-center">
+                                            <div class="date"><span class="text-info">Email:</span></div>
+                                            <p>aaaaaa@gmail.com</p>
                                         </div>
                                     </div>
                                 </li>
                                 <!-- Item-->
                                 <li>
                                     <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
-                                        </div>
-                                        <div class="col-8 content"><strong>Pedido Nº 0002</strong>
-                                            <p>"Descripcion del pedido"</p>
-                                        </div>
+                                        <div class="col-12 date-holder content text-center">
+                                            <div class="date"><span class="text-info">Productos Adquiridos:</span></div>
+                                                <div class="row">
+                                                    <div class="col-md-4 ">
+                                                        <br>
+                                                        <h5>Persiana 1</h5>
+                                                        <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                        <br>
+                                                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                    </div>
+                                                    <div class="col-md-4 ">
+                                                        <br>
+                                                        <h5>Persiana 2</h5>
+                                                        <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                        <br>
+                                                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                    </div>
+                                                    <div class="col-md-4 ">
+                                                        <br>
+                                                        <h5>Persiana 3</h5>
+                                                        <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                        <br>
+                                                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                    </div>
+                                                    <div class="col-md-4 ">
+                                                        <br>
+                                                        <h5>Luz 1</h5>
+                                                        <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                        <br>
+                                                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                    </div>
+                                                    <div class="col-md-4 ">
+                                                        <br>
+                                                        <h5>Luz 2</h5>
+                                                        <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                        <br>
+                                                        <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                    </div>
+                                                </div>
+                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <li>
-                                    <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
-                                        </div>
-                                        <div class="col-8 content"><strong>Pedido Nº 0003</strong>
-                                            <p>"Descripcion del pedido"</p>
-                                        </div>
-                                    </div>
-                                </li>
+
 
                             </ul>
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -209,16 +247,16 @@
     </footer>
 </div>
 <!-- Javascript files-->
-<script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"> </script>
-<script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"> </script>
-<script src="//dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="//dashboardBootstrap/js/charts-custom.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"> </script>
+<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/js/charts-custom.js"></script>
 <!-- Main File-->
-<script src="//dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/front.js"></script>
 </body>
 </html>
