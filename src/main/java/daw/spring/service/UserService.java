@@ -33,6 +33,7 @@ public class UserService {
    /* public void deleteHome(Home home){
         homeRepository.delete(home);
     }
+    
     public Page<Home> findAllHomePage(PageRequest pageRequest){
         return homeRepository.findAll(pageRequest);
     }*/
@@ -41,6 +42,5 @@ public class UserService {
    @PostConstruct
     public void prueba (){
        saveUser(new User(1, "Pepe","Lopez","", "a@a.com", "aaa", 0, null, null));
-
    }
 }

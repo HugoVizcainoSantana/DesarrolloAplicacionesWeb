@@ -72,7 +72,11 @@
         		<groupId>org.springframework.boot</groupId>
         		<artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-		
+        <!-- Devtool dependencies-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
