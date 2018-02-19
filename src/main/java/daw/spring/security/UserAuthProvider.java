@@ -2,6 +2,8 @@ package daw.spring.security;
 
 import daw.spring.model.User;
 import daw.spring.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,20 +21,22 @@ import java.util.List;
 @Component
 public class UserAuthProvider implements AuthenticationProvider {
 
+    private Logger log = LoggerFactory.getLogger("UserAuthProvider");
+
     @Autowired
     private UserService userService;
-
-
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
-
+        log.error(auth.getName());
         User user = userService.findByName(auth.getName());
         if (user == null) {
             throw new BadCredentialsException("User not found");
         }
         String password = (String) auth.getCredentials();
-        if (!new BCryptPasswordEncoder().matches(password, user.getPasswordHash())) {
+        if (!encoder.matches(password, user.getPasswordHash())) {
             throw new BadCredentialsException("Wrong password");
         }
 
