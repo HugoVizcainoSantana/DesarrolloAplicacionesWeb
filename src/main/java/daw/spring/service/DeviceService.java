@@ -2,6 +2,7 @@ package daw.spring.service;
 
 
 import daw.spring.model.Device;
+import daw.spring.model.Device.DeviceType;
 import daw.spring.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 @Service
 public class DeviceService {
@@ -40,6 +43,12 @@ public class DeviceService {
 
     public void save(Device product1) {
         deviceRepository.save(product1);
+    }
+    
+    
+    @PostConstruct
+    public void prueba() {
+    	saveDevice(new Device( "Descripcion", 1234, Device.DeviceType.LIGHT,  Device.StateType.OFF, null));
     }
 
 
