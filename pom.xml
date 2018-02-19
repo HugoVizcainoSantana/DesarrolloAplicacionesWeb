@@ -67,11 +67,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-        <!-- Uso Thymeleaft para el formulario de contacto -->
-        <dependency>
-        		<groupId>org.springframework.boot</groupId>
-        		<artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
         <!-- Devtool dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

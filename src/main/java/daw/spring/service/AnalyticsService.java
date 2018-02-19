@@ -22,7 +22,6 @@ public class AnalyticsService {
         return analyticsRepository.findAll();
     }
 
-
     public void saveAnalytics(Analytics analytics) {
         analyticsRepository.save(analytics);
     }
@@ -35,7 +34,4 @@ public class AnalyticsService {
         return analyticsRepository.findAll(pageRequest);
     }
 
-    public void save(Analytics analytics) {
-        analyticsRepository.save(analytics);
-    }
 }

@@ -23,13 +23,10 @@ public class User {
     @Email
     private String email;
 
-
     @NotEmpty
     private String direccion;
 
-
     private int cp;
-
 
     private String password;
 
