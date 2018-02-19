@@ -48,7 +48,7 @@ public class DeviceService {
     
     @PostConstruct
     public void prueba() {
-    	saveDevice(new Device(0, "Descripcion", 1234, Device.DeviceType.LIGHT,  Device.StateType.OFF, null));
+    	saveDevice(new Device( "Descripcion", 1234, Device.DeviceType.LIGHT,  Device.StateType.OFF, null));
     }
 
 
