@@ -24,7 +24,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-
+    public void save(Product product1) {
+        productRepository.save(product1);
+    }
     public void saveProduct(Product product){
         productRepository.save(product);
     }
@@ -37,7 +39,5 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
-    public void save(Product product1) {
-        productRepository.save(product1);
-    }
+
 }

@@ -47,5 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // Database authentication provider
         auth.authenticationProvider(authenticationProvider);
+        //auth.inMemoryAuthentication()
+        //        .withUser("amador@merengue.com").password("1234").roles("USER");
+         //   .withUser(."1234".roles("USER"))
     }
 }

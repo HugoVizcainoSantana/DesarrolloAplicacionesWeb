@@ -22,6 +22,8 @@ public class UserAuthProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
+
+
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
@@ -39,6 +41,7 @@ public class UserAuthProvider implements AuthenticationProvider {
             roles.add(new SimpleGrantedAuthority(role));
         }
         return new UsernamePasswordAuthenticationToken(user.getFirstName(), password, roles);
+        
     }
 
     @Override

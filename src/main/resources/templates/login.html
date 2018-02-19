@@ -49,7 +49,7 @@
                             Inicie sesión para acceder a su cuenta
                         </p>
                         <div class="mt-4">
-                            <form action="" method="post" id="loginForm">
+                            <form action="/dashboard/index.html" method="post" id="loginForm">
                                 <div class="form-group">
                                     <input required type="email" class="form-control" id="email" value="" placeholder="Email">
                                 </div>
@@ -61,7 +61,9 @@
                                     <span class="custom-control-indicator"></span>
                                     <span class="custom-control-description text-white">Recuerdame</span>
                                 </label>
-                                <button type="submit" formaction="dashboard/index.html" class="btn btn-primary float-right">Entrar</button>
+                                <button type="submit"  class="btn btn-primary float-right">Entrar</button>
+                                <input type="hidden" name="_csrf" value="{{token}}"/>
+                                <!--<button type="submit" formaction="dashboard/index.html" class="btn btn-primary float-right">Entrar</button>-->
                             </form>
                             <a href="/forgotPassword"><span class="custom-control-description text-white">Olvidé mi contraeña</span></a>
                             <div class="clearfix"></div>
