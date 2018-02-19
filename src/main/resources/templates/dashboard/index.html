@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OCH</title>
+    <title>{{titulo}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -14,7 +14,7 @@
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
     <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" href="https:/fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- jQuery Circle-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
     <!-- Custom Scrollbar-->
@@ -144,7 +144,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Favoritos Widget -->
-                <div class="col-lg-8 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div id="new-updates" class="card updates recent-updated">
                         <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
                             <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos favoritos</a></h2>
@@ -242,17 +242,15 @@
                     </div>
                 </div>
                 <!-- Ultimas acciones End -->
-
-            </div>
-            <div class="row">
+				<div class="col-lg-4 col-md-6">
                 <!-- Widget Tiempo -->
-                <div class=" col-md-4">
-                    Aqui trabajaremos con una api mas compleja a la que realizar consultas mas complejas en funcion de la localizacion del usuario. De momento usamos este widget
-                    <div id="c_884e19e2ce77546477460376828f2ab7" class="normal"></div>
-                    <script type="text/javascript" src="https://www.eltiempo.es/widget/widget_loader/884e19e2ce77546477460376828f2ab7"></script>
-                </div>
+	                <div id="weather">
+	                    
+	                </div>
                 <!-- Widget Tiempo End -->
+            		</div>
             </div>
+            
         </div>
     </section>
 
@@ -281,6 +279,8 @@
 <script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <!-- Favorite elements JS -->
 <script src="/dashboardBootstrap/js/elementsController.js"></script>
+<!-- Weather-->
+<script src="/dashboardBootstrap/js/appWeather.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
 </body>
