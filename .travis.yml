@@ -9,3 +9,7 @@ deploy:
   app: desarrollo-aplicaciones-web-18
   on:
     repo: Hgmoa/DesarrolloAplicacionesWeb
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
