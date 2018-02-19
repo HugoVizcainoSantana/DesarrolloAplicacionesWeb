@@ -13,27 +13,28 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired  ProductRepository productRepository;
+    @Autowired
+    ProductRepository productRepository;
 
-    public Product findOneById(Long id){
+    public Product findOneById(Long id) {
 
         return productRepository.findOne(id);
     }
 
-    public List<Product> findAllProducts(){
+    public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
 
-    public void saveProduct(Product product){
+    public void saveProduct(Product product) {
         productRepository.save(product);
     }
 
-    public void deleteProduct(Product product){
+    public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
 
-    public Page<Product> findAllProductPage(PageRequest pageRequest){
+    public Page<Product> findAllProductPage(PageRequest pageRequest) {
         return productRepository.findAll(pageRequest);
     }
 

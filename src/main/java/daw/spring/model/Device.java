@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Device {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String description;
     private double cost;
@@ -76,11 +76,11 @@ public class Device {
         this.img = img;
     }
 
-    public enum DeviceType{
+    public enum DeviceType {
         BLIND, LIGHT
     }
 
-    public enum StateType{
+    public enum StateType {
         ON, OFF, UP, DOWN
     }
 }

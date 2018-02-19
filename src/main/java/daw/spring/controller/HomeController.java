@@ -1,18 +1,6 @@
 package daw.spring.controller;
 
-import daw.spring.model.Home;
-import daw.spring.model.Product;
-import daw.spring.service.HomeService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 @Controller

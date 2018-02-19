@@ -3,7 +3,6 @@ package daw.spring.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 
 @Entity
@@ -94,7 +93,7 @@ public class Analytics {
         this.dataAverage = dataAverage;
     }
 
-    public enum AnalyticsType{
+    public enum AnalyticsType {
         PRODUCTS, USERS, HOMES  // Different graphs for diferent entities
     }
 }

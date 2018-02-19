@@ -1,7 +1,7 @@
 package daw.spring.service;
 
-import daw.spring.model.Issue;
 import daw.spring.model.Home;
+import daw.spring.model.Issue;
 import daw.spring.repository.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,30 +16,30 @@ public class IssueService {
     @Autowired
     private IssueRepository issueRepository;
 
-    public Issue findOneById(Long id){
+    public Issue findOneById(Long id) {
 
         return issueRepository.findOne(id);
     }
 
-    public Issue findOneByHome(Home home){
+    public Issue findOneByHome(Home home) {
 
         return issueRepository.findOne(home.getId());
     }
 
-    public List<Issue> findAllIssues(){
+    public List<Issue> findAllIssues() {
         return issueRepository.findAll();
     }
 
 
-    public void saveIssue(Issue notification){
+    public void saveIssue(Issue notification) {
         issueRepository.save(notification);
     }
 
-    public void deleteIssue(Issue notification){
+    public void deleteIssue(Issue notification) {
         issueRepository.delete(notification);
     }
 
-    public Page<Issue> findAllIssuePage(PageRequest pageRequest){
+    public Page<Issue> findAllIssuePage(PageRequest pageRequest) {
         return issueRepository.findAll(pageRequest);
     }
 

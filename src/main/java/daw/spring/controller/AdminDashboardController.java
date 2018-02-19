@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/adminDashboard")
 public class AdminDashboardController {
 
-    @Autowired private UserService userService;
-    @Autowired private ProductService productService;
-    @Autowired private DeviceService deviceService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private DeviceService deviceService;
 
     @RequestMapping("/")
     public String index(Model model) {

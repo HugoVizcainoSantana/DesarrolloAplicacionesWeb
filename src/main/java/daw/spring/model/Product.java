@@ -64,15 +64,9 @@ public class Product {
         this.img = img;
     }
 
-    public enum ProductType{
+    public enum ProductType {
         BLIND, LIGHT
     }
-
-
-
-
-
-
 
 
 }
