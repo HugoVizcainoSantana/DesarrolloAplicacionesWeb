@@ -41,7 +41,7 @@ public class IndexController {
         userService.save(user1);
         User user2 = new User ("Teodoro","Rivas","teodoro@merengue.com","1234",null, Collections.singletonList("USER"));
         userService.save(user2);
-        User userAdmin1 = new User("admin", "pass", Collections.singletonList("ADMIN"));
+        User userAdmin1 = new User("admin@oncontrolhome.com", "1234", Collections.singletonList("ADMIN"));
         userService.save(userAdmin1);
     }
 
