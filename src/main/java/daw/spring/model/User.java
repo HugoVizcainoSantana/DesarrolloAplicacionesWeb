@@ -35,10 +35,10 @@ public class User {
         this.roles = roles;
     }
 
-    public User( String email, String passwordHash,  String... roles) {
+    public User( String email, String passwordHash, List<String> roles) {
         this.email = email;
         this.passwordHash = passwordHash;
-        this.roles = new ArrayList<String>(Arrays.asList(roles));
+        this.roles = roles;
     }
 
     public long getId() {
