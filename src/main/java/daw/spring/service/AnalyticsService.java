@@ -15,14 +15,12 @@ public class AnalyticsService {
     AnalyticsRepository analyticsRepository;
 
     public Analytics findOneById(long id) {
-
         return analyticsRepository.findOne(id);
     }
 
     public List<Analytics> findAllAnalytics() {
         return analyticsRepository.findAll();
     }
-
 
     public void saveAnalytics(Analytics analytics) {
         analyticsRepository.save(analytics);
@@ -36,7 +34,4 @@ public class AnalyticsService {
         return analyticsRepository.findAll(pageRequest);
     }
 
-    public void save(Analytics analytics) {
-        analyticsRepository.save(analytics);
-    }
 }

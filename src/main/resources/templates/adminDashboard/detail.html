@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{titulo}}</title>
+    <title>OCH</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -37,7 +39,9 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">Usuario1</h2><span>User</span>
+                {{#user}}
+                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+                {{/user}}
             </div>
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -47,28 +51,23 @@
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="tienda.html"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
-            </ul>
-            <h5 class="sidenav-heading">Gráficas</h5>
-            <ul id="side-main-menu2" class="side-menu list-unstyled">
-                <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
-                <li><a href="homes.html"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
-            </ul>
-            <h5 class="sidenav-heading">Opciones</h5>
-            <ul id="side-main-menu3" class="side-menu list-unstyled">
-                <li><a href="profile.html"> <i class="icon-user"></i>Perfil</a></li>
+                <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="page">
+
     <!-- navbar-->
     <header class="header">
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
                     <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                        <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
+                        <div class="brand-text d-none d-md-inline-block"><span>OnControl</span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                         <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
@@ -111,21 +110,21 @@
                         <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
                             <ul aria-labelledby="notifications" class="dropdown-menu">
                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-profile"><img src="//images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                     <div class="msg-body">
                                         <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span>
                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
                                     </div>
                                 </a></li>
                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-profile"><img src="//images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                     <div class="msg-body">
                                         <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span>
                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
                                     </div>
                                 </a></li>
                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-profile"><img src="//images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                     <div class="msg-body">
                                         <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span>
                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
@@ -140,172 +139,111 @@
             </div>
         </nav>
     </header>
-    <!-- Breadcrumb-->
-    <div class="breadcrumb-holder">
-        <div class="container-fluid">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="homes.html">Mis casas</a></li>
-                <li class="breadcrumb-item active">Detalle del Consumo</li>
-            </ul>
-        </div>
-    </div>
-    <br>
-    <br>
-    <!-- Counts Section -->
-    <section class="dashboard-counts">
+
+
+    <section class="mt-30px mb-30px">
         <div class="container-fluid">
             <div class="row">
-                <!-- Count item widget-->
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-user"></i></div>
-                        <div class="name"><strong class="text-uppercase">Actuadores contratados en esta casa</strong>
-                            <div class="count-number">2</div>
+                <div class="col-lg-12 col-md-3">
+                    <div id="recent-activities-wrapper" class="card updates activities">
+                        <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedidos #0001</a></h2>
                         </div>
-                    </div>
-                </div>
-                <!-- Count item widget-->
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-padnote"></i></div>
-                        <div class="name"><strong class="text-uppercase">Consumo total en Kilovatios Hora en esta casa</strong><span>Ultimo mes</span>
-                            <div class="count-number">157</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Count item widget-->
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-check"></i></div>
-                        <div class="name"><strong class="text-uppercase">Precio del kilovatio hora</strong><span>Hoy</span>
-                            <div class="count-number">0.1224</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 col-6">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-check"></i></div>
-                        <div class="name"><strong class="text-uppercase">Dirección y código postal</strong>
-                            <div><h2 class="name">Zaragoza 33</h2></div>
-                            <div class="count-number">28912</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </div>
-    </section>
-    <section>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="container">
+                        <ul class="list-unstyled">
+                            <!-- Item-->
+                            <li>
                                 <div class="row">
-                                    <h4>Factura en detalle de la Casa</h4>
+                                    <div class="col-5 date-holder content text-center">
+                                        <div class="date"><span class="text-info">Nombre del Titular:</span></div>
+                                        <p>Pepe Gonzalez Lopez</p>
+                                        {{#user}}
+                                        <p>{{firstName}}{{lastName}}</p>
+                                        {{/user}}
+                                    </div>
+                                    <div class="col-3 date-holder content text-center">
+                                        <div class="date"><span class="text-info">DNI:</span></div>
+                                        <p>47000000</p>
+                                        {{#user}}
+                                        <p>{{dni}}</p>
+                                        {{/user}}
+                                    </div>
+                                    <div class="col-3 date-holder content text-center">
+                                        <div class="date"><span class="text-info">Teléfono:</span></div>
+                                        <p>P66 666 666</p>
+                                        {{#user}}
+                                        <p>{{telephone}}</p>
+                                        {{/user}}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Actuadores</th>
-                                        <th>Bombillas</th>
-                                        <th>Persianas</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 1</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 1</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Crear factura</button>
+                            </li>
+
+                            <!-- Item-->
+                            <li>
+                                <div class="row">
+                                    <div class="col-6 date-holder content text-center">
+                                        <div class="date"><span class="text-info">Dirección:</span></div>
+                                        <p>Calle Tulipán S/N</p>
+                                        {{#user}}
+                                        <p>{{homeList}}</p>
+                                        {{/user}}
+                                    </div>
+                                    <div class="col-6 date-holder content text-center">
+                                        <div class="date"><span class="text-info">Email:</span></div>
+                                        <p>aaaaaa@gmail.com</p>
+                                        {{#user}}
+                                        <p>{{email}}</p>
+                                        {{/user}}
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Item-->
+                            <li>
+                                <div class="row">
+                                    <div class="col-12 date-holder content text-center">
+                                        <div class="date"><span class="text-info">Productos Adquiridos:</span></div>
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <br>
+                                                <h5>Persiana 1</h5>
+                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <br>
+                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <br>
+                                                <h5>Persiana 2</h5>
+                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <br>
+                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <br>
+                                                <h5>Persiana 3</h5>
+                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <br>
+                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <br>
+                                                <h5>Luz 1</h5>
+                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <br>
+                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <br>
+                                                <h5>Luz 2</h5>
+                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <br>
+                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="charts">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card line-chart-example">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual y comparación con la media</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="lineChartExample2"></canvas>
-                        </div>
+                            </li>
+
+
+                        </ul>
                     </div>
                 </div>
             </div>

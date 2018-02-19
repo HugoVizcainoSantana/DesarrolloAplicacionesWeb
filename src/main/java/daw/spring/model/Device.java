@@ -1,24 +1,25 @@
 package daw.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Device {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String description;
     private double cost;
+    @Enumerated(EnumType.STRING)
     private Device.DeviceType type;
+    @Enumerated(EnumType.STRING)
     private Device.StateType status;
     private String img;
 
     public Device() {
     }
 
-    public Device(long id, String description, double cost, DeviceType type, StateType status, String img) {
-        this.id = id;
+    public Device(String description, double cost, DeviceType type, StateType status, String img) {
         this.description = description;
         this.cost = cost;
         this.type = type;
