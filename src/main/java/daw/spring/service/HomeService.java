@@ -20,23 +20,23 @@ public class HomeService {
         this.homeRepository = homeRepository;
     }
 
-    public Home findOneById(Long id){
+    public Home findOneById(Long id) {
         return homeRepository.findOne(id);
     }
 
-    public List<Home> findAllHomes(){
+    public List<Home> findAllHomes() {
         return homeRepository.findAll();
     }
 
-    public void saveHome(Home home){
+    public void saveHome(Home home) {
         homeRepository.save(home);
     }
 
-    public void deleteHome(Home home){
+    public void deleteHome(Home home) {
         homeRepository.delete(home);
     }
 
-    public Page<Home> findAllHomePage(PageRequest pageRequest){
+    public Page<Home> findAllHomePage(PageRequest pageRequest) {
         return homeRepository.findAll(pageRequest);
     }
 

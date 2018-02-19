@@ -92,7 +92,7 @@ public class Analytics {
         this.dataAverage = dataAverage;
     }
 
-    public enum AnalyticsType{
+    public enum AnalyticsType {
         PRODUCTS, USERS, HOMES  // Different graphs for diferent entities
     }
 }

@@ -20,27 +20,27 @@ public class IssueService {
         this.issueRepository = issueRepository;
     }
 
-    public Issue findOneById(Long id){
+    public Issue findOneById(Long id) {
         return issueRepository.findOne(id);
     }
 
-    public Issue findOneByHome(Home home){
+    public Issue findOneByHome(Home home) {
         return issueRepository.findOne(home.getId());
     }
 
-    public List<Issue> findAllIssues(){
+    public List<Issue> findAllIssues() {
         return issueRepository.findAll();
     }
 
-    public void saveIssue(Issue notification){
+    public void saveIssue(Issue notification) {
         issueRepository.save(notification);
     }
 
-    public void deleteIssue(Issue notification){
+    public void deleteIssue(Issue notification) {
         issueRepository.delete(notification);
     }
 
-    public Page<Issue> findAllIssuePage(PageRequest pageRequest){
+    public Page<Issue> findAllIssuePage(PageRequest pageRequest) {
         return issueRepository.findAll(pageRequest);
     }
 

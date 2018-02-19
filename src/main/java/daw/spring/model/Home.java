@@ -51,7 +51,6 @@ public class Home {
         this.address = address;
     }
 
-
     public Boolean getActivated() {
         return activated;
     }
@@ -67,8 +66,6 @@ public class Home {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
-
-
 
 }
 
