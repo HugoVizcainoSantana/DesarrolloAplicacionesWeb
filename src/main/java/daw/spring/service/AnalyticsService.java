@@ -11,8 +11,13 @@ import java.util.List;
 
 @Service
 public class AnalyticsService {
+
+    private final AnalyticsRepository analyticsRepository;
+
     @Autowired
-    AnalyticsRepository analyticsRepository;
+    public AnalyticsService(AnalyticsRepository analyticsRepository) {
+        this.analyticsRepository = analyticsRepository;
+    }
 
     public Analytics findOneById(long id) {
         return analyticsRepository.findOne(id);

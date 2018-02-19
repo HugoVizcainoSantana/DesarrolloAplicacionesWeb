@@ -13,23 +13,24 @@ import java.util.List;
 @Service
 public class NotificationService {
 
+    private final NotificationRepository notificationRepository;
+
     @Autowired
-    private NotificationRepository notificationRepository;
+    public NotificationService(NotificationRepository notificationRepository) {
+        this.notificationRepository = notificationRepository;
+    }
 
     public Notification findOneById(Long id) {
-
         return notificationRepository.findOne(id);
     }
 
     public Notification findOneByUser(User user) {
-
         return notificationRepository.findOne(user.getId());
     }
 
     public List<Notification> findAllNotifications() {
         return notificationRepository.findAll();
     }
-
 
     public void saveNotification(Notification notification) {
         notificationRepository.save(notification);
@@ -41,10 +42,6 @@ public class NotificationService {
 
     public Page<Notification> findAllNotificationPage(PageRequest pageRequest) {
         return notificationRepository.findAll(pageRequest);
-    }
-
-    public void save(Notification notification1) {
-        notificationRepository.save(notification1);
     }
 
 }

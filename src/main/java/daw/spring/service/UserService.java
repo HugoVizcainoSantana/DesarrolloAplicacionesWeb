@@ -10,14 +10,16 @@ import javax.annotation.PostConstruct;
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User findOneById(Long id) {
         return userRepository.findOne(id);
     }
-
 
     public void saveUser(User user) {
         userRepository.save(user);

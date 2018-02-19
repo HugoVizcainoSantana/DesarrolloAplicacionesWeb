@@ -1,16 +1,15 @@
 package daw.spring.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Home {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private long postCode;
     private String address;
     private Boolean activated;
@@ -21,8 +20,7 @@ public class Home {
     public Home() {
     }
 
-    public Home(long id, long postCode, String address, Boolean activated, List<Product> productList) {
-        this.id = id;
+    public Home(long postCode, String address, Boolean activated, List<Product> productList) {
         this.postCode = postCode;
         this.address = address;
         this.activated = activated;
@@ -53,7 +51,6 @@ public class Home {
         this.address = address;
     }
 
-
     public Boolean getActivated() {
         return activated;
     }
@@ -69,7 +66,6 @@ public class Home {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
-
 
 }
 

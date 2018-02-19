@@ -14,18 +14,20 @@ import java.util.List;
 @Service
 public class DeviceService {
 
+    private final DeviceRepository deviceRepository;
+
     @Autowired
-    DeviceRepository deviceRepository;
+    public DeviceService(DeviceRepository deviceRepository) {
+        this.deviceRepository = deviceRepository;
+    }
 
     public Device findOneById(Long id) {
-
         return deviceRepository.findOne(id);
     }
 
     public List<Device> findAllDevices() {
         return deviceRepository.findAll();
     }
-
 
     public void saveDevice(Device product) {
         deviceRepository.save(product);
@@ -39,11 +41,9 @@ public class DeviceService {
         return deviceRepository.findAll(pageRequest);
     }
 
-
     @PostConstruct
     public void prueba() {
         saveDevice(new Device("sdasdasd", 12122, Device.DeviceType.LIGHT, Device.StateType.ON, null));
-
     }
 
 }

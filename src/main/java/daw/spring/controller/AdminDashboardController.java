@@ -8,22 +8,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
-
 @RequestMapping("/adminDashboard")
 public class AdminDashboardController {
 
+    private final UserService userService;
+    private final ProductService productService;
+    private final DeviceService deviceService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private DeviceService deviceService;
+    public AdminDashboardController(UserService userService, ProductService productService, DeviceService deviceService) {
+        this.userService = userService;
+        this.productService = productService;
+        this.deviceService = deviceService;
+    }
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         return "adminDashboard/index";
     }
 
@@ -36,7 +38,7 @@ public class AdminDashboardController {
 
     @RequestMapping("/inventario")
     public String inventario(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         model.addAttribute("device", deviceService.findAllDevices());
         return "adminDashboard/inventario";
     }

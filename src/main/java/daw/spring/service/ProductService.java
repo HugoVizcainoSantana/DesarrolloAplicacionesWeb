@@ -11,24 +11,23 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static daw.spring.model.Product.ProductType.BLIND;
-import static daw.spring.model.Product.ProductType.LIGHT;
-
 @Service
 public class ProductService {
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public Product findOneById(Long id) {
-
         return productRepository.findOne(id);
     }
 
     public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
-
 
     public void saveProduct(Product product) {
         productRepository.save(product);
@@ -42,15 +41,11 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
-    public void save(Product product1) {
-        productRepository.save(product1);
-    }
-
     @PostConstruct
     public void init() {
-        Product product1 = new Product(1, "bombilla 45w", 15.50, LIGHT, "product-2.jpg");
-        save(product1);
-        Product product2 = new Product(2, "Laminas de aluminio", 32.50, BLIND, "product-1.jpg");
-        save(product2);
+        Product product1 = new Product("bombilla 45w", 15.50, Product.ProductType.LIGHT, "product-2.jpg");
+        saveProduct(product1);
+        Product product2 = new Product("Laminas de aluminio", 32.50, Product.ProductType.BLIND, "product-1.jpg");
+        saveProduct(product2);
     }
 }

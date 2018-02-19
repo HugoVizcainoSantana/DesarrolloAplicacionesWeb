@@ -1,12 +1,15 @@
 package daw.spring.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String description;
     private double cost;
@@ -16,8 +19,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long id, String description, double cost, ProductType type, String img) {
-        this.id = id;
+    public Product(String description, double cost, ProductType type, String img) {
         this.description = description;
         this.cost = cost;
         this.type = type;

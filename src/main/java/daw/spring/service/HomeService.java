@@ -7,23 +7,26 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
 public class HomeService {
 
+    private final HomeRepository homeRepository;
+
     @Autowired
-    HomeRepository homeRepository;
+    public HomeService(HomeRepository homeRepository) {
+        this.homeRepository = homeRepository;
+    }
 
     public Home findOneById(Long id) {
-
         return homeRepository.findOne(id);
     }
 
     public List<Home> findAllHomes() {
         return homeRepository.findAll();
     }
-
 
     public void saveHome(Home home) {
         homeRepository.save(home);
@@ -37,8 +40,12 @@ public class HomeService {
         return homeRepository.findAll(pageRequest);
     }
 
-    public void save(Home home) {
-        homeRepository.save(home);
+    @PostConstruct
+    public void init() {
+        Home home1 = new Home(28007, "c/ibiza", true, null);
+        saveHome(home1);
+        Home home2 = new Home(28045, "c/alfonso xII", true, null);
+        saveHome(home2);
     }
 
 }
