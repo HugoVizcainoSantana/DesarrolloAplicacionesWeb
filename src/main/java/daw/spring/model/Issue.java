@@ -9,6 +9,7 @@ public class Issue {
     // Entity issue is a message for the admin about a notification of a issue in a home/houses
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;                // Basic info
     private String title;
     private String description;
@@ -24,8 +25,7 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(long id, String title, String description, boolean solved) {
-        this.id = id;
+    public Issue(String title, String description, boolean solved) {
         this.title = title;
         this.description = description;
         this.solved = solved;

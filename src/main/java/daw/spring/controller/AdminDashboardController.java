@@ -25,7 +25,7 @@ public class AdminDashboardController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         return "adminDashboard/index";
     }
 
@@ -38,7 +38,7 @@ public class AdminDashboardController {
 
     @RequestMapping("/inventario")
     public String inventario(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         model.addAttribute("device", deviceService.findAllDevices());
         return "adminDashboard/inventario";
     }

@@ -1,7 +1,6 @@
 package daw.spring.controller;
 
 import daw.spring.model.Product;
-import daw.spring.repository.ProductRepository;
 import daw.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 
 import static daw.spring.model.Product.ProductType.BLIND;
 import static daw.spring.model.Product.ProductType.LIGHT;
@@ -18,8 +15,12 @@ import static daw.spring.model.Product.ProductType.LIGHT;
 @Controller
 public class ProductController {
 
+    private final ProductService productService;
+
     @Autowired
-    private ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     /*private static final String FILES_FOLDER = ".\\src\\main\\resources\\static\\images";
 
@@ -34,10 +35,10 @@ public class ProductController {
     @PostConstruct
     public void init(){
 
-        Product product1 = new Product (1, "bombilla 45w", 15.50, LIGHT, "product-2.jpg");
-        productService.save(product1);
-        Product product2 = new Product (2, "Laminas de aluminio", 32.50, BLIND,  "product-1.jpg");
-        productService.save(product2);
+        Product product1 = new Product("bombilla 45w", 15.50, LIGHT, "product-2.jpg");
+        productService.saveProduct(product1);
+        Product product2 = new Product("Laminas de aluminio", 32.50, BLIND, "product-1.jpg");
+        productService.saveProduct(product2);
     }
 
 
