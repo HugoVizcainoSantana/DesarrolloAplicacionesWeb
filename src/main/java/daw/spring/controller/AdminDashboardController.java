@@ -8,15 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
-
 @RequestMapping("/adminDashboard")
 public class AdminDashboardController {
 
-    @Autowired private UserService userService;
-    @Autowired private ProductService productService;
-    @Autowired private DeviceService deviceService;
+    private final UserService userService;
+    private final ProductService productService;
+    private final DeviceService deviceService;
+
+    @Autowired
+    public AdminDashboardController(UserService userService, ProductService productService, DeviceService deviceService) {
+        this.userService = userService;
+        this.productService = productService;
+        this.deviceService = deviceService;
+    }
 
     @RequestMapping("/")
     public String index(Model model) {
