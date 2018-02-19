@@ -22,8 +22,12 @@ import java.nio.file.Paths;
 @RequestMapping("/dashboard")
 public class UserDashboardController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserDashboardController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
     public String index(Model model) {

@@ -1,13 +1,10 @@
 package daw.spring.controller;
 
-import daw.spring.model.Product;
 import daw.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.PostConstruct;
 
 @Controller
 public class ProductController {
@@ -27,15 +24,6 @@ public class ProductController {
     public String indexConProductos(Model model) {
         model.addAttribute("products", productService.findAllProducts());
         return "index";
-    }
-
-    @PostConstruct
-    public void init() {
-
-        Product product1 = new Product("bombilla 45w", 15.50, LIGHT, "product-2.jpg");
-        productService.saveProduct(product1);
-        Product product2 = new Product("Laminas de aluminio", 32.50, BLIND, "product-1.jpg");
-        productService.saveProduct(product2);
     }
 
 

@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static daw.spring.model.Product.ProductType.BLIND;
-import static daw.spring.model.Product.ProductType.LIGHT;
-
 @Service
 public class ProductService {
 
@@ -46,9 +43,9 @@ public class ProductService {
 
     @PostConstruct
     public void init() {
-        Product product1 = new Product("bombilla 45w", 15.50, LIGHT, "product-2.jpg");
+        Product product1 = new Product("bombilla 45w", 15.50, Product.ProductType.LIGHT, "product-2.jpg");
         saveProduct(product1);
-        Product product2 = new Product("Laminas de aluminio", 32.50, BLIND, "product-1.jpg");
+        Product product2 = new Product("Laminas de aluminio", 32.50, Product.ProductType.BLIND, "product-1.jpg");
         saveProduct(product2);
     }
 }
