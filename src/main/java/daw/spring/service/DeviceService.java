@@ -2,12 +2,14 @@ package daw.spring.service;
 
 
 import daw.spring.model.Device;
+import daw.spring.model.User;
 import daw.spring.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -38,10 +40,13 @@ public class DeviceService {
         return deviceRepository.findAll(pageRequest);
     }
 
-    public void save(Device product1) {
-        deviceRepository.save(product1);
-    }
 
+
+    @PostConstruct
+    public void prueba (){
+        saveDevice(new Device("sdasdasd", 12122, Device.DeviceType.LIGHT, Device.StateType.ON, null ));
+
+    }
 
 
 }
