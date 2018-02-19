@@ -17,17 +17,19 @@ public class Device {
     private Device.DeviceType type;
     private Device.StateType status;
     private String img;
+    private boolean active;
 
     public Device() {
     }
 
-    public Device(long id, String description, double cost, DeviceType type, StateType status, String img) {
+    public Device(long id, String description, double cost, DeviceType type, StateType status, String img, boolean active) {
         this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
+        this.active=active;
     }
 
 
@@ -77,6 +79,14 @@ public class Device {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public enum DeviceType{

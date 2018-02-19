@@ -15,17 +15,17 @@ public class Home {
     private Boolean activated;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Product> productList;
+    private List<Device> deviceList;
 
     public Home() {
     }
 
-    public Home(long id, long postCode, String address, Boolean activated, List<Product> productList) {
+    public Home(long id, long postCode, String address, Boolean activated, List<Device> deviceList) {
         this.id = id;
         this.postCode = postCode;
         this.address = address;
         this.activated = activated;
-        this.productList = productList;
+        this.deviceList = deviceList;
     }
 
     public long getId() {
@@ -61,12 +61,12 @@ public class Home {
         this.activated = activated;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Device> getDeviceList() {
+        return deviceList;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setDeviceList(List<Product> productList) {
+        this.deviceList = deviceList;
     }
 
 
