@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 
 @Controller
 public class IndexController {
@@ -36,9 +37,9 @@ public class IndexController {
     @PostConstruct
     public void init(){
 
-        User user1 = new User("Amador","Rivas","amador@merengue.com","1234",null, "USER");
+        User user1 = new User("Amador","Rivas","amador@merengue.com","1234",null, Collections.singletonList("USER"));
         userService.save(user1);
-        User user2 = new User ("Teodoro","Rivas","teodoro@merengue.com","1234",null, "USER");
+        User user2 = new User ("Teodoro","Rivas","teodoro@merengue.com","1234",null, Collections.singletonList("USER"));
         userService.save(user2);
     }
 
