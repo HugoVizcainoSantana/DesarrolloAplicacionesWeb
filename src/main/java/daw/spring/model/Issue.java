@@ -14,7 +14,6 @@ public class Issue {
     private String title;
     private String description;
 
-    // Preguntar al profesor sobre @Embedded, ya que soluciona los errores cuando una entitiy usa otra entity
     @OneToOne(cascade = CascadeType.ALL)
     private Home homeIssue;         // The issue always need to have a home attached to it or a bunch
 
