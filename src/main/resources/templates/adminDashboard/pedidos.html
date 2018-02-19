@@ -29,6 +29,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
+
   <body>
   <!-- Side Navbar -->
   <nav class="side-navbar">
@@ -153,9 +154,11 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Mark</td>
-                          <td>Calle Tulipan S/N</td>
-                          <td>@916666666</td>
+                            {{#user}}
+                            <th>{{firstName}}</th>
+                            <th>{{homeList}}</th>
+                            <th>{{telephone}}</th>
+                            {{/user}}
                         </tr>
 
                       </tbody>
@@ -214,9 +217,11 @@
                       </thead>
                       <tbody>
                       <tr>
-                        <td>Mark</td>
-                        <td>Calle Tulipan S/N</td>
-                        <td>@916666666</td>
+                          {{#user}}
+                          <th>{{firstName}}</th>
+                          <th>{{homeList}}</th>
+                          <th>{{telephon}}</th>
+                          {{/user}}
                       </tr>
                       </tbody>
                     </table>
@@ -224,13 +229,13 @@
                 </div>
 
                 <div class="card-body text-left">
-                  <button type="button" data-toggle="modal" data-target="#mModal" class="btn btn-primary">Finalizada Instalación </button>
+                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación </button>
                   <!-- Modal-->
-                  <div id="mModal" tabindex="-1" role="dialog" aria-labelledby="examplModalLabel" aria-hidden="true" class="modal fade text-left">
+                  <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 id="examplModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
+                          <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
                           <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-footer">
@@ -274,9 +279,11 @@
                       </thead>
                       <tbody>
                       <tr>
-                        <td>Mark</td>
-                        <td>Calle Tulipan S/N</td>
-                        <td>@916666666</td>
+                          {{#user}}
+                          <th>{{firstName}}</th>
+                          <th>{{homeList}}</th>
+                          <th>{{telephon}}</th>
+                          {{/user}}
                       </tr>
                       </tbody>
                     </table>
@@ -304,6 +311,7 @@
               </div>
             </div>
           </div>
+        </div>
 
       </section>
       <footer class="main-footer">
@@ -321,16 +329,16 @@
       </footer>
     </div>
     <!-- Javascript files-->
-    <script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="//dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="//dashboardBootstrap/js/charts-custom.js"></script>
+    <script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+    <script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/dashboardBootstrap/js/charts-custom.js"></script>
     <!-- Main File-->
-    <script src="//dashboardBootstrap/js/front.js"></script>
+    <script src="/dashboardBootstrap/js/front.js"></script>
   </body>
 </html>
