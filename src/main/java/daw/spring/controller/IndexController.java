@@ -36,9 +36,9 @@ public class IndexController {
     @PostConstruct
     public void init(){
 
-        User user1 = new User("amador@merengue.com","1234", "USER");
+        User user1 = new User("Amador","Rivas","amador@merengue.com","1234",null, "USER");
         userService.save(user1);
-        User user2 = new User ("teodoro@merengue.com","1234", "USER");
+        User user2 = new User ("Teodoro","Rivas","teodoro@merengue.com","1234",null, "USER");
         userService.save(user2);
     }
 
