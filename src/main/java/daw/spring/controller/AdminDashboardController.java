@@ -1,5 +1,7 @@
 package daw.spring.controller;
 
+import daw.spring.service.DeviceService;
+import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminDashboardController {
 
     @Autowired private UserService userService;
+    @Autowired private ProductService productService;
+    @Autowired private DeviceService deviceService;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -28,7 +32,9 @@ public class AdminDashboardController {
 
 
     @RequestMapping("/inventario")
-    public String inventario() {
+    public String inventario(Model model) {
+        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("device", deviceService.findAllDevices());
         return "adminDashboard/inventario";
     }
 

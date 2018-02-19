@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -154,14 +156,23 @@
                                         <div class="col-5 date-holder content text-center">
                                             <div class="date"><span class="text-info">Nombre del Titular:</span></div>
                                             <p>Pepe Gonzalez Lopez</p>
+                                            {{#user}}
+                                            <p>{{firstName}}{{lastName}}</p>
+                                            {{/user}}
                                         </div>
                                         <div class="col-3 date-holder content text-center">
                                             <div class="date"><span class="text-info">DNI:</span></div>
-                                            <p>Pepe Gonzalez Lopez</p>
+                                            <p>47000000</p>
+                                            {{#user}}
+                                            <p>{{dni}}</p>
+                                            {{/user}}
                                         </div>
                                         <div class="col-3 date-holder content text-center">
                                             <div class="date"><span class="text-info">Teléfono:</span></div>
                                             <p>P66 666 666</p>
+                                            {{#user}}
+                                            <p>{{telephone}}</p>
+                                            {{/user}}
                                         </div>
                                     </div>
                                 </li>
@@ -172,10 +183,16 @@
                                         <div class="col-6 date-holder content text-center">
                                             <div class="date"><span class="text-info">Dirección:</span></div>
                                             <p>Calle Tulipán S/N</p>
+                                            {{#user}}
+                                            <p>{{homeList}}</p>
+                                            {{/user}}
                                         </div>
                                         <div class="col-6 date-holder content text-center">
                                             <div class="date"><span class="text-info">Email:</span></div>
                                             <p>aaaaaa@gmail.com</p>
+                                            {{#user}}
+                                            <p>{{email}}</p>
+                                            {{/user}}
                                         </div>
                                     </div>
                                 </li>
