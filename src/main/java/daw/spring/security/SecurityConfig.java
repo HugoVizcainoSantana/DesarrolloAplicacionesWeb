@@ -27,13 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/publicBootstrap/**").permitAll();
         http.authorizeRequests().antMatchers("/images/**").permitAll();
         // Private pages
-        http.authorizeRequests().antMatchers("/dashboard").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/login/redirect").hasAnyRole("USER", "ADMIN");
+        http.authorizeRequests().antMatchers("/dashboard").hasAnyRole("USER", "ADMIN");
         http.authorizeRequests().antMatchers("/adminDashboard").hasAnyRole("ADMIN");
         // Login
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("email");
         http.formLogin().passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/dashboard/");
+        http.formLogin().defaultSuccessUrl("/login/redirect");
         http.formLogin().failureUrl("/login?error");
         // Logout
         http.logout().logoutUrl("/logout");
@@ -44,11 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         // Database authentication provider
         auth.authenticationProvider(authenticationProvider);
-        //auth.inMemoryAuthentication()
-        //        .withUser("amador@merengue.com").password("1234").roles("USER");
-         //   .withUser(."1234".roles("USER"))
     }
 }

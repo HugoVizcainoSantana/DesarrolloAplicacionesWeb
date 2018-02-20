@@ -1,5 +1,6 @@
 package daw.spring.service;
 
+import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 
 @Service
 public class UserService {
@@ -16,9 +16,9 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository userRepository,BCryptPasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
-        this.encoder=encoder;
+        this.encoder = encoder;
     }
 
     public User findOneById(Long id) {
@@ -26,9 +26,11 @@ public class UserService {
     }
 
 
-    public User findByEmail(String email) {
+    public User findOneUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
-    }    public void saveUser(User user){
+    }
+
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
@@ -36,23 +38,23 @@ public class UserService {
     @PostConstruct
     public void init() {
 
-        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363",null,Collections.singletonList("USER"));
+        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user1);
-        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
+        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user2);
 
-        User userAdmin1 = new User("Admin", "Root", "amador@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363", null,Collections.singletonList("ADMIN"));
+        User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN);
         saveUser(userAdmin1);
 
-        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), "c/desconocida", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
+        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user3);
-        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), "c/getafe", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
+        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user4);
 
-        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), "c/mostoles", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
+        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user5);
 
-        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), "c/salmueros", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
+        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
         saveUser(user6);
 
         /*
@@ -75,7 +77,6 @@ public class UserService {
          */
 
     }
-
 
 
 }

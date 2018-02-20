@@ -48,6 +48,11 @@
                         <p class="mt-4 text-white lead text-center">
                             Inicie sesión para acceder a su cuenta
                         </p>
+                        {{#error}}
+                        <p class="mt-4 text-red lead text-center">
+                            Error en el login
+                        </p>
+                        {{/error}}
                         <div class="mt-4">
                             <form action="/login" method="post" id="loginForm">
                                 <div class="form-group">

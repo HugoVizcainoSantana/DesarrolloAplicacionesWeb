@@ -1,5 +1,6 @@
 package daw.spring.security;
 
+import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
@@ -23,15 +24,18 @@ public class UserAuthProvider implements AuthenticationProvider {
 
     private Logger log = LoggerFactory.getLogger("UserAuthProvider");
 
+    private final UserService userService;
+    private final BCryptPasswordEncoder encoder;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private BCryptPasswordEncoder encoder;
+    public UserAuthProvider(UserService userService, BCryptPasswordEncoder encoder) {
+        this.userService = userService;
+        this.encoder = encoder;
+    }
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
-        log.error(auth.getName());
-        User user = userService.findByEmail(auth.getName());
+        User user = userService.findOneUserByEmail(auth.getName());
         if (user == null) {
             throw new BadCredentialsException("User not found");
         }
@@ -39,10 +43,10 @@ public class UserAuthProvider implements AuthenticationProvider {
         if (!encoder.matches(password, user.getPasswordHash())) {
             throw new BadCredentialsException("Wrong password");
         }
-
+        log.info("Succesful login from " + user.getEmail());
         List<GrantedAuthority> roles = new ArrayList<>();
-        for (String role : user.getRoles()) {
-            roles.add(new SimpleGrantedAuthority(role));
+        for (Roles role : user.getRoles()) {
+            roles.add(new SimpleGrantedAuthority(role.name()));
         }
         return new UsernamePasswordAuthenticationToken(user.getFirstName(), password, roles);
         

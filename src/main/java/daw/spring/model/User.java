@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -12,9 +14,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @NotEmpty
-    private String passwordHash;
 
     @NotEmpty
     private String firstName;
@@ -26,37 +25,36 @@ public class User {
     @Email
     private String email;
 
-    private String direccion;
-
-    private int cp;
-    private String phone;
+    @NotEmpty
+    private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;
 
+    private String phone;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Notification> notificationList;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles;
-
     private String photo;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Roles roles;
 
     public User() {
     }
 
-
-    public User(String firstName, String lastName, String email, String passwordHash,  String direccion, int cp, List<Home> homeList, String photo, String phone, List<Notification> notificationList, List<String> roles) {
+    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, Roles roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.homeList = homeList;
-        this.direccion = direccion;
-        this.cp = cp;
         this.phone = phone;
-        this.photo = photo;
         this.notificationList = notificationList;
+        this.photo = photo;
+        this.roles = roles;
     }
 
     public String getPhone() {
@@ -65,22 +63,6 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public int getCp() {
-        return cp;
-    }
-
-    public void setCp(int cp) {
-        this.cp = cp;
     }
 
     public long getId() {
@@ -131,11 +113,11 @@ public class User {
         this.homeList = homeList;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public List<Roles> getRoles() {
+        return Collections.singletonList(roles);
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Roles roles) {
         this.roles = roles;
     }
 

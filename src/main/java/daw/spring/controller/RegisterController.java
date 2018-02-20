@@ -1,5 +1,6 @@
 package daw.spring.controller;
 
+import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Collections;
 
 @Controller
 public class RegisterController {
@@ -31,7 +30,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String tryRegister(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
-        User user = new User(firstName, lastName, email, encoder.encode(password), null, -1, null, null, null, null, Collections.singletonList("ROLE_USER"));
+        User user = new User(firstName, lastName, email, encoder.encode(password), null, null, null, null, Roles.USER);
         userRepository.save(user);
         return "redirect:/dashboard/";
     }
