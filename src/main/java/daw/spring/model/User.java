@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -24,54 +26,43 @@ public class User {
     private String email;
 
     @NotEmpty
-    private String direccion;
-
-    private int cp;
-
-    private String password;
+    private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;
 
-    private String foto;
+    private String phone;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Notification> notificationList;
+
+    private String photo;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Roles roles;
 
     public User() {
-
     }
 
-    public User(String firstName, String lastName, String email, String password, String direccion, int cp, List<Home> homeList, String foto) {
+    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, Roles roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.homeList = homeList;
-        this.direccion = direccion;
-        this.cp = cp;
-        this.foto = foto;
+        this.phone = phone;
+        this.notificationList = notificationList;
+        this.photo = photo;
+        this.roles = roles;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public int getCp() {
-        return cp;
-    }
-
-    public void setCp(int cp) {
-        this.cp = cp;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public long getId() {
@@ -106,12 +97,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public List<Home> getHomeList() {
@@ -120,6 +111,30 @@ public class User {
 
     public void setHomeList(List<Home> homeList) {
         this.homeList = homeList;
+    }
+
+    public List<Roles> getRoles() {
+        return Collections.singletonList(roles);
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
 

@@ -10,11 +10,12 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;               // Basic info
+
     private String title;
     private String description;
     private String date;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User userNotification; // The notification always need to have a user attached to it
 
     public Notification() {

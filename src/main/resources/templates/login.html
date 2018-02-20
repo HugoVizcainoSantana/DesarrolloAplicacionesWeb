@@ -21,14 +21,14 @@
 <section class="hero">
     <nav class="navbar navbar-expand-lg dark-bg navbar-custom-user navbar-fixed">
         <div class="container">
-            <a class="navbar-brand" href="index.html">OnControlHome</a>
+            <a class="navbar-brand" href="/">OnControlHome</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-md-0 text-center">
                     <li class="nav-item ">
-                        <a class="nav-link link-white" href="index.html">Volver a Inicio <span class="sr-only">(current)</span></a>
+                        <a class="nav-link link-white" href="/">Volver a Inicio <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -48,22 +48,29 @@
                         <p class="mt-4 text-white lead text-center">
                             Inicie sesión para acceder a su cuenta
                         </p>
+                        {{#error}}
+                        <p class="mt-4 text-red lead text-center">
+                            Error en el login
+                        </p>
+                        {{/error}}
                         <div class="mt-4">
-                            <form action="" method="post" id="loginForm">
+                            <form action="/login" method="post" id="loginForm">
                                 <div class="form-group">
-                                    <input required type="email" class="form-control" id="email" value="" placeholder="Email">
+                                    <input required type="email" class="form-control" name="email" value="" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input required type="password" class="form-control" id="password" value="" placeholder="Contraseña">
+                                    <input required type="password" class="form-control" name="password" value="" placeholder="Contraseña">
                                 </div>
                                 <label class="custom-control custom-checkbox mt-2">
                                     <input type="checkbox" class="custom-control-input">
                                     <span class="custom-control-indicator"></span>
                                     <span class="custom-control-description text-white">Recuerdame</span>
                                 </label>
-                                <button type="submit" formaction="dashboard/index.html" class="btn btn-primary float-right">Entrar</button>
+                                <button type="submit"  class="btn btn-primary float-right">Entrar</button>
+                                <input type="hidden" name="_csrf" value="{{token}}"/>
+                                <!--<button type="submit" formaction="dashboard/index.html" class="btn btn-primary float-right">Entrar</button>-->
                             </form>
-                            <a href="forgotPasword.html"><span class="custom-control-description text-white">Olvidé mi contraeña</span></a>
+                            <a href="/forgotPassword"><span class="custom-control-description text-white">Olvidé mi contraeña</span></a>
                             <div class="clearfix"></div>
                             <p class="content-divider center mt-4"><span>o</span></p>
                         </div>
@@ -72,7 +79,7 @@
                             <a href="#" class="btn btn-facebook"><em class="ion-social-facebook"></em></a>
                         </p>
                         <p class="text-center">
-                            No tienes cuenta todavía? <a href="register.html">Regístrate ahora
+                            No tienes cuenta todavía? <a href="/register">Regístrate ahora
                         </a>
                         </p>
                     </div>

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mustache.MustacheEnvironmentCollector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //Entry point
 @SpringBootApplication
@@ -23,5 +24,10 @@ public class Application {
                 .defaultValue("### ERROR THIS IS A DEFAULT TAG ###")
                 .withLoader(templateLoader)
                 .withCollector(collector);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

@@ -41,6 +41,7 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
+
     @PostConstruct
     public void init() {
         Product product1 = new Product("bombilla 45w", 15.50, Product.ProductType.LIGHT, "product-2.jpg");

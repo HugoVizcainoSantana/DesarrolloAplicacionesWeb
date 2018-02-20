@@ -8,6 +8,7 @@ public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String description;
     private double cost;
     @Enumerated(EnumType.STRING)
@@ -15,16 +16,19 @@ public class Device {
     @Enumerated(EnumType.STRING)
     private Device.StateType status;
     private String img;
+    private boolean activate;
 
     public Device() {
     }
 
-    public Device(String description, double cost, DeviceType type, StateType status, String img) {
+    public Device( String description, double cost, DeviceType type, StateType status, String img, boolean activate) {
+        this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
+        this.activate=activate;
     }
 
 
@@ -74,6 +78,14 @@ public class Device {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public boolean isActivate() {
+        return activate;
+    }
+
+    public void setActivate(boolean active) {
+        this.activate = activate;
     }
 
     public enum DeviceType {

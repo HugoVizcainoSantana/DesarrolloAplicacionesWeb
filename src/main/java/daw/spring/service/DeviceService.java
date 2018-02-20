@@ -42,8 +42,10 @@ public class DeviceService {
     }
 
     @PostConstruct
-    public void prueba() {
-        saveDevice(new Device("sdasdasd", 12122, Device.DeviceType.LIGHT, Device.StateType.ON, null));
+    public void init() {
+        saveDevice(new Device("una bombilla de 4000k", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
+        saveDevice(new Device("una persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
+        saveDevice(new Device("una bombilla de 6000k", 30, Device.DeviceType.LIGHT, Device.StateType.OFF, null, false));
     }
 
 }

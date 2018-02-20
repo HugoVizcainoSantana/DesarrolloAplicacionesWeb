@@ -108,7 +108,7 @@ public class UserDashboardController {
                 Path rutaCompleta = Paths.get(rootPath + "//" + photo.getOriginalFilename());
                 Files.write(rutaCompleta, bytes);
                 //flash.addAttribute("info", "Ha subido correctamente '"+ foto.getOriginalFilename()+"'");
-                user.setFoto(photo.getOriginalFilename());
+                user.setPhoto(photo.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
