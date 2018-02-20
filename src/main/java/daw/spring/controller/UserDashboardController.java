@@ -43,26 +43,21 @@ public class UserDashboardController {
 
     @RequestMapping("/tienda")
     public String shop(Model model) {
-
-        User user = new User();
-
-        model.addAttribute("user", user);
-        model.addAttribute("titulo", "Tienda");
-
+        model.addAttribute("user", userService.findOneById(1l));
         return "dashboard/tienda";
     }
 
     @RequestMapping(value = "/tienda", method = RequestMethod.POST)
-    public String save(@Valid User user, BindingResult result, Model model, SessionStatus status) {
-        User userResult = new User();
+    public String saveShop(@Valid User user, BindingResult result, Model model, SessionStatus status) {
+        //User userResult = new User();
         if (result.hasErrors()) {
-            model.addAttribute("errorName", "Nombre requerido");
+            //model.addAttribute("errorName", "Nombre requerido");
             return "dashboard/created";
 
         }
-        userService.saveUser(userResult);
-        status.setComplete();
-        return "redirect:dashboard/created";
+        userService.saveUser(user);
+        //status.setComplete();
+        return "dashboard/created";
     }
 
     @RequestMapping("/charts")
@@ -86,20 +81,21 @@ public class UserDashboardController {
     @RequestMapping("/profile")
     public String profile(Model model) {
         User user = new User();
-        model.addAttribute("titulo", "Perfil");
-        model.addAttribute("nameProfile", "Juan");
+        model.addAttribute("user", userService.findOneById(1l));
 
         return "dashboard/profile";
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String saveProfile(@Valid User user, BindingResult result, Model model, @RequestParam("file") MultipartFile photo, SessionStatus status) {
-        if (result.hasErrors()) {
-
+        
+    		
+    		if (result.hasErrors()) {
             return "dashboard/profile";
-
         }
         if (!photo.isEmpty()) {
+        		//Path directorioRecusrsos=Paths.get("file");
+        
             Path directorioRecusrsos = Paths.get("src//main//resources//static//upload");
             String rootPath = directorioRecusrsos.toFile().getAbsolutePath();
 
@@ -116,7 +112,7 @@ public class UserDashboardController {
         userService.saveUser(user);
         //model.addAttribute("titulo", "Perfil");
         //status.setComplete();
-        return "dashboard/profile";
+        return "dashboard/created";
     }
 
     @RequestMapping("/terms-Conditions")
@@ -127,7 +123,7 @@ public class UserDashboardController {
 
     @RequestMapping("/created")
     public String created(Model model) {
-        model.addAttribute("titulo", "Nueva compra");
+        model.addAttribute("user", userService.findOneById(1l));
         return "dashboard/created";
     }
 

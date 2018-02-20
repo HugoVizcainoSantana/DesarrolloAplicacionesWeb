@@ -39,33 +39,33 @@ $(document).ready(function () {
                 var icon = '';
                 var background = '';
                 if (weather.weather[0].main == 'Thunderstorm') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/thunderstorm.jpg';
+                    icon = '/dashboardBootstrap/svgIcon/wi-thunderstorm.svg';
+                    background = '/dashboardBootstrap/backgrounds/thunderstorm.jpg';
                 } else if (weather.weather[0].main == 'Drizzle') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/rain.jpg';
+                		icon = '/dashboardBootstrap/svgIcon/wi-sleet.svg';
+                     background = '/dashboardBootstrap/backgrounds/rain.jpg';
                 } else if (weather.weather[0].main == 'Rain') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/rain.jpg';
+                		icon = '/dashboardBootstrap/svgIcon/wi-showers.svg';
+                     background = '/dashboardBootstrap/backgrounds/rain.jpg';
                 } else if (weather.weather[0].main == 'Snow') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/snow.jpg';
+                		icon = '/dashboardBootstrap/svgIcon/wi-snow-wind.svg';
+                     background = '/dashboardBootstrap/backgrounds/snow.jpg';
                 } else if (weather.weather[0].main == 'Atmosphere') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/mist.jpg';
+                		icon = '/dashboardBootstrap/svgIcon/wi-day-fog.svg';
+                     background = '/dashboardBootstrap/backgrounds/mist.jpg';
                 } else if (weather.weather[0].main == 'Clear') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/sun.jpg';
+	                	icon = '/dashboardBootstrap/svgIcon/wi-day-sunny.svg';
+	                 background = '/dashboardBootstrap/backgrounds/sun.jpg';
                 } else if (weather.weather[0].main == 'Clouds') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/clouds.jpg';
+                	icon = '/dashboardBootstrap/svgIcon/wi-cloudy.svg';
+                    background = '/dashboardBootstrap/backgrounds/clouds.jpg';
                 } else if (weather.weather[0].main == 'Extreme') {
-                    icon = 'icons/svg/wi-day-thunderstorm.svg';
-                    //background = 'img/backgrounds/storm.jpg';
+                		icon = '/dashboardBootstrap/svgIcon/wi-night-cloudy-gusts.svg';
+                    background = '/dashboardBootstrap/backgrounds/storm.jpg';
                 }
                 $('.weather-icon').attr('src', icon);
 
-                $('body').css({'background-image': 'url(' + background + ')'});
+                $('#weather').css({'background-image': 'url(' + background + ')'});
 
                 var sunriseDate = new Date(weather.sys.sunrise * 1000);
                 $('#sunriseTime').html((sunriseDate.getHours() > 12 ? (sunriseDate.getHours() - 12) : sunriseDate.getHours()).toString() + ":" + ((sunriseDate.getMinutes() < 10 ? '0' : '').toString() + sunriseDate.getMinutes().toString()) + (sunriseDate.getHours() < 12 ? ' AM' : ' PM').toString());
@@ -78,41 +78,38 @@ $(document).ready(function () {
 
     }
     var html = '<div  class="card">' +
-        '<div  class="container">' +
-        '<div  class="row">' +
-        '<div id="updates-header" class="card-header d-flex justify-content-between align-items-center">' +
-        '<h3 class="city" id="city"></h3>' +
-        '</div>' +
-        '</div>' +
-        '<div class="row">' +
-        '<div  class="col">' +
-
-
-        '<h3 id="day"></h3>' +
-        '<h3 id="date"></h3>' +
-        '<h3 id="time"></h3>' +
-        '</div>' +
-        '<div class="col">' +
-        '<div class="col">' +
-        '<h3 id="weather-status"></h3>' +
-        '<h1 id="temperature"></h1>' +
-        '</div>' +
-        '<div class="col">' +
-        '<h5 id="tempmin"></h5>' +
-        '<h5 id="tempmax"></h5>' +
-        '</div>' +
-
-        '<div class="top-right">' +
-        '<h1 id="weather-status"></h1>' +
-        '<img class="weather-icon" src="">' +
-        '</div>' +
-        '<div class="bottom-left">' +
-        '<h1 id="temperature"></h1>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
+			        '<div  class="container">' +
+				        '<div  class="row">' +
+					        '<div id="updates-header" class="card-header d-flex justify-content-between align-items-center">' +
+					        '<h3 class="city" id="city"></h3>' +
+				        '</div>' +
+			        '</div>' +
+			        '<div class="row">' +
+				        '<div  class="col">' +
+						        '<h3 id="day"></h3>' +
+						        '<h3 id="date"></h3>' +
+						        '<h3 id="time"></h3>' +
+						  '</div>' +
+					        '<div class="col">' +
+						        '<div class="col">' +
+						        '<h3 id="weather-status"></h3>' +
+						        '<h1 id="temperature"></h1>' +
+						        '</div>' +
+						        '<div class="col">' +
+						        '<h5 id="tempmin"></h5>' +
+						        '<h5 id="tempmax"></h5>' +
+					        '</div>' +
+						        '<div class="top-right">' +
+							        '<h1 id="weather-status"></h1>' +
+							        '<img class="weather-icon" src="" style="height: 100px;">' +
+						        '</div>' +
+					        '<div class="bottom-left">' +
+					        '<h1 id="temperature"></h1>' +
+					        '</div>' +
+					        '</div>' +
+					       
+			        '</div>' +
+		        '</div>';
 
     $('#weather').append(html);
 });
