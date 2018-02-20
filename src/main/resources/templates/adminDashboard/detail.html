@@ -50,10 +50,10 @@
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -155,23 +155,21 @@
                                 <div class="row">
                                     <div class="col-5 date-holder content text-center">
                                         <div class="date"><span class="text-info">Nombre del Titular:</span></div>
-                                        <p>Pepe Gonzalez Lopez</p>
                                         {{#user}}
                                         <p>{{firstName}}{{lastName}}</p>
                                         {{/user}}
                                     </div>
                                     <div class="col-3 date-holder content text-center">
                                         <div class="date"><span class="text-info">DNI:</span></div>
-                                        <p>47000000</p>
                                         {{#user}}
-                                        <p>{{dni}}</p>
+                                        <p>{{cp}}</p>
                                         {{/user}}
                                     </div>
                                     <div class="col-3 date-holder content text-center">
                                         <div class="date"><span class="text-info">Teléfono:</span></div>
-                                        <p>P66 666 666</p>
+                                        <p>666 666 666</p>
                                         {{#user}}
-                                        <p>{{telephone}}</p>
+                                        <p>{{cp}}</p>
                                         {{/user}}
                                     </div>
                                 </div>
@@ -182,14 +180,12 @@
                                 <div class="row">
                                     <div class="col-6 date-holder content text-center">
                                         <div class="date"><span class="text-info">Dirección:</span></div>
-                                        <p>Calle Tulipán S/N</p>
                                         {{#user}}
-                                        <p>{{homeList}}</p>
+                                        <p>{{direccion}}</p>
                                         {{/user}}
                                     </div>
                                     <div class="col-6 date-holder content text-center">
                                         <div class="date"><span class="text-info">Email:</span></div>
-                                        <p>aaaaaa@gmail.com</p>
                                         {{#user}}
                                         <p>{{email}}</p>
                                         {{/user}}
