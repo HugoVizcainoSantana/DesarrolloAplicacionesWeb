@@ -49,10 +49,10 @@
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -156,7 +156,7 @@
                                         <h4>Pedido #0001</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +175,8 @@
                                     <tr>
                                         {{#user}}
                                         <th>{{firstName}}</th>
-                                        <th>{{homeList}}</th>
-                                        <th>{{telephone}}</th>
+                                        <th>{{direccion}}</th>
+                                        <th>{{cp}}</th>
                                         {{/user}}
                                     </tr>
 
@@ -219,7 +219,7 @@
                                         <h4>Pedido #0001</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -238,8 +238,8 @@
                                     <tr>
                                         {{#user}}
                                         <th>{{firstName}}</th>
-                                        <th>{{homeList}}</th>
-                                        <th>{{telephon}}</th>
+                                        <th>{{direccion}}</th>
+                                        <th>{{cp}}</th>
                                         {{/user}}
                                     </tr>
                                     </tbody>
@@ -281,7 +281,7 @@
                                         <h4>Pedido #0001</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail.html">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -300,8 +300,8 @@
                                     <tr>
                                         {{#user}}
                                         <th>{{firstName}}</th>
-                                        <th>{{homeList}}</th>
-                                        <th>{{telephon}}</th>
+                                        <th>{{direccion}}</th>
+                                        <th>{{cp}}</th>
                                         {{/user}}
                                     </tr>
                                     </tbody>
