@@ -1,6 +1,5 @@
 package daw.spring.model;
 
-import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -15,6 +14,9 @@ public class User {
     private long id;
 
     @NotEmpty
+    private String passwordHash;
+
+    @NotEmpty
     private String firstName;
 
     @NotEmpty
@@ -24,13 +26,10 @@ public class User {
     @Email
     private String email;
 
-    @NotEmpty
     private String direccion;
 
     private int cp;
     private String phone;
-
-    private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;

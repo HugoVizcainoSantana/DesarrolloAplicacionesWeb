@@ -1,31 +1,39 @@
 package daw.spring.controller;
 
-import daw.spring.model.Home;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class RegisterController {
 
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
+
     @Autowired
-    private UserRepository userRepository;
+    public RegisterController(UserRepository userRepository, BCryptPasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+    }
 
     @RequestMapping("/register")
-    public String register(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email,@RequestParam String phone, @RequestParam String passwordHash) {
-        List<Home> homeList = new ArrayList<>();
-        User user = new User(firstName, lastName, email, passwordHash," ", 0, null, "",phone,null,Collections.singletonList("USER"));
+    public String register() {
+        return "register";
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String tryRegister(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
+        User user = new User(firstName, lastName, email, encoder.encode(password), null, -1, null, null, null, null, Collections.singletonList("ROLE_USER"));
         userRepository.save(user);
-
-        return "login";
-
+        return "redirect:/dashboard/";
     }
 
 }
