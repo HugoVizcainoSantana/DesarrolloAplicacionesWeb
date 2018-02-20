@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,7 +39,9 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">Usuario1</h2><span>User</span>
+            {{#user}}
+                <h2 class="h5">Usuario:</h2><span>{{firstName}}</span>
+             {{/user}}
             </div>
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -155,7 +157,9 @@
         <div class="container-fluid">
             <!-- Page Header-->
             <header>
-                <h1 class="h3 display">{{titulo}} {{nameProfile}} </h1>
+            {{#user}}
+                <h1 class="h3 display">Perfil {{firstName}} </h1>
+             {{/user}}
             </header>
             <div class="row">
 
@@ -163,10 +167,12 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header d-flex align-items-center">
-                            <h4>nombre apellido1 apellido2</h4>
+                        {{#user}}
+                            <h4>{{firstName}} {{lastName}}</h4>
+                         {{/user}}
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" th:action="@{/profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="/dashboard/profile"  method="post" enctype="multipart/form-data">
                                 <div class="form-group row">
                                     <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
                                 </div>
@@ -182,52 +188,54 @@
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
+                                {{#user}}
                                     <label class="col-sm-2 form-control-label">Nombre : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{firstName}" type="text" class="form-control" value="apellido">
+                                        <input required name="firstName" type="text" class="form-control" value="{{firstName}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Apellidos : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{lastName}" type="text" class="form-control" value="apellido1 apellido 2">
+                                        <input required name="lastName" type="text" class="form-control" value="{{lastName}}">
                                     </div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Email : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{email}" type="email" name="email" class="form-control" value="user@serv.com">
+                                        <input required  type="email" name="email" class="form-control" value="{{email}}">
                                     </div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Dirección : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{direccion}" type="text" name="direccion" class="form-control" value="direccion">
+                                        <input required  type="text" name="direccion" class="form-control" value="{{direccion}}">
                                     </div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Codigo postal : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{cp}" type="number" name="codigo" class="form-control" value="Codigo postal">
+                                        <input required  type="number" name="cp" class="form-control" value="{{cp}}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Contraseña : </label>
                                     <div class="col-sm-10">
-                                        <input required th:field="*{password}" type="password" name="password" class="form-control" value="123">
+                                        <input required  type="password" name="password" class="form-control" value="{{password}}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 form-control-label">Confirmación contraseña : </label>
                                     <div class="col-sm-10">
-                                        <input required type="password" name="passwordConfirm" class="form-control" value="123">
+                                        <input required  type="password" name="password" class="form-control" value="{{password}}">
                                     </div>
                                 </div>
+                                {{/user}}
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <div class="col-sm-4 offset-sm-2">

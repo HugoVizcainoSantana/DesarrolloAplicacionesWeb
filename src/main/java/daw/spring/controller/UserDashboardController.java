@@ -86,20 +86,21 @@ public class UserDashboardController {
     @RequestMapping("/profile")
     public String profile(Model model) {
         User user = new User();
-        model.addAttribute("titulo", "Perfil");
-        model.addAttribute("nameProfile", "Juan");
+        model.addAttribute("user", userService.findOneById(1l));
 
         return "dashboard/profile";
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String saveProfile(@Valid User user, BindingResult result, Model model, @RequestParam("file") MultipartFile photo, SessionStatus status) {
-        if (result.hasErrors()) {
-
+        
+    		
+    		if (result.hasErrors()) {
             return "dashboard/profile";
-
         }
         if (!photo.isEmpty()) {
+        		//Path directorioRecusrsos=Paths.get("file");
+        
             Path directorioRecusrsos = Paths.get("src//main//resources//static//upload");
             String rootPath = directorioRecusrsos.toFile().getAbsolutePath();
 
@@ -127,7 +128,7 @@ public class UserDashboardController {
 
     @RequestMapping("/created")
     public String created(Model model) {
-        model.addAttribute("titulo", "Nueva compra");
+        model.addAttribute("user", userService.findOneById(1l));
         return "dashboard/created";
     }
 
