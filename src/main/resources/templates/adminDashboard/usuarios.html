@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OCH</title>
@@ -26,343 +26,358 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="/images/icono.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-  </head>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
 
-  <body>
+<body>
 
-  <!-- Side Navbar -->
-  <nav class="side-navbar">
+<!-- Side Navbar -->
+<nav class="side-navbar">
     <div class="side-navbar-wrapper">
-      <!-- Sidebar Header    -->
-      <div class="sidenav-header d-flex align-items-center justify-content-center">
-        <!-- User Info-->
-        <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-          {{#user}}
-          <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-          {{/user}}
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+            <!-- User Info-->
+            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                {{#user}}
+                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+                {{/user}}
+            </div>
+            <!-- Small Brand information, appears on minimized sidebar-->
+            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
-        <!-- Small Brand information, appears on minimized sidebar-->
-        <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
-      </div>
 
-      <!-- Sidebar Navigation Menus-->
-      <div class="main-menu">
-        <h5 class="sidenav-heading">Menú</h5>
-        <ul id="side-main-menu1" class="side-menu list-unstyled">
-          <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
-          <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-          <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
-          <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
-        </ul>
-      </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+            <h5 class="sidenav-heading">Menú</h5>
+            <ul id="side-main-menu1" class="side-menu list-unstyled">
+                <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="usuarios.html"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+            </ul>
+        </div>
     </div>
-  </nav>
-    <div class="page">
+</nav>
+<div class="page">
 
-      <!-- navbar-->
-      <header class="header">
+    <!-- navbar-->
+    <header class="header">
         <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div></a></div>
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>10 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="//images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="//images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="//images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
-                  </ul>
-                </li>
-                <li class="nav-item"><a href="/index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
-              </ul>
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                        <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
+                    </a></div>
+                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu">
+                                <li><a rel="nofollow" href="#" class="dropdown-item">
+                                    <div class="notification d-flex justify-content-between">
+                                        <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages</div>
+                                        <div class="notification-time">
+                                            <small>4 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item">
+                                    <div class="notification d-flex justify-content-between">
+                                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                        <div class="notification-time">
+                                            <small>4 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item">
+                                    <div class="notification d-flex justify-content-between">
+                                        <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                                        <div class="notification-time">
+                                            <small>4 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item">
+                                    <div class="notification d-flex justify-content-between">
+                                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                        <div class="notification-time">
+                                            <small>10 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications </strong></a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu">
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="//images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span>
+                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="//images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span>
+                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="//images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span>
+                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a href="/index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </nav>
-      </header>
+    </header>
 
-      <!-- Counts Section 1 -->
-      <section class="dashboard-counts">
+    <!-- Counts Section 1 -->
+    <section class="dashboard-counts">
         <div class="container-fluid">
-          <!-- Page Header-->
-          <header>
-            <h1 class="h3 display">Usuarios</h1>
-          </header>
-          <div class="row">
+            <!-- Page Header-->
+            <header>
+                <h1 class="h3 display">Usuarios</h1>
+            </header>
+            <div class="row">
 
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-user"></i></div>
-                <div class="name"><strong class="text-uppercase">Usuarios Totales</strong>
-                  <div class="count-number">234</div>
+                <!-- Count item widget-->
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name"><strong class="text-uppercase">Usuarios Totales</strong>
+                            <div class="count-number">234</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <!-- Count item widget-->
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-padnote"></i></div>
+                        <div class="name"><strong class="text-uppercase">Total Dispositivos </strong><strong class="text-uppercase">Contratados</strong>
+                            <div class="count-number">400 U</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Count item widget-->
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-search"></i></div>
+                        <div class="name"><strong class="text-uppercase">Buscar Usuario</strong>
+                            <form class="form-inline" action="usuarios.html">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
+                                <button class="btn btn-success" type="submit">Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-padnote"></i></div>
-                <div class="name"><strong class="text-uppercase">Total Dispositivos </strong><strong class="text-uppercase">Contratados</strong>
-                    <div class="count-number">400 U</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Count item widget-->
-            <div class="col-xl-4 col-md-4 col-12">
-              <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="icon-search"></i></div>
-                <div class="name"><strong class="text-uppercase">Buscar Usuario</strong>
-                    <form class="form-inline" action="usuarios.html">
-                      <input class="form-control mr-sm-2" type="text" placeholder="Buscar">
-                      <button class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <br>
+            <br>
 
         </div>
 
-      </section>   <!-- Finish Counts Section 1 -->
+    </section>   <!-- Finish Counts Section 1 -->
 
-      <section class="charts">
+    <section class="charts">
         <div class="container-fluid">
-          <div class="row">
+            <div class="row">
 
-            <div class="col-lg-3">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                <div class="col-lg-3">
+                    <div class="card line-chart-example">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <!--     {{#user}}
+                                         <h2 class="h5">{{name}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Apellidos</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{firstName}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{direccion}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>CodigoPostal</label>
+                                <!--         {{#user}}
+                                        <h2 class="h5">{{idPostal}}</h2>
+                                        {{/user}}     -->
+                            </div>
+                            <div class="form-group">
+                                <label>Dispositivos</label>
+                                <input type="text" placeholder="3" class="form-control" required>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                  <form>
-                    <div class="form-group">
-                      <label>Nombre</label>
-             <!--     {{#user}}
-                      <h2 class="h5">{{name}}</h2>
-                      {{/user}}   -->
-                    </div>
-                    <div class="form-group">
-                      <label>Apellidos</label>
-             <!--          {{#user}}
-                      <h2 class="h5">{{firstName}}</h2>
-                      {{/user}}   -->
-                    </div>
-                    <div class="form-group">
-                      <label>Direccion</label>
-             <!--          {{#user}}
-                      <h2 class="h5">{{direccion}}</h2>
-                      {{/user}}   -->
-                    </div>
-                    <div class="form-group">
-                      <label>CodigoPostal</label>
-              <!--         {{#user}}
-                      <h2 class="h5">{{idPostal}}</h2>
-                      {{/user}}     -->
-                    </div>
-                    <div class="form-group">
-                      <label>Dispositivos</label>
-                      <input type="text" placeholder="3" class="form-control" required>
-                    </div>
-                  </form>
-              </div>
-            </div>
 
 
-
-
-            <div class="col-lg-3">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                <div class="col-lg-3">
+                    <div class="card line-chart-example">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <!--     {{#user}}
+                                         <h2 class="h5">{{name}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Apellidos</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{firstName}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{direccion}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>CodigoPostal</label>
+                                <!--         {{#user}}
+                                        <h2 class="h5">{{idPostal}}</h2>
+                                        {{/user}}     -->
+                            </div>
+                            <div class="form-group">
+                                <label>Dispositivos</label>
+                                <input type="text" placeholder="3" class="form-control" required>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <form>
-                  <div class="form-group">
-                    <label>Nombre</label>
-                    <!--     {{#user}}
-                             <h2 class="h5">{{name}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Apellidos</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{firstName}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Direccion</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{direccion}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>CodigoPostal</label>
-                    <!--         {{#user}}
-                            <h2 class="h5">{{idPostal}}</h2>
-                            {{/user}}     -->
-                  </div>
-                  <div class="form-group">
-                    <label>Dispositivos</label>
-                    <input type="text" placeholder="3" class="form-control" required>
-                  </div>
-                </form>
-              </div>
-            </div>
 
 
-
-            <div class="col-lg-3">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                <div class="col-lg-3">
+                    <div class="card line-chart-example">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <!--     {{#user}}
+                                         <h2 class="h5">{{name}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Apellidos</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{firstName}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{direccion}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>CodigoPostal</label>
+                                <!--         {{#user}}
+                                        <h2 class="h5">{{idPostal}}</h2>
+                                        {{/user}}     -->
+                            </div>
+                            <div class="form-group">
+                                <label>Dispositivos</label>
+                                <input type="text" placeholder="3" class="form-control" required>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <form>
-                  <div class="form-group">
-                    <label>Nombre</label>
-                    <!--     {{#user}}
-                             <h2 class="h5">{{name}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Apellidos</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{firstName}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Direccion</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{direccion}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>CodigoPostal</label>
-                    <!--         {{#user}}
-                            <h2 class="h5">{{idPostal}}</h2>
-                            {{/user}}     -->
-                  </div>
-                  <div class="form-group">
-                    <label>Dispositivos</label>
-                    <input type="text" placeholder="3" class="form-control" required>
-                  </div>
-                </form>
-              </div>
-            </div>
 
 
-
-            <div class="col-lg-3">
-              <div class="card line-chart-example">
-                <div class="card-header d-flex align-items-center">
-                  <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                <div class="col-lg-3">
+                    <div class="card line-chart-example">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <!--     {{#user}}
+                                         <h2 class="h5">{{name}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Apellidos</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{firstName}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <!--          {{#user}}
+                                         <h2 class="h5">{{direccion}}</h2>
+                                         {{/user}}   -->
+                            </div>
+                            <div class="form-group">
+                                <label>CodigoPostal</label>
+                                <!--         {{#user}}
+                                        <h2 class="h5">{{idPostal}}</h2>
+                                        {{/user}}     -->
+                            </div>
+                            <div class="form-group">
+                                <label>Dispositivos</label>
+                                <input type="text" placeholder="3" class="form-control" required>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <form>
-                  <div class="form-group">
-                    <label>Nombre</label>
-                    <!--     {{#user}}
-                             <h2 class="h5">{{name}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Apellidos</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{firstName}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>Direccion</label>
-                    <!--          {{#user}}
-                             <h2 class="h5">{{direccion}}</h2>
-                             {{/user}}   -->
-                  </div>
-                  <div class="form-group">
-                    <label>CodigoPostal</label>
-                    <!--         {{#user}}
-                            <h2 class="h5">{{idPostal}}</h2>
-                            {{/user}}     -->
-                  </div>
-                  <div class="form-group">
-                    <label>Dispositivos</label>
-                    <input type="text" placeholder="3" class="form-control" required>
-                  </div>
-                </form>
-              </div>
-            </div>
 
 
-      </section>
+    </section>
 
 
-      <footer class="main-footer">
+    <footer class="main-footer">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-6">
-              <p>Your company &copy; 2017-2019</p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Your company &copy; 2017-2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
+                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                </div>
             </div>
-            <div class="col-sm-6 text-right">
-              <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
-              <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-            </div>
-          </div>
         </div>
-      </footer>
-    </div>
-    <!-- Javascript files-->
-    <script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="//dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="//dashboardBootstrap/js/charts-custom.js"></script>
-    <!-- Main File-->
-    <script src="//dashboardBootstrap/js/front.js"></script>
-  </body>
+    </footer>
+</div>
+<!-- Javascript files-->
+<script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+<script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="//dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+<script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="//dashboardBootstrap/js/charts-custom.js"></script>
+<!-- Main File-->
+<script src="//dashboardBootstrap/js/front.js"></script>
+</body>
 </html>

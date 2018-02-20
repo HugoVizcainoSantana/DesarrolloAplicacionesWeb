@@ -20,8 +20,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long id, String description, double cost, ProductType type, String img) {
-        this.id = id;
+    public Product(String description, double cost, ProductType type, String img) {
         this.description = description;
         this.cost = cost;
         this.type = type;
@@ -68,15 +67,9 @@ public class Product {
         this.img = img;
     }
 
-    public enum ProductType{
+    public enum ProductType {
         BLIND, LIGHT
     }
-
-
-
-
-
-
 
 
 }

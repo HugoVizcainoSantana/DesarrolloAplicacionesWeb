@@ -12,24 +12,21 @@ import java.util.Collections;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private BCryptPasswordEncoder encoder;
+    private final UserRepository userRepository;
 
-    public User findByName(String name) {
-        return userRepository.findUserByFirstName(name);
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User findOneById(Long id){
+    public User findOneById(Long id) {
         return userRepository.findOne(id);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findUserByEmail(email);
-    }
 
-    public void saveUser(User user){
+public User findByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }    public void saveUser(User user){
         userRepository.save(user);
     }
 
@@ -43,4 +40,13 @@ public class UserService {
         User userAdmin1 = new User("admin@oncontrolhome.com", encoder.encode("1234"), Collections.singletonList("ADMIN"));
         saveUser(userAdmin1);
     }
+
+   /* public void deleteHome(Home home){
+        homeRepository.delete(home);
+    }
+
+    public Page<Home> findAllHomePage(PageRequest pageRequest){
+        return homeRepository.findAll(pageRequest);
+    }*/
+
 }

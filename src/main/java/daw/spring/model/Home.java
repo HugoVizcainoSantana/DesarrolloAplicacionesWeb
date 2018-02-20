@@ -20,8 +20,7 @@ public class Home {
     public Home() {
     }
 
-    public Home(long id, long postCode, String address, Boolean activated, List<Device> deviceList) {
-        this.id = id;
+    public Home(long postCode, String address, Boolean activated, List<Device> deviceList) {
         this.postCode = postCode;
         this.address = address;
         this.activated = activated;
@@ -52,7 +51,6 @@ public class Home {
         this.address = address;
     }
 
-
     public Boolean getActivated() {
         return activated;
     }
@@ -68,8 +66,6 @@ public class Home {
     public void setDeviceList(List<Product> productList) {
         this.deviceList = deviceList;
     }
-
-
 
 }
 

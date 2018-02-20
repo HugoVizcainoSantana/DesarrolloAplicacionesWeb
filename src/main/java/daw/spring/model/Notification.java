@@ -21,8 +21,7 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(long id, String title, User userNotification) {
-        this.id = id;
+    public Notification(String title, User userNotification) {
         this.title = title;
         this.userNotification = userNotification;
     }

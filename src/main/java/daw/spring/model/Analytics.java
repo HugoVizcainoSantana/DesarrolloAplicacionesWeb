@@ -1,11 +1,7 @@
 package daw.spring.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
@@ -14,7 +10,7 @@ public class Analytics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Enumerated(EnumType.STRING)
     private AnalyticsType type;
     private String title;
     private String description;
@@ -31,8 +27,7 @@ public class Analytics {
     public Analytics() {
     }
 
-    public Analytics(long id, AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
-        this.id = id;
+    public Analytics(AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
         this.type = type;
         this.title = title;
         this.description = description;
@@ -97,7 +92,7 @@ public class Analytics {
         this.dataAverage = dataAverage;
     }
 
-    public enum AnalyticsType{
+    public enum AnalyticsType {
         PRODUCTS, USERS, HOMES  // Different graphs for diferent entities
     }
 }

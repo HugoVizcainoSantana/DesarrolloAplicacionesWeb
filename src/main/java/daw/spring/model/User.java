@@ -1,6 +1,10 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -10,9 +14,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
+
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotEmpty
+    private String direccion;
+
+    private int cp;
+
     private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -21,22 +37,45 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    public User() {
-    }
+    private String foto;
 
-    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, List<String> roles) {
+    public User() {
+
+
+
+    public User(String firstName, String lastName, String email,  String direccion, int cp, List<Home> homeList, String foto, List<String> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.homeList = homeList;
-        this.roles = roles;
+        this.direccion = direccion;
+        this.cp = cp;
+        this.foto = foto;
     }
 
-    public User( String email, String passwordHash, List<String> roles) {
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.roles = roles;
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getCp() {
+        return cp;
+    }
+
+    public void setCp(int cp) {
+        this.cp = cp;
     }
 
     public long getId() {

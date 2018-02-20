@@ -22,12 +22,14 @@
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="/dashboardBootstrap/css/custom.css">
+    <link rel="stylesheet" href="/resources/dashboardBootstrap/css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="/images/icono.png">
+    <link rel="shortcut icon" href="/resources/images/icono.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script type="text/javascript" src="/dashboardBootstrap/js/checked.js"></script>
+    <script type="text/javascript" src="/dashboardBootstrap/js/visibility.js"></script>
 </head>
 <body>
 <!-- Side Navbar -->
@@ -40,13 +42,13 @@
                 <h2 class="h5">Usuario1</h2><span>User</span>
             </div>
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="/" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="/"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
                 <li><a href="tienda.html"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
             </ul>
             <h5 class="sidenav-heading">Gráficas</h5>
@@ -67,7 +69,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -134,171 +136,20 @@
                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="/index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                        <li class="nav-item"><a href="../index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <!-- Breadcrumb-->
-    <div class="breadcrumb-holder">
-        <div class="container-fluid">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active">Consumo</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Counts Section -->
-    <section class="dashboard-counts">
-        <div class="container-fluid">
-            <!-- Page Header-->
-            <header>
-                <h1 class="h3 display">Consumo de la casa </h1>
-            </header>
-            <div class="row">
-
-                <!-- Count item widget-->
-                <div class="col-xl-4 col-md-4 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-user"></i></div>
-                        <div class="name"><strong class="text-uppercase">Actuadores contratados</strong>
-                            <div class="count-number">6</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Count item widget-->
-                <div class="col-xl-4 col-md-4 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-padnote"></i></div>
-                        <div class="name"><strong class="text-uppercase">Consumo total en Kilovatios Hora</strong><span>Ultimo mes</span>
-                            <div class="count-number">400</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Count item widget-->
-                <div class="col-xl-4 col-md-4 col-12">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-check"></i></div>
-                        <div class="name"><strong class="text-uppercase">Precio del kilovatio hora</strong><span>Hoy</span>
-                            <div class="count-number">0.1224</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </div>
-    </section>
-    <section class="charts">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-10">
-                    <div class="card line-chart-example">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual Total y comparación con la media</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="lineChartExample2"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <!-- Income-->
-                    <div class="card income text-center">
-                        <div class="icon"><i class="icon-line-chart"></i></div>
-                        <div class="number"><h4>126,412</h4></div>
-                        <strong class="text-primary">Kw/h</strong>
-                        <p>es la media de otros usuarios en tu zona.</p>
-                    </div>
-                    <div id="new-updates" class="card updates recent-updated">
-                        <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Media de otros Usuarios</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true"
-                                                                                                                                                                                                                aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
-                        </div>
-                        <div id="updates-box" role="tabpanel" class="collapse show">
-                            <ul class="news list-unstyled">
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Enero</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">243,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Febrero</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">43,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Marzo</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">54,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Abril</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">243,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-
-                                        <div class="title"><strong>Mayo</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">143,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Junio</strong>
-                                        </div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">223,2<span class="month">Kw/h</span></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
-                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
+{{#user}}
+<h1>Gracias,{{fristName}} por su compra</h1>
+
+{{/user}}
+</body>
+
+
 <!-- Javascript files-->
 <script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
 <script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
@@ -308,8 +159,9 @@
 <script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
 <script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
 <script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/dashboardBootstrap/js/charts-custom.js"></script>
+<script src="/dashboardBootstrap/js/charts-home.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/operation.js"></script>
 </body>
 </html>

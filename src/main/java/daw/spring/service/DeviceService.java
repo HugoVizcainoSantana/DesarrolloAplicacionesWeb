@@ -8,40 +8,42 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
 public class DeviceService {
 
+    private final DeviceRepository deviceRepository;
+
     @Autowired
-    DeviceRepository deviceRepository;
+    public DeviceService(DeviceRepository deviceRepository) {
+        this.deviceRepository = deviceRepository;
+    }
 
-    public Device findOneById(Long id){
-
+    public Device findOneById(Long id) {
         return deviceRepository.findOne(id);
     }
 
-    public List<Device> findAllDevices(){
+    public List<Device> findAllDevices() {
         return deviceRepository.findAll();
     }
 
-
-    public void saveDevice(Device product){
+    public void saveDevice(Device product) {
         deviceRepository.save(product);
     }
 
-    public void deleteDevice(Device product){
+    public void deleteDevice(Device product) {
         deviceRepository.delete(product);
     }
 
-    public Page<Device> findAllDevicePage(PageRequest pageRequest){
+    public Page<Device> findAllDevicePage(PageRequest pageRequest) {
         return deviceRepository.findAll(pageRequest);
     }
 
-    public void save(Device product1) {
-        deviceRepository.save(product1);
+    @PostConstruct
+    public void prueba() {
+        saveDevice(new Device("sdasdasd", 12122, Device.DeviceType.LIGHT, Device.StateType.ON, null));
     }
-
-
 
 }
