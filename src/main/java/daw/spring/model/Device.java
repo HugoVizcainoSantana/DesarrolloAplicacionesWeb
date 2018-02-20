@@ -16,19 +16,19 @@ public class Device {
     @Enumerated(EnumType.STRING)
     private Device.StateType status;
     private String img;
-    private boolean active;
+    private boolean activate;
 
     public Device() {
     }
 
-    public Device( String description, double cost, DeviceType type, StateType status, String img, boolean active) {
+    public Device( String description, double cost, DeviceType type, StateType status, String img, boolean activate) {
         this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
-        this.active=active;
+        this.activate=activate;
     }
 
 
@@ -80,12 +80,12 @@ public class Device {
         this.img = img;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isActivate() {
+        return activate;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setActivate(boolean active) {
+        this.activate = activate;
     }
 
     public enum DeviceType {
