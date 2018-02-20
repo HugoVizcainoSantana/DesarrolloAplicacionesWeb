@@ -13,10 +13,12 @@ import java.util.Collections;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder=encoder;
     }
 
     public User findOneById(Long id) {
@@ -33,11 +35,12 @@ public User findByEmail(String email) {
 
     @PostConstruct
     public void init() {
-        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, Collections.singletonList("USER"));
+
+        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363",null,Collections.singletonList("USER"));
         saveUser(user1);
-        User user2 = new User("Teodoro", "Rivas", "teodoro@merengue.com", encoder.encode("1234"), null, Collections.singletonList("USER"));
+        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363", null,Collections.singletonList("USER"));
         saveUser(user2);
-        User userAdmin1 = new User("admin@oncontrolhome.com", encoder.encode("1234"), Collections.singletonList("ADMIN"));
+        User userAdmin1 = new User("Admin", "Root", "amador@merengue.com", encoder.encode("1234"), "Calle Ibiza", 28663, null, "" ,"9866363", null,Collections.singletonList("ADMIN"));
         saveUser(userAdmin1);
     }
 

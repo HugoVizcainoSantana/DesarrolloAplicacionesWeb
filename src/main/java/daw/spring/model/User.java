@@ -28,22 +28,26 @@ public class User {
     private String direccion;
 
     private int cp;
+    private String phone;
 
     private String passwordHash;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Home> homeList;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Notification> notificationList;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    private String foto;
+    private String photo;
 
     public User() {
+    }
 
 
-
-    public User(String firstName, String lastName, String email,  String direccion, int cp, List<Home> homeList, String foto, List<String> roles) {
+    public User(String firstName, String lastName, String email, String passwordHash,  String direccion, int cp, List<Home> homeList, String photo, String phone, List<Notification> notificationList, List<String> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -51,15 +55,17 @@ public class User {
         this.homeList = homeList;
         this.direccion = direccion;
         this.cp = cp;
-        this.foto = foto;
+        this.phone = phone;
+        this.photo = photo;
+        this.notificationList = notificationList;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getDireccion() {
@@ -132,6 +138,22 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
 

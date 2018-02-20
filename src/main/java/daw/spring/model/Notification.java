@@ -15,7 +15,7 @@ public class Notification {
     private String description;
     private String date;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User userNotification; // The notification always need to have a user attached to it
 
     public Notification() {
