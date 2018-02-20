@@ -2,13 +2,13 @@ language: java
 branches:
   only:
     - master
-deploy:
-  provider: heroku
-  api_key:
-    secure: HExGqlPIwcKU4eid3wudjeYkzA7Jj/yeqcOsTxIj2XL++7LOBDvX94TOYQJ0ojGQFQtCQmtTiRtT88cIhJ+T+L4/RaiHlmrRyc4jyIKXpaqQd8IeKIE+wshZ4oh+30NxxssphgzGWXTAC2fzE4VJ/5huFcuyQd//Yg6Y2WgY8ua0O+ct3wVkPKN6vDke/y79Ugn1sJccso3Nd7bUc3sWG36BSAlS67ybd9qDwQa4sk5cnM2HgRUR3TBxEkqaxJr1zXe7UdNNNSw8SKBury6LOJpPvFd/I88X/MmhoNZEqpkYzFqTgix2xCQf+6KNIuZLoH7HoUj34ySYtw0eiVwX7p6jy4gq2Bdzwo1UduZEv0KOs97Go4F2F6UVXxPHXA63k083X/0J/3Mn9lWKziKifkcspoegznGrAy9K7Z6hwmU+8CeVD+OJD/u7V+1rZsqq6Y0AMtKdNwDJAjyft+gad+TSHvZjfeOwjWxVIYzeWTVE3H8iXEzvTOMgC+MWr66kGPZjKyTn3umXJ1p6EYeDVBkmUIiablxdnyOC38Zztxhl3SxGFsMgV+rHvxF4vesfBvpvYYdxYppzo8UVwrFZMDmqm4eYJBfYhMcIRWzCWb4CqezjBtQ3rGiP7UuyqhfrqVcK56WAyfQ1zLqYiHB5brKc0OOismzNA0v2rYmnz9Y=
-  app: desarrollo-aplicaciones-web-18
-  on:
-    repo: Hgmoa/DesarrolloAplicacionesWeb
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: HExGqlPIwcKU4eid3wudjeYkzA7Jj/yeqcOsTxIj2XL++7LOBDvX94TOYQJ0ojGQFQtCQmtTiRtT88cIhJ+T+L4/RaiHlmrRyc4jyIKXpaqQd8IeKIE+wshZ4oh+30NxxssphgzGWXTAC2fzE4VJ/5huFcuyQd//Yg6Y2WgY8ua0O+ct3wVkPKN6vDke/y79Ugn1sJccso3Nd7bUc3sWG36BSAlS67ybd9qDwQa4sk5cnM2HgRUR3TBxEkqaxJr1zXe7UdNNNSw8SKBury6LOJpPvFd/I88X/MmhoNZEqpkYzFqTgix2xCQf+6KNIuZLoH7HoUj34ySYtw0eiVwX7p6jy4gq2Bdzwo1UduZEv0KOs97Go4F2F6UVXxPHXA63k083X/0J/3Mn9lWKziKifkcspoegznGrAy9K7Z6hwmU+8CeVD+OJD/u7V+1rZsqq6Y0AMtKdNwDJAjyft+gad+TSHvZjfeOwjWxVIYzeWTVE3H8iXEzvTOMgC+MWr66kGPZjKyTn3umXJ1p6EYeDVBkmUIiablxdnyOC38Zztxhl3SxGFsMgV+rHvxF4vesfBvpvYYdxYppzo8UVwrFZMDmqm4eYJBfYhMcIRWzCWb4CqezjBtQ3rGiP7UuyqhfrqVcK56WAyfQ1zLqYiHB5brKc0OOismzNA0v2rYmnz9Y=
+#  app: desarrollo-aplicaciones-web-18
+#  on:
+#    repo: Hgmoa/DesarrolloAplicacionesWeb
 cache:
   directories:
   - .autoconf
