@@ -26,7 +26,7 @@ public class UserService {
     }
 
 
-public User findByEmail(String email) {
+    public User findByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }    public void saveUser(User user){
         userRepository.save(user);
@@ -44,12 +44,6 @@ public User findByEmail(String email) {
         saveUser(userAdmin1);
     }
 
-   /* public void deleteHome(Home home){
-        homeRepository.delete(home);
-    }
 
-    public Page<Home> findAllHomePage(PageRequest pageRequest){
-        return homeRepository.findAll(pageRequest);
-    }*/
 
 }

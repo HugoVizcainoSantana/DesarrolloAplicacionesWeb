@@ -31,7 +31,7 @@ public class UserAuthProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
         log.error(auth.getName());
-        User user = userService.findByName(auth.getName());
+        User user = userService.findByEmail(auth.getName());
         if (user == null) {
             throw new BadCredentialsException("User not found");
         }

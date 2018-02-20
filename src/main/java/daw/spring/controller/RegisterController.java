@@ -19,10 +19,9 @@ public class RegisterController {
     private UserRepository userRepository;
 
     @RequestMapping("/register")
-    public String register(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String passwordHash) {
+    public String register(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email,@RequestParam String phone, @RequestParam String passwordHash) {
         List<Home> homeList = new ArrayList<>();
-        User user = new User(firstName, lastName, email, passwordHash, homeList, Collections.singletonList("USER"));
-
+        User user = new User(firstName, lastName, email, passwordHash," ", 0, null, "",phone,null,Collections.singletonList("USER"));
         userRepository.save(user);
 
         return "login";
