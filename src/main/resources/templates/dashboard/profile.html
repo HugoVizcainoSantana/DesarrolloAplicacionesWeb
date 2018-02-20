@@ -38,8 +38,8 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
             {{#user}}
+            <div class="sidenav-header-inner text-center"><img src="{{foto}}" alt="person" class="img-fluid rounded-circle">
                 <h2 class="h5">Usuario:</h2><span>{{firstName}}</span>
              {{/user}}
             </div>
@@ -169,12 +169,12 @@
                         <div class="card-header d-flex align-items-center">
                         {{#user}}
                             <h4>{{firstName}} {{lastName}}</h4>
-                         {{/user}}
+                         
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="/dashboard/profile"  method="post" enctype="multipart/form-data">
                                 <div class="form-group row">
-                                    <img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                                    <img src="{{foto}}" alt="person" class="img-fluid rounded-circle">
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
-                                {{#user}}
+                                
                                     <label class="col-sm-2 form-control-label">Nombre : </label>
                                     <div class="col-sm-10">
                                         <input required name="firstName" type="text" class="form-control" value="{{firstName}}">
