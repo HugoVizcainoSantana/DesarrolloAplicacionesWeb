@@ -18,6 +18,7 @@ public class Device {
     private String img;
     private boolean activate;
 
+
     public Device() {
     }
 
