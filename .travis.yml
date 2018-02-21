@@ -8,9 +8,9 @@ services:
   - mysql
 
 before_install:
-#  - mysqladmin -u root password root
-  - sudo service mysql restart
   - mysql -e 'CREATE DATABASE IF NOT EXISTS oncontrolhome;FLUSH PRIVILEGES;'
+  - mysql -e 'FLUSH PRIVILEGES;SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root');FLUSH PRIVILEGES;'
+  - sudo service mysql restart
 
 ### HEROKU DEPLOYMENT
 #deploy:
