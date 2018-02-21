@@ -4,7 +4,7 @@ branches:
     - master
 
 # MySql 5.7
-dist: trusty
+dist: precise
 sudo: required
 
 addons:
