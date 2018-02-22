@@ -1,6 +1,7 @@
 package daw.spring.controller;
 
-import daw.spring.service.DeviceService;
+import daw.spring.service.HomeService;
+import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminDashboardController {
 
     private final UserService userService;
-    private final DeviceService deviceService;
+    private final ProductService productService;
+    private final HomeService homeService;
 
     @Autowired
-    public AdminDashboardController(UserService userService, DeviceService deviceService) {
+    public AdminDashboardController(UserService userService, ProductService productService, HomeService homeService) {
         this.userService = userService;
-        this.deviceService = deviceService;
+        this.productService = productService;
+        this.homeService = homeService;
     }
 
     @RequestMapping("/")
@@ -37,7 +40,8 @@ public class AdminDashboardController {
     @RequestMapping("/inventario")
     public String inventario(Model model) {
         model.addAttribute("user", userService.findOneById((long) 1));
-        model.addAttribute("device", deviceService.findAllDevices());
+        model.addAttribute("product", productService.findAllProducts());
+        //model.addAttribute("devicesNotActivated", deviceService.countNotActivatedDevices());
         return "adminDashboard/inventario";
     }
 
@@ -45,6 +49,8 @@ public class AdminDashboardController {
     @RequestMapping("/usuarios")
     public String usuarios(Model model, @RequestParam(required = false) String name) {
         model.addAttribute("user", userService.findOneById((long) 1));
+        model.addAttribute("userCount", userService.countAllUsers());
+        model.addAttribute("homeActives", homeService.countHomeActives());
         if (name != null && !name.isEmpty()) {
             model.addAttribute("listUser", userService.findAllUsersByFirstName(name));
         } else {

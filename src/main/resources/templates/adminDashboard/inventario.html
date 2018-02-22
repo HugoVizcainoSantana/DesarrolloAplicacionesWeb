@@ -176,29 +176,23 @@
     <section class="mt-30px mb-30px container-fluid">
         <div class="container">
             <div class="row ">
-                <div class="col-lg-6">
+                <!--<div class="col-lg-6">
                     <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
-                </div>
-                <div class="col-lg-6">
-                    {{#device}}
-                    <label class="col-sm-10 form-control-label">{{description}}</label>
+                </div>-->
+                {{#product}}
+                <div class="col-lg-4">
+
+
                     <div class="form-group">
                         <div class="form-group">
-
                             <label class="col-sm-10 form-control-label">Modelo: {{type}}</label>
-                            <label class="col-sm-10 form-control-label">Cantidad Disponible:</label>
+                            <label class="col-sm-10 form-control-label">{{description}}</label>
+                            <label class="col-sm-10 form-control-label">Coste unitario: {{cost}}</label>
+                            <label class="col-sm-10 form-control-label">Cantidad Disponible: {{stock}}</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Real" id="blind" name="blind" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <label class="col-sm-10 form-control-label">Cantidad real:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Contado" id="light" name="light" class="form-control" disabled>
+                                    <div class="col-md-8">
+                                        <input type="number" placeholder="{{stock}}" id="blind" name="blind" class="form-control" min="0" value={{stock}} >
                                     </div>
                                 </div>
                             </div>
@@ -207,18 +201,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid">
+                    <!--<div class="container-fluid">
                         <div class="row">
                             <div class="mt-30px col-lg-12">
                                 <h2>Coste total del producto:</h2>
                                 <div class="row">
-                                    <p class="col-sm-5">{{cost}}</p>
+                                    <p class="col-sm-5">({{cost}}*{{stock}})</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{/device}}
+                    </div>-->
+
                 </div>
+                {{/product}}
             </div>
         </div>
     </section>

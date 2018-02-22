@@ -41,11 +41,28 @@ public class DeviceService {
         return deviceRepository.findAll(pageRequest);
     }
 
+    public long countActivatedDevices(){
+        return deviceRepository.countDevicesByActivatedIsTrue();
+    }
+
+    public long countNotActivatedDevices(){
+        return deviceRepository.countDevicesByActivatedIsFalse();
+    }
+
     @PostConstruct
     public void init() {
-        saveDevice(new Device("una bombilla de 4000k", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
-        saveDevice(new Device("una persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
-        saveDevice(new Device("una bombilla de 6000k", 30, Device.DeviceType.LIGHT, Device.StateType.OFF, null, false));
+        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
+        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
+        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.ON, null, true));
+        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false));
+        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false));
+        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false));
+        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
+        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
+        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.ON, null, true));
+        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false));
+        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false));
+        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false));
     }
 
 }
