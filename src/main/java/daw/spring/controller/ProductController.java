@@ -31,12 +31,12 @@ public class ProductController {
     }
 
     @RequestMapping("index/product/{id}")
-    public String productDetail(Model model, @PathVariable long id){
+    public String productDetail(Model model, @PathVariable long id) {
         Product currentProduct = productService.findOneById(id);
 
         model.addAttribute("selectedProduct", currentProduct);
 
-        if(currentProduct.getType() == LIGHT){
+        if (currentProduct.getType() == LIGHT) {
             return "products/bombillas";
         } else {
             return "products/persianas";

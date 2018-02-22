@@ -30,7 +30,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String tryRegister(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
-        User user = new User(firstName, lastName, email, encoder.encode(password), null, null, null, null, Roles.USER);
+        User user = new User(firstName, lastName, email, encoder.encode(password), null, null, null, null, Roles.USER.getRoleName());
         userRepository.save(user);
         return "redirect:/dashboard/";
     }

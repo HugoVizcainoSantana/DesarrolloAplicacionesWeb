@@ -1,8 +1,10 @@
 package daw.spring.controller;
 
+import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.User;
 import daw.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,10 +19,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/dashboard")
-public class UserDashboardController {
+public class UserDashboardController implements CurrentUserInfo {
 
     private final UserService userService;
 
@@ -36,7 +39,7 @@ public class UserDashboardController {
     }
 
     @RequestMapping("/index")
-    public void index2(Model model) {
+    public void index2(Model model, Authentication user) {
         model.addAttribute("titulo", "Dashboard");
         index(model);
     }
@@ -49,7 +52,7 @@ public class UserDashboardController {
 
     @RequestMapping(value = "/tienda", method = RequestMethod.POST)
     public String saveShop(@Valid User user, BindingResult result, Model model, SessionStatus status) {
-        //User userResult = new User();
+        User userResult = new User();
         if (result.hasErrors()) {
             //model.addAttribute("errorName", "Nombre requerido");
             return "dashboard/created";
@@ -79,23 +82,17 @@ public class UserDashboardController {
     }
 
     @RequestMapping("/profile")
-    public String profile(Model model) {
-        User user = new User();
-        model.addAttribute("user", userService.findOneById(1l));
-
+    public String profile(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/profile";
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String saveProfile(@Valid User user, BindingResult result, Model model, @RequestParam("file") MultipartFile photo, SessionStatus status) {
-        
-    		
-    		if (result.hasErrors()) {
-            return "dashboard/profile";
-        }
+    public String saveProfile(Model model, @RequestParam("file") MultipartFile photo, Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
-        		//Path directorioRecusrsos=Paths.get("file");
-        
+            //Path directorioRecusrsos=Paths.get("file");
+
             Path directorioRecusrsos = Paths.get("src//main//resources//static//upload");
             String rootPath = directorioRecusrsos.toFile().getAbsolutePath();
 
