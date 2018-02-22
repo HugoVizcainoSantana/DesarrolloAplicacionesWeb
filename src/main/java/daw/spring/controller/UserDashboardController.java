@@ -2,12 +2,14 @@ package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.User;
+import daw.spring.service.HomeService;
 import daw.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +28,12 @@ import java.security.Principal;
 public class UserDashboardController implements CurrentUserInfo {
 
     private final UserService userService;
+    private final HomeService homeService;
 
     @Autowired
-    public UserDashboardController(UserService userService) {
+    public UserDashboardController(UserService userService, HomeService homeService) {
         this.userService = userService;
+        this.homeService = homeService;
     }
 
     @RequestMapping("/")
@@ -80,6 +84,20 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("titulo", "Casa");
         model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
         return "dashboard/homes";
+    }
+
+    @RequestMapping("/homes/{id}")
+    public String homeDetail(Model model, Principal principal, @PathVariable long id) {
+        model.addAttribute("titulo", "Casa");
+        model.addAttribute("home", homeService.findOneById(id));
+        return "dashboard/home-detail";
+    }
+
+    @RequestMapping("/homes/{id}/generateInvoice")
+    public String generateInvoice(Model model, Principal principal, @PathVariable long id) {
+        model.addAttribute("titulo", "Casa");
+        model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
+        return "dashboard/home-detail";
     }
 
     @RequestMapping("/profile")

@@ -173,7 +173,7 @@
                                         <h4>Casa {{-index}}</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="home-detail.html">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="/dashboard/homes/{{id}}">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -195,22 +195,7 @@
                             </div>
                         </div>
                         <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#houseModal{{id}}" class="btn btn-primary">Crear factura de la casa {{-index}}</button>
-                            <!-- Modal-->
-                            <div id="houseModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa {{-index}}</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Crear factura</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-primary"><a href="/dashboard/homes/{{id}}/generateInvoice">Crear factura de la casa {{-index}}</a></button>
                         </div>
                     </div>
                 </div>
