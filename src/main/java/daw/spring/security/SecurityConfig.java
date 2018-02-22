@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/images/**").permitAll();
         // Private pages
         http.authorizeRequests().antMatchers("/login/redirect").hasAnyRole("USER", "ADMIN");
-        http.authorizeRequests().antMatchers("/dashboard").hasAnyRole("USER", "ADMIN");
-        http.authorizeRequests().antMatchers("/adminDashboard").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN");
+        http.authorizeRequests().antMatchers("/adminDashboard/**").hasAnyRole("ADMIN");
         // Login
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("email");

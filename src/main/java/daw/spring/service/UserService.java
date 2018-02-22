@@ -1,6 +1,5 @@
 package daw.spring.service;
 
-import java.util.List;
 import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
@@ -9,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -22,14 +22,16 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    public User findOneById(Long id){
+    public User findOneById(Long id) {
         return userRepository.findOne(id);
     }
 
-    public List<User> findAll() {return userRepository.findAll();}
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
@@ -42,27 +44,27 @@ public class UserService {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
 
-        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user1);
 
-        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user2);
 
-        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user3);
 
-        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user4);
 
-        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user5);
 
-        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER);
+        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         saveUser(user6);
 
-        User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN);
+        User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
         saveUser(userAdmin1);
 
         /*
