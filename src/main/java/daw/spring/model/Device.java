@@ -22,14 +22,14 @@ public class Device {
     public Device() {
     }
 
-    public Device( String description, double cost, DeviceType type, StateType status, String img, boolean activate) {
+    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activate) {
         this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
-        this.activate=activate;
+        this.activate = activate;
     }
 
 

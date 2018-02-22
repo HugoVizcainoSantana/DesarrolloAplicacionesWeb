@@ -1,6 +1,5 @@
 package daw.spring.security;
 
-import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
@@ -22,10 +21,9 @@ import java.util.List;
 @Component
 public class UserAuthProvider implements AuthenticationProvider {
 
-    private Logger log = LoggerFactory.getLogger("UserAuthProvider");
-
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
+    private Logger log = LoggerFactory.getLogger("UserAuthProvider");
 
     @Autowired
     public UserAuthProvider(UserService userService, BCryptPasswordEncoder encoder) {
@@ -45,11 +43,11 @@ public class UserAuthProvider implements AuthenticationProvider {
         }
         log.info("Succesful login from " + user.getEmail());
         List<GrantedAuthority> roles = new ArrayList<>();
-        for (Roles role : user.getRoles()) {
-            roles.add(new SimpleGrantedAuthority(role.name()));
+        for (String role : user.getRoles()) {
+            roles.add(new SimpleGrantedAuthority(role));
         }
-        return new UsernamePasswordAuthenticationToken(user.getFirstName(), password, roles);
-        
+        return new UsernamePasswordAuthenticationToken(user.getId(), password, roles);
+
     }
 
     @Override
