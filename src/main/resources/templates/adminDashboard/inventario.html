@@ -41,11 +41,11 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center"><img src="{{photo}}" alt="person" class="img-fluid rounded-circle">
                 <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
@@ -220,6 +220,7 @@
     <!-- Statistics Section-->
 
     <section class="form" id="contentForm" style="display: none;">
+        {{#product}}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg">
@@ -231,46 +232,34 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" placeholder="Raspberry" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Número de Modelo</label>
-                                    <input type="text" placeholder="1234" class="form-control" required>
+                                    <input type="text" placeholder="{{type}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Descripcion</label>
-                                    <input type="email" placeholder="Valido para persianas y Luces" class="form-control" required>
+                                    <input type="email" placeholder="{{description}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad</label>
-                                    <input type="text" placeholder="122" class="form-control" required>
+                                    <input type="text" placeholder="{{stock}}" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Coste Individual</label>
+                                    <input type="text" placeholder="{{cost}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Coste Total</label>
-                                    <input type="text" placeholder="1.600€" class="form-control" required>
+                                    <input type="text" placeholder="{{cost}}*{{stock}}" class="form-control" required>
                                 </div>
                                 <br>
                                 <br>
                                 <br>
-
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="alert alert-success" role="alert" id="content" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Enhorabuena. Se ha realizado con éxito el proceso de compra.
-        </div>
-        <div class="alert alert-danger" role="alert" id="contentDanger" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Ha cancelado el proceso de compra.
-        </div>
+        {{/product}}
     </section>
     <!-- Button trigger modal -->
 
@@ -281,7 +270,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
+                    <p>OnControlHome &copy; 2018</p>
                 </div>
                 <div class="col-sm-6 text-right">
 
