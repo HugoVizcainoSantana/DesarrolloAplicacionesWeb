@@ -16,8 +16,8 @@ public class Analytics {
     private String description;
 
     // We have to add user too as a atribute but, for now, we dont have security implemented
-    // @OneToOne
-    // private User user;
+    @OneToOne
+    private User user;
 
     private ArrayList<String> domain; // And a domain in Years, Months, Weeks or Days
 

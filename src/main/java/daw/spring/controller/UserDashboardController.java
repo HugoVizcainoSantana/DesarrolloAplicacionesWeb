@@ -2,6 +2,7 @@ package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.User;
+import daw.spring.service.AnalyticsService;
 import daw.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,9 @@ public class UserDashboardController implements CurrentUserInfo {
         this.userService = userService;
     }
 
+    @Autowired
+    private AnalyticsService analyticsService;
+
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("titulo", "Dashboard");
@@ -46,7 +50,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/tienda")
     public String shop(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         return "dashboard/tienda";
     }
 
@@ -65,7 +69,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/charts")
     public String charts(Model model) {
-        model.addAttribute("titulo", "Consumos");
+        model.addAttribute("analytics",  analyticsService.findAllAnalytics());
         return "dashboard/charts";
     }
 
@@ -120,7 +124,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/created")
     public String created(Model model) {
-        model.addAttribute("user", userService.findOneById(1l));
+        model.addAttribute("user", userService.findOneById(1L));
         return "dashboard/created";
     }
 
