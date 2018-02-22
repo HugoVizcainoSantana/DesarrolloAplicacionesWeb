@@ -15,14 +15,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	
-	/*@Override
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// TODO Auto-generated method stub
 		super.addResourceHandlers(registry);
 		String resourcePath = Paths.get("upload").toAbsolutePath().toUri().toString();
 		log.info(resourcePath);
 		registry.addResourceHandler("/upload/**").addResourceLocations(resourcePath);
-	}*/
+	}
 
 
 	

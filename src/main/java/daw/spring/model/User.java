@@ -4,9 +4,10 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -38,14 +39,13 @@ public class User {
 
     private String photo;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private Roles roles;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, Roles roles) {
+    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, String... roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -54,7 +54,7 @@ public class User {
         this.phone = phone;
         this.notificationList = notificationList;
         this.photo = photo;
-        this.roles = roles;
+        this.roles = new HashSet<>(Arrays.asList(roles));
     }
 
     public String getPhone() {
@@ -113,12 +113,12 @@ public class User {
         this.homeList = homeList;
     }
 
-    public List<Roles> getRoles() {
-        return Collections.singletonList(roles);
+    public Set<String> getRoles() {
+        return roles;
     }
 
-    public void setRoles(Roles roles) {
-        this.roles = roles;
+    public void setRoles(String... roles) {
+        this.roles = new HashSet<>(Arrays.asList(roles));
     }
 
     public List<Notification> getNotificationList() {
