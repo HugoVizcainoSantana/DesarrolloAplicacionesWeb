@@ -180,25 +180,17 @@
                     <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
                 </div>
                 <div class="col-lg-6">
-                    {{#device}}
+                    {{#product}}
                     <label class="col-sm-10 form-control-label">{{description}}</label>
                     <div class="form-group">
                         <div class="form-group">
 
                             <label class="col-sm-10 form-control-label">Modelo: {{type}}</label>
-                            <label class="col-sm-10 form-control-label">Cantidad Disponible:</label>
+                            <label class="col-sm-10 form-control-label">Cantidad Disponible: {{stock}}</label>
                             <div class="col-sm-10">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Real" id="blind" name="blind" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <label class="col-sm-10 form-control-label">Cantidad real:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Contado" id="light" name="light" class="form-control" disabled>
+                                        <input type="number" placeholder="{{stock}}" id="blind" name="blind" class="form-control" min="0" value={{stock}}>
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                    {{/device}}
+                    {{/product}}
                 </div>
             </div>
         </div>
