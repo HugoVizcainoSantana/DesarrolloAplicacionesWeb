@@ -76,8 +76,9 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @RequestMapping("/homes")
-    public String homes(Model model) {
+    public String homes(Model model, Principal principal) {
         model.addAttribute("titulo", "Casa");
+        model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
         return "dashboard/homes";
     }
 
