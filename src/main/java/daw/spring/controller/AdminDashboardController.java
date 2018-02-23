@@ -34,29 +34,29 @@ public class AdminDashboardController {
         index(model);
     }
 
-    @RequestMapping("/inventario")
-    public String inventario(Model model) {
+    @RequestMapping("/inventory")
+    public String inventory(Model model) {
         model.addAttribute("user", userService.findOneById((long) 1));
         model.addAttribute("device", deviceService.findAllDevices());
-        return "adminDashboard/inventario";
+        return "adminDashboard/inventory";
     }
 
 
-    @RequestMapping("/usuarios")
-    public String usuarios(Model model, @RequestParam(required = false) String name) {
+    @RequestMapping("/users")
+    public String users(Model model, @RequestParam(required = false) String name) {
         model.addAttribute("user", userService.findOneById((long) 1));
         if (name != null && !name.isEmpty()) {
             model.addAttribute("listUser", userService.findAllUsersByFirstName(name));
         } else {
             model.addAttribute("listUser", userService.findAll());
         }
-        return "adminDashboard/usuarios";
+        return "adminDashboard/users";
     }
 
-    @RequestMapping("/pedidos")
-    public String pedidos(Model model) {
+    @RequestMapping("/orders")
+    public String orders(Model model) {
         model.addAttribute("user", userService.findOneById((long) 1));
-        return "adminDashboard/pedidos";
+        return "adminDashboard/orders";
     }
 
 
