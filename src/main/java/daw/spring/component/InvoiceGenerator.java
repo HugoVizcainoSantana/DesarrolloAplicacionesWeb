@@ -3,8 +3,11 @@ package daw.spring.component;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import daw.spring.model.Home;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 @Component
@@ -160,5 +163,21 @@ public class InvoiceGenerator {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    public byte[] generateInvoiceAsStream(Home home) throws DocumentException {
+        Document invoice = new Document();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        PdfWriter.getInstance(invoice, stream);
+        //Write document
+        invoice.open();
+        //TODO Build PDF
+        addMetaData(invoice);
+        addTitlePage(invoice);
+        addContent(invoice);
+        invoice.close();
+
+        return stream.toByteArray();
     }
 }

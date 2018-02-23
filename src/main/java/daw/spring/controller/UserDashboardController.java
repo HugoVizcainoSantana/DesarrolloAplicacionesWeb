@@ -1,6 +1,8 @@
 package daw.spring.controller;
 
+import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
+import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.User;
 import daw.spring.service.HomeService;
 import daw.spring.service.UserService;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,13 +36,15 @@ public class UserDashboardController implements CurrentUserInfo {
 
     private final UserService userService;
     private final HomeService homeService;
+    private final InvoiceGenerator invoiceGenerator;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService) {
+    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator) {
         this.userService = userService;
         this.homeService = homeService;
+        this.invoiceGenerator = invoiceGenerator;
     }
 
     @RequestMapping("/")
@@ -100,10 +106,19 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @RequestMapping("/homes/{id}/generateInvoice")
-    public String generateInvoice(Model model, Principal principal, @PathVariable long id) {
+    public void generateInvoice(Model model, Principal principal, @PathVariable long id, HttpServletResponse response) {
         model.addAttribute("titulo", "Casa");
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        return "dashboard/home-detail";
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment:filename=report.pdf");
+        try {
+            OutputStream out = response.getOutputStream();
+            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id));
+            out.write(pdf);
+            out.flush();
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/profile")
