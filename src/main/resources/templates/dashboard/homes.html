@@ -37,10 +37,13 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             {{#user}}
-            <div class="sidenav-header-inner text-center"><img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">Usuario:</h2><span>{{firstName}}</span>
-              {{/user}}
+            <div class="sidenav-header-inner text-center">
+                <img src="/upload/{{photo}}" alt="person"
+                     class="img-fluid rounded-circle">
+                <h2 class="h5">Usuario:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="/" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>

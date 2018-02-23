@@ -39,9 +39,9 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-            {{#user}}
+                {{#user}}
                 <h2 class="h5">{{firstName}}</h2><span>User</span>
-             {{/user}}
+                {{/user}}
             </div>
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="/dashboard/index" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -146,23 +146,23 @@
     </header>
     <section class="forms">
         <div class="container-fluid">
-			<div class="col-ld-12">
-				<header>
-				{{#user}}
-				<h1>{{firstName}}, has actualizado tus datos.</h1>
-				<img class="img-thumbnail rounded float-left" style="max-width: 25%;" src="/upload/{{foto}}"/>
-				<ul class="list-group">
-					<li class="list-group-item">{{firstName}}</li>
-					<li class="list-group-item">{{lastName}}</li>
-					<li class="list-group-item">{{firstName}}</li>
-					<li class="list-group-item">{{email}}</li>
-					<li class="list-group-item">{{phone}}</li>
-				</ul>
-				{{/user}}
-				</header>
-			</div>
-		</div>
-</section>
+            <div class="col-ld-12">
+                <header>
+                    {{#user}}
+                    <h1>{{firstName}}, has actualizado tus datos.</h1>
+                    <img class="img-thumbnail rounded float-left" style="max-width: 25%;" src="/upload/{{foto}}"/>
+                    <ul class="list-group">
+                        <li class="list-group-item">{{firstName}}</li>
+                        <li class="list-group-item">{{lastName}}</li>
+                        <li class="list-group-item">{{firstName}}</li>
+                        <li class="list-group-item">{{email}}</li>
+                        <li class="list-group-item">{{phone}}</li>
+                    </ul>
+                    {{/user}}
+                </header>
+            </div>
+        </div>
+    </section>
 </div>
 
 
