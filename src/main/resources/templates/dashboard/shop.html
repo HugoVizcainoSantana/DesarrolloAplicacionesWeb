@@ -38,8 +38,8 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-            {{#user}}
+             {{#user}}
+            <div class="sidenav-header-inner text-center"><img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
                 <h2 class="h5">Usuario</h2><span>{{firstName}}</span>
              {{/user}}
             </div>
@@ -50,17 +50,17 @@
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="tienda.html"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
+                <li><a href="/dashboard/index"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="/dashboard/tienda"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
             </ul>
             <h5 class="sidenav-heading">Gráficas</h5>
             <ul id="side-main-menu2" class="side-menu list-unstyled">
-                <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
-                <li><a href="homes.html"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
+                <li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
+                <li><a href="/dashboard/homes"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
             </ul>
             <h5 class="sidenav-heading">Opciones</h5>
             <ul id="side-main-menu3" class="side-menu list-unstyled">
-                <li><a href="profile.html"> <i class="icon-user"></i>Perfil</a></li>
+                <li><a href="/dashboard/profile"> <i class="icon-user"></i>Perfil</a></li>
             </ul>
         </div>
     </div>
