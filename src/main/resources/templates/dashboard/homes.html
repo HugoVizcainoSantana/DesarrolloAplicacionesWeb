@@ -184,18 +184,14 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">Dispositivos</th>
-                                        <td>{{deviceNum}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Dispositivos Activados</th>
-                                        <td>{{activatedDeviceNum}}</td>
+                                        <td>{{deviceQuantity}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-body text-left">
-                            <button type="button" class="btn btn-primary"><a href="/dashboard/homes/{{id}}/generateInvoice">Crear factura de la casa {{-index}}</a></button>
+                            <a href="/dashboard/homes/{{id}}/generateInvoice" class="btn btn-primary">Crear factura de la casa {{-index}}</a>
                         </div>
                     </div>
                 </div>

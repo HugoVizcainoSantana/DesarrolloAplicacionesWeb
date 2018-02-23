@@ -60,7 +60,6 @@ public class UserDashboardController implements CurrentUserInfo {
         if (result.hasErrors()) {
             //model.addAttribute("errorName", "Nombre requerido");
             return "dashboard/created";
-
         }
         userService.saveUser(user);
         //status.setComplete();
@@ -73,16 +72,11 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/charts";
     }
 
-    @RequestMapping("/home-detail")
-    public String homeDetail(Model model) {
-        model.addAttribute("titulo", "Casa");
-        return "dashboard/home-detail";
-    }
-
     @RequestMapping("/homes")
     public String homes(Model model, Principal principal) {
         model.addAttribute("titulo", "Casa");
         model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
+        model.addAttribute("homeList.deviceNum", 5);
         return "dashboard/homes";
     }
 

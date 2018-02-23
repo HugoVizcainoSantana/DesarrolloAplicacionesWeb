@@ -3,10 +3,8 @@ package daw.spring.component;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
 
-import java.io.FileOutputStream;
 import java.util.Date;
 
 @Component
@@ -17,6 +15,7 @@ public class InvoiceGenerator {
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
+    /*
     public static void main(String[] args) {
         try {
             Document document = new Document();
@@ -30,6 +29,7 @@ public class InvoiceGenerator {
             e.printStackTrace();
         }
     }
+*/
 
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
