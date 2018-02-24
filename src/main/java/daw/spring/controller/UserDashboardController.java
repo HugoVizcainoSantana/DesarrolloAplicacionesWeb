@@ -7,7 +7,6 @@ import daw.spring.model.User;
 import daw.spring.service.HomeService;
 import daw.spring.service.AnalyticsService;
 import daw.spring.service.UserService;
-import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
