@@ -13,17 +13,67 @@
     <link rel="stylesheet" href="/publicBootstrap/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+
 </head>
 
 <body>
-<div class="row">
-    <div class="col-sm-6 container">
-        <a class="btn btn-outline-white btn-outline" href="/dashboard/">User Dashboard</a>
-    </div>
-    <div class="col-sm-6 container">
-        <a class="btn btn-outline-white btn-outline" href="/adminDashboard/">Admin Dashboard</a>
-    </div>
+
+<div class="page">
+    <!--hero section-->
+    <section class="hero">
+        <nav class="navbar navbar-expand-lg dark-bg navbar-custom-user navbar-fixed">
+            <div class="container">
+                <a class="navbar-brand" href="/">OnControlHome</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav mt-2 mt-md-0 text-center">
+                        <li class="nav-item ">
+                            <a class="nav-link link-white" href="/">Volver a Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <br>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-8 mx-auto">
+                    <div class="card border-none">
+                        <div class="card-body">
+                            <div class="mt-2">
+                                <img src="/images/icono.png" alt="Male" class="brand-logo mx-auto d-block img-fluid rounded-circle"/>
+                            </div>
+                            <p class="mt-4 text-white lead text-center">
+                                Elija la opción de inicio sesión para acceder a su cuenta
+                            </p>
+                            <div class="row">
+                                <div class="col-sm-4 container">
+                                    <a class="btn btn-outline-white btn-outline" href="/dashboard/">User Dashboard</a>
+                                </div>
+                                <div class="col-sm-4 container">
+                                    <a class="btn btn-outline-white btn-outline" href="/adminDashboard/">Admin Dashboard</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 mt-5 footer">
+                    <p class="text-white small text-center">
+                        &copy; 2018 Login/Register Forms. Designed by <a href="https://twitter.com/attacomsian">URJC</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 </div>
+
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -31,6 +81,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="/publicBootstrap/bootstrap/js/bootstrap.min.js"></script>
 <script src="/publicBootstrap/js/validateLogin.js"></script>
+
+
 </body>
 
 </html>

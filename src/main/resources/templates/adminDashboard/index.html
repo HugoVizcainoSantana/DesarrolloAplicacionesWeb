@@ -41,22 +41,30 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
+
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -68,7 +76,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl</span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -148,44 +156,51 @@
                 <div class="col-lg-4 col-md-6">
                     <div id="new-updates" class="card updates recent-updated">
                         <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Gastos Servidor</a></h2>
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Futuras Incidencias</a></h2>
                             <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                         </div>
                         <div id="updates-box" role="tabpanel" class="collapse show">
-                            <ul class="news list-unstyled">
+                            <ul class="activities list-unstyled">
                                 <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Luz del salon</strong></div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="switch">
-                                            <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
-                                            <label for="btn-toggle1"></label>
+                                <!-- 1 Item-->
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4 date-holder text-right">
+                                            <div class="icon"><i class="icon-clock"></i></div>
+                                            <div class="date"><span>6:00 am</span><span class="text-info">6 hours ago</span></div>
+                                        </div>
+                                        <div class="col-8 content"><strong>Incidencia Nº 0001</strong>
+                                            <p>"Descripcion de la incidencia"</p>
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Persiana del salon</strong></div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="50" class="slider" id="slider1">
-                                            <label for="slider1"></label>
+                                <!-- End 1 Item -->
+                                <!-- 2 Item-->
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4 date-holder text-right">
+                                            <div class="icon"><i class="icon-clock"></i></div>
+                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
+                                        </div>
+                                        <div class="col-8 content"><strong>Incidencia Nº 0002</strong>
+                                            <p>"Descripcion de la incidencia"</p>
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>Luz de la cocina</strong></div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <button type="button" class="btn btn-primary btn-md fav-element-toggle">Encender</button>
+                                <!-- End 2 Item -->
+                                <!-- 3 Item-->
+                                <li>
+                                    <div class="row">
+                                        <div class="col-4 date-holder text-right">
+                                            <div class="icon"><i class="icon-clock"></i></div>
+                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
+                                        </div>
+                                        <div class="col-8 content"><strong>Incidencia Nº 0003</strong>
+                                            <p>"Descripcion de la incidencia"</p>
+                                        </div>
                                     </div>
                                 </li>
+                                <!-- End Item-->
                             </ul>
                         </div>
                     </div>
@@ -243,12 +258,11 @@
                     </div>
                 </div>
                 <!-- Ultimas acciones End -->
-                <!-- Widget Tiempo -->
+                <!-- 3 action Widget - Widget wheather -->
                 <div class=" col-lg-4 col-md-6">
-                    <div id="c_884e19e2ce77546477460376828f2ab7" class="normal"></div>
-                    <script type="text/javascript" src="https://www.eltiempo.es/widget/widget_loader/884e19e2ce77546477460376828f2ab7"></script>
+                    <div id="weather"></div>
                 </div>
-                <!-- Widget Tiempo End -->
+                <!-- End 3 action Widget -End Widget Wheather -->
             </div>
         </div>
 
@@ -278,6 +292,8 @@
 <script src="/dashboardBootstrap/js/elementsController.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+<!-- Weather-->
+<script src="/dashboardBootstrap/js/appWeather.js"></script>
 
 </body>
 
