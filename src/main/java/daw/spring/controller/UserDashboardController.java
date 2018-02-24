@@ -77,14 +77,14 @@ public class UserDashboardController implements CurrentUserInfo {
 		index(model, principal);
 	}
 
-	@RequestMapping("/tienda")
+	@RequestMapping("/shop")
 	public String shop(Model model, Principal principal) {
 		model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
 		model.addAttribute("title", "Tienda");
-		return "dashboard/tienda";
+		return "dashboard/shop";
 	}
 
-	@RequestMapping(value = "/tienda", method = RequestMethod.POST)
+	@RequestMapping(value = "/shop", method = RequestMethod.POST)
 	public String saveShop(@Valid User user, BindingResult result, Model model, SessionStatus status) {
 		User userResult = new User();
 		if (result.hasErrors()) {

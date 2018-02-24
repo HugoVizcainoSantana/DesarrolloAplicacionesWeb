@@ -36,6 +36,8 @@ public class UserService {
         return userRepository.findAll(pageRequest);
     }
 
+    public long countAllUsers(){ return userRepository.count(); }
+
     public void saveUser(User user) {
         userRepository.save(user);
     }

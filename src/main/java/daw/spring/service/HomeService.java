@@ -36,6 +36,8 @@ public class HomeService {
         homeRepository.delete(home);
     }
 
+    public long countHomeActives(){  return homeRepository.countHomeByActivatedIsTrue();  }
+
     public Page<Home> findAllHomePage(PageRequest pageRequest) {
         return homeRepository.findAll(pageRequest);
     }

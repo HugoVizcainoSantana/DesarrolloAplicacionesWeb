@@ -48,12 +48,16 @@
 				<!-- User Info-->
 				{{#user}}
 				<div class="sidenav-header-inner text-center">
-					<img src="/upload/{{photo}}" alt="person"
-						class="img-fluid rounded-circle">
+					{{#photo}}
+					<img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+					{{/photo}}
+					{{^photo}}
+					<img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+					{{/photo}}
 					<h2 class="h5">Usuario:</h2>
-					<span>{{firstName}}</span> 
-				{{/user}}
+					<span>{{firstName}}</span>
 				</div>
+				{{/user}}
 				<!-- Small Brand information, appears on minimized sidebar-->
 				<div class="sidenav-header-logo">
 					<a href="/" class="brand-small text-center"><strong>B</strong><strong
@@ -66,7 +70,7 @@
 				<ul id="side-main-menu1" class="side-menu list-unstyled">
 					<li><a href="/dashboard/index"> <i class="icon-home"></i>Inicio
 					</a></li>
-					<li><a href="/dashboard/tienda"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
+					<li><a href="/dashboard/shop"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
 				</ul>
 				<h5 class="sidenav-heading">Gráficas</h5>
 				<ul id="side-main-menu2" class="side-menu list-unstyled">
@@ -233,10 +237,19 @@
 							<div class="card-body">
 								<form class="form-horizontal" action="/dashboard/profile"
 									method="post" enctype="multipart/form-data">
+									{{#photo}}
 									<div class="form-group row">
-										<img src="/upload/{{photo}}" alt="person"
-											class="img-fluid rounded-circle">
+										<img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
 									</div>
+									{{/photo}}
+									{{^photo}}
+									<div class="form-group row">
+										<img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle" >
+									</div>
+									{{/photo}}
+									{{#error}}
+									<div class="alert alert-danger" role="alert">{{.}}</div>
+									{{/error}}
 									<div class="line"></div>
 									<div class="form-group row">
 										<label class="col-sm-2 form-control-label" for="file">Cambiar
