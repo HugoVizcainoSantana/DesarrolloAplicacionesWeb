@@ -41,11 +41,18 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
@@ -144,87 +151,48 @@
     </header>
 
 
-    <!-- Counts Section
-   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="/images/MobileHome.jpeg" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/raspberry-pi.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/Smart-Home-Devices-Teaser.jpg" alt="Third slide">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div> -->
+
 
     <!-- Header Section-->
     <section class="mt-30px mb-30px container-fluid">
         <div class="container">
             <div class="row ">
-                <div class="col-lg-6">
-                    <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
-                </div>
-                <div class="col-lg-6">
-                    {{#device}}
-                    <label class="col-sm-10 form-control-label">{{description}}</label>
+                <!--<div class="col-lg-6">
+                <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
+                </div>-->
+                {{#product}}
+                <div class="col-lg-4">
+
+
                     <div class="form-group">
                         <div class="form-group">
-
                             <label class="col-sm-10 form-control-label">Modelo: {{type}}</label>
-                            <label class="col-sm-10 form-control-label">Cantidad Disponible:</label>
+                            <label class="col-sm-10 form-control-label">{{description}}</label>
+                            <label class="col-sm-10 form-control-label">Coste unitario: {{cost}}</label>
+                            <label class="col-sm-10 form-control-label">Cantidad Disponible: {{stock}}</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Real" id="blind" name="blind" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <label class="col-sm-10 form-control-label">Cantidad real:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Contado" id="light" name="light" class="form-control" disabled>
+                                    <div class="col-md-8">
+                                        <input type="number" placeholder="{{stock}}" id="blind" name="blind" class="form-control" min="0" value={{stock}} >
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
+                                <!-- <a href="/dashboard/homes/{{id}}/generateInvoice" class="btn btn-primary">Crear factura de la casa {{-index}}</a> -->
                                 <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="mt-30px col-lg-12">
-                                <h2>Coste total del producto:</h2>
-                                <div class="row">
-                                    <p class="col-sm-5">{{cost}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{/device}}
+
                 </div>
+                {{/product}}
             </div>
         </div>
     </section>
     <!-- Statistics Section-->
 
     <section class="form" id="contentForm" style="display: none;">
+        {{#product}}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg">
@@ -236,46 +204,34 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" placeholder="Raspberry" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Número de Modelo</label>
-                                    <input type="text" placeholder="1234" class="form-control" required>
+                                    <input type="text" placeholder="{{type}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Descripcion</label>
-                                    <input type="email" placeholder="Valido para persianas y Luces" class="form-control" required>
+                                    <input type="email" placeholder="{{description}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad</label>
-                                    <input type="text" placeholder="122" class="form-control" required>
+                                    <input type="text" placeholder="{{stock}}" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Coste Individual</label>
+                                    <input type="text" placeholder="{{cost}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Coste Total</label>
-                                    <input type="text" placeholder="1.600€" class="form-control" required>
+                                    <input type="text" placeholder="{{cost}}*{{stock}}" class="form-control" required>
                                 </div>
                                 <br>
                                 <br>
                                 <br>
-
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="alert alert-success" role="alert" id="content" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Enhorabuena. Se ha realizado con éxito el proceso de compra.
-        </div>
-        <div class="alert alert-danger" role="alert" id="contentDanger" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Ha cancelado el proceso de compra.
-        </div>
+        {{/product}}
     </section>
     <!-- Button trigger modal -->
 
@@ -286,7 +242,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
+                    <p>OnControlHome &copy; 2018</p>
                 </div>
                 <div class="col-sm-6 text-right">
 

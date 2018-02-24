@@ -38,11 +38,18 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
@@ -154,7 +161,7 @@
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-user"></i></div>
                         <div class="name"><strong class="text-uppercase">Usuarios Totales</strong>
-                            <div class="count-number">234</div>
+                            <div class="count-number">{{userCount}}</div>
                         </div>
                     </div>
                 </div>
@@ -163,18 +170,18 @@
                 <div class="col-xl-4 col-md-4 col-12">
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-padnote"></i></div>
-                        <div class="name"><strong class="text-uppercase">Total Dispositivos </strong><strong class="text-uppercase">Contratados</strong>
-                            <div class="count-number">400 U</div>
+                        <div class="name"><strong class="text-uppercase">Total instalaciones </strong><strong class="text-uppercase">realizadas</strong>
+                            <div class="count-number">{{homeActives}}</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Count item widget-->
+                <!--
                 <div class="col-xl-4 col-md-4 col-12">
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-search"></i></div>
                         <div class="name"><strong class="text-uppercase">Buscar Usuario</strong>
-                            <form class="form-inline" action="/users">
+                            <form class="form-inline" action="/adminDashboard/users">
                                 <input class="form-control mr-sm-2" type="text" name="name" placeholder="Buscar">
                                 <div class="btn left-block">
                                 <button class="btn btn-success" type="submit">Buscar</button>
@@ -182,7 +189,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -194,40 +201,11 @@
 
     <section class="charts">
         <div class="container-fluid">
-            <div class="row">
-                {{#listUser}}
-                <div class="col-lg-3">
-                    <div class="card line-chart-example">
-
-                        <div class="card-header d-flex align-items-center">
-                            <img src={{foto}} alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
-                        </div>
-                        <form>
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                         <h2 class="h5">{{firstName}}</h2>
-                            </div>
-                            <div class="form-group">
-                                <label>Apellidos</label>
-                                         <h2 class="h5">{{lastName}}</h2>
-                            </div>
-                            <div class="form-group">
-                                <label>Direccion</label>
-                                         <h2 class="h5">{{direccion}}</h2>
-                            </div>
-                            <div class="form-group">
-                                <label>CodigoPostal</label>
-                                        <h2 class="h5">{{cp}}</h2>
-                            </div>
-                            <div class="form-group">
-                                <label>Dispositivos</label>
-                                <input type="text" placeholder="3" class="form-control" required>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                {{/listUser}}
+            <div class="row" id="users">
+                {{#users}} {{> listUsers}} {{/users}}
             </div>
+            <button id="moreUsers" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más
+            </button>
         </div>
         <table>
             <thead>
@@ -241,7 +219,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
+                    <p>OnControlHome &copy; 2018</p>
                 </div>
             </div>
         </div>
@@ -259,5 +237,7 @@
 <script src="/dashboardBootstrap/js/charts-custom.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+<!-- User list-->
+<script src="/publicBootstrap/js/pagination.js"></script>
 </body>
 </html>

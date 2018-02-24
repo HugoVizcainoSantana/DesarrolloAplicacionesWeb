@@ -5,6 +5,8 @@ import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Page<User> findAll(PageRequest pageRequest) {
+        return userRepository.findAll(pageRequest);
+    }
+
+    public long countAllUsers(){ return userRepository.count(); }
 
     public void saveUser(User user) {
         userRepository.save(user);

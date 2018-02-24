@@ -9,6 +9,10 @@ import daw.spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,16 +65,16 @@ public class UserDashboardController implements CurrentUserInfo {
         index(model, principal);
     }
 
-    @RequestMapping("/tienda")
-    public String shop(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("title", "Tienda");
-        return "dashboard/tienda";
-    }
+	@RequestMapping("/shop")
+	public String shop(Model model, Principal principal) {
+		model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+		model.addAttribute("title", "Tienda");
+		return "dashboard/shop";
+	}
 
-    @RequestMapping(value = "/tienda", method = RequestMethod.POST)
-    public String saveShop(BindingResult result, Model model, SessionStatus status) {
-		/*
+	@RequestMapping(value = "/shop", method = RequestMethod.POST)
+	public String saveShop(User user, BindingResult result, Model model, SessionStatus status) {
+		User userResult = new User();
 		if (result.hasErrors()) {
 			// model.addAttribute("errorName", "Nombre requerido");
 			return "dashboard/created";
@@ -77,9 +82,8 @@ public class UserDashboardController implements CurrentUserInfo {
 		}
 		userService.saveUser(user);
 		// status.setComplete();
-		*/
-        return "dashboard/created";
-    }
+		return "dashboard/created";
+	}
 
     @RequestMapping("/charts")
     public String charts(Model model, Principal principal) {
@@ -137,12 +141,9 @@ public class UserDashboardController implements CurrentUserInfo {
             Path rootAbsolutePath = rootPath.toAbsolutePath();
             log.info("rootPath: " + rootPath);
             log.info("rootAbsolutePath: " + rootAbsolutePath);
-
             try {
                 Files.copy(photo.getInputStream(), rootAbsolutePath);
-
                 user.setPhoto(uniqueFilname);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -151,19 +152,6 @@ public class UserDashboardController implements CurrentUserInfo {
         return "redirect:profile";
     }
 
-    @RequestMapping("/terms-Conditions")
-    public String termsConditions(Model model) {
-        model.addAttribute("titulo", "Condiciones");
-        return "dashboard/terms-Conditions";
-    }
-
-    @RequestMapping("/created")
-    public String created(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        return "dashboard/created";
-    }
-
-	/*
     @GetMapping(value = "/upload/{filename:.+}")
     public ResponseEntity<Resource> seePhoto(@PathVariable String fileName) {
         Path pathPhoto = Paths.get("upload").resolve(fileName).toAbsolutePath();
@@ -178,12 +166,19 @@ public class UserDashboardController implements CurrentUserInfo {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        assert resource != null;
-        return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
     }
-    */
+
+    @RequestMapping("/terms-Conditions")
+    public String termsConditions(Model model) {
+        model.addAttribute("titulo", "Condiciones");
+        return "dashboard/terms-Conditions";
+    }
+
+    @RequestMapping("/created")
+    public String created(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        return "dashboard/created";
+    }
 
 }
