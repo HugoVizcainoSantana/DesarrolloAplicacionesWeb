@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +23,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.sql.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 //import daw.spring.component.CurrentUserInfo;
@@ -105,17 +104,19 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/home-detail";
     }
 
-    @RequestMapping("/homes/{id}/generateInvoice")
+    @GetMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf")
     public void generateInvoice(Model model, Principal principal, @PathVariable long id, HttpServletResponse response) {
         model.addAttribute("titulo", "Casa");
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment:filename=report.pdf");
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        model.addAttribute("user", user);
+        //Generate and send pdf
         try {
             OutputStream out = response.getOutputStream();
             byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id));
             out.write(pdf);
-            out.flush();
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
+            response.flushBuffer();
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         }
