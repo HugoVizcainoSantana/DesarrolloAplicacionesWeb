@@ -18,7 +18,6 @@ public class Device {
     private String img;
     private boolean activated;
 
-
     public Device() {
     }
 
@@ -90,7 +89,7 @@ public class Device {
     }
 
     public enum DeviceType {
-        BLIND, LIGHT, RASPBERRYPI
+        BLIND, LIGHT, RASPBERRYPI,
     }
 
     public enum StateType {

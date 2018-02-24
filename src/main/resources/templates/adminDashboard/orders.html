@@ -38,21 +38,28 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             {{#user}}
-            <div class="sidenav-header-inner text-center"><img src="{{photo}}" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
             {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -64,7 +71,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -137,9 +144,8 @@
             </div>
         </nav>
     </header>
-    <!-- End navbar-->
+    <!-- FIN navbar-->
 
-    <!-- Section -->
     <section>
         <div class="container-fluid">
             <!-- Page Header-->
@@ -332,23 +338,22 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End section -->
 
-    <!-- Footer -->
+    </section>
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>OneControlHome &copy; 2018</p>
+                    <p>Your company &copy; 2017-2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
+                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
                 </div>
             </div>
         </div>
     </footer>
-    <!-- End footer -->
-
 </div>
-
 <!-- Javascript files-->
 <script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
 <script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
@@ -361,7 +366,5 @@
 <script src="/dashboardBootstrap/js/charts-custom.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
-<!-- End Javascript files -->
-
 </body>
 </html>

@@ -2,7 +2,6 @@
 
 <html>
 
-<!-- head -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,10 +31,9 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
-<!-- End Head -->
 
-<!-- Body -->
 <body>
+
 
 <!-- Side Navbar -->
 <nav class="side-navbar">
@@ -44,34 +42,35 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
             {{#user}}
-            <div class="sidenav-header-inner text-center"><img src="{{photo}}" alt="person" class="img-fluid rounded-circle">
-                <p>{{photo}}</p>
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
             {{/user}}
-            <!-- End User Info-->
+
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
-        <!-- End Sidebar Header    -->
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
-        <!-- End Sidebar Navigation Menus-->
     </div>
 </nav>
-<!-- End Side Navbar -->
 
-<!-- Page -->
 <div class="page">
-
     <!-- navbar-->
     <header class="header">
         <nav class="navbar">
@@ -150,13 +149,10 @@
             </div>
         </nav>
     </header>
-    <!-- End navbar -->
-
-    <!-- 1 Section -->
     <section class="mt-30px mb-30px">
         <div class="container-fluid">
             <div class="row">
-                <!-- 1 action  Widget -->
+                <!-- Favoritos Widget -->
                 <div class="col-lg-4 col-md-6">
                     <div id="new-updates" class="card updates recent-updated">
                         <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
@@ -209,9 +205,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- End 1 action Widget -->
+                <!-- Favoritos Widget End-->
 
-                <!-- 2 action Widget -->
+                <!-- Ultimas acciones Widget -->
                 <div class="col-lg-4 col-md-6">
                     <div id="recent-activities-wrapper" class="card updates activities">
                         <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
@@ -220,7 +216,7 @@
                         </div>
                         <div id="activities-box" role="tabpanel" class="collapse show">
                             <ul class="activities list-unstyled">
-                                <!-- 1 Item-->
+                                <!-- Item-->
                                 <li>
                                     <div class="row">
                                         <div class="col-4 date-holder text-right">
@@ -232,8 +228,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- End 1 Item -->
-                                <!-- 2 Item-->
+                                <!-- Item-->
                                 <li>
                                     <div class="row">
                                         <div class="col-4 date-holder text-right">
@@ -245,8 +240,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- End 2 Item -->
-                                <!-- 3 Item-->
+                                <!-- Item-->
                                 <li>
                                     <div class="row">
                                         <div class="col-4 date-holder text-right">
@@ -258,38 +252,33 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- End 3 Item -->
+
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- End 2 action Widget -->
-
-                <!-- 3 action Widget - Widget wheather  -->
+                <!-- Ultimas acciones End -->
+                <!-- 3 action Widget - Widget wheather -->
                 <div class=" col-lg-4 col-md-6">
                     <div id="weather"></div>
                 </div>
                 <!-- End 3 action Widget -End Widget Wheather -->
-
             </div>
         </div>
-    </section>
-    <!-- End 1 Section -->
 
-    <!-- footer -->
+
+    </section>
+
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>OnControlHome &copy; 2018</p>
+                    <p>OnControlHome 2018</p>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- End footer -->
-
 </div>
-<!-- End Page -->
 
 <!-- Javascript files-->
 <script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
@@ -305,9 +294,7 @@
 <script src="/dashboardBootstrap/js/front.js"></script>
 <!-- Weather-->
 <script src="/dashboardBootstrap/js/appWeather.js"></script>
-<!-- End JavaScrip files -->
 
 </body>
-<!--End Body -->
 
 </html>

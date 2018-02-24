@@ -58,7 +58,7 @@
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/dashboard/index"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/dashboard/tienda"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
+                <li><a href="/dashboard/shop"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
             </ul>
             <h5 class="sidenav-heading">Gráficas</h5>
             <ul id="side-main-menu2" class="side-menu list-unstyled">
@@ -248,7 +248,7 @@
                             <h4>Información básica</h4>
                         </div>
                         <div class="card-body">
-                            <form  action="/dashboard/tienda" method="post">
+                            <form  action="/dashboard/shop" method="post">
                                 <div class="form-group">
                                     <label>Nombre</label>
                                     <input type="text" name="firstName" placeholder="Nombre" class="form-control"/>
@@ -257,7 +257,6 @@
                                 <div class="form-group">
                                     <label>Apellidos</label>
                                     <input type="text" name="lastName" placeholder="Apellidos" class="form-control"/>
-                                    <small class="fomr-text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>

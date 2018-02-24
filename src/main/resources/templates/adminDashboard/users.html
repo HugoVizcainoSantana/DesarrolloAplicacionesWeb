@@ -25,51 +25,55 @@
     <link rel="stylesheet" href="/dashboardBootstrap/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="/images/icono.png">
-
-    <script src="/publicBootstrap/js/confirmProfileChanges.js"></script>
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
+
 <body>
+
 <!-- Side Navbar -->
 <nav class="side-navbar">
     <div class="side-navbar-wrapper">
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="//images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">Usuario1</h2><span>User</span>
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
+
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="index.html"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="inventario.html"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
-            </ul>
-            <h5 class="sidenav-heading">Gráficas</h5>
-            <ul id="side-main-menu2" class="side-menu list-unstyled">
-                <li><a href="usuarios.html"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
-                <li><a href="pedidos.html"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
-            </ul>
-            <h5 class="sidenav-heading">Opciones</h5>
-            <ul id="side-main-menu3" class="side-menu list-unstyled">
-                <li><a href="profile.html"> <i class="icon-user"></i>Perfil</a></li>
+                <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="page">
+
     <!-- navbar-->
     <header class="header">
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -142,133 +146,98 @@
             </div>
         </nav>
     </header>
-    <!-- Breadcrumb-->
-    <div class="breadcrumb-holder">
-        <div class="container-fluid">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Perfil</li>
-            </ul>
-        </div>
-    </div>
-    <section class="forms">
+
+    <!-- Counts Section 1 -->
+    <section class="dashboard-counts">
         <div class="container-fluid">
             <!-- Page Header-->
             <header>
-                <h1 class="h3 display">Perfil usuario </h1>
+                <h1 class="h3 display">Usuarios</h1>
             </header>
             <div class="row">
 
-
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>nombre apellido1 apellido2</h4>
+                <!-- Count item widget-->
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name"><strong class="text-uppercase">Usuarios Totales</strong>
+                            <div class="count-number">{{userCount}}</div>
                         </div>
-                        <div class="card-body">
-                            <form class="form-horizontal">
-                                <div class="form-group row">
-                                    <img src="//images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Cambiar imagen : </label>
-                                    <div class="col-sm-10">
-                                        <label class="file">
-                                            <input type="file" id="file" class="file-input">
-                                            <span class="file-control"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Nombre : </label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" value="apellido">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Apellidos : </label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" value="apellido1 apellido 2">
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Email : </label>
-                                    <div class="col-sm-10">
-                                        <input required type="email" name="email" class="form-control" value="user@serv.com">
-                                    </div>
-                                </div>
+                    </div>
+                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Contraseña : </label>
-                                    <div class="col-sm-10">
-                                        <input required type="password" name="password" class="form-control" value="********">
-                                    </div>
-                                </div>
+                <!-- Count item widget-->
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-padnote"></i></div>
+                        <div class="name"><strong class="text-uppercase">Total instalaciones </strong><strong class="text-uppercase">realizadas</strong>
+                            <div class="count-number">{{homeActives}}</div>
+                        </div>
+                    </div>
+                </div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Confirmación contraseña : </label>
-                                    <div class="col-sm-10">
-                                        <input required type="password" name="passwordConfirm" class="form-control" value="********">
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4 offset-sm-2">
-                                        <button type="submit" class="btn btn-secondary">Cancelar</button>
-                                        <button type="button" data-toggle="modal" data-target="#modalConfirmacion" class="btn btn-primary">Aplicar cambios</button>
-                                        <!-- Modal-->
-                                        <div id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                            <div role="document" class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 id="exampleModalLabel" class="modal-title">¿Estas seguro?</h5>
-                                                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
-                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
+                <!--
+                <div class="col-xl-4 col-md-4 col-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-search"></i></div>
+                        <div class="name"><strong class="text-uppercase">Buscar Usuario</strong>
+                            <form class="form-inline" action="/adminDashboard/users">
+                                <input class="form-control mr-sm-2" type="text" name="name" placeholder="Buscar">
+                                <div class="btn left-block">
+                                <button class="btn btn-success" type="submit">Buscar</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
             </div>
+
+            <br>
+
         </div>
+
+    </section>   <!-- Finish Counts Section 1 -->
+
+    <section class="charts">
+        <div class="container-fluid">
+            <div class="row" id="users">
+                {{#users}} {{> listUsers}} {{/users}}
+            </div>
+            <button id="moreUsers" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más
+            </button>
+        </div>
+        <table>
+            <thead>
+            </thead>
+
+        </table>
     </section>
+
+
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
-                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                    <p>OnControlHome &copy; 2018</p>
                 </div>
             </div>
         </div>
     </footer>
 </div>
 <!-- Javascript files-->
-<script src="//dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="//dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
-<script src="//dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="//dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
-<script src="//dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
-<script src="//dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="//dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/js/charts-custom.js"></script>
 <!-- Main File-->
-<script src="//dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/front.js"></script>
+<!-- User list-->
+<script src="/publicBootstrap/js/pagination.js"></script>
 </body>
 </html>

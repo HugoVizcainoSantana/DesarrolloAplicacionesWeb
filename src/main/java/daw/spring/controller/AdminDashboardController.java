@@ -2,11 +2,17 @@ package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.User;
+import daw.spring.repository.UserRepository;
 import daw.spring.service.DeviceService;
 import daw.spring.service.HomeService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +26,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 
-
 @Controller
 
 @RequestMapping("/adminDashboard")
-public class AdminDashboardController implements CurrentUserInfo {
+public class AdminDashboardController implements CurrentUserInfo{
 
     private final UserService userService;
     private final DeviceService deviceService;
     private final HomeService homeService;
     private final ProductService productService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
     @Autowired
     public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService) {
@@ -40,7 +50,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     }
 
     @RequestMapping("/")
-    public String index(Model model, Principal principal) {
+    public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "adminDashboard/index";
     }
@@ -50,17 +60,17 @@ public class AdminDashboardController implements CurrentUserInfo {
         index(model, principal);
     }
 
-    @RequestMapping("/inventario")
-    public String inventario(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));        model.addAttribute("product", productService.findAllProducts());
-        //model.addAttribute("devicesNotActivated", deviceService.countNotActivatedDevices());
-        return "adminDashboard/inventario";
+    @RequestMapping("/inventory")
+    public String inventario(Model model  , Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        return "adminDashboard/inventory";
     }
 
-
-    @RequestMapping("/usuarios")
-    public String usuarios(Model model, @RequestParam(required = false) String name,Principal principal) {
+    @RequestMapping("/users")
+    public String users(Model model, @RequestParam(required = false) String name, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+
         model.addAttribute("userCount", userService.countAllUsers());
         model.addAttribute("homeActives", homeService.countHomeActives());
         if (name != null && !name.isEmpty()) {
@@ -68,29 +78,37 @@ public class AdminDashboardController implements CurrentUserInfo {
         } else {
             model.addAttribute("listUser", userService.findAll());
         }
-        return "adminDashboard/usuarios";
+
+        Page<User> users = userService.findAll(new PageRequest(0, 4));
+        model.addAttribute("users", users);
+
+        return "adminDashboard/users";
     }
 
-    @RequestMapping("/pedidos")
-    public String pedidos(Model model,Principal principal) {
+    @RequestMapping(value="/moreUsers", method = RequestMethod.GET)
+    public String moreUsuarios(Model model, @RequestParam int page) {
+        log.warn("Page:"+page);
+        Page<User> userList = userRepository.findAll(new PageRequest(page, 4));
+        model.addAttribute("items", userList);
+        return "listItemsPage";
+    }
+
+    /*@RequestMapping(value = "/moreUsers/?page=1&size=4", method = RequestMethod.GET)
+    public Page<User> moreUsersPage(Pageable page){
+        return userRepository.findAll(page);
+    }*/
+
+    @RequestMapping("/orders")
+    public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        return "adminDashboard/pedidos";
+        return "adminDashboard/orders";
     }
 
-/*
+
     @RequestMapping("/detail")
-    public String detail(Model model) {
-        model.addAttribute("user", userService.findOneById((long) 1));
-        return "adminDashboard/detail";
-    }
-*/
-
-
-
-   @RequestMapping("/detail")
     public String profile(Model model, Principal principal) {
-       model.addAttribute("user", userService.findOneById((long) 1));
-       model.addAttribute("userSesion", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("user", userService.findOneById((long) 1));
+        model.addAttribute("userSesion", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "adminDashboard/detail";
     }
 
@@ -118,6 +136,4 @@ public class AdminDashboardController implements CurrentUserInfo {
         //status.setComplete();
         return "dashboard/created";
     }
-
-
 }

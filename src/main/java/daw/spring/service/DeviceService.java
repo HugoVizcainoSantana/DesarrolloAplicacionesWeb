@@ -49,6 +49,8 @@ public class DeviceService {
         return deviceRepository.countDevicesByActivatedIsFalse();
     }
 
+
+
     @PostConstruct
     public void init() {
         saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));

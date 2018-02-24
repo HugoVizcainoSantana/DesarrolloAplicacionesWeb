@@ -36,13 +36,20 @@
 <nav class="side-navbar">
     <div class="side-navbar-wrapper">
         <!-- Sidebar Header    -->
-        {{#userSesion}}
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="{{photo}}" alt="person" class="img-fluid rounded-circle">
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/userSesion}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
@@ -51,18 +58,17 @@
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Page -->
 <div class="page">
 
-    <!-- Header --navbar-->
+    <!-- navbar-->
     <header class="header">
         <nav class="navbar">
             <div class="container-fluid">
@@ -140,9 +146,8 @@
             </div>
         </nav>
     </header>
-    <!-- End Header -->
 
-    <!--Section -->
+
     <section class="mt-30px mb-30px">
         <div class="container-fluid">
             <div class="row">
@@ -169,8 +174,9 @@
                                     </div>
                                     <div class="col-3 date-holder content text-center">
                                         <div class="date"><span class="text-info">Teléfono:</span></div>
+                                        <p>666 666 666</p>
                                         {{#user}}
-                                        <p>{{phone}}</p>
+                                        <p>{{cp}}</p>
                                         {{/user}}
                                     </div>
                                 </div>
@@ -182,7 +188,7 @@
                                     <div class="col-6 date-holder content text-center">
                                         <div class="date"><span class="text-info">Dirección:</span></div>
                                         {{#user}}
-                                        <p>{{homeList}}</p>
+                                        <p>{{direccion}}</p>
                                         {{/user}}
                                     </div>
                                     <div class="col-6 date-holder content text-center">
@@ -246,23 +252,20 @@
             </div>
         </div>
     </section>
-    <!-- End Section -->
-
-    <!-- Footer -->
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>OneControlHome &copy; 2018</p>
+                    <p>Your company &copy; 2017-2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
+                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
                 </div>
             </div>
         </div>
     </footer>
-    <!-- End Footer -->
-
 </div>
-<!-- End Page -->
-
 <!-- Javascript files-->
 <script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
 <script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
@@ -275,8 +278,5 @@
 <script src="/dashboardBootstrap/js/charts-custom.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
-<!-- End Javascript files-->
-
-
 </body>
 </html>
