@@ -36,8 +36,6 @@ public class AdminDashboardController implements CurrentUserInfo{
     private final HomeService homeService;
     private final ProductService productService;
 
-    @Autowired
-    private UserRepository userRepository;
 
     private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
@@ -70,7 +68,6 @@ public class AdminDashboardController implements CurrentUserInfo{
     @RequestMapping("/users")
     public String users(Model model, @RequestParam(required = false) String name, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-
         model.addAttribute("userCount", userService.countAllUsers());
         model.addAttribute("homeActives", homeService.countHomeActives());
         if (name != null && !name.isEmpty()) {
@@ -88,7 +85,7 @@ public class AdminDashboardController implements CurrentUserInfo{
     @RequestMapping(value="/moreUsers", method = RequestMethod.GET)
     public String moreUsuarios(Model model, @RequestParam int page) {
         log.warn("Page:"+page);
-        Page<User> userList = userRepository.findAll(new PageRequest(page, 4));
+        Page<User> userList = userService.findAll(new PageRequest(page, 4));
         model.addAttribute("items", userList);
         return "listItemsPage";
     }
