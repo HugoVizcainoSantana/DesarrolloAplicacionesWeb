@@ -1,13 +1,13 @@
-/*
 package daw.spring.component;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import daw.spring.model.Home;
 import org.springframework.stereotype.Component;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 @Component
@@ -17,20 +17,6 @@ public class InvoiceGenerator {
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-
-    public static void main(String[] args) {
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-            document.open();
-            addMetaData(document);
-            addTitlePage(document);
-            addContent(document);
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
@@ -162,5 +148,20 @@ public class InvoiceGenerator {
             paragraph.add(new Paragraph(" "));
         }
     }
+
+    public byte[] generateInvoiceAsStream(Home home) throws DocumentException {
+        Document invoice = new Document();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        PdfWriter.getInstance(invoice, stream);
+        //Write document
+        invoice.open();
+        //TODO Build PDF
+        addMetaData(invoice);
+        addTitlePage(invoice);
+        addContent(invoice);
+        invoice.close();
+
+        return stream.toByteArray();
+    }
 }
-*/

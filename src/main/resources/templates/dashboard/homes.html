@@ -161,9 +161,17 @@
     <section>
         <div class="container-fluid">
             <!-- Page Header-->
+            {{^homeList}}
+            <header>
+                <h1 class="h3 display">No tienes casas contratadas</h1>
+            </header>
+            {{/homeList}}
+            {{#homeList}}
             <header>
                 <h1 class="h3 display">Mis casas contratadas</h1>
             </header>
+            {{/homeList}}
+            {{#homeList}}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
@@ -171,10 +179,10 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4>Casa 1</h4>
+                                        <h4>Casa {{-index}}</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="/dashboard/home-detail">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="/dashboard/homes/{{id}}">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -182,54 +190,25 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Actuadores</th>
-                                        <th>Bombillas</th>
-                                        <th>Persianas</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <th scope="row">Direccion</th>
+                                        <td>{{address}}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
+                                        <th scope="row">Codigo Postal</th>
+                                        <td>{{postCode}}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
+                                        <th scope="row">Dispositivos</th>
+                                        <td>{{deviceQuantity}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 1</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 1</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Crear factura</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a href="/dashboard/homes/{{id}}/generateInvoice" class="btn btn-primary">Crear factura de la casa {{-index}}</a>
                         </div>
                     </div>
                 </div>
@@ -245,167 +224,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Casa 2</h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="/dashboard/home-detail">Ver detalles</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Actuadores</th>
-                                        <th>Bombillas</th>
-                                        <th>Persianas</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 2</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 2</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Crear factura</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card line-chart-example">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual y comparación con la media</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="lineChartExample12"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Casa 3</h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="/dashboard/home-detail">Ver detalles</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Actuadores</th>
-                                        <th>Bombillas</th>
-                                        <th>Persianas</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Crear factura de la casa 3</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de crear una nueva factura para la casa 3</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                                            <button type="button" class="btn btn-primary">Crear factura</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card line-chart-example">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual y comparación con la media</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="lineChartExample13"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{/homeList}}
         </div>
     </section>
     <footer class="main-footer">
