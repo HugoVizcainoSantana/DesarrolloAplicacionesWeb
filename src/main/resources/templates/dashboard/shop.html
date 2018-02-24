@@ -252,35 +252,34 @@
                                 <div class="form-group">
                                     <label>Nombre</label>
                                     <input type="text" name="firstName" placeholder="Nombre" class="form-control"/>
-                                    
+
                                 </div>
                                 <div class="form-group">
                                     <label>Apellidos</label>
                                     <input type="text" name="lastName" placeholder="Apellidos" class="form-control"/>
-                                    <small class="fomr-text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input type="text" name="email" placeholder="ejemplo@ejemplo.com" class="form-control"/>
-                                    
+
                                 </div>
                                 <div class="form-group">
                                     <label>Dirección</label>
                                     <input type="text" name="direccion" placeholder="C/ Desconocida, 1" class="form-control"/>
-                                    
+
                                 </div>
                                 <div class="form-group">
                                     <label>Código postal</label>
                                     <input type="text" name="cp" placeholder="xxxxx" class="form-control"/>
-                                    
+
                                 </div>
                                 <br>
                                 <br>
                                 <br>
-                                
 
-                            <!--  </form>-->
 
+                                <!--  </form>-->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -290,78 +289,78 @@
                             <h4>Información bancaria</h4>
                         </div>
                         <div class="card-body">
-                           <!--   <form>-->
-                                <div class="form-group">
-                                    <label>Nombre en la tarjeta</label>
-                                    <input type="text" placeholder="Nombre Apellidos" class="form-control">
+                            <!--   <form>-->
+                            <div class="form-group">
+                                <label>Nombre en la tarjeta</label>
+                                <input type="text" placeholder="Nombre Apellidos" class="form-control">
 
-                                </div>
-                                <div class="form-group">
-                                    <label>Nº de tarjeta bancaria</label>
-                                    <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>CVV</label>
-                                    <input type="text" placeholder="xxx" class="form-control">
-                                </div>
-                                <div class="form-group" id="expiration-date">
-                                    <label>Fecha de expiración</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Nº de tarjeta bancaria</label>
+                                <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" placeholder="xxx" class="form-control">
+                            </div>
+                            <div class="form-group" id="expiration-date">
+                                <label>Fecha de expiración</label>
 
-                                    <select>
-                                        <option value="01">Enero</option>
-                                        <option value="02">Febrero</option>
-                                        <option value="03">Marzo</option>
-                                        <option value="04">Abril</option>
-                                        <option value="05">Mayo</option>
-                                        <option value="06">Junio</option>
-                                        <option value="07">Julio</option>
-                                        <option value="08">Augosto</option>
-                                        <option value="09">Septiember</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                    </select>
-                                    <select>
-                                        <option value="18"> 2018</option>
-                                        <option value="19"> 2019</option>
-                                        <option value="20"> 2020</option>
-                                        <option value="21"> 2021</option>
-                                        <option value="22"> 2022</option>
-                                        <option value="23"> 2023</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <img src="/images/visa.png" alt="">
-                                    <img src="/images/mastercard.png" alt="">
-                                    <img src="/images/american_express.png" alt="">
-                                    <img src="/images/paypal-express-checkout-logo.png" alt="">
-                                </div>
+                                <select>
+                                    <option value="01">Enero</option>
+                                    <option value="02">Febrero</option>
+                                    <option value="03">Marzo</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Mayo</option>
+                                    <option value="06">Junio</option>
+                                    <option value="07">Julio</option>
+                                    <option value="08">Augosto</option>
+                                    <option value="09">Septiember</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
+                                <select>
+                                    <option value="18"> 2018</option>
+                                    <option value="19"> 2019</option>
+                                    <option value="20"> 2020</option>
+                                    <option value="21"> 2021</option>
+                                    <option value="22"> 2022</option>
+                                    <option value="23"> 2023</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <img src="/images/visa.png" alt="">
+                                <img src="/images/mastercard.png" alt="">
+                                <img src="/images/american_express.png" alt="">
+                                <img src="/images/paypal-express-checkout-logo.png" alt="">
+                            </div>
 
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar"/>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Terminos legales</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Al pulsar el botón aceptar, esta aceptando que nuestra empresa <strong>OnControlHome</strong> guarde su información bancaria en nuestra base de datos (encriptada) y acepta que se realicen cargos a esa tarjeta de manera mensual en concepto de la
-                                                prestación de nuestros servicios.
-                                                <a href="terms-Conditions.html">Terminos legales</a>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" onClick="visibilidadDiv('contentDanger')" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                <!--  <button type="submit" onClick="visibilidadDiv('content')" class="btn btn-primary" data-dismiss="modal">Aceptar</button>-->
-                                                <input type="submit" value="Aceptar"/>
-                                            </div>
-
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar"/>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Terminos legales</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
+                                        <div class="modal-body">
+                                            Al pulsar el botón aceptar, esta aceptando que nuestra empresa <strong>OnControlHome</strong> guarde su información bancaria en nuestra base de datos (encriptada) y acepta que se realicen cargos a esa tarjeta de manera mensual en concepto de la
+                                            prestación de nuestros servicios.
+                                            <a href="terms-Conditions.html">Terminos legales</a>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" onClick="visibilidadDiv('contentDanger')" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                            <!--  <button type="submit" onClick="visibilidadDiv('content')" class="btn btn-primary" data-dismiss="modal">Aceptar</button>-->
+                                            <input type="submit" value="Aceptar"/>
+                                        </div>
+
                                     </div>
                                 </div>
+                            </div>
                             <!--  </form>-->
                         </div>
                     </div>
