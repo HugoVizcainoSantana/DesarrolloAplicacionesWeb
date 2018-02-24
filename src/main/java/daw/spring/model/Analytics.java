@@ -27,13 +27,22 @@ public class Analytics {
     public Analytics() {
     }
 
-    public Analytics(AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
+    public Analytics(User user, AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
+        this.user = user;
         this.type = type;
         this.title = title;
         this.description = description;
         this.domain = domain;
         this.data = data;
         this.dataAverage = dataAverage;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getId() {

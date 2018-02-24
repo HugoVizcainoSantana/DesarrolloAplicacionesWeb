@@ -172,7 +172,7 @@
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-user"></i></div>
                         <div class="name"><strong class="text-uppercase">Actuadores contratados</strong>
-                            <div class="count-number">6</div>
+                            <div class="count-number">{{userDevicesCount}}</div>
                         </div>
                     </div>
                 </div>
@@ -198,26 +198,27 @@
             <br>
         </div>
     </section>
+    {{#analytics}}
     <section class="charts">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-9">
                     <div class="card line-chart-example">
                         <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual Total y comparación con la media</h4>
+                            <h4>Consumo Mensual Total y comparación con la media del usuario: {{#userAnalytics}}{{firstName}}{{/userAnalytics}}</h4>
                         </div>
                         <div class="card-body">
                             <canvas id="lineChartExample2"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <!-- Income-->
                     <div class="card income text-center">
                         <div class="icon"><i class="icon-line-chart"></i></div>
-                        <div class="number"><h4>126,412</h4></div>
+                        <div class="number"><h4>{{dataAllAverage}}</h4></div>
                         <strong class="text-primary">Kw/h</strong>
-                        <p>es la media de otros usuarios en tu zona.</p>
+                        <p>es tu media de consumo.</p>
                     </div>
                     <div id="new-updates" class="card updates recent-updated">
                         <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
@@ -226,18 +227,22 @@
                         </div>
                         <div id="updates-box" role="tabpanel" class="collapse show">
                             <ul class="news list-unstyled">
-                                <!-- TO-DO (waiting teacher response) -->
-                                {{#analytics}}{{#domain}}{{#dataAverage}}
                                 <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>{{.}}</strong>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                {{#domain}}
+                                                <div class="title"><strong>{{.}}</strong></div>
+                                                {{/domain}}
+                                            </div>
+                                            <div class="col-lg-6">
+                                                {{#dataAverage}}
+                                                <div class="month">{{.}}Kw/h</div>
+                                                {{/dataAverage}}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="right-col text-right">
-                                        <div class="update-date">{{.}}<span class="month">Kw/h</span></div>
-                                    </div>
                                 </li>
-                                {{/dataAverage}}{{/domain}}{{/analytics}}
                             </ul>
                         </div>
                     </div>
@@ -245,6 +250,7 @@
             </div>
         </div>
     </section>
+    {{/analytics}}
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">

@@ -90,9 +90,17 @@ public class UserDashboardController implements CurrentUserInfo {
 	}
 
     @RequestMapping("/charts")
-    public String charts(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Consumos");
+    public String charts(Model model, Principal principal) { //Principal principal
+        // TODO improve this shitty code
+        int sum = 0;
+        for(int i : analyticsService.findOneById(1L).getDataAverage()){
+            sum += i;
+        }
+        int average = sum/ analyticsService.findOneById(1L).getDataAverage().size();
+        model.addAttribute("dataAllAverage", average);
+        model.addAttribute("analytics", analyticsService.findOneById(1L)); // getIdFromPrincipalName(principal.getName()))
+        model.addAttribute("userAnalytics", analyticsService.findOneById(1L).getUser());
+        model.addAttribute("userDevicesCount", analyticsService.findOneById(1L).getUser().getHomeList().size());
         return "dashboard/charts";
     }
 
