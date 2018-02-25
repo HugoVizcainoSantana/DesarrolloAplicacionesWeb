@@ -25,7 +25,7 @@ public class OrderService {
 	}
 
 	public List<Order> homesOrders() {
-		return orderRepository.findByCompletedIsFalse();
+		return orderRepository.findByConfirmedIsFalse();
 	}
 
 

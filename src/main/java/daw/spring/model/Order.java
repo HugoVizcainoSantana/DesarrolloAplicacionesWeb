@@ -10,7 +10,7 @@ public class Order {
     private long id;
 
     private long precio;
-    private boolean completed; // 1 for Pendind and 0 for Done
+    private boolean confirmed; // 1 for Pendind and 0 for Done
 
     @OneToOne
     private Home home;
@@ -21,10 +21,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(long precio, boolean completed, Home home, List<Device> deviceList) {
+    public Order(long precio, boolean confirmed, Home home, List<Device> deviceList) {
         
         this.precio = precio;
-        this.completed = completed;
+        this.confirmed = confirmed;
         this.home = home;
         this.deviceList = deviceList;
     }
@@ -45,12 +45,12 @@ public class Order {
         this.precio = precio;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public boolean isConfirmed() {
+        return confirmed;
     }
 
-    public void setCompleted(boolean state) {
-        this.completed = state;
+    public void setConfirmed(boolean state) {
+        this.confirmed = state;
     }
 
     public Home getHome() {
