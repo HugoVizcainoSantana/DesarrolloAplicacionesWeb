@@ -66,7 +66,7 @@ public class UserService {
 
         User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         Home home2 = new Home(28045, "c/montepinar", true, null);
-        Home home3 = new Home(21111, "c/montepinar1111", true, null);
+        Home home3 = new Home(21111, "c/montepinar1111", false, null);
         ArrayList<Home> user1Homes = new ArrayList<>();
         user1Homes.add(home2);
         user1Homes.add(home3);

@@ -42,6 +42,8 @@ public class HomeService {
         return homeRepository.findAll(pageRequest);
     }
 
+    public List<Home> homesOrders(){return homeRepository.findByActivatedIsFalse();}
+
     @PostConstruct
     public void init() {
         Home home1 = new Home(28007, "c/ibiza", true, null);

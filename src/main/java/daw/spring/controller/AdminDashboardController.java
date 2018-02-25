@@ -128,6 +128,8 @@ public class AdminDashboardController implements CurrentUserInfo{
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("orders", homeService.homesOrders());
+
         return "adminDashboard/orders";
     }
 
