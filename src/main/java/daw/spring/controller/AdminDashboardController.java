@@ -1,6 +1,7 @@
 package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
+import daw.spring.model.Product;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import daw.spring.service.DeviceService;
@@ -15,11 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -60,6 +60,37 @@ public class AdminDashboardController implements CurrentUserInfo{
 
     @RequestMapping("/inventory")
     public String inventario(Model model  , Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        return "adminDashboard/inventory";
+    }
+
+    //@GetMapping(value ="/inventory/{{id}}/document.getElementById('numberInput{{id}}').value", method = RequestMethod.POST)
+    //@GetMapping(value ="/inventory, method = RequestMethod.POST)
+    //public String modStock(Model model, Principal principal, @RequestParam("id") long id, @RequestParam("numberInput{{id}}") long stock,) {
+    //public String modStock(Model model, Principal principal, @PathVariable long id, @PathVariable long stock,HttpServletResponse response) {
+        //Update stock   @RequestParam("file") MultipartFile photo
+     //   productService.updateStockProduct(id,stock);
+    //    model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+     //   model.addAttribute("product", productService.findAllProducts());
+    //    return "redirect:inventory";
+    //}
+
+    //@ResponseBody
+
+    //@RequestMapping(value ="/inventory/{id}", method = RequestMethod.POST)
+    //public String modStock(Model model  , Principal principal, @PathVariable long id, @RequestParam(value="numberInput{id}") long stock){
+    //    stock=40;
+    //    productService.updateStockProduct(id,stock);
+    //    model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+    //    model.addAttribute("product", productService.findAllProducts());
+     //   return "redirect:inventory";
+    //}  HttpServletResponse response
+
+    //@RequestMapping( value ="/inventory/{id}", method = RequestMethod.POST)
+    @RequestMapping( value ="/inventory", method = RequestMethod.POST)
+    public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
+        productService.updateStockProduct(id,stock,cost);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("product", productService.findAllProducts());
         return "adminDashboard/inventory";

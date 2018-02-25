@@ -29,6 +29,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public void updateStockProduct(Long id, long stock , double cost) {
+        Product productE=productRepository.findOne(id);
+        productE.setStock(stock);
+        productE.setCost(cost);
+        productRepository.save(productE);
+    }
 
     private void saveProduct(Product product) {
         productRepository.save(product);
