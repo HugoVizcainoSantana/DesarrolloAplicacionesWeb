@@ -27,7 +27,6 @@ import java.nio.file.Paths;
 import java.security.Principal;
 
 @Controller
-
 @RequestMapping("/adminDashboard")
 public class AdminDashboardController implements CurrentUserInfo{
 
