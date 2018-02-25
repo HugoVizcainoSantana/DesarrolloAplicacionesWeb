@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +34,7 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    public List<User> findAll() { return userRepository.findAll();}
 
     public Page<User> findAll(PageRequest pageRequest) {
         return userRepository.findAll(pageRequest);
@@ -67,8 +66,10 @@ public class UserService {
 
         User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         Home home2 = new Home(28045, "c/montepinar", true, null);
+        Home home3 = new Home(21111, "c/montepinar1111", true, null);
         ArrayList<Home> user1Homes = new ArrayList<>();
         user1Homes.add(home2);
+        user1Homes.add(home3);
         user1.setHomeList(user1Homes);
         saveUser(user1);
 
