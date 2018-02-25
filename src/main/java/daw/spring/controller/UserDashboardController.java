@@ -3,10 +3,9 @@ package daw.spring.controller;
 import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
-import daw.spring.model.Analytics;
 import daw.spring.model.User;
-import daw.spring.service.HomeService;
 import daw.spring.service.AnalyticsService;
+import daw.spring.service.HomeService;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -33,7 +31,6 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.UUID;
 
 //import daw.spring.component.CurrentUserInfo;
@@ -47,6 +44,8 @@ public class UserDashboardController implements CurrentUserInfo {
     private final InvoiceGenerator invoiceGenerator;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private AnalyticsService analyticsService;
 
     @Autowired
     public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator) {
@@ -54,9 +53,6 @@ public class UserDashboardController implements CurrentUserInfo {
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
     }
-
-    @Autowired
-    private AnalyticsService analyticsService;
 
     @RequestMapping("/")
     public String index(Model model, Principal principal) {
@@ -72,27 +68,27 @@ public class UserDashboardController implements CurrentUserInfo {
         index(model, principal);
     }
 
-	@RequestMapping("/shop")
-	public String shop(Model model, Principal principal) {
-		model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-		model.addAttribute("title", "Tienda");
-		return "dashboard/shop";
-	}
+    @RequestMapping("/shop")
+    public String shop(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("title", "Tienda");
+        return "dashboard/shop";
+    }
 
-	@RequestMapping(value = "/shop", method = RequestMethod.POST)
-	public String saveShop(User user, BindingResult result, Model model, SessionStatus status) {
-		User userResult = new User();
-		if (result.hasErrors()) {
-			// model.addAttribute("errorName", "Nombre requerido");
-			return "dashboard/created";
+    @RequestMapping(value = "/shop", method = RequestMethod.POST)
+    public String saveShop(User user, BindingResult result, Model model, SessionStatus status) {
+        User userResult = new User();
+        if (result.hasErrors()) {
+            // model.addAttribute("errorName", "Nombre requerido");
+            return "dashboard/created";
 
-		}
-		userService.saveUser(user);
-		// status.setComplete();
-		return "dashboard/created";
-	}
+        }
+        userService.saveUser(user);
+        // status.setComplete();
+        return "dashboard/created";
+    }
 
-    @RequestMapping(value="/charts", method = RequestMethod.GET)
+    @RequestMapping(value = "/charts", method = RequestMethod.GET)
     public String charts(Model model, Principal principal) { // @RequestParam ArrayList<String> domain
         //User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         /*

@@ -41,14 +41,13 @@ public class DeviceService {
         return deviceRepository.findAll(pageRequest);
     }
 
-    public long countActivatedDevices(){
+    public long countActivatedDevices() {
         return deviceRepository.countDevicesByActivatedIsTrue();
     }
 
-    public long countNotActivatedDevices(){
+    public long countNotActivatedDevices() {
         return deviceRepository.countDevicesByActivatedIsFalse();
     }
-
 
 
     @PostConstruct

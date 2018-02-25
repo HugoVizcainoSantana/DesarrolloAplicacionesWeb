@@ -1,8 +1,6 @@
 package daw.spring.service;
 
 import daw.spring.model.Analytics;
-import daw.spring.model.Device;
-import daw.spring.model.User;
 import daw.spring.repository.AnalyticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,19 +16,27 @@ public class AnalyticsService {
 
     private final AnalyticsRepository analyticsRepository;
     private final DeviceService deviceService;
+    private final UserService userService;
+    private final HomeService homeService;
 
 
     @Autowired
-    public AnalyticsService(AnalyticsRepository analyticsRepository, DeviceService deviceService) {
+    public AnalyticsService(AnalyticsRepository analyticsRepository, DeviceService deviceService, UserService userService, HomeService homeService) {
         this.analyticsRepository = analyticsRepository;
         this.deviceService = deviceService;
+        this.userService = userService;
+        this.homeService = homeService;
     }
 
     public Analytics findOneById(long id) {
         return analyticsRepository.findOne(id);
     }
 
-    public List<Analytics> findByDevicesId(long id){
+    public List<Analytics> findAnalyticsByDeviceId(long id) {
+        return analyticsRepository.findByDeviceId(id);
+    }
+
+    public List<Analytics> findAnalyticsByDeviceId(long id, Date date) {
         return analyticsRepository.findByDeviceId(id);
     }
 
@@ -67,11 +73,18 @@ public class AnalyticsService {
 
         saveAnalytics(analitycsYearUser1);*/
 
-        Device device = deviceService.findOneById(1L);
-        Analytics analytics1 = new Analytics(device, Device.StateType.OFF, Device.StateType.ON);
-        analytics1.setDate(new Date(2018,2,25,12,0,0));
-        Analytics analytics2 = new Analytics(device, Device.StateType.ON, Device.StateType.OFF);
-        analytics2.setDate(new Date(2018,2,25,16,0,0));
+/*
+        User user= userService.findOneUserByEmail("hugo@santana.com");
+        Device device = new Device("Dispositivo pruebas analiticas",30, Device.DeviceType.BLIND, Device.StateType.OFF,null,true);
+        Home home = user.getHomeList().get(0);
+        List<Device> deviceList = home.getDeviceList();
+        deviceList.add(device);
+        homeService.saveHome(home);
+        Analytics analytics1 = new Analytics(device, Device.StateType.OFF, Device.StateType.ON, null);
+        analytics1.setDate(new Date(2018, 2, 25, 12, 0, 0));
+        Analytics analytics2 = new Analytics(device, Device.StateType.ON, Device.StateType.OFF, analytics1);
+        analytics2.setDate(new Date(2018, 2, 25, 16, 0, 0));
+        */
     }
 
 }

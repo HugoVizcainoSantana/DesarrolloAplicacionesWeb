@@ -2,7 +2,6 @@ package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.User;
-import daw.spring.repository.UserRepository;
 import daw.spring.service.DeviceService;
 import daw.spring.service.HomeService;
 import daw.spring.service.ProductService;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +27,7 @@ import java.security.Principal;
 @Controller
 
 @RequestMapping("/adminDashboard")
-public class AdminDashboardController implements CurrentUserInfo{
+public class AdminDashboardController implements CurrentUserInfo {
 
     private final UserService userService;
     private final DeviceService deviceService;
@@ -48,7 +46,7 @@ public class AdminDashboardController implements CurrentUserInfo{
     }
 
     @RequestMapping("/")
-    public String index(Model model , Principal principal) {
+    public String index(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "adminDashboard/index";
     }
@@ -59,7 +57,7 @@ public class AdminDashboardController implements CurrentUserInfo{
     }
 
     @RequestMapping("/inventory")
-    public String inventario(Model model  , Principal principal) {
+    public String inventario(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("product", productService.findAllProducts());
         return "adminDashboard/inventory";
@@ -82,9 +80,9 @@ public class AdminDashboardController implements CurrentUserInfo{
         return "adminDashboard/users";
     }
 
-    @RequestMapping(value="/moreUsers", method = RequestMethod.GET)
+    @RequestMapping(value = "/moreUsers", method = RequestMethod.GET)
     public String moreUsuarios(Model model, @RequestParam int page) {
-        log.warn("Page:"+page);
+        log.warn("Page:" + page);
         Page<User> userList = userService.findAll(new PageRequest(page, 4));
         model.addAttribute("items", userList);
         return "listItemsPage";

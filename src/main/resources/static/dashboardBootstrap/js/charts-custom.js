@@ -10,12 +10,7 @@ $(document).ready(function () {
 
     console.log(dataMonths);
 
-    $.get("/dashboard/charts",{
-        domain:dataMonths
-        console.log(dataMonths)
-            }).done(function(data){
-                console.log(data);
-     });*/
+    */
 
     var LINECHARTEXMPLE11 = $('#lineChartExample11'),
         LINECHARTEXMPLE12 = $('#lineChartExample12'),
@@ -25,11 +20,16 @@ $(document).ready(function () {
         BARCHARTEXMPLE = $('#barChartExample'),
         RADARCHARTEXMPLE = $('#radarChartExample'),
         POLARCHARTEXMPLE = $('#polarChartExample'),
-        HomeChart = $('#homeChart');
+        homeChart = $('#homeChart');
 
 
-    var HomeId = HomeChart.attr("itemid");
-    console.log(HomeId);
+    var homeId = homeChart.attr("itemid");
+    console.log(homeId);
+
+    $.get("/dashboard/analytics/" + homeId, {})
+        .done(function (data) {
+            console.log(data);
+        });
 
     var lineChartExample = new Chart(LINECHARTEXMPLE11, {
         type: 'line',
@@ -199,7 +199,7 @@ $(document).ready(function () {
     var lineChartExample = new Chart(LINECHARTEXMPLE2, {
         type: 'line',
         data: {
-        // Mustache?
+            // Mustache?
             labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             datasets: [
                 {

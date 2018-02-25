@@ -22,7 +22,6 @@ public class Device {
     }
 
     public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated) {
-        this.id = id;
         this.description = description;
         this.cost = cost;
         this.type = type;

@@ -3,7 +3,6 @@ package daw.spring.model;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -22,22 +21,24 @@ public class Analytics {
     private ArrayList<Integer> dataAverage;
 
     */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Device device;
-
     private Date date;
     private Device.StateType previousState;
     private Device.StateType newState;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Analytics previousRecord;
 
 
     public Analytics() {
     }
 
-    public Analytics(Device device, Device.StateType previousState, Device.StateType newState) {
+    public Analytics(Device device, Device.StateType previousState, Device.StateType newState, Analytics previousRecord) {
         this.device = device;
         this.date = Date.from(Instant.now()); // in days, minutes and secs
         this.previousState = previousState;
         this.newState = newState;
+        this.previousRecord = previousRecord;
     }
 
     public long getId() {
