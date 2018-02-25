@@ -10,6 +10,7 @@ import daw.spring.model.Product;
 import daw.spring.model.User;
 import daw.spring.service.DeviceService;
 import daw.spring.service.HomeService;
+import daw.spring.service.OrderService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
@@ -51,18 +52,20 @@ public class UserDashboardController implements CurrentUserInfo {
     private final InvoiceGenerator invoiceGenerator;
     private final ProductService productService;
     private final DeviceService deviceService;
+    private final OrderService orderService;
+   
   
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService,DeviceService deviceService) {
+    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService,DeviceService deviceService, OrderService orderService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
         this.productService=productService;
         this.deviceService= deviceService;
-
+        this.orderService=orderService;
     }
 
     @RequestMapping("/")
@@ -88,7 +91,11 @@ public class UserDashboardController implements CurrentUserInfo {
 
 	
 	@RequestMapping (value="/shop", method = RequestMethod.POST)
-	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,@RequestParam(name="postCode") long postCode, @RequestParam(name="blind")Integer blindQuantity, @RequestParam(name="light")Integer lightQuantity ) {
+	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
+			@RequestParam(name="postCode") long postCode,
+			@RequestParam(name="blind")Integer blindQuantity, 
+			@RequestParam(name="light")Integer lightQuantity,
+			@RequestParam(name="total")long total) {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
@@ -105,6 +112,8 @@ public class UserDashboardController implements CurrentUserInfo {
 		homeService.saveHome(home);
 		userService.saveHomeUser(home, user);
 		
+		Order order = new Order(total, false, home, deviceList);
+		orderService.saveOrder(order);
 		 
 		return"redirect:shop";
 	}
@@ -184,7 +193,7 @@ public class UserDashboardController implements CurrentUserInfo {
     @RequestMapping("/see")
     public String see(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        
+        model.addAttribute("orderList",homeService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/see";
     }
 

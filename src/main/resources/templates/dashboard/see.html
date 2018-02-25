@@ -249,35 +249,31 @@
 					<table class="table table-bordered table-striped my-4">
 						<thead class="thead-inverse">
 							<tr>
-								<th>Nº</th>
-								<th>Descripcion</th>
-								<th>Observaciones</th>
-								<th>fecha</th>
+								<th>Dirección</th>
+								<th>Codigo postal</th>
 							</tr>
 						</thead>
-						{{^invoiceList}}
+						{{^orderList}}
 						<tbody>
 							<tr>
 								<h5 class="alert alert-info">No tienes pedidos</h5>
-								{{/invoiceList}} 
-								{{#invoiceList}}
-								<td>{{id}}</td>
-								{{^description}}
-								<td>Pedido generado</td>
-								{{/description}}
-								{{#description}}
-								<td>{{description}}</td>
-								{{/description}}
-								<td>{{observation}}</td>
-								{{^create_at}}
+								{{/orderList}} 
+								{{#orderList}}
+								{{^address}}
+								<td>Direccion no encontrada</td>
+								{{/address}}
+								{{#address}}
+								<td>{{address}}</td>
+								{{/address}}
+								{{^postCode}}
 								<td>2018-02-26</td>
-								{{/create_at}}
-								{{#create_at}}
-								<td>{{create_at}}</td>
-								{{/create_at}}
+								{{/postCode}}
+								{{#postCode}}
+								<td>{{postCode}}</td>
+								{{/postCode}}
 							</tr>
 						</tbody>
-						{{/invoiceList}}
+						{{/orderList}}
 					</table>
 					<!--  {{/user}}-->
 				</div>
