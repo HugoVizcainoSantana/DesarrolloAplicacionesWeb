@@ -54,7 +54,6 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
-
     @PostConstruct
     public void init() {
         Product product1 = new Product("Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 15.50, Product.ProductType.LIGHT, "product-2.jpg", 36);

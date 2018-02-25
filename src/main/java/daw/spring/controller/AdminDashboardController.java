@@ -111,9 +111,15 @@ public class AdminDashboardController implements CurrentUserInfo{
         return "adminDashboard/users";
     }
 
+    @RequestMapping("/users/{id}")
+    public String usersDetail(Model model, @PathVariable long id){
+        model.addAttribute("userDetail", userService.findOneById(id));
+
+        return "adminDashboard/userDetail";
+    }
+
     @RequestMapping(value="/moreUsers", method = RequestMethod.GET)
     public String moreUsuarios(Model model, @RequestParam int page) {
-        log.warn("Page:"+page);
         Page<User> userList = userService.findAll(new PageRequest(page, 4));
         model.addAttribute("items", userList);
         return "listItemsPage";
