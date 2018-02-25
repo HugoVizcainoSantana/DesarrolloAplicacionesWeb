@@ -104,7 +104,7 @@ public class AdminDashboardController implements CurrentUserInfo{
 
     @RequestMapping("/detail")
     public String profile(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById((long) 1));
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("userSesion", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "adminDashboard/detail";
     }
