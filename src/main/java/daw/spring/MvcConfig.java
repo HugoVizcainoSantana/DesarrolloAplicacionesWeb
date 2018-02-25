@@ -13,7 +13,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // TODO Auto-generated method stub

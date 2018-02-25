@@ -109,14 +109,12 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @GetMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf")
-    public void generateInvoice(Model model, Principal principal, @PathVariable long id, HttpServletResponse response) {
-        model.addAttribute("titulo", "Casa");
+    public void generateInvoice(Principal principal, @PathVariable long id, HttpServletResponse response) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        model.addAttribute("user", user);
         //Generate and send pdf
         try {
             OutputStream out = response.getOutputStream();
-            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id));
+            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id), user);
             out.write(pdf);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
