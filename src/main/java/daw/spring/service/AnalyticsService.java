@@ -32,6 +32,10 @@ public class AnalyticsService {
         return analyticsRepository.findOne(id);
     }
 
+    public Analytics findOneByUser(User user){
+        return analyticsRepository.findOne(user.getId());
+    }
+
     public List<Analytics> findAllAnalytics() {
         return analyticsRepository.findAll();
     }

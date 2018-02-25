@@ -180,8 +180,8 @@
                 <div class="col-xl-4 col-md-4 col-12">
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-padnote"></i></div>
-                        <div class="name"><strong class="text-uppercase">Consumo total en Kilovatios Hora</strong><span>Ultimo mes</span>
-                            <div class="count-number">400</div>
+                        <div class="name"><strong class="text-uppercase">Consumo total</strong><span>Ultimo mes</span>
+                            <div class="count-number">{{dataSumLastMonth}}Kw/h</div>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-check"></i></div>
                         <div class="name"><strong class="text-uppercase">Precio del kilovatio hora</strong><span>Hoy</span>
-                            <div class="count-number">0.1224</div>
+                            <div class="count-number">0.1224€</div>
                         </div>
                     </div>
                 </div>
@@ -230,14 +230,14 @@
                                 <li class="d-flex justify-content-between">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                                 {{#domain}}
                                                 <div class="title"><strong>{{.}}</strong></div>
                                                 {{/domain}}
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                                 {{#dataAverage}}
-                                                <div class="month">{{.}}Kw/h</div>
+                                                <div class="month"><strong>{{.}}</strong> Kw/h</div>
                                                 {{/dataAverage}}
                                             </div>
                                         </div>

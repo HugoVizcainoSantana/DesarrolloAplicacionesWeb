@@ -3,6 +3,7 @@ package daw.spring.controller;
 import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
+import daw.spring.model.Analytics;
 import daw.spring.model.User;
 import daw.spring.service.HomeService;
 import daw.spring.service.AnalyticsService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,6 +33,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.UUID;
 
 //import daw.spring.component.CurrentUserInfo;
@@ -89,18 +92,27 @@ public class UserDashboardController implements CurrentUserInfo {
 		return "dashboard/created";
 	}
 
-    @RequestMapping("/charts")
-    public String charts(Model model, Principal principal) { //Principal principal
-        // TODO improve this shitty code
+    @RequestMapping(value="/charts", method = RequestMethod.GET)
+    public String charts(Model model, Principal principal) { // @RequestParam ArrayList<String> domain
+        Analytics analytics = analyticsService.findOneByUser(userService.findOneById(getIdFromPrincipalName(principal.getName())));
+
+        // get average
         int sum = 0;
-        for(int i : analyticsService.findOneById(1L).getDataAverage()){
+        for(int i : analytics.getDataAverage()){
             sum += i;
         }
-        int average = sum/ analyticsService.findOneById(1L).getDataAverage().size();
+        int average = sum / analytics.getDataAverage().size();
+
         model.addAttribute("dataAllAverage", average);
-        model.addAttribute("analytics", analyticsService.findOneById(1L)); // getIdFromPrincipalName(principal.getName()))
-        model.addAttribute("userAnalytics", analyticsService.findOneById(1L).getUser());
-        model.addAttribute("userDevicesCount", analyticsService.findOneById(1L).getUser().getHomeList().size());
+        model.addAttribute("dataSumLastMonth", analytics.getData().get(1));
+        model.addAttribute("analytics", analytics);
+        model.addAttribute("userAnalytics", analytics.getUser());
+        model.addAttribute("userDevicesCount", analytics.getUser().getHomeList().size());
+
+        // Get JS data
+        /*domain = analytics.getDomain();
+        model.addAttribute("monthsJs", domain);*/
+
         return "dashboard/charts";
     }
 

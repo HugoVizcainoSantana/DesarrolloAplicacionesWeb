@@ -1,9 +1,21 @@
 /*global $, document, LINECHARTEXMPLE*/
+
 $(document).ready(function () {
 
     'use strict';
 
     var brandPrimary = 'rgba(51, 179, 90, 1)';
+
+    /*var dataMonths = '{{.}}';
+
+    console.log(dataMonths);
+
+    $.get("/dashboard/charts",{
+        domain:dataMonths
+        console.log(dataMonths)
+            }).done(function(data){
+                console.log(data);
+     });*/
 
     var LINECHARTEXMPLE11 = $('#lineChartExample11'),
         LINECHARTEXMPLE12 = $('#lineChartExample12'),
@@ -183,6 +195,7 @@ $(document).ready(function () {
     var lineChartExample = new Chart(LINECHARTEXMPLE2, {
         type: 'line',
         data: {
+        // Mustache?
             labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             datasets: [
                 {
