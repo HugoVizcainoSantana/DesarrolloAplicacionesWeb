@@ -94,8 +94,8 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping(value="/charts", method = RequestMethod.GET)
     public String charts(Model model, Principal principal) { // @RequestParam ArrayList<String> domain
-        Analytics analytics = analyticsService.findOneByUser(userService.findOneById(getIdFromPrincipalName(principal.getName())));
-
+        //User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        /*
         // get average
         int sum = 0;
         for(int i : analytics.getDataAverage()){
@@ -106,8 +106,8 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("dataAllAverage", average);
         model.addAttribute("dataSumLastMonth", analytics.getData().get(1));
         model.addAttribute("analytics", analytics);
-        model.addAttribute("userAnalytics", analytics.getUser());
-        model.addAttribute("userDevicesCount", analytics.getUser().getHomeList().size());
+        model.addAttribute("userAnalytics", user);
+        model.addAttribute("userDevicesCount", user.getHomeList().size());
 
         // Get JS data
         /*domain = analytics.getDomain();

@@ -24,8 +24,12 @@ $(document).ready(function () {
         PIECHARTEXMPLE = $('#pieChartExample'),
         BARCHARTEXMPLE = $('#barChartExample'),
         RADARCHARTEXMPLE = $('#radarChartExample'),
-        POLARCHARTEXMPLE = $('#polarChartExample');
+        POLARCHARTEXMPLE = $('#polarChartExample'),
+        HomeChart = $('#homeChart');
 
+
+    var HomeId = HomeChart.attr("itemid");
+    console.log(HomeId);
 
     var lineChartExample = new Chart(LINECHARTEXMPLE11, {
         type: 'line',

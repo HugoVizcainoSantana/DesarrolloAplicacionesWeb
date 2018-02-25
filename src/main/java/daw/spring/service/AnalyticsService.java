@@ -1,39 +1,37 @@
 package daw.spring.service;
 
 import daw.spring.model.Analytics;
+import daw.spring.model.Device;
 import daw.spring.model.User;
 import daw.spring.repository.AnalyticsRepository;
-import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-
-import static daw.spring.model.Analytics.AnalyticsType.USERS;
 
 @Service
 public class AnalyticsService {
 
     private final AnalyticsRepository analyticsRepository;
-    private final UserRepository userRepository;
+    private final DeviceService deviceService;
+
 
     @Autowired
-    public AnalyticsService(AnalyticsRepository analyticsRepository, UserRepository userRepository) {
+    public AnalyticsService(AnalyticsRepository analyticsRepository, DeviceService deviceService) {
         this.analyticsRepository = analyticsRepository;
-        this.userRepository = userRepository;
+        this.deviceService = deviceService;
     }
 
     public Analytics findOneById(long id) {
         return analyticsRepository.findOne(id);
     }
 
-    public Analytics findOneByUser(User user){
-        return analyticsRepository.findOne(user.getId());
+    public List<Analytics> findByDevicesId(long id){
+        return analyticsRepository.findByDeviceId(id);
     }
 
     public List<Analytics> findAllAnalytics() {
@@ -55,7 +53,7 @@ public class AnalyticsService {
     @PostConstruct
     public void init() {
 
-        User user = userRepository.findUserById(1L);
+        /*User user = userRepository.findUserById(1L);
 
         String[] months = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
         Integer[] data = {50,45,65,55,35,15,10,15,35,40,50,60};
@@ -67,7 +65,13 @@ public class AnalyticsService {
 
         Analytics analitycsYearUser1 = new Analytics(user, USERS, "Consumo del año 2017", "Consumo del año 2017 del usuario: ", monthsArrayList,dataArrayList,dataAverageArrayList);
 
-        saveAnalytics(analitycsYearUser1);
+        saveAnalytics(analitycsYearUser1);*/
+
+        Device device = deviceService.findOneById(1L);
+        Analytics analytics1 = new Analytics(device, Device.StateType.OFF, Device.StateType.ON);
+        analytics1.setDate(new Date(2018,2,25,12,0,0));
+        Analytics analytics2 = new Analytics(device, Device.StateType.ON, Device.StateType.OFF);
+        analytics2.setDate(new Date(2018,2,25,16,0,0));
     }
 
 }

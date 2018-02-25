@@ -2,7 +2,9 @@ package daw.spring.model;
 
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Entity
 public class Analytics {
@@ -10,12 +12,7 @@ public class Analytics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Enumerated(EnumType.STRING)
-    private AnalyticsType type;
-    private String title;
-    private String description;
-
-    // We have to add user too as a atribute but, for now, we dont have security implemented
+    /*
     @OneToOne
     private User user;
 
@@ -24,25 +21,23 @@ public class Analytics {
     private ArrayList<Integer> data; // And the data itself with the average
     private ArrayList<Integer> dataAverage;
 
+    */
+    @ManyToOne
+    private Device device;
+
+    private Date date;
+    private Device.StateType previousState;
+    private Device.StateType newState;
+
+
     public Analytics() {
     }
 
-    public Analytics(User user, AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
-        this.user = user;
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.domain = domain;
-        this.data = data;
-        this.dataAverage = dataAverage;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Analytics(Device device, Device.StateType previousState, Device.StateType newState) {
+        this.device = device;
+        this.date = Date.from(Instant.now()); // in days, minutes and secs
+        this.previousState = previousState;
+        this.newState = newState;
     }
 
     public long getId() {
@@ -53,55 +48,35 @@ public class Analytics {
         this.id = id;
     }
 
-    public AnalyticsType getType() {
-        return type;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setType(AnalyticsType type) {
-        this.type = type;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
-    public String getTitle() {
-        return title;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public Device.StateType getPreviousState() {
+        return previousState;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPreviousState(Device.StateType previousState) {
+        this.previousState = previousState;
     }
 
-    public ArrayList<String> getDomain() {
-        return domain;
+    public Device.StateType getNewState() {
+        return newState;
     }
 
-    public void setDomain(ArrayList<String> domain) {
-        this.domain = domain;
-    }
-
-    public ArrayList<Integer> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<Integer> data) {
-        this.data = data;
-    }
-
-    public ArrayList<Integer> getDataAverage() {
-        return dataAverage;
-    }
-
-    public void setDataAverage(ArrayList<Integer> dataAverage) {
-        this.dataAverage = dataAverage;
-    }
-
-    public enum AnalyticsType {
-        PRODUCTS, USERS, HOMES  // Different graphs for diferent entities
+    public void setNewState(Device.StateType newState) {
+        this.newState = newState;
     }
 }
