@@ -1,8 +1,10 @@
 package daw.spring.service;
 
 import daw.spring.model.Home;
+import daw.spring.model.Product;
 import daw.spring.model.Roles;
 import daw.spring.model.User;
+import daw.spring.repository.ProductRepository;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ public class UserService {
         this.userRepository = userRepository;
         this.encoder = encoder;
     }
+    
 
     public User findOneById(Long id) {
         return userRepository.findOne(id);
@@ -50,6 +53,13 @@ public class UserService {
 
     public User findAllUsersByFirstName(String name) {
         return userRepository.findAllByFirstName(name);
+    }
+    
+    public void saveHomeUser(Home home, User user) {
+    		List<Home> listHome= user.getHomeList();
+    		listHome.add(home);
+    		user.setHomeList(listHome);
+    		saveUser(user);
     }
 
     @PostConstruct

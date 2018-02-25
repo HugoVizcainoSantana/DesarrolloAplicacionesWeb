@@ -3,6 +3,7 @@ package daw.spring.model;
 import javax.persistence.*;
 import java.util.List;
 
+
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

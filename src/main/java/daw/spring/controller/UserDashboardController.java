@@ -3,8 +3,14 @@ package daw.spring.controller;
 import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.Order;
+import daw.spring.model.Product;
 import daw.spring.model.User;
+import daw.spring.service.DeviceService;
 import daw.spring.service.HomeService;
+import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +36,8 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 //import daw.spring.component.CurrentUserInfo;
@@ -41,14 +49,20 @@ public class UserDashboardController implements CurrentUserInfo {
     private final UserService userService;
     private final HomeService homeService;
     private final InvoiceGenerator invoiceGenerator;
+    private final ProductService productService;
+    private final DeviceService deviceService;
+  
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator) {
+    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService,DeviceService deviceService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
+        this.productService=productService;
+        this.deviceService= deviceService;
+
     }
 
     @RequestMapping("/")
@@ -72,17 +86,33 @@ public class UserDashboardController implements CurrentUserInfo {
 		return "dashboard/shop";
 	}
 
-	@RequestMapping(value = "/shop", method = RequestMethod.POST)
-	public String saveShop(User user, BindingResult result, Model model, SessionStatus status) {
-		User userResult = new User();
-		if (result.hasErrors()) {
-			// model.addAttribute("errorName", "Nombre requerido");
-			return "dashboard/created";
-
+	
+	@RequestMapping (value="/shop", method = RequestMethod.POST)
+	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,@RequestParam(name="postCode") long postCode, @RequestParam(name="blind")Integer blindQuantity, @RequestParam(name="light")Integer lightQuantity ) {
+		List<Device>deviceList= new ArrayList<>();
+		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+		for(int i=0; i<blindQuantity; i++) {
+			Device device = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false);
+			deviceService.saveDevice(device);
+			deviceList.add(device);
 		}
-		userService.saveUser(user);
-		// status.setComplete();
-		return "dashboard/created";
+		for(int i=0; i<lightQuantity; i++) {
+			Device device = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false);
+			deviceService.saveDevice(device);
+			deviceList.add(device);
+		}
+		Home home = new Home(postCode, address, false, deviceList );
+		homeService.saveHome(home);
+		userService.saveHomeUser(home, user);
+		
+		 
+		return"redirect:shop";
+	}
+	
+	
+	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
+	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
+		return productService.findByNombre(term);
 	}
 
     @RequestMapping("/charts")
@@ -150,6 +180,12 @@ public class UserDashboardController implements CurrentUserInfo {
         }
         userService.saveUser(user);
         return "redirect:profile";
+    }
+    @RequestMapping("/see")
+    public String see(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        
+        return "dashboard/see";
     }
 
     @GetMapping(value = "/upload/{filename:.+}")

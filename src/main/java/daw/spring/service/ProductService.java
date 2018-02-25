@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -20,6 +21,11 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+    
+    @Transactional(readOnly = true)
+   public List<Product> findByNombre(String term){
+	   return productRepository.findByDescription(term);
+   }
 
     public Product findOneById(Long id) {
         return productRepository.findOne(id);
