@@ -173,20 +173,21 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Direccion</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
                                         <th>Telefono</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         {{#orders}}
-                                        <th>{{address}}</th>
-                                        <th>{{postCode}}</th>
+                                        {{#deviceList}}
+                                        <th>{{type}}</th>
+                                        <th>{{activated}}</th>
+                                        {{/deviceList}}
                                         {{/orders}}
 
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>

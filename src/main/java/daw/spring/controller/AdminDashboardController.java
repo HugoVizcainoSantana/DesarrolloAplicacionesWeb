@@ -4,10 +4,7 @@ import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.Product;
 import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
-import daw.spring.service.DeviceService;
-import daw.spring.service.HomeService;
-import daw.spring.service.ProductService;
-import daw.spring.service.UserService;
+import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +31,18 @@ public class AdminDashboardController implements CurrentUserInfo{
     private final DeviceService deviceService;
     private final HomeService homeService;
     private final ProductService productService;
+    private final OrderService orderService;
 
 
     private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
     @Autowired
-    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService) {
+    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderService orderService) {
         this.userService = userService;
         this.deviceService = deviceService;
         this.homeService = homeService;
         this.productService = productService;
+        this.orderService = orderService;
     }
 
     @RequestMapping("/")
@@ -128,7 +127,7 @@ public class AdminDashboardController implements CurrentUserInfo{
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", homeService.homesOrders());
+        model.addAttribute("orders", orderService.homesOrders());
 
         return "adminDashboard/orders";
     }

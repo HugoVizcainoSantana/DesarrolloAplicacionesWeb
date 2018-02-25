@@ -15,7 +15,7 @@ public class Order {
     @OneToOne
     private Home home;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     private List<Device> deviceList;
 
     public Order() {

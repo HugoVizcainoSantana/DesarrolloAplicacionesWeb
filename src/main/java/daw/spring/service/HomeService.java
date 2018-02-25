@@ -44,12 +44,12 @@ public class HomeService {
 
     public List<Home> homesOrders(){return homeRepository.findByActivatedIsFalse();}
 
-    @PostConstruct
+  /*  @PostConstruct
     public void init() {
         Home home1 = new Home(28007, "c/ibiza", true, null);
         saveHome(home1);
         Home home2 = new Home(28045, "c/alfonso xII", true, null);
         saveHome(home2);
-    }
+    }*/
 
 }
