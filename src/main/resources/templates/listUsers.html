@@ -1,8 +1,12 @@
 <div class="col-lg-3">
     <div class="card line-chart-example">
-
         <div class="card-header d-flex align-items-center">
-            <img src={{photo}} alt="person" class="img-fluid rounded-circle rounded mx-auto d-block">
+            {{#photo}}
+            <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+            {{/photo}}
+            {{^photo}}
+            <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+            {{/photo}}
         </div>
         <form>
             <div class="form-group">
