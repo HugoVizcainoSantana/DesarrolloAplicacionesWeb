@@ -60,14 +60,14 @@ public class UserDashboardController implements CurrentUserInfo {
     @RequestMapping("/")
     public String index(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Dashboard");
+        model.addAttribute("title", "Dashboard");
         return "dashboard/index";
     }
 
     @RequestMapping("/index")
     public void index2(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Dashboard");
+        model.addAttribute("title", "Dashboard");
         index(model, principal);
     }
 
@@ -116,13 +116,13 @@ public class UserDashboardController implements CurrentUserInfo {
     @RequestMapping("/charts")
     public String charts(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Consumos");
+        model.addAttribute("title", "Consumos");
         return "dashboard/charts";
     }
 
     @RequestMapping("/homes")
     public String homes(Model model, Principal principal) {
-        model.addAttribute("titulo", "Casa");
+        model.addAttribute("title", "Casa");
         model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/homes";
@@ -130,7 +130,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/homes/{id}")
     public String homeDetail(Model model, Principal principal, @PathVariable long id) {
-        model.addAttribute("titulo", "Casa");
+        model.addAttribute("title", "Casa");
         model.addAttribute("home", homeService.findOneById(id));
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/home-detail";
@@ -203,7 +203,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/terms-Conditions")
     public String termsConditions(Model model) {
-        model.addAttribute("titulo", "Condiciones");
+        model.addAttribute("title", "Condiciones");
         return "dashboard/terms-Conditions";
     }
 
