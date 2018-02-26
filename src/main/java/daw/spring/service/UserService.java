@@ -75,7 +75,7 @@ public class UserService {
         deviceList.add(device3);
 
 
-        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN.getRoleName());
         Home home2 = new Home(28045, "c/montepinar", true, null);
         Home home3 = new Home(21111, "c/montepinar1111", false, deviceList);
         ArrayList<Home> user1Homes = new ArrayList<>();
