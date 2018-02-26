@@ -3,16 +3,8 @@ package daw.spring.controller;
 import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
-import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.OrderRequest;
-import daw.spring.model.Product;
-import daw.spring.model.User;
-import daw.spring.service.DeviceService;
-import daw.spring.service.HomeService;
-import daw.spring.service.OrderRequestService;
-import daw.spring.service.ProductService;
-import daw.spring.service.UserService;
+import daw.spring.model.*;
+import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +45,6 @@ public class UserDashboardController implements CurrentUserInfo {
     private final OrderRequestService orderRequestService;
 
 
-
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -90,10 +81,10 @@ public class UserDashboardController implements CurrentUserInfo {
 
 	@RequestMapping (value="/shop", method = RequestMethod.POST)
 	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
-			@RequestParam(name="postCode") long postCode,
-			@RequestParam(name="blind")Integer blindQuantity,
-			@RequestParam(name="light")Integer lightQuantity,
-			@RequestParam(name="total")long total) {
+                            @RequestParam(name = "postCode") long postCode,
+                            @RequestParam(name = "blind") Integer blindQuantity,
+                            @RequestParam(name = "light") Integer lightQuantity,
+                            @RequestParam(name = "total") long total) {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
@@ -113,11 +104,11 @@ public class UserDashboardController implements CurrentUserInfo {
         OrderRequest order = new OrderRequest(total, false, home, deviceList);
 		orderRequestService.saveOrder(order);
 
-		return"redirect:shop";
+        return "redirect:shop";
 	}
 
 
-	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
+    @GetMapping(value = "/cargar-productos/{term}", produces = {"application/json"})
 	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
 		return productService.findByNombre(term);
 	}

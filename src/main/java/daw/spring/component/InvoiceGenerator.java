@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import daw.spring.model.Device;
 import daw.spring.model.Home;
 import daw.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,6 @@ public class InvoiceGenerator {
         addEmptyLine(subtitle, 1);
         subtitle.add(new Paragraph("Factura para el usuario: " + currentUser.getFirstName() + " " + currentUser.getLastName() + ", creada el " + new Date(), smallBold));
         addEmptyLine(subtitle, 3);
-        subtitle.add(new Paragraph("This document describes something which is very important ", smallBold));
         document.add(subtitle);
     }
 
@@ -75,93 +75,64 @@ public class InvoiceGenerator {
         return cell;
     }
 
-    /*
-        private void addContent(Document document) throws DocumentException {
-            Anchor anchor = new Anchor("First Chapter", catFont);
-            anchor.setName("First Chapter");
+    private void addContent(Document document) throws DocumentException {
+        // Second parameter is the number of the chapter
+        Paragraph titleDevices = new Paragraph("Lista de dispositivos", subFont);
+        addEmptyLine(titleDevices, 3);
+        document.add(titleDevices);
+        document.add(addDevicesTable());
+    }
 
-            // Second parameter is the number of the chapter
-            Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+    private PdfPTable addDevicesTable() throws DocumentException {
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(100);
+        table.setWidths(new int[]{1, 1, 1});
 
-            Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-            Section subCatPart = catPart.addSection(subPara);
-            subCatPart.add(new Paragraph("Hello"));
+        PdfPCell c1 = new PdfPCell(new Phrase("Dispositivo"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
 
-            subPara = new Paragraph("Subcategory 2", subFont);
-            subCatPart = catPart.addSection(subPara);
-            subCatPart.add(new Paragraph("Paragraph 1"));
-            subCatPart.add(new Paragraph("Paragraph 2"));
-            subCatPart.add(new Paragraph("Paragraph 3"));
+        c1 = new PdfPCell(new Phrase("Tipo"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
 
-            // add a list
-            createList(subCatPart);
-            Paragraph paragraph = new Paragraph();
-            addEmptyLine(paragraph, 5);
-            subCatPart.add(paragraph);
+        c1 = new PdfPCell(new Phrase("Serial Number"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
 
-            // add a table
-            createTable(subCatPart);
+        for (Device d : currentHome.getDeviceList()) {
 
-            // now add all this to the document
-            document.add(catPart);
+            PdfPCell descriptionCell = new PdfPCell();
+            Paragraph p1 = new Paragraph(d.getDescription());
+            p1.setAlignment(Element.ALIGN_CENTER);
+            descriptionCell.addElement(p1);
+            descriptionCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            descriptionCell.setBorder(Rectangle.BODY);
+            table.addCell(descriptionCell);
 
-            // Next section
-            anchor = new Anchor("Second Chapter", catFont);
-            anchor.setName("Second Chapter");
+            PdfPCell typeCell = new PdfPCell();
+            Paragraph p2 = new Paragraph(d.getType().name());
+            p2.setAlignment(Element.ALIGN_CENTER);
+            typeCell.addElement(p2);
+            typeCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            typeCell.setBorder(Rectangle.BODY);
+            table.addCell(typeCell);
 
-            // Second parameter is the number of the chapter
-            catPart = new Chapter(new Paragraph(anchor), 1);
-
-            subPara = new Paragraph("Subcategory", subFont);
-            subCatPart = catPart.addSection(subPara);
-            subCatPart.add(new Paragraph("This is a very important message"));
-
-            // now add all this to the document
-            document.add(catPart);
-
-        }
-
-        private void createTable(Section subCatPart)
-                throws BadElementException {
-            PdfPTable table = new PdfPTable(3);
-
-            // t.setBorderColor(BaseColor.GRAY);
-            // t.setPadding(4);
-            // t.setSpacing(4);
-            // t.setBorderWidth(1);
-
-            PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-
-            c1 = new PdfPCell(new Phrase("Table Header 2"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-
-            c1 = new PdfPCell(new Phrase("Table Header 3"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-            table.setHeaderRows(1);
-
-            table.addCell("1.0");
-            table.addCell("1.1");
-            table.addCell("1.2");
-            table.addCell("2.1");
-            table.addCell("2.2");
-            table.addCell("2.3");
-
-            subCatPart.add(table);
+            PdfPCell serialNumberCell = new PdfPCell();
+            Paragraph p3 = new Paragraph(d.getSerialNumber());
+            p3.setAlignment(Element.ALIGN_CENTER);
+            serialNumberCell.addElement(p3);
+            serialNumberCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            serialNumberCell.setBorder(Rectangle.BODY);
+            table.addCell(serialNumberCell);
 
         }
 
-        private void createList(Section subCatPart) {
-            List list = new List(true, false, 10);
-            list.add(new ListItem("First point"));
-            list.add(new ListItem("Second point"));
-            list.add(new ListItem("Third point"));
-            subCatPart.add(list);
-        }
-    */
+        return table;
+    }
+
+
     private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
@@ -179,7 +150,7 @@ public class InvoiceGenerator {
         invoice.open();
         addMetaData(invoice);
         addTitlePage(invoice);
-        //addContent(invoice);
+        addContent(invoice);
         invoice.close();
 
         return stream.toByteArray();
