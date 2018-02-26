@@ -131,12 +131,12 @@ Perfil del usuario donde puede modificar sus datos y su imagen de avatar
 
 
 ###Diagrama de base de datos
-![database](/pantallazonFase3/diagramabasedatos.png)
+![database](/pantallazosFase3/diagramabasedatos.png)
 La entidad con la base de datos están relacionadas de la forma que los usuario tienen una entidad 
 que se guarda en la base de datos, donde tendrán su identificador generado automaticamente, guardando su nombre, apellidos, email, contraseña, telefono, listas de casas junto con los roles, 
 que estos últimos son los que se utilizan para la seguridad con Spring.
 ###Diagrama de clases
-![class](/pantallazonFase3/esquemaclases.png)
+![class](/pantallazosFase3/esquemaclases.png)
 
 ###Entorno de desarrollo
 Para poder instalar y desarrollar una aplicación con Spring Boot, desde cualquier editor de código podrás abrir la aplicaciónl, pero se recomienda abrir la aplciación con STSsource-tool-suite (http://spring.io/tools/sts/all)
