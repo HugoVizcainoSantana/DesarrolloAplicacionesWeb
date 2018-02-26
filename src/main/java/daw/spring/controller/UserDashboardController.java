@@ -3,16 +3,8 @@ package daw.spring.controller;
 import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
-import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.OrderRequest;
-import daw.spring.model.Product;
-import daw.spring.model.User;
-import daw.spring.service.DeviceService;
-import daw.spring.service.HomeService;
-import daw.spring.service.OrderRequestService;
-import daw.spring.service.ProductService;
-import daw.spring.service.UserService;
+import daw.spring.model.*;
+import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +43,7 @@ public class UserDashboardController implements CurrentUserInfo {
     private final ProductService productService;
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
-   
-  
+
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -87,13 +78,13 @@ public class UserDashboardController implements CurrentUserInfo {
 		return "dashboard/shop";
 	}
 
-	
+
 	@RequestMapping (value="/shop", method = RequestMethod.POST)
 	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
-			@RequestParam(name="postCode") long postCode,
-			@RequestParam(name="blind")Integer blindQuantity, 
-			@RequestParam(name="light")Integer lightQuantity,
-			@RequestParam(name="total")long total) {
+                            @RequestParam(name = "postCode") long postCode,
+                            @RequestParam(name = "blind") Integer blindQuantity,
+                            @RequestParam(name = "light") Integer lightQuantity,
+                            @RequestParam(name = "total") long total) {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
@@ -112,12 +103,12 @@ public class UserDashboardController implements CurrentUserInfo {
         //Order order = new Order(total, false, home);
         OrderRequest order = new OrderRequest(total, false, home, deviceList);
 		orderRequestService.saveOrder(order);
-		 
-		return"redirect:shop";
+
+        return "redirect:shop";
 	}
-	
-	
-	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
+
+
+    @GetMapping(value = "/cargar-productos/{term}", produces = {"application/json"})
 	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
 		return productService.findByNombre(term);
 	}
@@ -146,14 +137,12 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @GetMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf")
-    public void generateInvoice(Model model, Principal principal, @PathVariable long id, HttpServletResponse response) {
-        model.addAttribute("titulo", "Casa");
+    public void generateInvoice(Principal principal, @PathVariable long id, HttpServletResponse response) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        model.addAttribute("user", user);
         //Generate and send pdf
         try {
             OutputStream out = response.getOutputStream();
-            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id));
+            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id), user);
             out.write(pdf);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");

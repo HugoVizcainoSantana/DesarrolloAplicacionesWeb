@@ -1,7 +1,6 @@
 package daw.spring.service;
 
 import daw.spring.model.*;
-
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,8 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.AssertTrue;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -30,7 +30,6 @@ public class UserService {
         this.homeService = homeService;
         this.deviceService = deviceService;
     }
-    
 
     public User findOneById(Long id) {
         return userRepository.findOne(id);
@@ -55,7 +54,7 @@ public class UserService {
     public User findAllUsersByFirstName(String name) {
         return userRepository.findAllByFirstName(name);
     }
-    
+
     public void saveHomeUser(Home home, User user) {
     		List<Home> listHome= user.getHomeList();
     		listHome.add(home);
@@ -109,11 +108,11 @@ public class UserService {
         saveUser(user4);
 
         User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
-        Home home1 = new Home(28007, "c/hugo", true, null);
+        Device device5 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true, null);
+        Home home1 = new Home(28007, "c/hugo", true, Collections.singletonList(device5));
         ArrayList<Home> user5Homes = new ArrayList<>();
         user5Homes.add(home1);
         user5.setHomeList(user5Homes);
-        //homeService.saveHome(home1);
         saveUser(user5);
 
         User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());

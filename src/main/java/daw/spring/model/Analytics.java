@@ -2,7 +2,7 @@ package daw.spring.model;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.Date;
 
 @Entity
 public class Analytics {
@@ -10,30 +10,34 @@ public class Analytics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Enumerated(EnumType.STRING)
-    private AnalyticsType type;
-    private String title;
-    private String description;
-
-    // We have to add user too as a atribute but, for now, we dont have security implemented
-    // @OneToOne
-    // private User user;
+    /*
+    @OneToOne
+    private User user;
 
     private ArrayList<String> domain; // And a domain in Years, Months, Weeks or Days
 
     private ArrayList<Integer> data; // And the data itself with the average
     private ArrayList<Integer> dataAverage;
 
+    */
+    @ManyToOne
+    private Device device;
+    private Date date;
+    private Device.StateType previousState;
+    private Device.StateType newState;
+    @OneToOne
+    private Analytics previousRecord;
+
+
     public Analytics() {
     }
 
-    public Analytics(AnalyticsType type, String title, String description, ArrayList<String> domain, ArrayList<Integer> data, ArrayList<Integer> dataAverage) {
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.domain = domain;
-        this.data = data;
-        this.dataAverage = dataAverage;
+    public Analytics(Device device, Date date, Device.StateType previousState, Device.StateType newState, Analytics previousRecord) {
+        this.device = device;
+        this.date = new Date(); // in days, minutes and secs
+        this.previousState = previousState;
+        this.newState = newState;
+        this.previousRecord = previousRecord;
     }
 
     public long getId() {
@@ -44,55 +48,43 @@ public class Analytics {
         this.id = id;
     }
 
-    public AnalyticsType getType() {
-        return type;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setType(AnalyticsType type) {
-        this.type = type;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
-    public String getTitle() {
-        return title;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public Device.StateType getPreviousState() {
+        return previousState;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPreviousState(Device.StateType previousState) {
+        this.previousState = previousState;
     }
 
-    public ArrayList<String> getDomain() {
-        return domain;
+    public Device.StateType getNewState() {
+        return newState;
     }
 
-    public void setDomain(ArrayList<String> domain) {
-        this.domain = domain;
+    public void setNewState(Device.StateType newState) {
+        this.newState = newState;
     }
 
-    public ArrayList<Integer> getData() {
-        return data;
+    public Analytics getPreviousRecord() {
+        return previousRecord;
     }
 
-    public void setData(ArrayList<Integer> data) {
-        this.data = data;
-    }
-
-    public ArrayList<Integer> getDataAverage() {
-        return dataAverage;
-    }
-
-    public void setDataAverage(ArrayList<Integer> dataAverage) {
-        this.dataAverage = dataAverage;
-    }
-
-    public enum AnalyticsType {
-        PRODUCTS, USERS, HOMES  // Different graphs for diferent entities
+    public void setPreviousRecord(Analytics previousRecord) {
+        this.previousRecord = previousRecord;
     }
 }

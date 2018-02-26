@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -36,7 +35,9 @@ public class HomeService {
         homeRepository.delete(home);
     }
 
-    public long countHomeActives(){  return homeRepository.countHomeByActivatedIsTrue();  }
+    public long countHomeActives() {
+        return homeRepository.countHomeByActivatedIsTrue();
+    }
 
     public Page<Home> findAllHomePage(PageRequest pageRequest) {
         return homeRepository.findAll(pageRequest);
