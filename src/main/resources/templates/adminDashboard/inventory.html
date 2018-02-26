@@ -162,27 +162,43 @@
                 </div>-->
                 {{#product}}
                 <div class="col-lg-4">
-
-
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label class="col-sm-10 form-control-label">Modelo: {{type}}</label>
-                            <label class="col-sm-10 form-control-label">{{description}}</label>
-                            <label class="col-sm-10 form-control-label">Coste unitario: {{cost}}</label>
-                            <label class="col-sm-10 form-control-label">Cantidad Disponible: {{stock}}</label>
-                            <div class="col-sm-10">
+                    <form  action="/adminDashboard/inventory/" method="post"  id="frmProduct" name="frmProduct" >
+                        <div class="form-group"> <!-- id="frmProduct{{id}}" name="frmProduct{{id}}" -->
+                            <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
+                            <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-8">
-                                        <input type="number" placeholder="{{stock}}" id="blind" name="blind" class="form-control" min="0" value={{stock}} >
+                                    <label class="col-sm-7 form-control-label" >Id : </label>
+                                    <input type="text" id="id" name="id" value="{{id}}" readonly  class="col-sm-3" style="text-align: right;">
+                                </div>
+                            </div>
+                            <label class="col-sm-12 form-control-label">{{description}}</label>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-6 form-control-label">Coste unitario: </label> <!--  {{cost}}  -->
+                                    <div class="col-md-5">
+                                        <input type="number" placeholder="{{cost}}" id="numberCost" name="numberCost" class="form-control" min="0" value={{cost}} step="0.01" style="text-align: right;">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <!-- <a href="/dashboard/homes/{{id}}/generateInvoice" class="btn btn-primary">Crear factura de la casa {{-index}}</a> -->
-                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-md-6 form-control-label">Stock Disponible:</label>  <!--  {{stock}}  -->
+                                    <div class="col-md-5">
+                                        <input type="number" placeholder="{{stock}}" id="numberStock" name="numberStock" class="form-control" min="0" value={{stock}}  style="text-align: right;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Aplicar cambios" />
+                                    <!--
+                                    <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                    <button onclick="myFunction('{{id}}')">Try it</button>
+                                    <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                    <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                                    -->
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
                 {{/product}}
@@ -267,6 +283,13 @@
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
 
+<script>
+    function myFunction(id) {
+        var campo="numberInput"+id;
+        console.log(document.getElementById(campo).value);
+
+    }
+</script>
 
 </body>
 
