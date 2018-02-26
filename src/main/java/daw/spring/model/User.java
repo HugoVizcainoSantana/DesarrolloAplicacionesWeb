@@ -43,11 +43,8 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
-    
-    
 
     public User() {
-    		
     }
 
     public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, String... roles) {
@@ -142,7 +139,8 @@ public class User {
         this.photo = photo;
     }
 
-	
-    
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }
 

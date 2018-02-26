@@ -51,8 +51,8 @@ public class UserDashboardController implements CurrentUserInfo {
     private final ProductService productService;
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
-   
-  
+
+
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -87,11 +87,11 @@ public class UserDashboardController implements CurrentUserInfo {
 		return "dashboard/shop";
 	}
 
-	
+
 	@RequestMapping (value="/shop", method = RequestMethod.POST)
 	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
 			@RequestParam(name="postCode") long postCode,
-			@RequestParam(name="blind")Integer blindQuantity, 
+			@RequestParam(name="blind")Integer blindQuantity,
 			@RequestParam(name="light")Integer lightQuantity,
 			@RequestParam(name="total")long total) {
 		List<Device>deviceList= new ArrayList<>();
@@ -112,11 +112,11 @@ public class UserDashboardController implements CurrentUserInfo {
         //Order order = new Order(total, false, home);
         OrderRequest order = new OrderRequest(total, false, home, deviceList);
 		orderRequestService.saveOrder(order);
-		 
+
 		return"redirect:shop";
 	}
-	
-	
+
+
 	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
 	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
 		return productService.findByNombre(term);
