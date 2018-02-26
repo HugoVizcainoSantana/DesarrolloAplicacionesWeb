@@ -100,17 +100,22 @@ DASHBOARD ADMINISTRADOR
 ![choose](/pantallazosFase3/ChooseDashboard.png)
 Inicio de la pantalla de la parte del usuario administrador donde puede elegir entre admin Dashboard o user Dashboard 
 
-![index]()
+![index](/pantallazosFase3/IndexAdmin.png)
 Inicio de la parte de admin dashboard
 
-![inventory]()
+![inventory](pantallazosFase3/Inventario.png)
 Inventario donde el administrador puede cambiar el numero de dispositivos que tenemos (Luces, persianas, Rasberry)
 
-![users]()
+![users](pantallazosFase3/UsuariosAdmin.png)
 Usuarios que estan dados de alta en nuestra aplciación
 
-![orders]()
+![orders](pantallazosFase3/PedidosPendiente.png)
 Ordenes de instalacion de las diferentes casas de los usuarios
+
+![profileUsers](pantallazosFase3/ConfirmarPedido2.png)
+Ordenes de instalacion donde se confirmarán o se ancelaran dando de alta los dispositivos pertinentes
+
+
 
 DASHBOARD USUARIO
 ![index](/pantallazosFase3/indexUser.png)
