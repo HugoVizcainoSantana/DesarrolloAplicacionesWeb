@@ -59,7 +59,7 @@
             </ul>
             <h5 class="sidenav-heading">Gráficas</h5>
             <ul id="side-main-menu2" class="side-menu list-unstyled">
-                <li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos</a></li>
+                <!--<li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos</a></li>-->
                 <li><a href="/dashboard/homes"> <i class="icon-interface-windows"></i>Casas OCH</a></li>
             </ul>
             <h5 class="sidenav-heading">Opciones</h5>
@@ -161,7 +161,31 @@
                         <div id="updates-box" role="tabpanel" class="collapse show">
                             <ul class="news list-unstyled">
                                 <!-- Item-->
+                                {{#devices}}
                                 <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="title"><strong>Luz del salon</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <!--<form  action="/adminDashboard/orders/{{orderDetail.id}}/{{id}}" method="post"  name="frmDeviceOrder">-->
+                                        <form name="interaction" action="/dashboard/index" method="post">
+                                            <p>{{id}}</p>
+                                            <div class="switch">
+                                                <!--<input type="submit" value="Register" >-->
+                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1)..addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
+                                                <label for="btn-toggle1"></label>
+                                                <!--<input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
+                                                <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar" />-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                {{/devices}}
+                                {{^devices}}
+                                <p>No tienes dispositivos</p>
+                                {{/devices}}
+                                <!-- Item-->
+                                <!--<li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz del salon</strong></div>
                                     </div>
@@ -173,7 +197,7 @@
                                     </div>
                                 </li>
                                 <!-- Item-->
-                                <li class="d-flex justify-content-between">
+                                <!--<li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Persiana del salon</strong></div>
                                     </div>
@@ -185,14 +209,14 @@
                                     </div>
                                 </li>
                                 <!-- Item-->
-                                <li class="d-flex justify-content-between">
+                                <!--<li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz de la cocina</strong></div>
                                     </div>
                                     <div class="right-col text-right">
                                         <button type="button" class="btn btn-primary btn-md fav-element-toggle">Encender</button>
                                     </div>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>

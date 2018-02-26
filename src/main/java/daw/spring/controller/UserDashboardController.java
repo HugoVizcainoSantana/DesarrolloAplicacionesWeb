@@ -25,11 +25,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Date;
 
 //import daw.spring.component.CurrentUserInfo;
 
@@ -43,25 +43,48 @@ public class UserDashboardController implements CurrentUserInfo {
     private final ProductService productService;
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
-
+    private final AnalyticsService analyticsService;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService) {
+    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
         this.productService=productService;
         this.deviceService= deviceService;
         this.orderRequestService = orderRequestService;
+        this.analyticsService = analyticsService;
     }
 
     @RequestMapping("/")
     public String index(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("devices", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList().get(0).getDeviceList());
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
+    }
+
+    @RequestMapping(value="/index", params = "inputInteraction")
+    public void addInteraction(Principal principal, Model model){
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        List<Home> homeList = user.getHomeList();
+        List<Device> deviceList = homeList.get(0).getDeviceList();
+
+        for(Device d:deviceList){
+            if(d.getStatus() == Device.StateType.ON){
+                Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
+                analyticsService.saveAnalytics(analytics1);
+            }else{
+                Analytics analytics2 = new Analytics(d, new Date(), Device.StateType.ON, Device.StateType.OFF, null);
+                analyticsService.saveAnalytics(analytics2);
+            }
+        }
+
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("titulo", "Dashboard");
+        index(model, principal);
     }
 
     @RequestMapping("/index")
@@ -108,7 +131,7 @@ public class UserDashboardController implements CurrentUserInfo {
 	}
 
 
-    @GetMapping(value = "/cargar-productos/{term}", produces = {"application/json"})
+	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
 	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
 		return productService.findByNombre(term);
 	}

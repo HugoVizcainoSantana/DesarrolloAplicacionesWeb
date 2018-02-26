@@ -47,7 +47,7 @@ public class AnalyticsService {
         return analyticsRepository.findAll();
     }
 
-    private void saveAnalytics(Analytics analytics) {
+    public void saveAnalytics(Analytics analytics) {
         //deviceService.saveDevice(analytics.getDevice());
         analyticsRepository.save(analytics);
     }
