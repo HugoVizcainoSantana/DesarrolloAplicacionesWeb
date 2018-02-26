@@ -131,10 +131,6 @@ public class UserDashboardController implements CurrentUserInfo {
 	}
 
 
-	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
-	public @ResponseBody List<Product> cargarProductos(@PathVariable String term) {
-		return productService.findByNombre(term);
-	}
 
     @RequestMapping("/charts")
     public String charts(Model model, Principal principal) {
