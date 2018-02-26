@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -45,6 +44,11 @@ public class HomeService {
     }
 
     public List<Home> homesOrders(){return homeRepository.findByActivatedIsFalse();}
+
+    public void activeHome(Home home) {
+        home.setActivated(true);
+        saveHome(home);
+    }
 
   /*  @PostConstruct
     public void init() {

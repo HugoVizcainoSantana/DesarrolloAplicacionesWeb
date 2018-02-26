@@ -216,7 +216,13 @@
                                     <tr>
 
                                         <th>{{type}}</th>
+                                        {{^serialNumber}}
+                                        <th> </th>
+                                        {{/serialNumber}}
+                                        {{#serialNumber}}
                                         <th>{{serialNumber}}</th>
+                                        {{/serialNumber}}
+
                                         {{^activated}}
                                         <th>No activo</th>
                                         {{/activated}}

@@ -13,13 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -111,7 +109,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders",orderRequestService.homesOrders());
+        model.addAttribute("orders", orderRequestService.homesOrders());
         return "adminDashboard/orders";
     }
 
@@ -123,6 +121,7 @@ public class AdminDashboardController implements CurrentUserInfo {
         orderRequestService.confirmOrder(id);
         model.addAttribute("orderDetail", orderDt);
         Home homeOrder=orderDt.getHome();
+        homeService.activeHome(homeOrder);
         User homeUser=userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
         return "adminDashboard/detail";

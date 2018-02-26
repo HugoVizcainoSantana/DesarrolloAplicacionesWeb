@@ -104,10 +104,10 @@ public class UserDashboardController implements CurrentUserInfo {
 
 	@RequestMapping (value="/shop", method = RequestMethod.POST)
 	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
-			@RequestParam(name="postCode") long postCode,
-			@RequestParam(name="blind")Integer blindQuantity,
-			@RequestParam(name="light")Integer lightQuantity,
-			@RequestParam(name="total")long total) {
+                            @RequestParam(name = "postCode") long postCode,
+                            @RequestParam(name = "blind") Integer blindQuantity,
+                            @RequestParam(name = "light") Integer lightQuantity,
+                            @RequestParam(name = "total") long total) {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
@@ -127,7 +127,7 @@ public class UserDashboardController implements CurrentUserInfo {
         OrderRequest order = new OrderRequest(total, false, home, deviceList);
 		orderRequestService.saveOrder(order);
 
-		return"redirect:shop";
+        return "redirect:shop";
 	}
 
 
@@ -160,14 +160,12 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @GetMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf")
-    public void generateInvoice(Model model, Principal principal, @PathVariable long id, HttpServletResponse response) {
-        model.addAttribute("titulo", "Casa");
+    public void generateInvoice(Principal principal, @PathVariable long id, HttpServletResponse response) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        model.addAttribute("user", user);
         //Generate and send pdf
         try {
             OutputStream out = response.getOutputStream();
-            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id));
+            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id), user);
             out.write(pdf);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
