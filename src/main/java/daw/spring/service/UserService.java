@@ -108,11 +108,11 @@ public class UserService {
         saveUser(user4);
 
         User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
-        Home home1 = new Home(28007, "c/hugo", true, null);
+        Device device5 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true, null);
+        Home home1 = new Home(28007, "c/hugo", true, Collections.singletonList(device5));
         ArrayList<Home> user5Homes = new ArrayList<>();
         user5Homes.add(home1);
         user5.setHomeList(user5Homes);
-        //homeService.saveHome(home1);
         saveUser(user5);
 
         User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
