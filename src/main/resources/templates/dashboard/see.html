@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>OCH</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<!-- Bootstrap CSS-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome CSS-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
+<!-- Fontastic Custom icon font-->
+<link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
+<!-- Google fonts - Roboto -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+<!-- jQuery Circle-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
+<!-- Custom Scrollbar-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+<!-- theme stylesheet-->
+<link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css"
+	id="theme-stylesheet">
+<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet"
+	href="/resources/dashboardBootstrap/css/custom.css">
+<!-- Favicon-->
+<link rel="shortcut icon" href="/resources/images/icono.png">
+<!-- Tweaks for older IEs-->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+<script type="text/javascript" src="/dashboardBootstrap/js/checked.js"></script>
+<script type="text/javascript"
+	src="/dashboardBootstrap/js/visibility.js"></script>
+</head>
+<body>
+	<!-- Side Navbar -->
+	<nav class="side-navbar">
+		<div class="side-navbar-wrapper">
+			<!-- Sidebar Header    -->
+			<div
+				class="sidenav-header d-flex align-items-center justify-content-center">
+				<!-- User Info-->
+				{{#user}}
+				<div class="sidenav-header-inner text-center">
+					{{#photo}} <img src="/upload/{{photo}}" alt="person"
+						class="img-fluid rounded-circle"> {{/photo}} {{^photo}} <img
+						src="/images/avatar.png" alt="person"
+						class="img-fluid rounded-circle"> {{/photo}}
+					<h2 class="h5">Usuario:</h2>
+					<span>{{firstName}}</span>
+				</div>
+				{{/user}}
+				<!-- Small Brand information, appears on minimized sidebar-->
+				<div class="sidenav-header-logo">
+					<a href="/dashboard/index" class="brand-small text-center"><strong>B</strong><strong
+						class="text-primary">D</strong></a>
+				</div>
+			</div>
+			<!-- Sidebar Navigation Menus-->
+			<div class="main-menu">
+				<h5 class="sidenav-heading">Menú</h5>
+				<ul id="side-main-menu1" class="side-menu list-unstyled">
+					<li><a href="/dashboard/index"> <i class="icon-home"></i>Inicio
+					</a></li>
+					<li><a href="/dashboard/shop"><i
+							class="fa fa-shopping-cart"></i>Tienda</a></li>
+				</ul>
+				<h5 class="sidenav-heading">Gráficas</h5>
+				<ul id="side-main-menu2" class="side-menu list-unstyled">
+					<li><a href="/dashboard/charts"> <i
+							class="fa fa-bar-chart"></i>Consumos
+					</a></li>
+					<li><a href="/dashboard/homes"> <i
+							class="icon-interface-windows"></i>Casas OCH
+					</a></li>
+				</ul>
+				<h5 class="sidenav-heading">Opciones</h5>
+				<ul id="side-main-menu3" class="side-menu list-unstyled">
+					<li><a href="/dashboard/profile"> <i class="icon-user"></i>Perfil
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="page">
+		<!-- navbar-->
+		<header class="header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div
+						class="navbar-holder d-flex align-items-center justify-content-between">
+						<div class="navbar-header">
+							<a id="toggle-btn" href="#" class="menu-btn"><i
+								class="icon-bars"> </i></a><a href="/dashboard/index"
+								class="navbar-brand">
+								<div class="brand-text d-none d-md-inline-block">
+									<span>OnControl </span><strong class="text-primary">Home</strong>
+								</div>
+							</a>
+						</div>
+						<ul
+							class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+							<li class="nav-item dropdown"><a id="notifications"
+								rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+									class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+								<ul aria-labelledby="notifications" class="dropdown-menu">
+									<li><a rel="nofollow" href="#" class="dropdown-item">
+											<div class="notification d-flex justify-content-between">
+												<div class="notification-content">
+													<i class="fa fa-envelope"></i>You have 6 new messages
+												</div>
+												<div class="notification-time">
+													<small>4 minutes ago</small>
+												</div>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#" class="dropdown-item">
+											<div class="notification d-flex justify-content-between">
+												<div class="notification-content">
+													<i class="fa fa-twitter"></i>You have 2 followers
+												</div>
+												<div class="notification-time">
+													<small>4 minutes ago</small>
+												</div>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#" class="dropdown-item">
+											<div class="notification d-flex justify-content-between">
+												<div class="notification-content">
+													<i class="fa fa-upload"></i>Server Rebooted
+												</div>
+												<div class="notification-time">
+													<small>4 minutes ago</small>
+												</div>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#" class="dropdown-item">
+											<div class="notification d-flex justify-content-between">
+												<div class="notification-content">
+													<i class="fa fa-twitter"></i>You have 2 followers
+												</div>
+												<div class="notification-time">
+													<small>10 minutes ago</small>
+												</div>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#"
+										class="dropdown-item all-notifications text-center"> <strong>
+												<i class="fa fa-bell"></i>view all notifications
+										</strong></a></li>
+								</ul></li>
+							<li class="nav-item dropdown"><a id="messages"
+								rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+									class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+								<ul aria-labelledby="notifications" class="dropdown-menu">
+									<li><a rel="nofollow" href="#"
+										class="dropdown-item d-flex">
+											<div class="msg-profile">
+												<img src="/images/avatar-1.jpg" alt="..."
+													class="img-fluid rounded-circle">
+											</div>
+											<div class="msg-body">
+												<h3 class="h5">Jason Doe</h3>
+												<span>sent you a direct message</span> <small>3 days
+													ago at 7:58 pm - 10.06.2014</small>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#"
+										class="dropdown-item d-flex">
+											<div class="msg-profile">
+												<img src="/images/avatar-2.jpg" alt="..."
+													class="img-fluid rounded-circle">
+											</div>
+											<div class="msg-body">
+												<h3 class="h5">Frank Williams</h3>
+												<span>sent you a direct message</span> <small>3 days
+													ago at 7:58 pm - 10.06.2014</small>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#"
+										class="dropdown-item d-flex">
+											<div class="msg-profile">
+												<img src="/images/avatar-3.jpg" alt="..."
+													class="img-fluid rounded-circle">
+											</div>
+											<div class="msg-body">
+												<h3 class="h5">Ashley Wood</h3>
+												<span>sent you a direct message</span> <small>3 days
+													ago at 7:58 pm - 10.06.2014</small>
+											</div>
+									</a></li>
+									<li><a rel="nofollow" href="#"
+										class="dropdown-item all-notifications text-center"> <strong>
+												<i class="fa fa-envelope"></i>Read all messages
+										</strong></a></li>
+								</ul></li>
+							<li class="nav-item"><a href="/index"
+								class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<section class="forms">
+			<div class="container-fluid">
+				<div class="col-ld-12">
+					<header>
+						{{#user}}
+						<h1>{{firstName}}, estos son tus pedidos.</h1>
+						{{#photo}} <img class="img-thumbnail rounded float-left"
+							style="max-width: 25%;" src="/upload/{{photo}}" /> {{/photo}}
+						{{^photo}} <img class="img-thumbnail rounded float-left"
+							style="max-width: 15%;" src="/images/avatar.png" alt="person"
+							class="img-fluid rounded-circle"> {{/photo}}
+						<ul class="list-group">
+							<li class="list-group-item">{{firstName}}</li>
+							<li class="list-group-item">{{lastName}}</li>
+							<li class="list-group-item">{{email}}</li>
+							<li class="list-group-item">{{phone}}</li>
+						</ul>
+						{{/user}}
+					</header>
+				</div>
+			</div>
+		</section>
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header">Pedidos</div>
+				<div class="card-body">
+					<img class="img-thumbnail rounded float-left" />
+					<!--  <ul class="list-group">
+				{{#user}}
+					<li class="list-group-item">{{firstName}}</li>
+					<li class="list-group-item">{{lastName}}</li>
+					<li class="list-group-item">{{email}}</li>
+				{{/user}}
+				</ul>-->
+					<!-- {{#user}} -->
+					<table class="table table-bordered table-striped my-4">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Dirección</th>
+								<th>Codigo postal</th>
+							</tr>
+						</thead>
+						{{^orderList}}
+						<tbody>
+							<tr>
+								<h5 class="alert alert-info">No tienes pedidos</h5>
+								{{/orderList}} 
+								{{#orderList}}
+								{{^address}}
+								<td>Direccion no encontrada</td>
+								{{/address}}
+								{{#address}}
+								<td>{{address}}</td>
+								{{/address}}
+								{{^postCode}}
+								<td>2018-02-26</td>
+								{{/postCode}}
+								{{#postCode}}
+								<td>{{postCode}}</td>
+								{{/postCode}}
+							</tr>
+						</tbody>
+						{{/orderList}}
+					</table>
+					<!--  {{/user}}-->
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+</body>
+
+
+<!-- Javascript files-->
+<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+<script
+	src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script
+	src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/js/charts-home.js"></script>
+<!-- Main File-->
+<script src="/dashboardBootstrap/js/front.js"></script>
+<script src="/dashboardBootstrap/js/operation.js"></script>
+</body>
+</html>

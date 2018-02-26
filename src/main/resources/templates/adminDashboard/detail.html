@@ -38,22 +38,29 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -66,7 +73,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl</span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -133,7 +140,7 @@
                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="/index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                        <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -142,55 +149,69 @@
 
 
     <section class="mt-30px mb-30px">
+        {{#orderDetail}}
+
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 col-md-3">
+                <div class="col-lg-12 col-md-12">
                     <div id="recent-activities-wrapper" class="card updates activities">
                         <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedidos #0001</a></h2>
+                            <form  action="/adminDashboard/detail/{{id}}" method="post"  id="frmOrderDetail" name="frmOrderDetail" >
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedido: {{id}}</a></h2>
+                                    </div>
+                                     <div class="col-md-4">
+                                         <input type="submit" name="activate" class="btn btn-primary btn-md " value="Confirmar" />
+
+                                     </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" name="cancel" class="btn btn-danger btn-md " value="Cancelar" />
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <ul class="list-unstyled">
                             <!-- Item-->
                             <li>
+                                {{#userHome}}
                                 <div class="row">
                                     <div class="col-5 date-holder content text-center">
                                         <div class="date"><span class="text-info">Nombre del Titular:</span></div>
-                                        {{#user}}
-                                        <p>{{firstName}}{{lastName}}</p>
-                                        {{/user}}
+                                        <p>{{firstName}} {{lastName}}</p>
                                     </div>
                                     <div class="col-3 date-holder content text-center">
-                                        <div class="date"><span class="text-info">DNI:</span></div>
-                                        {{#user}}
-                                        <p>{{cp}}</p>
-                                        {{/user}}
+                                        <div class="date"><span class="text-info">Email:</span></div>
+                                        <p>{{email}}</p>
+
                                     </div>
                                     <div class="col-3 date-holder content text-center">
                                         <div class="date"><span class="text-info">Teléfono:</span></div>
-                                        <p>666 666 666</p>
-                                        {{#user}}
-                                        <p>{{cp}}</p>
-                                        {{/user}}
+                                        <p>{{phone}}</p>
                                     </div>
                                 </div>
+                                {{/userHome}}
                             </li>
+
 
                             <!-- Item-->
                             <li>
+                                {{#home}}
                                 <div class="row">
                                     <div class="col-6 date-holder content text-center">
                                         <div class="date"><span class="text-info">Dirección:</span></div>
-                                        {{#user}}
-                                        <p>{{direccion}}</p>
-                                        {{/user}}
+
+                                        <p>{{address}}</p>
+
                                     </div>
                                     <div class="col-6 date-holder content text-center">
-                                        <div class="date"><span class="text-info">Email:</span></div>
-                                        {{#user}}
-                                        <p>{{email}}</p>
-                                        {{/user}}
+                                        <div class="date"><span class="text-info">Cod. Postal:</span></div>
+
+                                        <p>{{postCode}}</p>
+
                                     </div>
                                 </div>
+                                {{/home}}
                             </li>
                             <!-- Item-->
                             <li>
@@ -198,52 +219,44 @@
                                     <div class="col-12 date-holder content text-center">
                                         <div class="date"><span class="text-info">Productos Adquiridos:</span></div>
                                         <div class="row">
+                                            {{#deviceList}}
                                             <div class="col-md-4 ">
+                                                <form  action="/adminDashboard/orders/{{orderDetail.id}}/{{id}}" method="post"  name="frmDeviceOrder">
                                                 <br>
-                                                <h5>Persiana 1</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <h5>{{type}}</h5>
+                                                {{^activated}}
+                                                <th>Sin activar</th>
+                                                {{/activated}}
+                                                {{#activated}}
+                                                <th>Activado</th>
+                                                {{/activated}}
+
+                                                {{^serialNumber}}
+                                                    <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" >
+                                                {{/serialNumber}}
+                                                {{#serialNumber}}
+                                                    <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" value="{{serialNumber}}" >
+                                                {{/serialNumber}}
+
+
                                                 <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                <input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
+                                                <input type="submit" name="cancel" class="btn btn-danger btn-lg btn-block" value="Cancelar" />
+                                                </form>
                                             </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Persiana 2</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Persiana 3</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Luz 1</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Luz 2</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
+                                            {{/deviceList}}
                                         </div>
                                     </div>
                                 </div>
                             </li>
-
+                            {{/orderDetail}}
 
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <footer class="main-footer">
         <div class="container-fluid">

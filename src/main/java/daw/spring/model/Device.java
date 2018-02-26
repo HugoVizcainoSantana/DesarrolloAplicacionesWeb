@@ -16,21 +16,30 @@ public class Device {
     @Enumerated(EnumType.STRING)
     private Device.StateType status;
     private String img;
-    private boolean activate;
+    private boolean activated;
+    private String serialNumber;
 
     public Device() {
     }
 
-    public Device( String description, double cost, DeviceType type, StateType status, String img, boolean activate) {
-        this.id = id;
+
+    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated, String serialNumber) {
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
-        this.activate=activate;
+        this.activated = activated;
+        this.serialNumber = serialNumber;
     }
 
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public long getId() {
         return id;
@@ -80,16 +89,16 @@ public class Device {
         this.img = img;
     }
 
-    public boolean isActivate() {
-        return activate;
+    public boolean isActivated() {
+        return activated;
     }
 
-    public void setActivate(boolean active) {
-        this.activate = activate;
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public enum DeviceType {
-        BLIND, LIGHT
+        BLIND, LIGHT, RASPBERRYPI
     }
 
     public enum StateType {

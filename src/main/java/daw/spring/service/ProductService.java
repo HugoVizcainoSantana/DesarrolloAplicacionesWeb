@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -20,6 +21,11 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+    
+    @Transactional(readOnly = true)
+   public List<Product> findByNombre(String term){
+	   return productRepository.findByDescription(term);
+   }
 
     public Product findOneById(Long id) {
         return productRepository.findOne(id);
@@ -27,6 +33,13 @@ public class ProductService {
 
     public List<Product> findAllProducts() {
         return productRepository.findAll();
+    }
+
+    public void updateStockProduct(Long id, long stock , double cost) {
+        Product productE=productRepository.findOne(id);
+        productE.setStock(stock);
+        productE.setCost(cost);
+        productRepository.save(productE);
     }
 
     private void saveProduct(Product product) {
@@ -41,13 +54,15 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
-
     @PostConstruct
     public void init() {
-        Product product1 = new Product("Bombilla de 45w preparada para domótica. Las llamadas bombillas LED conectadas son modelos capaces de conectarse a la red domótica de casa o la conexión WiFi para comunicarse con mandos, sistemas de control domóticos con tu móvil/pc.", 15.50, Product.ProductType.LIGHT, "product-2.jpg");
+        Product product1 = new Product("Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 15.50, Product.ProductType.LIGHT, "product-2.jpg", 36);
         saveProduct(product1);
 
-        Product product2 = new Product("Laminas de aluminio preparadas para domótica. Así, podrás subir o bajar las persianas desde un mando a distancia, desde nuestros dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 32.50, Product.ProductType.BLIND, "product-1.jpg");
+        Product product2 = new Product("Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 32.50, Product.ProductType.BLIND, "product-1.jpg", 34);
         saveProduct(product2);
+
+        Product product3 = new Product("Raspberry pi programada para domótica. Así, podrás actuar desde la App, ya sea desde dispositivos móviles, ordenador sobre los diferentes elementos domóticos.", 32.50, Product.ProductType.RASPBERRYPI, "raspberry-pie.jpg", 67);
+        saveProduct(product3);
     }
 }

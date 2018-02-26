@@ -41,22 +41,29 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             <!-- User Info-->
-            <div class="sidenav-header-inner text-center"><img src="/images/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-                {{#user}}
-                <h2 class="h5">{{firstName}}</h2><span>{{email}}</span>
-                {{/user}}
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
             </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
             <h5 class="sidenav-heading">Menú</h5>
             <ul id="side-main-menu1" class="side-menu list-unstyled">
                 <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventario"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/usuarios"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/pedidos"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
             </ul>
         </div>
     </div>
@@ -69,7 +76,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -136,7 +143,7 @@
                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="../index.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                        <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -144,87 +151,64 @@
     </header>
 
 
-    <!-- Counts Section
-   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="/images/MobileHome.jpeg" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/raspberry-pi.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/Smart-Home-Devices-Teaser.jpg" alt="Third slide">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div> -->
+
 
     <!-- Header Section-->
     <section class="mt-30px mb-30px container-fluid">
         <div class="container">
             <div class="row ">
-                <div class="col-lg-6">
-                    <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
-                </div>
-                <div class="col-lg-6">
-                    {{#device}}
-                    <label class="col-sm-10 form-control-label">{{description}}</label>
-                    <div class="form-group">
-                        <div class="form-group">
+                <!--<div class="col-lg-6">
+                <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
+                </div>-->
+                {{#product}}
+                <div class="col-lg-4">
+                    <form  action="/adminDashboard/inventory/" method="post"  id="frmProduct" name="frmProduct" >
+                        <div class="form-group"> <!-- id="frmProduct{{id}}" name="frmProduct{{id}}" -->
+                            <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-7 form-control-label" >Id : </label>
+                                    <input type="text" id="id" name="id" value="{{id}}" readonly  class="col-sm-3" style="text-align: right;">
+                                </div>
+                            </div>
+                            <label class="col-sm-12 form-control-label">{{description}}</label>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-6 form-control-label">Coste unitario: </label> <!--  {{cost}}  -->
+                                    <div class="col-md-5">
+                                        <input type="number" placeholder="{{cost}}" id="numberCost" name="numberCost" class="form-control" min="0" value={{cost}} step="0.01" style="text-align: right;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-md-6 form-control-label">Stock Disponible:</label>  <!--  {{stock}}  -->
+                                    <div class="col-md-5">
+                                        <input type="number" placeholder="{{stock}}" id="numberStock" name="numberStock" class="form-control" min="0" value={{stock}}  style="text-align: right;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Aplicar cambios" />
+                                    <!--
+                                    <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                    <button onclick="myFunction('{{id}}')">Try it</button>
+                                    <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                    <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                                    -->
+                            </div>
+                        </div>
+                    </form>
 
-                            <label class="col-sm-10 form-control-label">Modelo: {{type}}</label>
-                            <label class="col-sm-10 form-control-label">Cantidad Disponible:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Real" id="blind" name="blind" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <label class="col-sm-10 form-control-label">Cantidad real:</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" placeholder="Nª Contado" id="light" name="light" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="mt-30px col-lg-12">
-                                <h2>Coste total del producto:</h2>
-                                <div class="row">
-                                    <p class="col-sm-5">{{cost}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{/device}}
                 </div>
+                {{/product}}
             </div>
         </div>
     </section>
     <!-- Statistics Section-->
 
     <section class="form" id="contentForm" style="display: none;">
+        {{#product}}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg">
@@ -236,46 +220,34 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" placeholder="Raspberry" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Número de Modelo</label>
-                                    <input type="text" placeholder="1234" class="form-control" required>
+                                    <input type="text" placeholder="{{type}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Descripcion</label>
-                                    <input type="email" placeholder="Valido para persianas y Luces" class="form-control" required>
+                                    <input type="email" placeholder="{{description}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad</label>
-                                    <input type="text" placeholder="122" class="form-control" required>
+                                    <input type="text" placeholder="{{stock}}" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Coste Individual</label>
+                                    <input type="text" placeholder="{{cost}}" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Coste Total</label>
-                                    <input type="text" placeholder="1.600€" class="form-control" required>
+                                    <input type="text" placeholder="{{cost}}*{{stock}}" class="form-control" required>
                                 </div>
                                 <br>
                                 <br>
                                 <br>
-
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="alert alert-success" role="alert" id="content" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Enhorabuena. Se ha realizado con éxito el proceso de compra.
-        </div>
-        <div class="alert alert-danger" role="alert" id="contentDanger" style="display: none;">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            Ha cancelado el proceso de compra.
-        </div>
+        {{/product}}
     </section>
     <!-- Button trigger modal -->
 
@@ -286,7 +258,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
+                    <p>OnControlHome &copy; 2018</p>
                 </div>
                 <div class="col-sm-6 text-right">
 
@@ -311,6 +283,13 @@
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
 
+<script>
+    function myFunction(id) {
+        var campo="numberInput"+id;
+        console.log(document.getElementById(campo).value);
+
+    }
+</script>
 
 </body>
 

@@ -1,9 +1,16 @@
 /*global $, document, LINECHARTEXMPLE*/
+
 $(document).ready(function () {
 
     'use strict';
 
     var brandPrimary = 'rgba(51, 179, 90, 1)';
+
+    /*var dataMonths = '{{.}}';
+
+    console.log(dataMonths);
+
+    */
 
     var LINECHARTEXMPLE11 = $('#lineChartExample11'),
         LINECHARTEXMPLE12 = $('#lineChartExample12'),
@@ -12,7 +19,61 @@ $(document).ready(function () {
         PIECHARTEXMPLE = $('#pieChartExample'),
         BARCHARTEXMPLE = $('#barChartExample'),
         RADARCHARTEXMPLE = $('#radarChartExample'),
-        POLARCHARTEXMPLE = $('#polarChartExample');
+        POLARCHARTEXMPLE = $('#polarChartExample'),
+        homeChartTag = $('#homeChart');
+
+
+    var homeId = homeChartTag.attr("itemid");
+    console.log(homeId);
+
+
+    $.get("/dashboard/analytics/" + homeId, buildChart)
+        .done(function (data) {
+        });
+
+    function buildChart(chartData) {
+        var domain = [];
+        var values = [];
+        Object.keys(chartData).forEach(function (key) {
+            domain.push(key);
+            values.push(chartData[key]);
+            // use val
+        });
+
+
+        var homeChart = new Chart(homeChartTag, {
+            type: 'line',
+            data: {
+                labels: domain,
+                datasets: [
+                    {
+                        label: "Consumo Casa",
+                        fill: true,
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(51, 179, 90, 0.38)",
+                        borderColor: brandPrimary,
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 1,
+                        pointBorderColor: brandPrimary,
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: brandPrimary,
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: values,
+                        spanGaps: false
+                    }
+                ]
+            }
+        });
+    }
+
 
 
     var lineChartExample = new Chart(LINECHARTEXMPLE11, {
@@ -183,6 +244,7 @@ $(document).ready(function () {
     var lineChartExample = new Chart(LINECHARTEXMPLE2, {
         type: 'line',
         data: {
+            // Mustache?
             labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             datasets: [
                 {

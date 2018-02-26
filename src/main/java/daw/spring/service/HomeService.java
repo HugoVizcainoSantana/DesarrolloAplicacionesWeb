@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -36,16 +35,22 @@ public class HomeService {
         homeRepository.delete(home);
     }
 
+    public long countHomeActives() {
+        return homeRepository.countHomeByActivatedIsTrue();
+    }
+
     public Page<Home> findAllHomePage(PageRequest pageRequest) {
         return homeRepository.findAll(pageRequest);
     }
 
-    @PostConstruct
+    public List<Home> homesOrders(){return homeRepository.findByActivatedIsFalse();}
+
+  /*  @PostConstruct
     public void init() {
         Home home1 = new Home(28007, "c/ibiza", true, null);
         saveHome(home1);
         Home home2 = new Home(28045, "c/alfonso xII", true, null);
         saveHome(home2);
-    }
+    }*/
 
 }

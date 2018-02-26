@@ -24,7 +24,7 @@ public class LoginController {
 
     @RequestMapping("/login/redirect")
     public String login(HttpServletRequest request) {
-        log.info("Redirecting");
+        log.error("Redirecting");
         if (request.isUserInRole("ADMIN")) {
             return "redirect:/chooseDashboard";
         } else if (request.isUserInRole("USER")) {
