@@ -45,6 +45,11 @@ public class HomeService {
 
     public List<Home> homesOrders(){return homeRepository.findByActivatedIsFalse();}
 
+    public void activeHome(Home home) {
+        home.setActivated(true);
+        saveHome(home);
+    }
+
   /*  @PostConstruct
     public void init() {
         Home home1 = new Home(28007, "c/ibiza", true, null);
