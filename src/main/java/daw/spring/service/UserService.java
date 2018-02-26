@@ -1,7 +1,7 @@
 package daw.spring.service;
 
 import daw.spring.model.*;
-import daw.spring.repository.ProductRepository;
+
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,23 +11,22 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.AssertTrue;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
-    private final OrderService orderService;
+    private final OrderRequestService orderRequestService;
     private final HomeService homeService;
     private final DeviceService deviceService;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, OrderService orderService, HomeService homeService, DeviceService deviceService) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, OrderRequestService orderRequestService, HomeService homeService, DeviceService deviceService) {
         this.userRepository = userRepository;
         this.encoder = encoder;
-        this.orderService = orderService;
+        this.orderRequestService = orderRequestService;
         this.homeService = homeService;
         this.deviceService = deviceService;
     }
@@ -67,16 +66,15 @@ public class UserService {
     @PostConstruct
     public void init() {
 
-        Device device1 = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false);
-        Device device2 = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false);
-        Device device3 = new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false);
+        Device device1 = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false , null);
+        Device device2 = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null);
+        Device device3 = new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false, null);
         ArrayList<Device> deviceList = new ArrayList<>();
+
         deviceList.add(device1);
         deviceList.add(device2);
         deviceList.add(device3);
-     //   deviceService.saveDevice(device1);
-     //   deviceService.saveDevice(device2);
-     //   deviceService.saveDevice(device3);
+
 
         User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
         Home home2 = new Home(28045, "c/montepinar", true, null);
@@ -85,13 +83,20 @@ public class UserService {
         user1Homes.add(home2);
         user1Homes.add(home3);
         user1.setHomeList(user1Homes);
+
+
+        //deviceService.saveDevice(device1);
+        //deviceService.saveDevice(device2);
+        //deviceService.saveDevice(device3);
         //homeService.saveHome(home2);
         //homeService.saveHome(home3);
         saveUser(user1);
+        User user123= findOneUserByEmail("amador@merengue.com");
+        Home homeSellect=user123.getHomeList().get(1);
+        List<Device> deviceList123 = homeSellect.getDeviceList();
+        OrderRequest order1 = new OrderRequest(31, false, homeSellect, deviceList123);
+        orderRequestService.saveOrder(order1);
 
-        Order order1 = new Order(31, false, home3, deviceList);
-
-        orderService.saveOrder(order1);
 
 
         User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
@@ -138,5 +143,9 @@ public class UserService {
 
     }
 
+
+    public User findUserByHomeId(Home home) {
+        return userRepository.findUserByHomeListEquals(home);
+    }
 
 }

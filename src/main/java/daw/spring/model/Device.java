@@ -17,20 +17,29 @@ public class Device {
     private Device.StateType status;
     private String img;
     private boolean activated;
+    private String serialNumber;
 
     public Device() {
     }
 
-    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated) {
-        this.id = id;
+
+    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated, String serialNumber) {
         this.description = description;
         this.cost = cost;
         this.type = type;
         this.status = status;
         this.img = img;
         this.activated = activated;
+        this.serialNumber = serialNumber;
     }
 
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public long getId() {
         return id;
@@ -89,7 +98,7 @@ public class Device {
     }
 
     public enum DeviceType {
-        BLIND, LIGHT, RASPBERRYPI,
+        BLIND, LIGHT, RASPBERRYPI
     }
 
     public enum StateType {

@@ -149,55 +149,66 @@
 
 
     <section class="mt-30px mb-30px">
+        {{#orderDetail}}
+
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 col-md-3">
+                <div class="col-lg-12 col-md-12">
                     <div id="recent-activities-wrapper" class="card updates activities">
                         <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedidos #0001</a></h2>
+                            <form  action="/adminDashboard/detail/{{id}}" method="post"  id="frmOrderDetail" name="frmOrderDetail" >
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedido: {{id}}</a></h2>
+                                    </div>
+                                     <div class="col-md-6">
+                                         <input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Confirmar pedido" />
+                                         <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar pedido" />
+                                     </div>
+                                </div>
+                            </form>
                         </div>
                         <ul class="list-unstyled">
                             <!-- Item-->
                             <li>
+                                {{#userHome}}
                                 <div class="row">
                                     <div class="col-5 date-holder content text-center">
                                         <div class="date"><span class="text-info">Nombre del Titular:</span></div>
-                                        {{#user}}
-                                        <p>{{firstName}}{{lastName}}</p>
-                                        {{/user}}
+                                        <p>{{firstName}} {{lastName}}</p>
                                     </div>
                                     <div class="col-3 date-holder content text-center">
-                                        <div class="date"><span class="text-info">DNI:</span></div>
-                                        {{#user}}
-                                        <p>{{cp}}</p>
-                                        {{/user}}
+                                        <div class="date"><span class="text-info">Email:</span></div>
+                                        <p>{{email}}</p>
+
                                     </div>
                                     <div class="col-3 date-holder content text-center">
                                         <div class="date"><span class="text-info">Teléfono:</span></div>
-                                        <p>666 666 666</p>
-                                        {{#user}}
-                                        <p>{{cp}}</p>
-                                        {{/user}}
+                                        <p>{{phone}}</p>
                                     </div>
                                 </div>
+                                {{/userHome}}
                             </li>
+
 
                             <!-- Item-->
                             <li>
+                                {{#home}}
                                 <div class="row">
                                     <div class="col-6 date-holder content text-center">
                                         <div class="date"><span class="text-info">Dirección:</span></div>
-                                        {{#user}}
-                                        <p>{{direccion}}</p>
-                                        {{/user}}
+
+                                        <p>{{address}}</p>
+
                                     </div>
                                     <div class="col-6 date-holder content text-center">
-                                        <div class="date"><span class="text-info">Email:</span></div>
-                                        {{#user}}
-                                        <p>{{email}}</p>
-                                        {{/user}}
+                                        <div class="date"><span class="text-info">Cod. Postal:</span></div>
+
+                                        <p>{{postCode}}</p>
+
                                     </div>
                                 </div>
+                                {{/home}}
                             </li>
                             <!-- Item-->
                             <li>
@@ -205,52 +216,36 @@
                                     <div class="col-12 date-holder content text-center">
                                         <div class="date"><span class="text-info">Productos Adquiridos:</span></div>
                                         <div class="row">
+                                            {{#deviceList}}
                                             <div class="col-md-4 ">
+                                                <form  action="/adminDashboard/orders/{{orderDetail.id}}/{{id}}" method="post"  name="frmDeviceOrder">
                                                 <br>
-                                                <h5>Persiana 1</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
+                                                <h5>{{type}}</h5>
+                                                {{^activated}}
+                                                <th>Sin activar</th>
+                                                {{/activated}}
+                                                {{#activated}}
+                                                <th>Activado</th>
+                                                {{/activated}}
+                                                <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" >
                                                 <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
+                                                <input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
+                                                <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar" />
+                                                </form>
                                             </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Persiana 2</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Persiana 3</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Luz 1</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
-                                            <div class="col-md-4 ">
-                                                <br>
-                                                <h5>Luz 2</h5>
-                                                <input type="number" placeholder="Nª Serie" id="light" name="light" class="form-control" disabled>
-                                                <br>
-                                                <button type="button" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg" data-dismiss="modal"> OK</button>
-                                            </div>
+                                            {{/deviceList}}
                                         </div>
                                     </div>
                                 </div>
                             </li>
-
+                            {{/orderDetail}}
 
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <footer class="main-footer">
         <div class="container-fluid">

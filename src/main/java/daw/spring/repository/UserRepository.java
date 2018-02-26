@@ -1,5 +1,6 @@
 package daw.spring.repository;
 
+import daw.spring.model.Home;
 import daw.spring.model.Product;
 import daw.spring.model.User;
 
@@ -16,7 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByFirstName(String firstName);
 
     User findUserByEmail(String email);
-    
-    
-    
+
+
+    User findUserByHomeListEquals(Home home);
+
 }

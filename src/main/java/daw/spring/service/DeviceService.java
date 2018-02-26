@@ -49,6 +49,17 @@ public class DeviceService {
         return deviceRepository.countDevicesByActivatedIsFalse();
     }
 
+    public void activeOneDevice(long deviceId, String serialNumber) {
+        Device deviceUpdate=deviceRepository.findOne(deviceId);
+        deviceUpdate.setActivated(true);
+        deviceUpdate.setSerialNumber(serialNumber);
+        saveDevice(deviceUpdate);
+    }
+
+    public void cancelOneDevice(long deviceId) {
+        deviceRepository.delete(deviceId);
+    }
+
 
 
  /*   @PostConstruct

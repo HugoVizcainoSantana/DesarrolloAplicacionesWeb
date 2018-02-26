@@ -1,27 +1,27 @@
 package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
-import daw.spring.model.Product;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.OrderRequest;
 import daw.spring.model.User;
-import daw.spring.repository.UserRepository;
 import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/adminDashboard")
@@ -31,18 +31,18 @@ public class AdminDashboardController implements CurrentUserInfo{
     private final DeviceService deviceService;
     private final HomeService homeService;
     private final ProductService productService;
-    private final OrderService orderService;
+    private final OrderRequestService orderRequestService;
 
 
     private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
     @Autowired
-    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderService orderService) {
+    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderRequestService orderRequestService) {
         this.userService = userService;
         this.deviceService = deviceService;
         this.homeService = homeService;
         this.productService = productService;
-        this.orderService = orderService;
+        this.orderRequestService = orderRequestService;
     }
 
     @RequestMapping("/")
@@ -63,29 +63,7 @@ public class AdminDashboardController implements CurrentUserInfo{
         return "adminDashboard/inventory";
     }
 
-    //@GetMapping(value ="/inventory/{{id}}/document.getElementById('numberInput{{id}}').value", method = RequestMethod.POST)
-    //@GetMapping(value ="/inventory, method = RequestMethod.POST)
-    //public String modStock(Model model, Principal principal, @RequestParam("id") long id, @RequestParam("numberInput{{id}}") long stock,) {
-    //public String modStock(Model model, Principal principal, @PathVariable long id, @PathVariable long stock,HttpServletResponse response) {
-        //Update stock   @RequestParam("file") MultipartFile photo
-     //   productService.updateStockProduct(id,stock);
-    //    model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-     //   model.addAttribute("product", productService.findAllProducts());
-    //    return "redirect:inventory";
-    //}
 
-    //@ResponseBody
-
-    //@RequestMapping(value ="/inventory/{id}", method = RequestMethod.POST)
-    //public String modStock(Model model  , Principal principal, @PathVariable long id, @RequestParam(value="numberInput{id}") long stock){
-    //    stock=40;
-    //    productService.updateStockProduct(id,stock);
-    //    model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-    //    model.addAttribute("product", productService.findAllProducts());
-     //   return "redirect:inventory";
-    //}  HttpServletResponse response
-
-    //@RequestMapping( value ="/inventory/{id}", method = RequestMethod.POST)
     @RequestMapping( value ="/inventory", method = RequestMethod.POST)
     public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
         productService.updateStockProduct(id,stock,cost);
@@ -133,41 +111,58 @@ public class AdminDashboardController implements CurrentUserInfo{
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderService.homesOrders());
-
+        model.addAttribute("orders",orderRequestService.homesOrders());
         return "adminDashboard/orders";
     }
 
+    @RequestMapping("/detail/{id}")
+    public String confirmOrder(Model model, Principal principal, @PathVariable long id){
 
-    @RequestMapping("/detail")
-    public String profile(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("userSesion", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        OrderRequest orderDt = orderRequestService.finOneById(id);
+        orderRequestService.confirmOrder(id);
+        model.addAttribute("orderDetail", orderDt);
+        Home homeOrder=orderDt.getHome();
+        User homeUser=userService.findUserByHomeId(homeOrder);
+        model.addAttribute("userHome", homeUser);
         return "adminDashboard/detail";
     }
 
-    @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public String saveProfile(Model model, @RequestParam("file") MultipartFile photo, Principal principal) {
-        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        if (!photo.isEmpty()) {
-            //Path directorioRecusrsos=Paths.get("file");
 
-            Path directorioRecusrsos = Paths.get("src//main//resources//static//upload");
-            String rootPath = directorioRecusrsos.toFile().getAbsolutePath();
+    @RequestMapping("/orders/{id}")
+    public String orderDetail(Model model, Principal principal, @PathVariable long id){
 
-            try {
-                byte[] bytes = photo.getBytes();
-                Path rutaCompleta = Paths.get(rootPath + "//" + photo.getOriginalFilename());
-                Files.write(rutaCompleta, bytes);
-                //flash.addAttribute("info", "Ha subido correctamente '"+ foto.getOriginalFilename()+"'");
-                user.setPhoto(photo.getOriginalFilename());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        userService.saveUser(user);
-        //model.addAttribute("titulo", "Perfil");
-        //status.setComplete();
-        return "dashboard/created";
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        OrderRequest orderDt = orderRequestService.finOneById(id);
+        model.addAttribute("orderDetail", orderDt);
+        Home homeOrder=orderDt.getHome();
+        User homeUser=userService.findUserByHomeId(homeOrder);
+        model.addAttribute("userHome", homeUser);
+        return "adminDashboard/detail";
     }
+
+
+    @RequestMapping(value="/orders/{orderId}/{deviceId}", params = "activate")
+    public String confirmDevice(Model model, Principal principal, @PathVariable long orderId,  @PathVariable long deviceId,  @RequestParam(required = false) String serialNumberInput){
+        deviceService.activeOneDevice(deviceId, serialNumberInput);
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("orders", orderRequestService.homesOrders());
+        return "redirect:/adminDashboard/orders";
+    }
+
+    @RequestMapping(value="/orders/{orderId}/{deviceId}", params = "cancel")
+    public String cancelDevice(Model model, Principal principal, @PathVariable long orderId,  @PathVariable long deviceId,  @RequestParam(required = false) String serialNumberInput){
+        Device deviceCancel = deviceService.findOneById(deviceId);  //Scan device
+        OrderRequest orderDt = orderRequestService.finOneById(orderId);  //Delete device from order
+        List<Device> deviceList = orderDt.getDeviceList();
+        deviceList.remove(deviceCancel);
+        Home homeDt = homeService.findOneById(orderDt.getHome().getId());  //Delete device from home
+        List<Device> deviceList2 = homeDt.getDeviceList();
+        deviceList2.remove(deviceCancel);
+        deviceService.cancelOneDevice(deviceId);  //Delete device
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("orders", orderRequestService.homesOrders());
+        return "adminDashboard/orders";
+    }
+
 }
