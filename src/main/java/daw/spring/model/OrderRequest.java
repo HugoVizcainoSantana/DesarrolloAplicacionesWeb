@@ -4,27 +4,29 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Order {
+public class OrderRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long precio;
-    private boolean completed; // 1 for Pendind and 0 for Done
+    private Double cost;
+    private boolean isOk; // 1 for Pendind and 0 for Done
 
-    @OneToOne
+    @OneToOne//(cascade = CascadeType.ALL)
     private Home home;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     private List<Device> deviceList;
 
-    public Order() {
+    public OrderRequest() {
     }
 
-    public Order(long precio, boolean completed, Home home, List<Device> deviceList) {
+
+    public OrderRequest(double cost, boolean confirmed, Home home, List<Device> deviceList) {
         
-        this.precio = precio;
-        this.completed = completed;
+        this.cost = cost;
+        this.isOk = confirmed;
         this.home = home;
         this.deviceList = deviceList;
     }
@@ -37,20 +39,20 @@ public class Order {
         this.id = id;
     }
 
-    public long getPrecio() {
-        return precio;
+    public double getCost() {
+        return cost;
     }
 
-    public void setPrecio(long precio) {
-        this.precio = precio;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public boolean isConfirmed() {
+        return isOk;
     }
 
-    public void setCompleted(boolean state) {
-        this.completed = state;
+    public void setConfirmed(boolean state) {
+        this.isOk = state;
     }
 
     public Home getHome() {

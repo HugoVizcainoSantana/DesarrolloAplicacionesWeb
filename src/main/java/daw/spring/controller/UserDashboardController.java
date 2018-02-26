@@ -5,12 +5,12 @@ import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.Device;
 import daw.spring.model.Home;
-import daw.spring.model.Order;
+import daw.spring.model.OrderRequest;
 import daw.spring.model.Product;
 import daw.spring.model.User;
 import daw.spring.service.DeviceService;
 import daw.spring.service.HomeService;
-import daw.spring.service.OrderService;
+import daw.spring.service.OrderRequestService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
@@ -22,9 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -52,20 +50,20 @@ public class UserDashboardController implements CurrentUserInfo {
     private final InvoiceGenerator invoiceGenerator;
     private final ProductService productService;
     private final DeviceService deviceService;
-    private final OrderService orderService;
+    private final OrderRequestService orderRequestService;
    
   
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService,DeviceService deviceService, OrderService orderService) {
+    public UserDashboardController(UserService userService, HomeService homeService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
         this.productService=productService;
         this.deviceService= deviceService;
-        this.orderService=orderService;
+        this.orderRequestService = orderRequestService;
     }
 
     @RequestMapping("/")
@@ -99,21 +97,21 @@ public class UserDashboardController implements CurrentUserInfo {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
-			Device device = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false);
+			Device device = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null);
 			deviceService.saveDevice(device);
 			deviceList.add(device);
 		}
 		for(int i=0; i<lightQuantity; i++) {
-			Device device = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false);
+			Device device = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false, null);
 			deviceService.saveDevice(device);
 			deviceList.add(device);
 		}
 		Home home = new Home(postCode, address, false, deviceList );
 		homeService.saveHome(home);
 		userService.saveHomeUser(home, user);
-		
-		Order order = new Order(total, false, home, deviceList);
-		orderService.saveOrder(order);
+        //Order order = new Order(total, false, home);
+        OrderRequest order = new OrderRequest(total, false, home, deviceList);
+		orderRequestService.saveOrder(order);
 		 
 		return"redirect:shop";
 	}

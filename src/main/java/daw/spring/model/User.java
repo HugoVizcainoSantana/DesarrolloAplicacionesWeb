@@ -31,7 +31,7 @@ public class User {
     @NotEmpty
     private String passwordHash;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Home> homeList;
 
     private String phone;
