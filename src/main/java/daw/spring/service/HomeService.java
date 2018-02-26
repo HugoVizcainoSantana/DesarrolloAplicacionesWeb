@@ -47,6 +47,7 @@ public class HomeService {
 
     public void activeHome(Home home) {
         home.setActivated(true);
+        saveHome(home);
     }
 
   /*  @PostConstruct
