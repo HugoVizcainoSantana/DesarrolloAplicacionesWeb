@@ -150,190 +150,94 @@
         <div class="container-fluid">
             <!-- Page Header-->
             <header>
-                <h1 class="h3 display">Mis Pedidos</h1>
+                <h1 class="h3 display">Pedidos pendientes : </h1>
             </header>
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
+                        {{#orders}}
                         <div class="card-header">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4>Pedido #0001</h4>
+                                        <h4>Pedido: {{id}}</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
+                                        <h5 class="text-muted text-right"><a href="/adminDashboard/orders/{{id}}">Ver detalles</a></h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
+                                        <th>Coste : </th>
+                                        <th>Direccion : </th>
+                                        <th>Estado del pedido : </th>
                                     </tr>
                                     </thead>
                                     <tbody>
+
+
                                     <tr>
-                                        {{#user}}
-                                        <th>{{firstName}}</th>
-                                        <th>{{direccion}}</th>
-                                        <th>{{cp}}</th>
-                                        {{/user}}
+
+                                        <th>{{cost}}</th>
+                                        {{#home}}
+                                        <th>{{address}}</th>
+                                        {{/home}}
+                                        {{^isOk}}
+                                        <th>Sin confirmar</th>
+                                        {{/isOk}}
+                                        {{#isOk}}
+                                        <th>Confirmado</th>
+                                        {{/isOk}}
                                     </tr>
 
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
-                                            <button type="button" class="btn btn-primary">Fin Instalacion</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Pedido #0001</h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
+                                        <th>Actuador : </th>
+                                        <th>Nº serie : </th>
+                                        <th>Estado : </th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
+
+                                    {{#deviceList}}
                                     <tr>
-                                        {{#user}}
-                                        <th>{{firstName}}</th>
-                                        <th>{{direccion}}</th>
-                                        <th>{{cp}}</th>
-                                        {{/user}}
+
+                                        <th>{{type}}</th>
+                                        {{^serialNumber}}
+                                        <th> </th>
+                                        {{/serialNumber}}
+                                        {{#serialNumber}}
+                                        <th>{{serialNumber}}</th>
+                                        {{/serialNumber}}
+
+                                        {{^activated}}
+                                        <th>No activo</th>
+                                        {{/activated}}
+                                        {{#activated}}
+                                        <th>Activado</th>
+                                        {{/activated}}
+
                                     </tr>
+                                    {{/deviceList}}
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
-                                            <button type="button" class="btn btn-primary">Fin Instalacion</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Pedido #0001</h4>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5 class="text-muted text-right"><a href="detail/">Ver detalles</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        {{#user}}
-                                        <th>{{firstName}}</th>
-                                        <th>{{direccion}}</th>
-                                        <th>{{cp}}</th>
-                                        {{/user}}
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="card-body text-left">
-                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Finalizada Instalación</button>
-                            <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                                <div role="document" class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 id="exampleModalLabel" class="modal-title">Estas a punto de cerrar la orden de Instalación</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Todavía no</button>
-                                            <button type="button" class="btn btn-primary">Fin Instalacion</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{/orders}}
                     </div>
                 </div>
             </div>

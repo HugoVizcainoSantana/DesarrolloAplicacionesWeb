@@ -17,7 +17,7 @@ public class Home {
     private String address;
     private Boolean activated;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Device> deviceList;
 
     //Atribute ignored by JPA (not stored in database)

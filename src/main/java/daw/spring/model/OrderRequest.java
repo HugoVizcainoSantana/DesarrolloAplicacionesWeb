@@ -3,27 +3,30 @@ package daw.spring.model;
 import javax.persistence.*;
 import java.util.List;
 
-public class Order {
+@Entity
+public class OrderRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long precio;
-    private boolean state; // 1 for Pendind and 0 for Done
+    private Double cost;
+    private boolean isOk; // 1 for Pendind and 0 for Done
 
-    @OneToOne
+    @OneToOne//(cascade = CascadeType.ALL)
     private Home home;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     private List<Device> deviceList;
 
-    public Order() {
+    public OrderRequest() {
     }
 
-    public Order(long id, long precio, boolean state, Home home, List<Device> deviceList) {
-        this.id = id;
-        this.precio = precio;
-        this.state = state;
+
+    public OrderRequest(double cost, boolean confirmed, Home home, List<Device> deviceList) {
+        
+        this.cost = cost;
+        this.isOk = confirmed;
         this.home = home;
         this.deviceList = deviceList;
     }
@@ -36,20 +39,20 @@ public class Order {
         this.id = id;
     }
 
-    public long getPrecio() {
-        return precio;
+    public double getCost() {
+        return cost;
     }
 
-    public void setPrecio(long precio) {
-        this.precio = precio;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
-    public boolean isState() {
-        return state;
+    public boolean isConfirmed() {
+        return isOk;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setConfirmed(boolean state) {
+        this.isOk = state;
     }
 
     public Home getHome() {
