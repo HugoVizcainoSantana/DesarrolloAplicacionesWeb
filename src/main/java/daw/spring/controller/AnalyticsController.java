@@ -8,14 +8,16 @@ import daw.spring.service.HomeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,8 +39,9 @@ public class AnalyticsController {
         this.homeService = homeService;
     }
 
-    @RequestMapping(value = "/analytics/{homeId}", produces = "application/json")
-    public LinkedHashMap<Date, Float> getAnalytics(@PathVariable long homeId) {
+    @RequestMapping(value = "/analytics/{homeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public HashMap<Date, Float> getAnalytics(@PathVariable long homeId) {
         log.info("Requested Analytics!");
         Home home = homeService.findOneById(homeId);
         LinkedList<Date> graphDomain = new LinkedList<>();
@@ -65,21 +68,27 @@ public class AnalyticsController {
                                 graphValues.addLast(0F);
                             }
                         }
-                        if (lastAnalyticWasBlindType) { //Readd last with blind consumption also removed
+                        if (lastAnalyticWasBlindType) { //Read last with blind consumption also removed
                             graphValues.addLast(graphValues.pollLast() - BLIND_CONSUMPTION);
                         }
                         lastAnalyticWasBlindType = false;
                         break;
                     case BLIND:
-                        graphValues.addLast(lastValue + BLIND_CONSUMPTION);
+                        if (lastValue == null) {
+                            graphValues.addLast(0F);
+                        } else {
+                            graphValues.addLast(lastValue + BLIND_CONSUMPTION);
+                        }
                         lastAnalyticWasBlindType = true;
                         break;
                 }
             }
         }
-        LinkedHashMap<Date, Float> graphData = new LinkedHashMap<>();
-        graphData.keySet().addAll(graphDomain);
-        graphData.values().addAll(graphValues);
+        HashMap<Date, Float> graphData = new HashMap<>();
+        assert graphDomain.size() == graphData.size();
+        for (int i = 0; i < graphDomain.size(); i++) {
+            graphData.put(graphDomain.get(i), graphValues.get(i));
+        }
         return graphData;
     }
 }

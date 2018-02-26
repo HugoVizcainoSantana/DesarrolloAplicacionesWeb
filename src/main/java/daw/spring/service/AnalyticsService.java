@@ -1,6 +1,9 @@
 package daw.spring.service;
 
 import daw.spring.model.Analytics;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.User;
 import daw.spring.repository.AnalyticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +40,7 @@ public class AnalyticsService {
     }
 
     public List<Analytics> findAnalyticsByDeviceId(long id, Date date) {
-        return analyticsRepository.findByDeviceId(id);
+        return analyticsRepository.findByDeviceIdAndDateAfter(id, date);
     }
 
     public List<Analytics> findAllAnalytics() {
@@ -45,6 +48,7 @@ public class AnalyticsService {
     }
 
     private void saveAnalytics(Analytics analytics) {
+        //deviceService.saveDevice(analytics.getDevice());
         analyticsRepository.save(analytics);
     }
 
@@ -73,18 +77,16 @@ public class AnalyticsService {
 
         saveAnalytics(analitycsYearUser1);*/
 
-/*
-        User user= userService.findOneUserByEmail("hugo@santana.com");
-        Device device = new Device("Dispositivo pruebas analiticas",30, Device.DeviceType.BLIND, Device.StateType.OFF,null,true);
+
+        User user = userService.findOneUserByEmail("hugo@santana.com");
         Home home = user.getHomeList().get(0);
-        List<Device> deviceList = home.getDeviceList();
-        deviceList.add(device);
-        homeService.saveHome(home);
-        Analytics analytics1 = new Analytics(device, Device.StateType.OFF, Device.StateType.ON, null);
-        analytics1.setDate(new Date(2018, 2, 25, 12, 0, 0));
-        Analytics analytics2 = new Analytics(device, Device.StateType.ON, Device.StateType.OFF, analytics1);
-        analytics2.setDate(new Date(2018, 2, 25, 16, 0, 0));
-        */
+        Device device = home.getDeviceList().get(0);
+        Analytics analytics1 = new Analytics(device, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
+        analytics1.setDate(new Date(2018 - 1900, 2, 25, 12, 0, 0));
+        Analytics analytics2 = new Analytics(device, new Date(), Device.StateType.ON, Device.StateType.OFF, analytics1);
+        analytics2.setDate(new Date(2018 - 1900, 1, 25, 16, 0, 0));
+        saveAnalytics(analytics1);
+        saveAnalytics(analytics2);
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AnalyticsRepository extends JpaRepository<Analytics, Long> {
 
-    public List<Analytics> findByDeviceId(long id);
+    List<Analytics> findByDeviceId(long id);
 
-    public List<Analytics> findByDeviceIdAndDateAfterOrderByDateAsc(long id, Date date);
+    List<Analytics> findByDeviceIdAndDateAfter(long id, Date date);
 }

@@ -1,5 +1,6 @@
 package daw.spring.service;
 
+import daw.spring.model.Device;
 import daw.spring.model.Home;
 import daw.spring.model.Roles;
 import daw.spring.model.User;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -74,7 +76,8 @@ public class UserService {
         saveUser(user4);
 
         User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
-        Home home1 = new Home(28007, "c/hugo", true, null);
+        Device device1 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true);
+        Home home1 = new Home(28007, "c/hugo", true, Collections.singletonList(device1));
         ArrayList<Home> user5Homes = new ArrayList<>();
         user5Homes.add(home1);
         user5.setHomeList(user5Homes);

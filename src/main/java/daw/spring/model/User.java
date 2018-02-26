@@ -29,7 +29,7 @@ public class User {
     @NotEmpty
     private String passwordHash;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Home> homeList;
 
     private String phone;
@@ -135,6 +135,10 @@ public class User {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }
 
