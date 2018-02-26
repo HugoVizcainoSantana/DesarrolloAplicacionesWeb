@@ -38,4 +38,9 @@ public class OrderRequestService {
 	    orderConfirm.setConfirmed(true);
 	    saveOrder(orderConfirm);
     }
+
+    public void deleteOrder(long id) {
+	    orderRequestRepository.delete(id);
+
+    }
 }

@@ -108,16 +108,10 @@ public class AdminDashboardController implements CurrentUserInfo{
         return userRepository.findAll(page);
     }*/
 
-    @RequestMapping("/orders")
-    public String orders(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders",orderRequestService.homesOrders());
-        return "adminDashboard/orders";
-    }
 
-    @RequestMapping("/detail/{id}")
+
+    @RequestMapping(value="/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id){
-
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
         orderRequestService.confirmOrder(id);
@@ -128,10 +122,46 @@ public class AdminDashboardController implements CurrentUserInfo{
         return "adminDashboard/detail";
     }
 
+    @RequestMapping(value="/detail/{id}", params = "cancel")
+    public String cancelOrder(Model model, Principal principal, @PathVariable long id){
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        OrderRequest orderDt = orderRequestService.finOneById(id);
+        model.addAttribute("orderDetail", orderDt);
+        Home homeOrder=orderDt.getHome();
+        User homeUser=userService.findUserByHomeId(homeOrder);
+        model.addAttribute("userHome", homeUser);
+        List<Device> orderDevices = orderDt.getDeviceList();
+        List<Device> homeDevices=homeOrder.getDeviceList();
+        //for (Device deviceI:orderDevices ) {
+        //    for (Device deviceII:homeDevices ) {
+        //        if(deviceI.equals(deviceII)){
+        //            homeDevices.remove(deviceII);
+        //            deviceService.deleteDevice(deviceII);
+        //        }
+        //    }
+        //    orderDevices.remove(deviceI);
+        //    deviceService.deleteDevice(deviceI);
+        //}
+        //homeOrder.setDeviceList(homeDevices);
+        //orderDt.setDeviceList(orderDevices);
+
+        //if(homeOrder.getDeviceList().isEmpty()){
+        if(orderDevices.equals(homeDevices)){
+            homeService.deleteHome(homeOrder);
+        }
+        orderRequestService.deleteOrder(id);
+        return "adminDashboard/orders";
+    }
+
+    @RequestMapping("/orders")
+    public String orders(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("orders",orderRequestService.homesOrders());
+        return "adminDashboard/orders";
+    }
 
     @RequestMapping("/orders/{id}")
     public String orderDetail(Model model, Principal principal, @PathVariable long id){
-
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
         model.addAttribute("orderDetail", orderDt);

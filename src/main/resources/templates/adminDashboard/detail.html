@@ -158,13 +158,16 @@
                         <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
                             <form  action="/adminDashboard/detail/{{id}}" method="post"  id="frmOrderDetail" name="frmOrderDetail" >
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Pedido: {{id}}</a></h2>
                                     </div>
-                                     <div class="col-md-6">
-                                         <input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Confirmar pedido" />
-                                         <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar pedido" />
+                                     <div class="col-md-4">
+                                         <input type="submit" name="activate" class="btn btn-primary btn-md " value="Confirmar" />
+
                                      </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" name="cancel" class="btn btn-danger btn-md " value="Cancelar" />
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -227,10 +230,18 @@
                                                 {{#activated}}
                                                 <th>Activado</th>
                                                 {{/activated}}
-                                                <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" >
+
+                                                {{^serialNumber}}
+                                                    <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" >
+                                                {{/serialNumber}}
+                                                {{#serialNumber}}
+                                                    <input type="text" placeholder="Nª Serie" id="serialNumberInput" name="serialNumberInput" class="form-control" value="{{serialNumber}}" >
+                                                {{/serialNumber}}
+
+
                                                 <br>
                                                 <input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
-                                                <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar" />
+                                                <input type="submit" name="cancel" class="btn btn-danger btn-lg btn-block" value="Cancelar" />
                                                 </form>
                                             </div>
                                             {{/deviceList}}

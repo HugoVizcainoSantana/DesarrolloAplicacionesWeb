@@ -33,8 +33,8 @@ public class DeviceService {
         deviceRepository.save(product);
     }
 
-    public void deleteDevice(Device product) {
-        deviceRepository.delete(product);
+    public void deleteDevice(Device device) {
+        deviceRepository.delete(device);
     }
 
     public Page<Device> findAllDevicePage(PageRequest pageRequest) {
