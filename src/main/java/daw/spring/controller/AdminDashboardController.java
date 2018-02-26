@@ -121,6 +121,7 @@ public class AdminDashboardController implements CurrentUserInfo {
         orderRequestService.confirmOrder(id);
         model.addAttribute("orderDetail", orderDt);
         Home homeOrder=orderDt.getHome();
+        homeService.activeHome(homeOrder);
         User homeUser=userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
         return "adminDashboard/detail";
