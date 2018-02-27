@@ -246,7 +246,7 @@
 				class="sr-only">Next</span>
 			</a>
 		</div>
-
+<form action="/dashboard/shop" method="post">
 		<!-- Header Section-->
 		<section class="mt-30px mb-30px container-fluid">
 			<div class="container">
@@ -276,18 +276,18 @@
 								</div>
 							</div>
 						</div>
-						<form action="/dashboard/shop" method="post">
+						
 							<label class="col-sm-10 form-control-label">Cuantos
 								elementos quiere controlar</label>
 							<div class="col-sm-10">
 								<div class="row">
 									<div class="col-md-4">
 										<input type="number" placeholder="Nª Persianas" id="blind"
-											name="blind" class="form-control" disabled>
+											name="blind" class="form-control" disabled required="required">
 									</div>
 									<div class="col-md-4">
 										<input type="number" placeholder="Nª Luces" id="light"
-											name="light" class="form-control" disabled>
+											name="light" class="form-control" disabled req>
 									</div>
 								</div>
 							</div>
@@ -309,7 +309,8 @@
 										</div>
 										<div class="text-center col-sm-12">
 											<h3>
-												Total: <span id="total" name="total"></span>€
+												  Total: <span id="total" name="total"></span>€
+											
 											</h3>
 										</div>
 									</div>
@@ -320,7 +321,7 @@
 								<button type="button" onClick="oper()"
 									class="btn btn-success btn-lg btn-block" data-dismiss="modal">Calcular</button>
 							</div>
-                        </form>
+                       <!--  </form> -->
 					</div>
 				</div>
 			</div>
@@ -360,15 +361,12 @@
 								<div class="form-group">
 									<label>Código postal</label> <input type="text" name="postCode" id="postCode"
 										placeholder="xxxxx" class="form-control" />
-									<input type="number" id="description" name="description" value="Pedido generado" class="form-control" style="visibility:hidden;"/>
+									<!-- <input type="number" id="description" name="description" value="Pedido generado" class="form-control" style="visibility:hidden;"/>-->
 								</div>
 								
 								{{/user}}
 								<br> <br> 
-
-
-								<!--  </form>-->
-
+								 <!--</form>-->
 							</div>
 						</div>
 					</div>
@@ -421,9 +419,10 @@
 										src="/images/american_express.png" alt=""> <img
 										src="/images/paypal-express-checkout-logo.png" alt="">
 								</div>
-
-								<input type="submit" class="btn btn-primary btn-lg btn-block"
-									value="Enviar" />
+								
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+								  Aceptar
+								</button>
 								<!-- Modal -->
 								<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 									role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -451,13 +450,13 @@
 													onClick="visibilidadDiv('contentDanger')"
 													class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 												<!--  <button type="submit" onClick="visibilidadDiv('content')" class="btn btn-primary" data-dismiss="modal">Aceptar</button>-->
-												<input type="submit" value="Aceptar" />
+												<input type="submit" class="btn btn-primary" value="Aceptar" />
 											</div>
 
 										</div>
 									</div>
 								</div>
-								<!--  </form>-->
+								<!--  -->
 							</div>
 						</div>
 					</div>
@@ -481,6 +480,7 @@
 			</div>
 
 		</section>
+</form>
 		<!-- Button trigger modal -->
 
 

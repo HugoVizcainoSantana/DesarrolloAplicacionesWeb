@@ -106,8 +106,9 @@ public class UserDashboardController implements CurrentUserInfo {
 	public String addOrder (Principal principal, @RequestParam(name="direccion")String address,
                             @RequestParam(name = "postCode") long postCode,
                             @RequestParam(name = "blind") Integer blindQuantity,
-                            @RequestParam(name = "light") Integer lightQuantity,
-                            @RequestParam(name = "total") long total) {
+                            @RequestParam(name = "light") Integer lightQuantity) {
+		Double totalPrice = (double) (blindQuantity*20+lightQuantity*30);
+		log.info("Ha entrado en el metodo");
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
@@ -120,14 +121,15 @@ public class UserDashboardController implements CurrentUserInfo {
 			deviceService.saveDevice(device);
 			deviceList.add(device);
 		}
+		log.info("Empieza a guardar");
 		Home home = new Home(postCode, address, false, deviceList );
 		homeService.saveHome(home);
 		userService.saveHomeUser(home, user);
         //Order order = new Order(total, false, home);
-        OrderRequest order = new OrderRequest(total, false, home, deviceList);
+        OrderRequest order = new OrderRequest(totalPrice, false, home, deviceList);
 		orderRequestService.saveOrder(order);
-
-        return "redirect:shop";
+		log.info("Oreder created");
+        return "redirect:see";
 	}
 
 
@@ -198,7 +200,13 @@ public class UserDashboardController implements CurrentUserInfo {
     }
     @RequestMapping("/see")
     public String see(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+    		User user =  userService.findOneById(getIdFromPrincipalName(principal.getName()));
+    		
+        model.addAttribute("user", user);
+        List<OrderRequest> orderRequest;
+        for (Home home : user.getHomeList()) {
+			orderRequest.add(orderServie.findOrederByHomeId());
+		}
         model.addAttribute("orderList",homeService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/see";
     }
