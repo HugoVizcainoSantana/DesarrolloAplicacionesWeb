@@ -31,7 +31,7 @@ public class UserService {
         this.deviceService = deviceService;
     }
 
-    public User findOneById(Long id) {
+    public User findOneById(long id) {
         return userRepository.findOne(id);
     }
 
@@ -62,12 +62,23 @@ public class UserService {
     		saveUser(user);
     }
 
+    public List<Device> getUserFavoriteDevices(User user) {
+        List<Device> favoriteDevices = new ArrayList<>();
+        for (Home home : user.getHomeList()) {
+            for (Device device : home.getDeviceList()) {
+                if (device.isFavorite())
+                    favoriteDevices.add(device);
+            }
+        }
+        return favoriteDevices;
+    }
+
     @PostConstruct
     public void init() {
 
-        Device device1 = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false , null);
-        Device device2 = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null);
-        Device device3 = new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false, null);
+        Device device1 = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false, null, false);
+        Device device2 = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null, false);
+        Device device3 = new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false, null, false);
         ArrayList<Device> deviceList = new ArrayList<>();
 
         deviceList.add(device1);
@@ -108,7 +119,7 @@ public class UserService {
         saveUser(user4);
 
         User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
-        Device device5 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true, null);
+        Device device5 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true, null, false);
         Home home1 = new Home(28007, "c/hugo", true, Collections.singletonList(device5));
         ArrayList<Home> user5Homes = new ArrayList<>();
         user5Homes.add(home1);

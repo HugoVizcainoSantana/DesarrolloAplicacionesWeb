@@ -36,17 +36,17 @@
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
             {{#user}}
-				<div class="sidenav-header-inner text-center">
-				{{#photo}}
-					<img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
-				{{/photo}}
-				{{^photo}}
-					<img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
-				{{/photo}}
-					<h2 class="h5">Usuario:</h2>
-					<span>{{firstName}}</span>
-				</div>
-			{{/user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Usuario:</h2>
+                <span>{{firstName}}</span>
+            </div>
+            {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
             <div class="sidenav-header-logo"><a href="/" class="brand-small text-center"><strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
@@ -78,71 +78,71 @@
                     <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl</span><strong class="text-primary">Home</strong></div>
                     </a></div>
-                   <!--   <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                        <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                            <ul aria-labelledby="notifications" class="dropdown-menu">
-                                <li><a rel="nofollow" href="#" class="dropdown-item">
-                                    <div class="notification d-flex justify-content-between">
-                                        <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages</div>
-                                        <div class="notification-time">
-                                            <small>4 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item">
-                                    <div class="notification d-flex justify-content-between">
-                                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                        <div class="notification-time">
-                                            <small>4 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item">
-                                    <div class="notification d-flex justify-content-between">
-                                        <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                                        <div class="notification-time">
-                                            <small>4 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item">
-                                    <div class="notification d-flex justify-content-between">
-                                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                        <div class="notification-time">
-                                            <small>10 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications </strong></a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                            <ul aria-labelledby="notifications" class="dropdown-menu">
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span>
-                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span>
-                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="/images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span>
-                                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>-->
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                    <!--   <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                         <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                             <ul aria-labelledby="notifications" class="dropdown-menu">
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                         <div class="notification-time">
+                                             <small>10 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications </strong></a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                             <ul aria-labelledby="notifications" class="dropdown-menu">
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>-->
+                    </ul>
+                    </li>
+                    <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -161,18 +161,17 @@
                         <div id="updates-box" role="tabpanel" class="collapse show">
                             <ul class="news list-unstyled">
                                 <!-- Item-->
-                                {{#devices}}
+                                {{#favoriteDevices}}
                                 <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz del salon</strong></div>
                                     </div>
                                     <div class="right-col text-right">
-                                        <!--<form  action="/adminDashboard/orders/{{orderDetail.id}}/{{id}}" method="post"  name="frmDeviceOrder">-->
                                         <form name="interaction" action="/dashboard/index" method="post">
                                             <p>{{id}}</p>
                                             <div class="switch">
                                                 <!--<input type="submit" value="Register" >-->
-                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1)..addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
+                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
                                                 <label for="btn-toggle1"></label>
                                                 <!--<input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
                                                 <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar" />-->
@@ -180,12 +179,12 @@
                                         </form>
                                     </div>
                                 </li>
-                                {{/devices}}
-                                {{^devices}}
-                                <p>No tienes dispositivos</p>
-                                {{/devices}}
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                {{/favoriteDevices}}
+                                {{^favoriteDevices}}
+                                <p>No tienes dispositivos marcados como favoritos</p>
+                                {{/favoriteDevices}}
+                                <!-- Example of other elements
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz del salon</strong></div>
                                     </div>
@@ -196,8 +195,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Persiana del salon</strong></div>
                                     </div>
@@ -208,21 +206,19 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz de la cocina</strong></div>
                                     </div>
                                     <div class="right-col text-right">
                                         <button type="button" class="btn btn-primary btn-md fav-element-toggle">Encender</button>
                                     </div>
-                                </li>-->
+                                </li>
+                                -->
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Favoritos Widget End-->
-
                 <!-- Ultimas acciones Widget -->
                 <div class="col-lg-4 col-md-6">
                     <div id="recent-activities-wrapper" class="card updates activities">
@@ -274,15 +270,57 @@
                     </div>
                 </div>
                 <!-- Ultimas acciones End -->
+                <!-- Widget Tiempo -->
                 <div class="col-lg-4 col-md-6">
-                    <!-- Widget Tiempo -->
-                    <div id="weather">
-
-                    </div>
-                    <!-- Widget Tiempo End -->
+                    <div id="weather"></div>
                 </div>
+                <!-- Widget Tiempo End -->
             </div>
-
+        </div>
+    </section>
+    <section class="mt-30px mb-30px" id="allDevices">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- All Devices Widget -->
+                {{#allHomesWithDevices}}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card updates recent-updated">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{-index}}</a></h2>
+                            <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                        <div role="tabpanel" class="collapse show">
+                            <ul class="news list-unstyled">
+                                <!-- Item-->
+                                {{#deviceList}}
+                                <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="title"><strong>{{description}}</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <form name="interaction" action="/dashboard/index" method="post">
+                                            <p>{{-index}}</p>
+                                            <div class="switch">
+                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
+                                                <label for="btn-toggle1"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                {{/deviceList}}
+                                {{^deviceList}}
+                                <p>No tienes dispositivos en esta casa</p>
+                                {{/deviceList}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {{/allHomesWithDevices}}
+                {{^allHomesWithDevices}}
+                <p>No tienes casas añadidas</p>
+                {{/allHomesWithDevices}}
+                <!-- All Devices Widget -->
+            </div>
         </div>
     </section>
 
