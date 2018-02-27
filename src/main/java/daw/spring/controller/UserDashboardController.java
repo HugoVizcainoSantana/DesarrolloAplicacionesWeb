@@ -27,9 +27,9 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.Date;
 
 //import daw.spring.component.CurrentUserInfo;
 
@@ -60,8 +60,13 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/")
     public String index(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("devices", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList().get(0).getDeviceList());
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        model.addAttribute("user", user);
+        List<Device> favoriteDevices = new ArrayList<>();
+        model.addAttribute("favoriteDevices", favoriteDevices);
+        List<Home> allHomesWithDevices = user.getHomeList();
+        model.addAttribute("allHomesWithDevices", allHomesWithDevices);
+
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
     }
@@ -71,7 +76,6 @@ public class UserDashboardController implements CurrentUserInfo {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         List<Home> homeList = user.getHomeList();
         List<Device> deviceList = homeList.get(0).getDeviceList();
-
         for(Device d:deviceList){
             if(d.getStatus() == Device.StateType.ON){
                 Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
@@ -83,7 +87,7 @@ public class UserDashboardController implements CurrentUserInfo {
         }
 
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Dashboard");
+        model.addAttribute("title", "Dashboard");
         index(model, principal);
     }
 
