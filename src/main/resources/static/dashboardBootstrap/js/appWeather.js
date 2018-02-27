@@ -1,7 +1,7 @@
 var latitude, longitude;
 var unidades = 'metric';
 var idioma = 'es';
-var url = 'http://api.openweathermap.org/data/2.5/weather';
+var url = 'https://api.openweathermap.org/data/2.5/weather';
 var key = '07e8c74adbda130b2740a53328140fb3';
 
 $(document).ready(function () {
