@@ -12,97 +12,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Perfil</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet"
-          href="/dashboardBootstrap/vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet"
-          href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet"
-          href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet"
-          href="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css"
-          id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="/dashboardBootstrap/css/custom.css">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="/images/icono.png">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Perfil</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<!-- Bootstrap CSS-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome CSS-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
+<!-- Fontastic Custom icon font-->
+<link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
+<!-- Google fonts - Roboto -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+<!-- jQuery Circle-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
+<!-- Custom Scrollbar-->
+<link rel="stylesheet"
+	href="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+<!-- theme stylesheet-->
+<link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css"
+	id="theme-stylesheet">
+<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet" href="/dashboardBootstrap/css/custom.css">
+<!-- Favicon-->
+<link rel="shortcut icon" href="/images/icono.png">
 
-    <script src="/publicBootstrap/js/confirmProfileChanges.js"></script>
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
+<script src="/publicBootstrap/js/confirmProfileChanges.js"></script>
+<!-- Tweaks for older IEs-->
+<!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <body>
-<!-- Side Navbar -->
-<nav class="side-navbar">
-    <div class="side-navbar-wrapper">
-        <!-- Sidebar Header    -->
-        <div
-                class="sidenav-header d-flex align-items-center justify-content-center">
-            <!-- User Info-->
-            {{#userDetail}}
-            <div class="sidenav-header-inner text-center">
-                {{#photo}}
-                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
-                {{/photo}}
-                {{^photo}}
-                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
-                {{/photo}}
-                <h2 class="h5">Usuario:</h2>
-                <span>{{firstName}}</span>
-            </div>
-            {{/userDetail}}
-            <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo">
-                <a href="/" class="brand-small text-center"><strong>B</strong><strong
-                        class="text-primary">D</strong></a>
-            </div>
-        </div>
-        <!-- Sidebar Navigation Menus-->
-        <div class="main-menu">
-            <h5 class="sidenav-heading">Menú</h5>
-            <ul id="side-main-menu1" class="side-menu list-unstyled">
-                <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
-                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
-                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
-                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="page">
-    <!-- navbar-->
-    <header class="header">
-        <nav class="navbar">
-            <div class="container-fluid">
-                <div
-                        class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header">
-                        <a id="toggle-btn" href="#" class="menu-btn"><i
-                                class="icon-bars"> </i></a><a href="/" class="navbar-brand">
-                        <div class="brand-text d-none d-md-inline-block">
-                            <span>OnControl </span><strong class="text-primary">Home</strong>
-                        </div>
-                    </a>
-                    </div>
-                    <ul
+	<!-- Side Navbar -->
+	<nav class="side-navbar">
+		<div class="side-navbar-wrapper">
+			<!-- Sidebar Header    -->
+			<div
+				class="sidenav-header d-flex align-items-center justify-content-center">
+				<!-- User Info-->
+				{{#userDetail}}
+				<div class="sidenav-header-inner text-center">
+					{{#photo}} <img src="/upload/{{photo}}" alt="person"
+						class="img-fluid rounded-circle"> {{/photo}} {{^photo}} <img
+						src="/images/avatar.png" alt="person"
+						class="img-fluid rounded-circle"> {{/photo}}
+					<h2 class="h5">Usuario:</h2>
+					<span>{{firstName}}</span>
+				</div>
+				{{/userDetail}}
+				<!-- Small Brand information, appears on minimized sidebar-->
+				<div class="sidenav-header-logo">
+					<a href="/" class="brand-small text-center"><strong>B</strong><strong
+						class="text-primary">D</strong></a>
+				</div>
+			</div>
+			<!-- Sidebar Navigation Menus-->
+			<div class="main-menu">
+				<h5 class="sidenav-heading">Menú</h5>
+				<ul id="side-main-menu1" class="side-menu list-unstyled">
+					<li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio
+					</a></li>
+					<li><a href="/adminDashboard/inventory"><i
+							class="fa fa-shopping-cart"></i>Inventario</a></li>
+					<li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios
+					</a></li>
+					<li><a href="/adminDashboard/orders"> <i
+							class="icon-interface-windows"></i>Pedidos
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="page">
+		<!-- navbar-->
+		<header class="header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div
+						class="navbar-holder d-flex align-items-center justify-content-between">
+						<div class="navbar-header">
+							<a id="toggle-btn" href="#" class="menu-btn"><i
+								class="icon-bars"> </i></a><a href="/" class="navbar-brand">
+								<div class="brand-text d-none d-md-inline-block">
+									<span>OnControl </span><strong class="text-primary">Home</strong>
+								</div>
+							</a>
+						</div>
+						<!--   <ul
                             class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                         <li class="nav-item dropdown"><a id="notifications"
                                                          rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
@@ -199,138 +202,135 @@
                                        class="dropdown-item all-notifications text-center"> <strong>
                                     <i class="fa fa-envelope"></i>Read all messages
                                 </strong></a></li>
-                            </ul></li>
+                            </ul></li>-->
                         <li class="nav-item"><a href="/logout"
                                                 class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <section class="forms">
-        <div class="container-fluid">
-            <!-- Page Header-->
-            <header>
-                {{#userDetail}}
-                <h1 class="h3 display">Perfil {{firstName}}</h1>
-                {{/userDetail}}
-            </header>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
+					</div>
+				</div>
+			</nav>
+		</header>
+		<section class="forms">
+			<div class="container-fluid">
+				<!-- Page Header-->
+				<header>
+					{{#userDetail}}
+					<h1 class="h3 display">Perfil {{firstName}}</h1>
+					{{/userDetail}}
+				</header>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header d-flex align-items-center">
 
-                            {{#userDetail}}
-                            <h4>{{firstName}} {{lastName}}</h4>
+								{{#userDetail}}
+								<h4>{{firstName}} {{lastName}}</h4>
 
-                        </div>
-                        <div class="card-body">
-                            <form class="form-horizontal" action="/dashboard/profile"
-                                  method="post" enctype="multipart/form-data">
-                                {{#photo}}
-                                <div class="form-group row">
-                                    <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
-                                </div>
-                                {{/photo}}
-                                {{^photo}}
-                                <div class="form-group row">
-                                    <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle" >
-                                </div>
-                                {{/photo}}
-                                {{#error}}
-                                <div class="alert alert-danger" role="alert">{{.}}</div>
-                                {{/error}}
-                                <div class="form-group row">
+							</div>
+							<div class="card-body">
+								<form class="form-horizontal" action="/dashboard/profile"
+									method="post" enctype="multipart/form-data">
+									{{#photo}}
+									<div class="form-group row">
+										<img src="/upload/{{photo}}" alt="person"
+											class="img-fluid rounded-circle">
+									</div>
+									{{/photo}} {{^photo}}
+									<div class="form-group row">
+										<img src="/images/avatar.png" alt="person"
+											class="img-fluid rounded-circle">
+									</div>
+									{{/photo}} {{#error}}
+									<div class="alert alert-danger" role="alert">{{.}}</div>
+									{{/error}}
+									<div class="form-group row">
 
-                                    <label class="col-sm-2 form-control-label">Nombre: </label>
-                                    <div class="col-sm-10">
-                                        <p>{{firstName}}</p>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Apellidos:
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>{{lastName}}</p>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Email: </label>
-                                    <div class="col-sm-10">
-                                        <p>{{email}}</p>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Teléfono:
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>{{phone}}</p>
-                                    </div>
-                                </div>
-                                <div class="line"></div>
-                                {{#homeList}}
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Casa:</label>
-                                    <div class="col-sm-10">
-                                        <p>{{id}}</p>
-                                    </div>
-                                </div>
+										<label class="col-sm-2 form-control-label">Nombre: </label>
+										<div class="col-sm-10">
+											<p>{{firstName}}</p>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Apellidos:
+										</label>
+										<div class="col-sm-10">
+											<p>{{lastName}}</p>
+										</div>
+									</div>
+									<div class="line"></div>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Email: </label>
+										<div class="col-sm-10">
+											<p>{{email}}</p>
+										</div>
+									</div>
+									<div class="line"></div>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Teléfono: </label>
+										<div class="col-sm-10">
+											<p>{{phone}}</p>
+										</div>
+									</div>
+									<div class="line"></div>
+									{{#homeList}}
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Casa:</label>
+										<div class="col-sm-10">
+											<p>{{id}}</p>
+										</div>
+									</div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Dirección
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>{{address}}</p>
-                                    </div>
-                                </div>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Dirección </label>
+										<div class="col-sm-10">
+											<p>{{address}}</p>
+										</div>
+									</div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 form-control-label">Codigo Postal
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>{{postCode}}</p>
-                                    </div>
-                                </div>
-                                {{/homeList}}
-                                {{/userDetail}}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Your company &copy; 2017-2019</p>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <p>
-                        Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a>
-                    </p>
-                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
-<!-- Javascript files-->
-<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
-<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script
-        src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
-<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
-<script
-        src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script
-        src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<!-- Main File-->
-<script src="/dashboardBootstrap/js/front.js"></script>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Codigo
+											Postal </label>
+										<div class="col-sm-10">
+											<p>{{postCode}}</p>
+										</div>
+									</div>
+									{{/homeList}} {{/userDetail}}
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="main-footer">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-6">
+						<p>Your company &copy; 2017-2019</p>
+					</div>
+					<div class="col-sm-6 text-right">
+						<p>
+							Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a>
+						</p>
+						<!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- Javascript files-->
+	<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+	<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+	<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+	<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+	<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+	<script
+		src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+	<script
+		src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Main File-->
+	<script src="/dashboardBootstrap/js/front.js"></script>
 </body>
 </html>
