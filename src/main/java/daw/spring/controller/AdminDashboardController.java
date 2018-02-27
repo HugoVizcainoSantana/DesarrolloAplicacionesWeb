@@ -70,6 +70,16 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/inventory";
     }
 
+
+    @RequestMapping("/inventory/{id}")
+    public String showEditProduct(Model model, Principal principal, @PathVariable long id) {
+        log.info("editingProdct");
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        model.addAttribute("productEdit", productService.findOneById(id));
+        return "adminDashboard/inventory";
+    }
+
     @RequestMapping("/users")
     public String users(Model model, @RequestParam(required = false) String name, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));

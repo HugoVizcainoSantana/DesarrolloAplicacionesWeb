@@ -162,7 +162,62 @@
                 </div>-->
                 {{#product}}
                 <div class="col-lg-4">
-                    <form  action="/adminDashboard/inventory/" method="post"  id="frmProduct" name="frmProduct" >
+                    <form action="/adminDashboard/inventory/{{id}}" method="post" id="frmProduct" name="frmProduct">
+                        <div class="form-group">
+                            <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-12 form-control-label">Id : {{id}}</label>
+                                </div>
+                            </div>
+                            <label class="col-sm-12 form-control-label">{{description}}</label>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-12 form-control-label">Coste unitario: {{cost}} €</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-md-12 form-control-label">Stock Disponible: {{stock}} Uds.</label>
+                                </div>
+                            </div>
+                            <!-- Button to Open the Modal -->
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+                                        data-target="#myModal" value="Editar">
+                                    Editar
+                                </button>
+                                <!--       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar" />
+                                       <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                       <button onclick="myFunction('{{id}}')">Try it</button>
+                                       <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                       <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                                       -->
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                {{/product}}
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Button Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                {{#productEdit}}
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Editando Producto</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/adminDashboard/inventory/" method="post" id="frmProductEdit" name="frmProductEdit">
                         <div class="form-group"> <!-- id="frmProduct{{id}}" name="frmProduct{{id}}" -->
                             <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
                             <div class="col-sm-12">
@@ -190,67 +245,26 @@
                             </div>
                             <div class="col-md-12">
                                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Aplicar cambios" />
-                                    <!--
-                                    <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                    <button onclick="myFunction('{{id}}')">Try it</button>
-                                    <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                    <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
-                                    -->
+                                <!--
+                                <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                <button onclick="myFunction('{{id}}')">Try it</button>
+                                <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                                -->
                             </div>
                         </div>
                     </form>
-
                 </div>
-                {{/product}}
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                {{/productEdit}}
+
             </div>
         </div>
-    </section>
-    <!-- Statistics Section-->
-
-    <section class="form" id="contentForm" style="display: none;">
-        {{#product}}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>Información básica</h4>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input type="text" placeholder="{{type}}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Descripcion</label>
-                                    <input type="email" placeholder="{{description}}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Cantidad</label>
-                                    <input type="text" placeholder="{{stock}}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Coste Individual</label>
-                                    <input type="text" placeholder="{{cost}}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Coste Total</label>
-                                    <input type="text" placeholder="{{cost}}*{{stock}}" class="form-control" required>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/product}}
-    </section>
-    <!-- Button trigger modal -->
-
+    </div>
 
     <!-- Updates Section -->
 
