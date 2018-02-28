@@ -29,12 +29,12 @@ public class User {
     @NotEmpty
     private String passwordHash;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany
     private List<Home> homeList;
 
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Notification> notificationList;
 
     private String photo;
