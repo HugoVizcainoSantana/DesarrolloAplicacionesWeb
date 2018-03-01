@@ -13,10 +13,10 @@ public class OrderRequest {
     private Double cost;
     private boolean isOk; // 1 for Pendind and 0 for Done
 
-    @OneToOne//(cascade = CascadeType.ALL)
+    @OneToOne
     private Home home;
 
-    @OneToMany//(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Device> deviceList;
 
     public OrderRequest() {
