@@ -29,23 +29,28 @@ public class User {
     @NotEmpty
     private String passwordHash;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany
     private List<Home> homeList;
 
     private String phone;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany
     private List<Notification> notificationList;
 
     private String photo;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
+    
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<OrderRequest> orderList;
 
-    public User() {
+    
+
+	public User() {
     }
 
-    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, String... roles) {
+    public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, List<OrderRequest> orderList, String... roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -55,6 +60,7 @@ public class User {
         this.notificationList = notificationList;
         this.photo = photo;
         this.roles = new HashSet<>(Arrays.asList(roles));
+        this.orderList= orderList;
     }
 
     public String getPhone() {
@@ -140,5 +146,12 @@ public class User {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+    public List<OrderRequest> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<OrderRequest> orderList) {
+		this.orderList = orderList;
+	}
 }
 

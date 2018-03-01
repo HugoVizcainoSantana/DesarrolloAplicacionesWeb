@@ -98,14 +98,15 @@ public class Device {
     public void setActivated(boolean activated) {
         this.activated = activated;
     }
-
+    
     public boolean isFavorite() {
-        return favorite;
-    }
+		return favorite;
+	}
 
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
 
     public enum DeviceType {
         BLIND, LIGHT, RASPBERRYPI
@@ -114,4 +115,7 @@ public class Device {
     public enum StateType {
         ON, OFF, UP, DOWN
     }
+
+	
+    
 }

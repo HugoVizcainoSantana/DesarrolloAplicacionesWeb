@@ -1,12 +1,16 @@
 package daw.spring.service;
 
 import daw.spring.model.Analytics;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.User;
 import daw.spring.repository.AnalyticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +22,7 @@ public class AnalyticsService {
     @Autowired
     public AnalyticsService(AnalyticsRepository analyticsRepository) {
         this.analyticsRepository = analyticsRepository;
+        
     }
 
     public Analytics findOneById(long id) {
