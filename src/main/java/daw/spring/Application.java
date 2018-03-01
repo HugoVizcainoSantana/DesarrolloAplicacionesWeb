@@ -126,9 +126,10 @@ public class Application {
             userService.saveUser(user3);
             User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
             userService.saveUser(user4);
-            List<Home> user5_home = new ArrayList<>();
-            user5_home.add(home3);
-            User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), user5_home, "9866363", null, null, Roles.USER.getRoleName());
+            List<Home> user5_homes = new ArrayList<>();
+            user5_homes.add(home2);
+            user5_homes.add(home3);
+            User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), user5_homes, "9866363", null, null, Roles.USER.getRoleName());
             userService.saveUser(user5);
             User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
             userService.saveUser(user6);
