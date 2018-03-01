@@ -1,7 +1,5 @@
 package daw.spring.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +15,8 @@ public class Home {
     private String address;
     private Boolean activated;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Device> deviceList;
-
-    //Atribute ignored by JPA (not stored in database)
-    @JsonInclude()
-    @Transient
-    private long deviceQuantity;
 
     public Home() {
     }
@@ -70,21 +63,15 @@ public class Home {
     public List<Device> getDeviceList() {
         if (deviceList == null)
             deviceList = new ArrayList<>();
-        setDeviceQuantity(deviceList.size());
         return deviceList;
     }
 
     public void setDeviceList(List<Device> deviceList) {
         this.deviceList = deviceList;
-        setDeviceQuantity(this.deviceList.size());
     }
 
     public long getDeviceQuantity() {
-        return deviceQuantity;
-    }
-
-    public void setDeviceQuantity(long deviceQuantity) {
-        this.deviceQuantity = deviceQuantity;
+        return deviceList.size();
     }
 }
 

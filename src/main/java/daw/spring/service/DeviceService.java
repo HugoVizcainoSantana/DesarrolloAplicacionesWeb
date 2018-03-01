@@ -59,22 +59,4 @@ public class DeviceService {
         deviceRepository.delete(deviceId);
     }
 
-
-
- /*   @PostConstruct
-    public void init() {
-        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
-        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
-        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.ON, null, true));
-        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false));
-        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false));
-        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false));
-        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, true));
-        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, true));
-        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.ON, null, true));
-        saveDevice(new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false));
-        saveDevice(new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false));
-        saveDevice(new Device("RaspberryPi", 30, Device.DeviceType.RASPBERRYPI, Device.StateType.OFF, null, false));
-    }*/
-
 }

@@ -25,7 +25,7 @@ public class Analytics {
     private Date date;
     private Device.StateType previousState;
     private Device.StateType newState;
-    @OneToOne
+    @OneToOne()
     private Analytics previousRecord;
 
 

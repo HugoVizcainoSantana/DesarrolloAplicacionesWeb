@@ -18,12 +18,13 @@ public class Device {
     private String img;
     private boolean activated;
     private String serialNumber;
+    private boolean favorite;
 
     public Device() {
     }
 
 
-    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated, String serialNumber) {
+    public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated, String serialNumber, boolean favorite) {
         this.description = description;
         this.cost = cost;
         this.type = type;
@@ -31,6 +32,7 @@ public class Device {
         this.img = img;
         this.activated = activated;
         this.serialNumber = serialNumber;
+        this.favorite = favorite;
     }
 
     public String getSerialNumber() {
@@ -95,6 +97,14 @@ public class Device {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public enum DeviceType {
