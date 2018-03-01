@@ -34,10 +34,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void updateStockProduct(Long id, long stock , double cost) {
+    public void updateStockProduct(Long id, long stock, double cost, String description) {
         Product productE=productRepository.findOne(id);
         productE.setStock(stock);
         productE.setCost(cost);
+        productE.setDescription(description);
         productRepository.save(productE);
     }
 

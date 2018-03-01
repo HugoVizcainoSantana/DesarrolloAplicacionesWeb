@@ -181,19 +181,14 @@
                                     <label class="col-md-12 form-control-label">Stock Disponible: {{stock}} Uds.</label>
                                 </div>
                             </div>
-                            <!-- Button to Open the Modal -->
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
-                                        data-target="#myModal" value="Editar">
-                                    Editar
-                                </button>
-                                <!--       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar" />
-                                       <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                       <button onclick="myFunction('{{id}}')">Try it</button>
-                                       <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                       <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
-                                       -->
-                            </div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar"/>
+
+                            <!--       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar" />
+                                   <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                   <button onclick="myFunction('{{id}}')">Try it</button>
+                                   <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
+                                   <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
+                                   -->
                         </div>
                     </form>
 
@@ -203,84 +198,6 @@
         </div>
     </section>
 
-    <!-- Edit Button Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                {{#productEdit}}
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Editando Producto</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="/adminDashboard/inventory/" method="post" id="frmProductEdit" name="frmProductEdit">
-                        <div class="form-group"> <!-- id="frmProduct{{id}}" name="frmProduct{{id}}" -->
-                            <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <label class="col-sm-7 form-control-label" >Id : </label>
-                                    <input type="text" id="id" name="id" value="{{id}}" readonly  class="col-sm-3" style="text-align: right;">
-                                </div>
-                            </div>
-                            <label class="col-sm-12 form-control-label">{{description}}</label>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <label class="col-sm-6 form-control-label">Coste unitario: </label> <!--  {{cost}}  -->
-                                    <div class="col-md-5">
-                                        <input type="number" placeholder="{{cost}}" id="numberCost" name="numberCost" class="form-control" min="0" value={{cost}} step="0.01" style="text-align: right;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <label class="col-md-6 form-control-label">Stock Disponible:</label>  <!--  {{stock}}  -->
-                                    <div class="col-md-5">
-                                        <input type="number" placeholder="{{stock}}" id="numberStock" name="numberStock" class="form-control" min="0" value={{stock}}  style="text-align: right;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Aplicar cambios" />
-                                <!--
-                                <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                <button onclick="myFunction('{{id}}')">Try it</button>
-                                <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
-                                -->
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-                {{/productEdit}}
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Updates Section -->
-
-    <footer class="main-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>OnControlHome &copy; 2018</p>
-                </div>
-                <div class="col-sm-6 text-right">
-
-                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
 
 

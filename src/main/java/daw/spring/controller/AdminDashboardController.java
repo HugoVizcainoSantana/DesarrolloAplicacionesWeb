@@ -63,22 +63,28 @@ public class AdminDashboardController implements CurrentUserInfo {
     }
 
 
-    @RequestMapping( value ="/inventory", method = RequestMethod.POST)
+    /*@RequestMapping( value ="/inventory", method = RequestMethod.POST)
     public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
         productService.updateStockProduct(id,stock,cost);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("product", productService.findAllProducts());
         return "adminDashboard/inventory";
-    }
+    }*/
 
+    @RequestMapping(value = "/editProducts", method = RequestMethod.POST)
+    public String modStock(Model model, @RequestParam("id") long id, @RequestParam("numberStock") long stock, @RequestParam("numberCost") double cost, @RequestParam("defDescription") String description, Principal principal) {
+        productService.updateStockProduct(id, stock, cost, description);
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        return "adminDashboard/inventory";
+    }
 
     @RequestMapping("/inventory/{id}")
     public String showEditProduct(Model model, Principal principal, @PathVariable long id) {
-        log.info("editingProdct");
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("product", productService.findAllProducts());
         model.addAttribute("productEdit", productService.findOneById(id));
-        return "adminDashboard/inventory";
+        return "adminDashboard/editProducts";
     }
 
     @RequestMapping("/users")
