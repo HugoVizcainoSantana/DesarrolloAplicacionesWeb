@@ -151,16 +151,27 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/homes")
     public String homes(Model model, Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        List<Home> homeList = user.getHomeList();
         model.addAttribute("title", "Casa");
-        model.addAttribute("homeList", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList());
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        if (homeList.isEmpty())
+            model.addAttribute("hasHomes", false);
+        else
+            model.addAttribute("hasHomes", true);
+        model.addAttribute("homeList", homeList);
+        model.addAttribute("user", user);
         return "dashboard/homes";
     }
 
     @RequestMapping("/homes/{id}")
     public String homeDetail(Model model, Principal principal, @PathVariable long id) {
         model.addAttribute("title", "Casa");
-        model.addAttribute("home", homeService.findOneById(id));
+        Home home = homeService.findOneById(id);
+        model.addAttribute("homeInfo", home);
+        if (home.getDeviceList().isEmpty())
+            model.addAttribute("hasDevices", false);
+        else
+            model.addAttribute("hasDevices", true);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         return "dashboard/home-detail";
     }

@@ -161,16 +161,16 @@
     <section>
         <div class="container-fluid">
             <!-- Page Header-->
-            {{^homeList}}
+            {{^hasHomes}}
             <header>
                 <h1 class="h3 display">No tienes casas contratadas</h1>
             </header>
-            {{/homeList}}
-            {{#homeList}}
+            {{/hasHomes}}
+            {{#hasHomes}}
             <header>
                 <h1 class="h3 display">Mis casas contratadas</h1>
             </header>
-            {{/homeList}}
+            {{/hasHomes}}
             {{#homeList}}
             <div class="row">
                 <div class="col-lg-6">
