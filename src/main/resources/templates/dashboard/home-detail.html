@@ -161,6 +161,7 @@
     </div>
     <br>
     <br>
+    {{#homeInfo}}
     <!-- Counts Section -->
     <section class="dashboard-counts">
         <div class="container-fluid">
@@ -170,7 +171,7 @@
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-user"></i></div>
                         <div class="name"><strong class="text-uppercase">Actuadores contratados en esta casa</strong>
-                            <div class="count-number">{{deviceNum}}</div>
+                            <div class="count-number">{{deviceQuantity}}</div>
                         </div>
                     </div>
                 </div>
@@ -196,8 +197,8 @@
                     <div class="wrapper count-title d-flex">
                         <div class="icon"><i class="icon-check"></i></div>
                         <div class="name"><strong class="text-uppercase">Dirección y código postal</strong>
-                            <div><h2 class="name">Zaragoza 33</h2></div>
-                            <div class="count-number">28912</div>
+                            <div><h2 class="name">{{address}}</h2></div>
+                            <div class="count-number">{{postCode}}</div>
                         </div>
                     </div>
                 </div>
@@ -205,6 +206,7 @@
             <br>
         </div>
     </section>
+    {{#hasDevices}}
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -223,60 +225,24 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Actuadores</th>
-                                        <th>Bombillas</th>
-                                        <th>Persianas</th>
+                                        <th>Tipo</th>
+                                        <th>Descripcion</th>
+                                        <th>Estado</th>
+                                        <th>Activado</th>
+                                        <th>Favorito</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {{#deviceList}}
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <th scope="row">{{-index}}</th>
+                                        <td>{{type}}</td>
+                                        <td>{{description}}</td>
+                                        <td>{{status}}</td>
+                                        <td>{{activated}}</td>
+                                        <td>{{favorite}}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {{/deviceList}}
                                     </tbody>
                                 </table>
                             </div>
@@ -320,6 +286,17 @@
             </div>
         </div>
     </section>
+    {{/hasDevices}}
+    {{^hasDevices}}
+    <div class="card-header">
+        <div class="container">
+            <div class="row">
+                <h4>No tienes dispositivos contratados en esta casa</h4>
+            </div>
+        </div>
+    </div>
+    {{/hasDevices}}
+    {{/homeInfo}}
     <footer class="main-footer">
         <div class="container-fluid">
             <div class="row">
