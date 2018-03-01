@@ -74,7 +74,8 @@
                     <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
                         <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
                     </a></div>
-                    <!--  <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                        <!--
                         <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
                             <ul aria-labelledby="notifications" class="dropdown-menu">
                                 <li><a rel="nofollow" href="#" class="dropdown-item">
@@ -112,7 +113,7 @@
                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications </strong></a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                        <!--  <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
                             <ul aria-labelledby="notifications" class="dropdown-menu">
                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
                                     <div class="msg-profile"><img src="//images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
@@ -135,9 +136,9 @@
                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
                                     </div>
                                 </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>-->
+                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
@@ -149,14 +150,23 @@
     <section>
         <div class="container-fluid">
             <!-- Page Header-->
+            {{#messageConfirm}}
+            <header>
+                <h1 class="h3 display">{{messageConfirm}}</h1>
+            </header>
+            {{/messageConfirm}}
             <header>
                 <h1 class="h3 display">Pedidos pendientes : </h1>
             </header>
-
+            {{^orders}}
+            <header>
+                <h1 class="h3 display">No tienes pedidos pendientes de confirmar.</h1>
+            </header>
+            {{/orders}}
+            {{#orders}}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        {{#orders}}
                         <div class="card-header">
                             <div class="container">
                                 <div class="row">
@@ -181,10 +191,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
-
                                     <tr>
-
                                         <th>{{cost}}</th>
                                         {{#home}}
                                         <th>{{address}}</th>
@@ -196,7 +203,6 @@
                                         <th>Confirmado</th>
                                         {{/isOk}}
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -207,14 +213,11 @@
                                         <th>Actuador : </th>
                                         <th>Nº serie : </th>
                                         <th>Estado : </th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
-
                                     {{#deviceList}}
                                     <tr>
-
                                         <th>{{type}}</th>
                                         {{^serialNumber}}
                                         <th> </th>
@@ -222,27 +225,24 @@
                                         {{#serialNumber}}
                                         <th>{{serialNumber}}</th>
                                         {{/serialNumber}}
-
                                         {{^activated}}
                                         <th>No activo</th>
                                         {{/activated}}
                                         {{#activated}}
                                         <th>Activado</th>
                                         {{/activated}}
-
                                     </tr>
                                     {{/deviceList}}
-
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        {{/orders}}
+
                     </div>
                 </div>
             </div>
+            {{/orders}}
         </div>
-
     </section>
     <footer class="main-footer">
         <div class="container-fluid">

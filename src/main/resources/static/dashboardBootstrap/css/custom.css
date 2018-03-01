@@ -120,3 +120,13 @@ input.cmn-toggle-round-flat:checked + label:after {
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
+
+.btn{
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn:hover{
+    border-radius: 5px;
+    transform:scale(1.2);
+}

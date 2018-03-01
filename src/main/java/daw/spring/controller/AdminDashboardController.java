@@ -46,6 +46,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/")
     public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("ordersIndex", orderRequestService.homesOrders());
         return "adminDashboard/index";
     }
 
@@ -123,9 +124,8 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/orders";
     }
 
-    @RequestMapping("/detail/{id}")
+    @RequestMapping(value ="/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id){
-
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
         orderRequestService.confirmOrder(id);
@@ -134,7 +134,23 @@ public class AdminDashboardController implements CurrentUserInfo {
         homeService.activeHome(homeOrder);
         User homeUser=userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
-        return "adminDashboard/detail";
+        String messageConfirm="Pedido "+id+" confirmado correctamente.";
+        model.addAttribute("messageConfirm", messageConfirm);
+        return "adminDashboard/orders";
+    }
+    @RequestMapping(value ="/detail/{id}", params = "cancel")
+    public String deleteOrder(Model model, Principal principal, @PathVariable long id){
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        OrderRequest orderDt = orderRequestService.finOneById(id);
+        orderRequestService.deleteOrder(id);
+        model.addAttribute("orderDetail", orderDt);
+        Home homeOrder=orderDt.getHome();
+        homeService.activeHome(homeOrder);
+        User homeUser=userService.findUserByHomeId(homeOrder);
+        model.addAttribute("userHome", homeUser);
+        String messageConfirm="Pedido "+id+" eliminado correctamente.";
+        model.addAttribute("messageConfirm", messageConfirm);
+        return "adminDashboard/orders";
     }
 
     @RequestMapping("/orders/{id}")
