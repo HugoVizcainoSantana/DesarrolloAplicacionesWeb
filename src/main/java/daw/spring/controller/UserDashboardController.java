@@ -5,6 +5,8 @@ import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.*;
 import daw.spring.service.*;
+
+import org.apache.catalina.startup.HomesUserDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.mockito.Mockito.after;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -128,6 +134,8 @@ public class UserDashboardController implements CurrentUserInfo {
         //Order order = new Order(total, false, home);
         OrderRequest order = new OrderRequest(totalPrice, false, home, deviceList);
 		orderRequestService.saveOrder(order);
+        user.getOrderList().add(order);
+        userService.saveUser(user);
 		log.info("Oreder created");
         return "redirect:see";
 	}
@@ -200,14 +208,53 @@ public class UserDashboardController implements CurrentUserInfo {
     }
     @RequestMapping("/see")
     public String see(Model model, Principal principal) {
-    		User user =  userService.findOneById(getIdFromPrincipalName(principal.getName()));
     		
-        model.addAttribute("user", user);
-        List<OrderRequest> orderRequest;
-        for (Home home : user.getHomeList()) {
-			orderRequest.add(orderServie.findOrederByHomeId());
-		}
-        model.addAttribute("orderList",homeService.findOneById(getIdFromPrincipalName(principal.getName())));
+    		//del usuario tengo el id
+    		User user =  userService.findOneById(getIdFromPrincipalName(principal.getName()));
+    		log.info("usuario pillado"+ user);
+    		//con el id del usuario obtengo el id de su casa en una lista por si tiene mas de 1
+    		List<Long> homeList= homeService.getHomeIdFromUser(user);
+    		for (Long long1 : homeList) {
+    			log.info("lsita de Id's de casas creada: "+ long1 );
+			}
+    		
+    		//Home homeUser = homeService.findOneById(user.getId());
+    		List<Home> homeUser = new ArrayList<>();
+    		log.info("lsita de casas vacia creada creada");
+    		for (int i=0; i<homeList.size(); i++) {
+    			log.info("entro en el primer for");
+    			Home home = homeService.findOneById(homeList.get(i));//tengo las casas del usuario
+    			log.info("He encontrado la primera casa");
+    			homeUser.add(home);//meto cada casa en una lista nueva
+    			log.info("Añado al casa a homeUser");
+    			log.info("casa metida en la lista"+ home);
+    		}
+    		
+    		List<OrderRequest> orderRequestList = new ArrayList<>();
+    		for(int i=0; i<homeUser.size(); i++) {
+    			Home home = homeUser.get(i);
+    			log.info("busca la primera casa"+ home);
+    			Long idHome=home.getId();
+    			OrderRequest order = orderRequestService.findOrder(idHome);
+    			orderRequestList.add(order);
+    		}
+    		model.addAttribute("orderList", orderRequestList);
+    		model.addAttribute("userHome", homeUser);
+    		
+    		/*Home home = homeService.findOneById(homeList.get(0));   		
+    		List<OrderRequest> orderRequest = user.getOrderList();
+    		List<User> userHomeList = new ArrayList<>();
+    		for (User user2 : userHomeList) {
+				orderRequest.add(orderRequestService.finOneById(homeUser.getId()));
+			}*/
+    		
+        //List<OrderRequest> orderRequestList;
+        //List<User> userHomeList;
+        /*for () {
+			orderRequest.add(orderRequestService.findOrderByHomeId(home.getId()));
+        	
+		}*/
+       
         return "dashboard/see";
     }
 

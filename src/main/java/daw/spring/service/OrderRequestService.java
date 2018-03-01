@@ -43,4 +43,9 @@ public class OrderRequestService {
 	    orderRequestRepository.delete(id);
 
     }
+    public OrderRequest findOrder(Long id){
+    	
+    		return orderRequestRepository.findOrderRequest(id);
+    	
+    }
 }

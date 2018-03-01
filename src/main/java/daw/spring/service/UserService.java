@@ -58,7 +58,7 @@ public class UserService {
     public void saveHomeUser(Home home, User user) {
     		List<Home> listHome= user.getHomeList();
     		listHome.add(home);
-    		user.setHomeList(listHome);
+    		//user.setHomeList(listHome);
     		saveUser(user);
     }
 
@@ -75,7 +75,7 @@ public class UserService {
         deviceList.add(device3);
 
 
-        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN.getRoleName());
+        User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.ADMIN.getRoleName());
         Home home2 = new Home(28045, "c/montepinar", true, null);
         Home home3 = new Home(21111, "c/montepinar1111", false, deviceList);
         ArrayList<Home> user1Homes = new ArrayList<>();
@@ -98,16 +98,16 @@ public class UserService {
 
 
 
-        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null,null, Roles.USER.getRoleName());
         saveUser(user2);
 
-        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
         saveUser(user3);
 
-        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
         saveUser(user4);
 
-        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
         Device device5 = new Device("Dispositivo Test", 25.25, Device.DeviceType.LIGHT, Device.StateType.OFF, null, true, null);
         Home home1 = new Home(28007, "c/hugo", true, Collections.singletonList(device5));
         ArrayList<Home> user5Homes = new ArrayList<>();
@@ -115,10 +115,10 @@ public class UserService {
         user5.setHomeList(user5Homes);
         saveUser(user5);
 
-        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, Roles.USER.getRoleName());
+        User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, null,Roles.USER.getRoleName());
         saveUser(user6);
 
-        User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
+        User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null,null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
         saveUser(userAdmin1);
 
         /*
