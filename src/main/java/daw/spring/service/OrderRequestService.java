@@ -29,13 +29,13 @@ public class OrderRequestService {
 	}
 
 	public List<OrderRequest> homesOrders() {
-		return orderRequestRepository.findByisOkIsFalse();
+		return orderRequestRepository.findByCompletedIsFalse();
 	}
 
 
     public void confirmOrder(long id) {
 	    OrderRequest orderConfirm= orderRequestRepository.findOne(id);
-	    orderConfirm.setConfirmed(true);
+	    orderConfirm.setCompleted(true);
 	    saveOrder(orderConfirm);
     }
 
@@ -47,5 +47,9 @@ public class OrderRequestService {
     	
     		return orderRequestRepository.findOrderRequest(id);
     	
+    }
+    
+    public List<OrderRequest> findNotCompletedOrders (List<Home> homes){
+    		return orderRequestRepository.findByCompletedIsFalseAndHomeIn(homes);
     }
 }

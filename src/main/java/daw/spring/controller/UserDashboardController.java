@@ -33,11 +33,9 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.Date;
-
-//import daw.spring.component.CurrentUserInfo;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -58,38 +56,42 @@ public class UserDashboardController implements CurrentUserInfo {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
-        this.productService=productService;
-        this.deviceService= deviceService;
+        this.productService = productService;
+        this.deviceService = deviceService;
         this.orderRequestService = orderRequestService;
         this.analyticsService = analyticsService;
     }
 
     @RequestMapping("/")
     public String index(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("devices", userService.findOneById(getIdFromPrincipalName(principal.getName())).getHomeList().get(0).getDeviceList());
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        model.addAttribute("user", user);
+        List<Device> favoriteDevices = userService.getUserFavoriteDevices(user);
+        model.addAttribute("favoriteDevices", favoriteDevices);
+        List<Home> allHomesWithDevices = user.getHomeList();
+        model.addAttribute("allHomesWithDevices", allHomesWithDevices);
+
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
     }
 
-    @RequestMapping(value="/index", params = "inputInteraction")
-    public void addInteraction(Principal principal, Model model){
+    @RequestMapping(value = "/index", params = "inputInteraction")
+    public void addInteraction(Principal principal, Model model) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         List<Home> homeList = user.getHomeList();
         List<Device> deviceList = homeList.get(0).getDeviceList();
-
-        for(Device d:deviceList){
-            if(d.getStatus() == Device.StateType.ON){
+        for (Device d : deviceList) {
+            if (d.getStatus() == Device.StateType.ON) {
                 Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
                 analyticsService.saveAnalytics(analytics1);
-            }else{
+            } else {
                 Analytics analytics2 = new Analytics(d, new Date(), Device.StateType.ON, Device.StateType.OFF, null);
                 analyticsService.saveAnalytics(analytics2);
             }
         }
 
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("titulo", "Dashboard");
+        model.addAttribute("title", "Dashboard");
         index(model, principal);
     }
 
@@ -118,12 +120,12 @@ public class UserDashboardController implements CurrentUserInfo {
 		List<Device>deviceList= new ArrayList<>();
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		for(int i=0; i<blindQuantity; i++) {
-			Device device = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null);
+			Device device = new Device("Actuador de persiana", 150, Device.DeviceType.BLIND, Device.StateType.UP, null, false, null,false);
 			deviceService.saveDevice(device);
 			deviceList.add(device);
 		}
 		for(int i=0; i<lightQuantity; i++) {
-			Device device = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false, null);
+			Device device = new Device("Actuador de bombilla", 30, Device.DeviceType.LIGHT, Device.StateType.ON, null, false, null,false);
 			deviceService.saveDevice(device);
 			deviceList.add(device);
 		}
@@ -139,8 +141,6 @@ public class UserDashboardController implements CurrentUserInfo {
 		log.info("Oreder created");
         return "redirect:see";
 	}
-
-
 
     @RequestMapping("/charts")
     public String charts(Model model, Principal principal) {
@@ -206,40 +206,18 @@ public class UserDashboardController implements CurrentUserInfo {
         userService.saveUser(user);
         return "redirect:profile";
     }
+
     @RequestMapping("/see")
-    public String see(Model model, Principal principal) {
-    		
+    public String see(Model model, Principal principal) {    		
     		//del usuario tengo el id
     		User user =  userService.findOneById(getIdFromPrincipalName(principal.getName()));
     		log.info("usuario pillado"+ user);
     		//con el id del usuario obtengo el id de su casa en una lista por si tiene mas de 1
-    		List<Long> homeList= homeService.getHomeIdFromUser(user);
-    		for (Long long1 : homeList) {
-    			log.info("lsita de Id's de casas creada: "+ long1 );
-			}
-    		
+    		List<Home> homeList= homeService.getHomesFromUser(user);
     		//Home homeUser = homeService.findOneById(user.getId());
-    		List<Home> homeUser = new ArrayList<>();
-    		log.info("lsita de casas vacia creada creada");
-    		for (int i=0; i<homeList.size(); i++) {
-    			log.info("entro en el primer for");
-    			Home home = homeService.findOneById(homeList.get(i));//tengo las casas del usuario
-    			log.info("He encontrado la primera casa");
-    			homeUser.add(home);//meto cada casa en una lista nueva
-    			log.info("Añado al casa a homeUser");
-    			log.info("casa metida en la lista"+ home);
-    		}
-    		
-    		List<OrderRequest> orderRequestList = new ArrayList<>();
-    		for(int i=0; i<homeUser.size(); i++) {
-    			Home home = homeUser.get(i);
-    			log.info("busca la primera casa"+ home);
-    			Long idHome=home.getId();
-    			OrderRequest order = orderRequestService.findOrder(idHome);
-    			orderRequestList.add(order);
-    		}
+    		List<OrderRequest> orderRequestList = orderRequestService.findNotCompletedOrders(homeList);
     		model.addAttribute("orderList", orderRequestList);
-    		model.addAttribute("userHome", homeUser);
+    		model.addAttribute("userHome", homeList);
     		
     		/*Home home = homeService.findOneById(homeList.get(0));   		
     		List<OrderRequest> orderRequest = user.getOrderList();
@@ -255,6 +233,8 @@ public class UserDashboardController implements CurrentUserInfo {
         	
 		}*/
        
+        model.addAttribute("user", user);
+        
         return "dashboard/see";
     }
 
@@ -269,7 +249,6 @@ public class UserDashboardController implements CurrentUserInfo {
                 throw new RuntimeException("Error no se ha podido cargar la imgen: " + pathPhoto.toString());
             }
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);

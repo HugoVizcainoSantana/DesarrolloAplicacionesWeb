@@ -42,7 +42,7 @@ public class ProductService {
         productRepository.save(productE);
     }
 
-    private void saveProduct(Product product) {
+    public void saveProduct(Product product) {
         productRepository.save(product);
     }
 

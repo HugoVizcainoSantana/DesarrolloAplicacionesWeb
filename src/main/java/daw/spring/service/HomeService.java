@@ -60,22 +60,10 @@ public class HomeService {
     		return homeRepository.findByUserId(id);
     }*/
     
-    public List<Long> getHomeIdFromUser(User user){
-    		List<Long> idList = new ArrayList<>();
-    		for (Home home : user.getHomeList()) {
-				idList.add(home.getId());
-			}
-    		return idList;
+    public List<Home> getHomesFromUser(User user){
+    		return user.getHomeList();
     }
     
    
-
-  /*  @PostConstruct
-    public void init() {
-        Home home1 = new Home(28007, "c/ibiza", true, null);
-        saveHome(home1);
-        Home home2 = new Home(28045, "c/alfonso xII", true, null);
-        saveHome(home2);
-    }*/
 
 }
