@@ -11,7 +11,7 @@ public class OrderRequest {
     private long id;
 
     private Double cost;
-    private boolean isOk; // 1 for Pendind and 0 for Done
+    private boolean completed; // 1 for Pendind and 0 for Done
 
     @OneToOne
     private Home home;
@@ -23,10 +23,10 @@ public class OrderRequest {
     }
 
 
-    public OrderRequest(double cost, boolean confirmed, Home home, List<Device> deviceList) {
+    public OrderRequest(double cost, boolean completed, Home home, List<Device> deviceList) {
         
         this.cost = cost;
-        this.isOk = confirmed;
+        this.completed = completed;
         this.home = home;
         this.deviceList = deviceList;
     }
@@ -47,12 +47,12 @@ public class OrderRequest {
         this.cost = cost;
     }
 
-    public boolean isConfirmed() {
-        return isOk;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setConfirmed(boolean state) {
-        this.isOk = state;
+    public void setCompleted(boolean state) {
+        this.completed = state;
     }
 
     public Home getHome() {

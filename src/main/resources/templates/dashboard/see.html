@@ -235,49 +235,38 @@
 		</section>
 		<div class="container py-4">
 			<div class="card bg-light">
+			{{#ListRequest}}
 				<div class="card-header">Pedidos</div>
+			{{/ListRequest}}
+			{{^orderList}}
+			<h5 class="alert alert-info">No tienes pedidos</h5>
+			{{/orderList}}
+			{{#orderList}}
 				<div class="card-body">
-					<img class="img-thumbnail rounded float-left" />
-					<!--  <ul class="list-group">
-				{{#user}}
-					<li class="list-group-item">{{firstName}}</li>
-					<li class="list-group-item">{{lastName}}</li>
-					<li class="list-group-item">{{email}}</li>
-				{{/user}}
-				</ul>-->
-					<!-- {{#user}} -->
+					<p>Pedido {{-index}}</p>
 					<table class="table table-bordered table-striped my-4">
 						<thead class="thead-inverse">
 							<tr>
 								<th>Dirección</th>
 								<th>Codigo postal</th>
+								<th>Coste</th>
 							</tr>
 						</thead>
-						{{^orderList}}
+						
 						<tbody>
+						{{#home}}
 							<tr>
-								<h5 class="alert alert-info">No tienes pedidos</h5>
-								{{/orderList}} 
-								{{#orderList}}
-								{{^address}}
-								<td>Direccion no encontrada</td>
-								{{/address}}
-								{{#address}}
 								<td>{{address}}</td>
-								{{/address}}
-								{{^postCode}}
-								<td>2018-02-26</td>
-								{{/postCode}}
-								{{#postCode}}
 								<td>{{postCode}}</td>
-								{{/postCode}}
+								<td>{{cost}}€</td>
 							</tr>
+						{{/home}}
 						</tbody>
-						{{/orderList}}
+						
+						
 					</table>
-					<!--  {{/user}}-->
 				</div>
-
+			{{/orderList}}
 			</div>
 		</div>
 
