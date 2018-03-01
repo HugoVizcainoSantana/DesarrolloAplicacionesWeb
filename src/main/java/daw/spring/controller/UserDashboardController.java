@@ -6,7 +6,7 @@ import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.*;
 import daw.spring.service.*;
 
-import org.apache.catalina.startup.HomesUserDatabase;
+//import org.apache.catalina.startup.HomesUserDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.mockito.Mockito.after;
+//import static org.hamcrest.CoreMatchers.instanceOf;
+//import static org.mockito.Mockito.after;
 
 import java.io.IOException;
 import java.io.OutputStream;
