@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -30,8 +30,9 @@ public class AnalyticsController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final float LIGHT_CONSUMPTION = (float) 0.20;
-    private final float BLIND_CONSUMPTION = (float) 1;
+    private final double LIGHT_CONSUMPTION = 0.20;
+    private final double BLIND_CONSUMPTION = 1;
+    private final double RASPBERRY_CONSUMPTION = 5;
 
     @Autowired
     public AnalyticsController(AnalyticsService analyticsService, HomeService homeService) {
@@ -41,54 +42,86 @@ public class AnalyticsController {
 
     @RequestMapping(value = "/analytics/{homeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public HashMap<Date, Float> getAnalytics(@PathVariable long homeId) {
-        log.info("Requested Analytics!");
+    public Map<String, Double> getAnalytics(@PathVariable long homeId) throws ParseException {
+        log.info("Requested Analytics for home " + homeId);
         Home home = homeService.findOneById(homeId);
-        LinkedList<Date> graphDomain = new LinkedList<>();
-        LinkedList<Float> graphValues = new LinkedList<>();
+        List<Analytics> analyticsList = new LinkedList<>();
         Date oneDayAgo = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
         for (Device d : home.getDeviceList()) {
-            List<Analytics> analyticsListLast24 = analyticsService.findAnalyticsByDeviceId(d.getId(), oneDayAgo);
-            boolean lastAnalyticWasBlindType = false;
-            for (Analytics a : analyticsListLast24) {
-                graphDomain.add(a.getDate());
-                Float lastValue = graphValues.peekLast();
-                switch (a.getDevice().getType()) {
+            analyticsList.addAll(analyticsService.findAnalyticsByDevice(d, oneDayAgo));
+        }
+        if (analyticsList.isEmpty()) { //If it's empty, return empty map
+            return new HashMap<>();
+        } else {
+            analyticsList.sort(Comparator.comparing(Analytics::getDate));
+            LinkedList<Date> graphDomain = new LinkedList<>();
+            LinkedList<Double> graphValues = new LinkedList<>();
+            for (int i = 0; i < analyticsList.size(); i++) {
+                Analytics currentAnalytic = analyticsList.get(i);
+                Analytics previousRecord;
+                if (i > 0) {
+                    previousRecord = analyticsList.get(i - 1);
+                } else {
+                    previousRecord = null;
+                }
+                graphDomain.add(currentAnalytic.getDate());
+                Double lastValue = graphValues.peekLast();
+                double deviceConsumption = 0;
+                switch (currentAnalytic.getDevice().getType()) {
                     case LIGHT:
-                        if (a.getPreviousState().equals(Device.StateType.OFF) && a.getNewState().equals(Device.StateType.ON)) {
-                            if (lastValue != null) {
-                                graphValues.addLast(lastValue + LIGHT_CONSUMPTION);
-                            } else {
-                                graphValues.addLast(LIGHT_CONSUMPTION);
-                            }
-                        } else if (a.getPreviousState().equals(Device.StateType.ON) && a.getNewState().equals(Device.StateType.OFF)) {
-                            if (lastValue != null) {
-                                graphValues.addLast(lastValue - LIGHT_CONSUMPTION);
-                            } else {
-                                graphValues.addLast(0F);
-                            }
-                        }
-                        if (lastAnalyticWasBlindType) { //Read last with blind consumption also removed
-                            graphValues.addLast(graphValues.pollLast() - BLIND_CONSUMPTION);
-                        }
-                        lastAnalyticWasBlindType = false;
+                        deviceConsumption = LIGHT_CONSUMPTION;
                         break;
                     case BLIND:
-                        if (lastValue == null) {
-                            graphValues.addLast(0F);
-                        } else {
-                            graphValues.addLast(lastValue + BLIND_CONSUMPTION);
-                        }
-                        lastAnalyticWasBlindType = true;
+                        deviceConsumption = BLIND_CONSUMPTION;
+                        break;
+                    case RASPBERRYPI:
                         break;
                 }
+                if (currentAnalytic.getDevice().getType() == Device.DeviceType.BLIND || currentAnalytic.getPreviousState().equals(Device.StateType.OFF) && currentAnalytic.getNewState().equals(Device.StateType.ON)) {
+                    if (lastValue != null) {
+                        graphValues.addLast(lastValue + deviceConsumption);
+                    } else {
+                        graphValues.addLast(deviceConsumption);
+                    }
+                } else if (currentAnalytic.getDevice().getType() != Device.DeviceType.BLIND && //Blinds dont have off action per se
+                        currentAnalytic.getPreviousState().equals(Device.StateType.ON) &&
+                        currentAnalytic.getNewState().equals(Device.StateType.OFF)) {
+                    if (lastValue != null) {
+                        graphValues.addLast(lastValue - deviceConsumption);
+                    } else {
+                        graphValues.addLast(0.0);
+                    }
+                }
+                if (previousRecord != null && previousRecord.getDevice().getType() == Device.DeviceType.BLIND) { //Read last with blind consumption also removed
+                    lastValue = graphValues.pollLast();
+                    graphValues.addLast(lastValue - BLIND_CONSUMPTION);
+                }
             }
+            graphDomain.addLast(Timestamp.from(Instant.now()));
+            //If last record is from a Blind, we gotta remove it too
+            if (analyticsList.get(analyticsList.size() - 1).getDevice().getType() == Device.DeviceType.BLIND) {
+                graphValues.addLast(graphValues.peekLast() - BLIND_CONSUMPTION);
+            } else {
+                graphValues.addLast(graphValues.peekLast());
+            }
+            HashMap<String, Double> graphData = new HashMap<>();
+            if (graphDomain.size() != graphValues.size()) {
+                throw new RuntimeException("THIS SHOULD NOT BE HAPPENING! Different sized arrays on analytics controller");
+            }
+            for (int i = 0; i < graphDomain.size(); i++) {
+                graphData.put(formatDomain(graphDomain.get(i)), graphValues.get(i));
+            }
+            return new TreeMap<>(graphData);
         }
-        HashMap<Date, Float> graphData = new HashMap<>();
-        assert graphDomain.size() == graphData.size();
-        for (int i = 0; i < graphDomain.size(); i++) {
-            graphData.put(graphDomain.get(i), graphValues.get(i));
-        }
-        return graphData;
     }
+
+    private String formatDomain(Date d) throws ParseException {
+        String date_s = d.toString();
+        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd HH:mm:ss");
+        Date date = dt.parse(date_s);
+        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm:ss a");
+
+        return dt1.format(date);
+    }
+
 }

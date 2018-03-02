@@ -14,7 +14,7 @@
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
     <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https:/fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- jQuery Circle-->
     <link rel="stylesheet" href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
     <!-- Custom Scrollbar-->
@@ -161,7 +161,7 @@
                         <div id="updates-box" role="tabpanel" class="collapse show">
                             <ul class="news list-unstyled">
                                 <!-- Item-->
-                                {{#devices}}
+                                {{#favoriteDevices}}
                                 <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz del salon</strong></div>
@@ -172,7 +172,7 @@
                                             <p>{{id}}</p>
                                             <div class="switch">
                                                 <!--<input type="submit" value="Register" >-->
-                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1)..addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
+                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
                                                 <label for="btn-toggle1"></label>
                                                 <!--<input type="submit" name="activate" class="btn btn-primary btn-lg btn-block" value="Activar" />
                                                 <input type="submit" name="cancel" class="btn btn-primary btn-lg btn-block" value="Cancelar" />-->
@@ -180,12 +180,12 @@
                                         </form>
                                     </div>
                                 </li>
-                                {{/devices}}
-                                {{^devices}}
-                                <p>No tienes dispositivos</p>
-                                {{/devices}}
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                {{/favoriteDevices}}
+                                {{^favoriteDevices}}
+                                <p>No tienes dispositivos marcados como favoritos</p>
+                                {{/favoriteDevices}}
+                                <!-- Example of other elements
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz del salon</strong></div>
                                     </div>
@@ -196,8 +196,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Persiana del salon</strong></div>
                                     </div>
@@ -208,8 +207,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!-- Item-->
-                                <!--<li class="d-flex justify-content-between">
+                                <li class="d-flex justify-content-between">
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>Luz de la cocina</strong></div>
                                     </div>
@@ -221,8 +219,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Favoritos Widget End-->
-
                 <!-- Ultimas acciones Widget -->
                 <div class="col-lg-4 col-md-6">
                     <div id="recent-activities-wrapper" class="card updates activities">
@@ -274,15 +270,59 @@
                     </div>
                 </div>
                 <!-- Ultimas acciones End -->
-                <div class="col-lg-4 col-md-6">
                     <!-- Widget Tiempo -->
-                    <div id="weather">
-
-                    </div>
-                    <!-- Widget Tiempo End -->
+                <div class="col-lg-4 col-md-6">
+                    <div id="weather"></div>
                 </div>
+                    <!-- Widget Tiempo End -->
             </div>
-
+        </div>
+    </section>
+    <section class="mt-30px mb-30px" id="allDevices">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- All Devices Widget -->
+                {{#allHomesWithDevices}}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card updates recent-updated">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{-index}}</a></h2>
+                            <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                        <div role="tabpanel" class="collapse show">
+                            <ul class="news list-unstyled">
+                                <!-- Item-->
+                                {{#deviceList}}
+                                <li class="d-flex justify-content-between">
+                                    <div class="left-col d-flex">
+                                        <div class="title"><strong>{{description}}</strong></div>
+                                    </div>
+                                    <div class="right-col text-right">
+                                        <form name="interaction" action="/dashboard/index" method="post">
+                                            <p>DEVICE ID:{{id}}</p>
+                                            <button><a href="/dashboard/index/{{id}}">{{status}}</a></button>
+                                            <!--<p>{{-index}}</p>
+                                            <div class="switch">
+                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
+                                                <label for="btn-toggle1"></label>
+                                            </div>-->
+                                        </form>
+                                    </div>
+                                </li>
+                                {{/deviceList}}
+                                {{^deviceList}}
+                                <p>No tienes dispositivos en esta casa</p>
+                                {{/deviceList}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {{/allHomesWithDevices}}
+                {{^allHomesWithDevices}}
+                <p>No tienes casas añadidas</p>
+                {{/allHomesWithDevices}}
+                <!-- All Devices Widget -->
+            </div>
         </div>
     </section>
 

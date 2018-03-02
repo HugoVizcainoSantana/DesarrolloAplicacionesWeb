@@ -2,15 +2,12 @@ package daw.spring.service;
 
 import daw.spring.model.Analytics;
 import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.User;
 import daw.spring.repository.AnalyticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +26,12 @@ public class AnalyticsService {
         return analyticsRepository.findOne(id);
     }
 
-    public List<Analytics> findAnalyticsByDeviceId(long id) {
-        return analyticsRepository.findByDeviceId(id);
+    public List<Analytics> findAnalyticsByDevice(Device device) {
+        return analyticsRepository.findByDeviceOrderByDateAsc(device);
     }
 
-    public List<Analytics> findAnalyticsByDeviceId(long id, Date date) {
-        return analyticsRepository.findByDeviceIdAndDateAfter(id, date);
+    public List<Analytics> findAnalyticsByDevice(Device device, Date date) {
+        return analyticsRepository.findByDeviceAndDateAfter(device, date);
     }
 
     public List<Analytics> findAllAnalytics() {
