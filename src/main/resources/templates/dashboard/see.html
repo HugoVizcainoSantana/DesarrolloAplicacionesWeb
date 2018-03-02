@@ -234,18 +234,20 @@
 		</section>
 		<div class="container py-4">
 			<div class="card bg-light">
-			{{#ListRequest}}
-				<div class="card-header">Pedidos</div>
-			{{/ListRequest}}
 			{{^orderList}}
-			<h5 class="alert alert-info">No tienes pedidos</h5>
+				<h5 class="alert alert-info">No tienes pedidos pendientes</h5>
 			{{/orderList}}
+				{{#existPending}}
+				<h3>Pedidos pendientes de confirmar</h3>
+				{{/existPending}}
 			{{#orderList}}
 				<div class="card-body">
-					<p>Pedido {{-index}}</p>
+					<p>Pedido {{id}}</p>
 					<table class="table table-bordered table-striped my-4">
 						<thead class="thead-inverse">
 							<tr>
+								<th>Estado</th>
+								<th>Fecha</th>
 								<th>Dirección</th>
 								<th>Codigo postal</th>
 								<th>Coste</th>
@@ -255,6 +257,10 @@
 						<tbody>
 						{{#home}}
 							<tr>
+								<td>{{#completed}}Aceptado{{/completed}}{{^completed}}Pendiente de
+									aceptación{{/completed}}
+								</td>
+								<td>{{date}}</td>
 								<td>{{address}}</td>
 								<td>{{postCode}}</td>
 								<td>{{cost}}€</td>
@@ -266,6 +272,41 @@
 					</table>
 				</div>
 			{{/orderList}}
+				{{#existAll}}
+				<h3>Histórico de pedidos</h3>
+				{{/existAll}}
+				{{#orderListAll}}
+				<div class="card-body">
+					<p>Pedido {{id}}</p>
+					<table class="table table-bordered table-striped my-4">
+						<thead class="thead-inverse">
+						<tr>
+							<th>Estado</th>
+							<th>Fecha</th>
+							<th>Dirección</th>
+							<th>Codigo postal</th>
+							<th>Coste</th>
+						</tr>
+						</thead>
+
+						<tbody>
+						{{#home}}
+						<tr>
+							<td>{{#completed}}Aceptado{{/completed}}{{^completed}}Pendiente de
+								aceptación{{/completed}}
+							</td>
+							<td>{{date}}</td>
+							<td>{{address}}</td>
+							<td>{{postCode}}</td>
+							<td>{{cost}}€</td>
+						</tr>
+						{{/home}}
+						</tbody>
+
+
+					</table>
+				</div>
+				{{/orderListAll}}
 			</div>
 		</div>
 

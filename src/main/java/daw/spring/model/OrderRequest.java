@@ -1,6 +1,7 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class OrderRequest {
 
     private Double cost;
     private boolean completed; // 1 for Pendind and 0 for Done
+    private Date date;
 
     @OneToOne
     private Home home;
@@ -23,12 +25,21 @@ public class OrderRequest {
     }
 
 
-    public OrderRequest(double cost, boolean completed, Home home, List<Device> deviceList) {
-        
+    public OrderRequest(double cost, boolean completed, Date date, Home home, List<Device> deviceList) {
+
         this.cost = cost;
         this.completed = completed;
         this.home = home;
         this.deviceList = deviceList;
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public long getId() {

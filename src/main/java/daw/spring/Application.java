@@ -112,7 +112,7 @@ public class Application {
             List<Device> orderRequest1_deviceList = new ArrayList<>();
             orderRequest1_deviceList.add(device1);
             orderRequest1_deviceList.add(device2);
-            OrderRequest orderRequest1 = new OrderRequest(31, false, home1, orderRequest1_deviceList);
+            OrderRequest orderRequest1 = new OrderRequest(31, false, new Date(), home1, orderRequest1_deviceList);
             orderRequestService.saveOrder(orderRequest1);
 
         /*

@@ -139,11 +139,11 @@ public class UserDashboardController implements CurrentUserInfo {
         homeService.saveHome(home);
         userService.saveHomeUser(home, user);
         //Order order = new Order(total, false, home);
-        OrderRequest order = new OrderRequest(totalPrice, false, home, deviceList);
+        OrderRequest order = new OrderRequest(totalPrice, false, new Date(), home, deviceList); //added date
         orderRequestService.saveOrder(order);
         user.getOrderList().add(order);
         userService.saveUser(user);
-        log.info("Oreder created");
+        log.info("Order created");
         return "redirect:see";
     }
 
@@ -231,8 +231,22 @@ public class UserDashboardController implements CurrentUserInfo {
         //con el id del usuario obtengo el id de su casa en una lista por si tiene mas de 1
         List<Home> homeList = homeService.getHomesFromUser(user);
         //Home homeUser = homeService.findOneById(user.getId());
+
+        // orders not completed yet
         List<OrderRequest> orderRequestList = orderRequestService.findNotCompletedOrders(homeList);
+
+        // orders completed or not
+        List<OrderRequest> orderRequestListAll = orderRequestService.findAllHomes(homeList);
+        if (!orderRequestListAll.isEmpty()) {
+            model.addAttribute("existAll", "OK");
+        }
+
+        if (!orderRequestList.isEmpty()) {
+            model.addAttribute("existPending", "OK");
+        }
+
         model.addAttribute("orderList", orderRequestList);
+        model.addAttribute("orderListAll", orderRequestListAll);
         model.addAttribute("userHome", homeList);
     		
     		/*Home home = homeService.findOneById(homeList.get(0));   		
