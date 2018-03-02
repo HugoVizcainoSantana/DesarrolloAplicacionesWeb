@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -40,7 +42,7 @@ public class AnalyticsController {
 
     @RequestMapping(value = "/analytics/{homeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<Date, Double> getAnalytics(@PathVariable long homeId) {
+    public Map<String, Double> getAnalytics(@PathVariable long homeId) throws ParseException {
         log.info("Requested Analytics for home " + homeId);
         Home home = homeService.findOneById(homeId);
         List<Analytics> analyticsList = new LinkedList<>();
@@ -102,15 +104,24 @@ public class AnalyticsController {
             } else {
                 graphValues.addLast(graphValues.peekLast());
             }
-            HashMap<Date, Double> graphData = new HashMap<>();
+            HashMap<String, Double> graphData = new HashMap<>();
             if (graphDomain.size() != graphValues.size()) {
                 throw new RuntimeException("THIS SHOULD NOT BE HAPPENING! Different sized arrays on analytics controller");
             }
             for (int i = 0; i < graphDomain.size(); i++) {
-                graphData.put(graphDomain.get(i), graphValues.get(i));
+                graphData.put(formatDomain(graphDomain.get(i)), graphValues.get(i));
             }
             return new TreeMap<>(graphData);
         }
+    }
+
+    private String formatDomain(Date d) throws ParseException {
+        String date_s = d.toString();
+        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd HH:mm:ss");
+        Date date = dt.parse(date_s);
+        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm:ss a");
+
+        return dt1.format(date);
     }
 
 }

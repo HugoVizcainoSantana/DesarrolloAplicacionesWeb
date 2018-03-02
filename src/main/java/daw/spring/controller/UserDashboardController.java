@@ -73,24 +73,50 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/index";
     }
 
-    @RequestMapping(value = "/index", params = "inputInteraction")
-    public void addInteraction(Principal principal, Model model) {
-        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        List<Home> homeList = user.getHomeList();
-        List<Device> deviceList = homeList.get(0).getDeviceList();
-        for (Device d : deviceList) {
-            if (d.getStatus() == Device.StateType.ON) {
-                Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
-                analyticsService.saveAnalytics(analytics1);
+    @RequestMapping("/index/{id}") //value = "/index/{id}", params = "inputInteraction"
+    public String addInteraction(Principal principal, Model model, @PathVariable long id) { // @PathVariable long id
+        // create a new device from user's clicked one
+        Device d = deviceService.findOneById(id);
+        Analytics analytics;
+
+        // handle types
+        if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
+            if (d.getStatus() == Device.StateType.OFF) {
+                // if OFF and button is clicked, turn ON
+                d.setStatus(Device.StateType.ON);
+                deviceService.saveDevice(d);
+
+                // create a new analytic when status = ON
+                analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
+                // and save it
+                analyticsService.saveAnalytics(analytics);
             } else {
-                Analytics analytics2 = new Analytics(d, new Date(), Device.StateType.ON, Device.StateType.OFF);
-                analyticsService.saveAnalytics(analytics2);
+                // if ON, only turn OFF and save
+                d.setStatus(Device.StateType.OFF);
+                deviceService.saveDevice(d);
+            }
+        } else if (d.getType() == Device.DeviceType.BLIND) {
+            if (d.getStatus() == Device.StateType.UP) {
+                d.setStatus(Device.StateType.DOWN);
+                deviceService.saveDevice(d);
+
+                // create a new analytic when status = UP
+                analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
+                // and save it
+                analyticsService.saveAnalytics(analytics);
+            } else {
+                // if DOWN, UP and save
+                d.setStatus(Device.StateType.UP);
+                deviceService.saveDevice(d);
             }
         }
 
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("title", "Dashboard");
         index(model, principal);
+
+        return "redirect:";
+
     }
 
     @RequestMapping("/index")

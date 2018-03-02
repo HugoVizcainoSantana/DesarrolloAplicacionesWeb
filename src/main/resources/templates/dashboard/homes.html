@@ -215,8 +215,11 @@
                 <div class="col-lg-6">
                     <div class="card line-chart-example">
                         <div class="card-header d-flex align-items-center">
-                            <h4>Consumo Mensual y comparación con la media</h4>
+                            <h4>Consumo Diario</h4>
                         </div>
+                        {{^deviceList}}
+                        <p class="text-center">No tienes dispositivos contratados aún</p>
+                        {{/deviceList}}
                         <div class="card-body">
                             <canvas class="loadHomeChart" itemid="{{id}}"></canvas>
                         </div>

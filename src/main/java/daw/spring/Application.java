@@ -102,6 +102,7 @@ public class Application {
             Home home2 = new Home(21111, "c/ole", false, null);
             homeService.saveHome(home2);
             List<Device> home3_deviceList1 = new ArrayList<>();
+            home3_deviceList1.add(device1);
             home3_deviceList1.add(device3);
             home3_deviceList1.add(device4);
             Home home3 = new Home(28007, "c/hugo", true, home3_deviceList1);
