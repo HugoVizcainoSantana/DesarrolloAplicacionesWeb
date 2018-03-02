@@ -80,10 +80,10 @@ public class UserDashboardController implements CurrentUserInfo {
         List<Device> deviceList = homeList.get(0).getDeviceList();
         for (Device d : deviceList) {
             if (d.getStatus() == Device.StateType.ON) {
-                Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
+                Analytics analytics1 = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
                 analyticsService.saveAnalytics(analytics1);
             } else {
-                Analytics analytics2 = new Analytics(d, new Date(), Device.StateType.ON, Device.StateType.OFF, null);
+                Analytics analytics2 = new Analytics(d, new Date(), Device.StateType.ON, Device.StateType.OFF);
                 analyticsService.saveAnalytics(analytics2);
             }
         }
