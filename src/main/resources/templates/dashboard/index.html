@@ -299,11 +299,13 @@
                                     </div>
                                     <div class="right-col text-right">
                                         <form name="interaction" action="/dashboard/index" method="post">
-                                            <p>{{-index}}</p>
+                                            <p>DEVICE ID:{{id}}</p>
+                                            <button><a href="/dashboard/index/{{id}}">{{status}}</a></button>
+                                            <!--<p>{{-index}}</p>
                                             <div class="switch">
                                                 <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
                                                 <label for="btn-toggle1"></label>
-                                            </div>
+                                            </div>-->
                                         </form>
                                     </div>
                                 </li>
