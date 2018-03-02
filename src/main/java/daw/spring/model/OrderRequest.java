@@ -20,18 +20,21 @@ public class OrderRequest {
 
     @OneToMany
     private List<Device> deviceList;
+    
+    private String observation;
 
     public OrderRequest() {
     }
 
 
-    public OrderRequest(double cost, boolean completed, Date date, Home home, List<Device> deviceList) {
+    public OrderRequest(double cost, boolean completed, Date date, Home home, List<Device> deviceList, String observation) {
 
         this.cost = cost;
         this.completed = completed;
         this.home = home;
         this.deviceList = deviceList;
         this.date = date;
+        this.observation = observation;
     }
 
     public Date getDate() {
@@ -81,4 +84,11 @@ public class OrderRequest {
     public void setDeviceList(List<Device> deviceList) {
         this.deviceList = deviceList;
     }
+    public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
+	}
 }

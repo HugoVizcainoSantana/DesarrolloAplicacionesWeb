@@ -113,13 +113,17 @@ public class UserDashboardController implements CurrentUserInfo {
                            @RequestParam(name = "direccion") String address,
                            @RequestParam(name = "postCode") long postCode,
                            @RequestParam(name = "blind", required = false) Integer blindQuantity,
-                           @RequestParam(name = "light", required = false) Integer lightQuantity) {
+                           @RequestParam(name = "light", required = false) Integer lightQuantity,
+                           @RequestParam(name= "observation", required= false) String observation) {
         if (blindQuantity == null) {
             blindQuantity = 0;
         }
         if (lightQuantity == null) {
             lightQuantity = 0;
         }
+        if (observation.isEmpty()) {
+    		observation = "Sin observaciones";
+    }
         Double totalPrice = (double) (blindQuantity * 20 + lightQuantity * 30);
         log.info("Ha entrado en el metodo");
         List<Device> deviceList = new ArrayList<>();
@@ -139,7 +143,7 @@ public class UserDashboardController implements CurrentUserInfo {
         homeService.saveHome(home);
         userService.saveHomeUser(home, user);
         //Order order = new Order(total, false, home);
-        OrderRequest order = new OrderRequest(totalPrice, false, new Date(), home, deviceList); //added date
+        OrderRequest order = new OrderRequest(totalPrice, false, new Date(), home, deviceList, observation); //added date
         orderRequestService.saveOrder(order);
         user.getOrderList().add(order);
         userService.saveUser(user);
