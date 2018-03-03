@@ -101,16 +101,21 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "listItemsPage";
     }
 
-    /*@RequestMapping(value = "/moreUsers/?page=1&size=4", method = RequestMethod.GET)
-    public Page<User> moreUsersPage(Pageable page){
-        return userRepository.findAll(page);
-    }*/
-
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+
+        Page<OrderRequest> orders = orderRequestService.findAll(new PageRequest(0, 5));
+        model.addAttribute("orders", orders);
+
         return "adminDashboard/orders";
+    }
+
+    @RequestMapping(value = "/moreOrders", method = RequestMethod.GET)
+    public String moreOrdersPage(Model model, @RequestParam int page) {
+        Page<OrderRequest> orderList = orderRequestService.findAll(new PageRequest(page, 5));
+        model.addAttribute("itemsOrder", orderList);
+        return "listOrdersPage";
     }
 
     @RequestMapping("/detail/{id}")
