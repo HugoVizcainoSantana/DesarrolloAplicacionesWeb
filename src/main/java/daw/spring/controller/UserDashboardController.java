@@ -12,12 +12,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -46,11 +49,14 @@ public class UserDashboardController implements CurrentUserInfo {
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
     private final AnalyticsService analyticsService;
+    private final BCryptPasswordEncoder encoder;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    
+
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService) {
+    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService,BCryptPasswordEncoder encoder) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
@@ -58,6 +64,7 @@ public class UserDashboardController implements CurrentUserInfo {
         this.deviceService = deviceService;
         this.orderRequestService = orderRequestService;
         this.analyticsService = analyticsService;
+        this.encoder = encoder;
     }
 
     @RequestMapping("/")
@@ -125,7 +132,6 @@ public class UserDashboardController implements CurrentUserInfo {
     		observation = "Sin observaciones";
     }
         Double totalPrice = (double) (blindQuantity * 20 + lightQuantity * 30);
-        log.info("Ha entrado en el metodo");
         List<Device> deviceList = new ArrayList<>();
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         for (int i = 0; i < blindQuantity; i++) {
@@ -138,7 +144,6 @@ public class UserDashboardController implements CurrentUserInfo {
             deviceService.saveDevice(device);
             deviceList.add(device);
         }
-        log.info("Empieza a guardar");
         Home home = new Home(postCode, address, false, deviceList);
         homeService.saveHome(home);
         userService.saveHomeUser(home, user);
@@ -208,9 +213,19 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String saveProfile(Model model, @RequestParam("file") MultipartFile photo, Principal principal) {
+    public String saveProfile(Model model, @RequestParam("file") MultipartFile photo,
+    										  @RequestParam("password") String password, 
+    										  @RequestParam("email") String email, 
+    										  @RequestParam("phone") String phone,Principal principal) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
+        		if (user.getPhoto() != null && user.getPhoto().length()>0) {
+        			Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
+        			File file = rootPath.toFile();
+        			if(file.exists() && file.canRead()) {
+        				file.delete();
+        			}
+        		}
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
             Path rootPath = Paths.get("upload").resolve(uniqueFilname);
             Path rootAbsolutePath = rootPath.toAbsolutePath();
@@ -223,18 +238,31 @@ public class UserDashboardController implements CurrentUserInfo {
                 e.printStackTrace();
             }
         }
+        if(!password.isEmpty()) {
+        		if(user.getPasswordHash() !=null && user.getPasswordHash().length()>0) {
+        			String passNew = encoder.encode(password);
+        			user.setPasswordHash(passNew);
+        		}
+        }
+        if(!email.isEmpty()) {
+        		if(user.getEmail() !=null && user.getEmail().length()>0) {
+        			user.setEmail(email);	
+        		}
+        }
+        if(!phone.isEmpty()) {
+    		if(user.getPhone() !=null && user.getPhone().length()>0) {
+    			user.setPhone(phone);	
+    		}
+    }
         userService.saveUser(user);
-        return "redirect:profile";
+        return "redirect:created";
     }
 
     @RequestMapping("/see")
     public String see(Model model, Principal principal) {
         //del usuario tengo el id
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        log.info("usuario pillado" + user);
-        //con el id del usuario obtengo el id de su casa en una lista por si tiene mas de 1
         List<Home> homeList = homeService.getHomesFromUser(user);
-        //Home homeUser = homeService.findOneById(user.getId());
 
         // orders not completed yet
         List<OrderRequest> orderRequestList = orderRequestService.findNotCompletedOrders(homeList);
@@ -252,23 +280,7 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("orderList", orderRequestList);
         model.addAttribute("orderListAll", orderRequestListAll);
         model.addAttribute("userHome", homeList);
-    		
-    		/*Home home = homeService.findOneById(homeList.get(0));   		
-    		List<OrderRequest> orderRequest = user.getOrderList();
-    		List<User> userHomeList = new ArrayList<>();
-    		for (User user2 : userHomeList) {
-				orderRequest.add(orderRequestService.finOneById(homeUser.getId()));
-			}*/
-
-        //List<OrderRequest> orderRequestList;
-        //List<User> userHomeList;
-        /*for () {
-			orderRequest.add(orderRequestService.findOrderByHomeId(home.getId()));
-        	
-		}*/
-
         model.addAttribute("user", user);
-
         return "dashboard/see";
     }
 
