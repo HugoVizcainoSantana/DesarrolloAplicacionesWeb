@@ -1,0 +1,82 @@
+<div class="card">
+    <div class="card-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Pedido: {{id}}</h4>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-muted text-right"><a href="/adminDashboard/orders/{{id}}">Ver detalles</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Coste :</th>
+                    <th>Direccion :</th>
+                    <th>Estado del pedido :</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr>
+
+                    <th>{{cost}}</th>
+                    {{#home}}
+                    <th>{{address}}</th>
+                    {{/home}}
+                    {{^isOk}}
+                    <th>Sin confirmar</th>
+                    {{/isOk}}
+                    {{#isOk}}
+                    <th>Confirmado</th>
+                    {{/isOk}}
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Actuador :</th>
+                    <th>Nº serie :</th>
+                    <th>Estado :</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {{#deviceList}}
+                <tr>
+
+                    <th>{{type}}</th>
+                    {{^serialNumber}}
+                    <th></th>
+                    {{/serialNumber}}
+                    {{#serialNumber}}
+                    <th>{{serialNumber}}</th>
+                    {{/serialNumber}}
+
+                    {{^activated}}
+                    <th>No activo</th>
+                    {{/activated}}
+                    {{#activated}}
+                    <th>Activado</th>
+                    {{/activated}}
+
+                </tr>
+                {{/deviceList}}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
