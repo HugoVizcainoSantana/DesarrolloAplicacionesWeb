@@ -166,12 +166,14 @@
             {{#orders}}
             <div class="row">
                 <div class="col-lg-12" id="orders">
-                    {{#orders}} {{> listOrders}} {{/orders}}
+                    {{> listOrders}} <!--{{#orders}}  {{/orders}} -->
                 </div>
-                <button id="moreOrders" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más
-                </button>
+
             </div>
             {{/orders}}
+            <button id="moreOrders" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más</button>
+
+
 
             <header>
                 <h1 class="h3 display">Pedidos confirmados : </h1>
@@ -184,12 +186,12 @@
             {{#ordersCompleted}}
             <div class="row">
                 <div class="col-lg-12" id="ordersCompleted">
-                    {{#ordersCompleted}} {{> listOrdersCompleted}} {{/ordersCompleted}}
+                    {{> listOrdersCompleted}}
                 </div>
-                <button id="moreordersCompleted" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más
-                </button>
+
             </div>
             {{/ordersCompleted}}
+            <button id="moreordersCompleted" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más</button>
 
         </div>
 

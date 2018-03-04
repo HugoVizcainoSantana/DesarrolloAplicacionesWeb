@@ -298,11 +298,40 @@
                                     <div class="left-col d-flex">
                                         <div class="title"><strong>{{description}}</strong></div>
                                     </div>
-                                    <div class="right-col text-right">
-                                        <form name="interaction" action="/dashboard/index" method="post">
+                                    <div class="right-col">
+                                        <!--
+                                        <div class="right-col text-right">
+                                        <form name="interaction" action="/dashboard/index" method="post">-->
+                                        <form name="interactionDev" action="/dashboard/index/{{id}}" method="post" id="interactionDev" >
                                             <p>DEVICE ID:{{id}}</p>
-                                            <button><a href="/dashboard/index/{{id}}">{{status}}</a></button>
-                                            <!--<p>{{-index}}</p>
+                                            <p>estatus :{{status}}</p>
+
+
+                                            <!--<div class="switch">
+                                                <input id="btn-toggle{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"  onload="setStatus('{{status}}')" onclick="cheeked('{id}')">
+                                                <label for="btn-toggle{{id}}"> {{status}} </label>
+                                                <span>
+                                                    <span>Off</span>
+                                                    <span>On</span>
+                                                </span>
+                                            </div>-->
+
+                                            <div class="switch">
+                                                <input id="controlarDevice" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload='setStatus("{{status}}")' onclick='cheeked("{{id}}")'>
+                                                <label for="controlarDevice"></label>
+                                            </div>
+
+                                            <!--<input id="controlarDevice" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload="setStatus('{{status}}')">
+
+                                            <input id="controlarDevice" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload="setStatus('{{status}}')">
+                                            <input type="checkbox-inline"  data-toggle="toggle"  onload="setStatus('{{status}}')">
+                                                    <span>
+                                                        <span><a class="btn btn-primary" href="/dashboard/index/{{id}}"></a></span>
+                                                    </span>
+                                            <p>{{-index}}</p>
+                                            <input  class="cmn-toggle cmn-toggle-round-flat" type="checkbox"   /> data-on="On" data-off="Off"
+                                            <button class="btn btn-primary"><a href="/dashboard/index/{{id}}">{{status}}</a></button>
+
                                             <div class="switch">
                                                 <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
                                                 <label for="btn-toggle1"></label>
@@ -356,5 +385,28 @@
 <script src="/dashboardBootstrap/js/appWeather.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+
+
+<script>
+
+
+    function cheeked(id) { //id
+        console.log("LLAMA " +id); //+id); // $('#btn-toggle1')
+        //$('input[name=""]').attr('checked', true); // #btn-toggle1
+        document.getElementById('interactionDev').submit;
+
+    }
+
+    function setStatus(status) {
+        console.log(status);
+        if ((status==Device.StateType.ON)||(status==Device.StateType.UP)){
+            $('input[name="controlarDevice"]').attr('checked', '');
+        }else{
+            $('input[name="controlarDevice"]').removeAttr('checked');
+        }
+
+    }
+</script>
+
 </body>
 </html>
