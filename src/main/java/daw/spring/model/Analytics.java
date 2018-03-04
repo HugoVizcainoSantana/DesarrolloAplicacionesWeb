@@ -25,19 +25,16 @@ public class Analytics {
     private Date date;
     private Device.StateType previousState;
     private Device.StateType newState;
-    @OneToOne
-    private Analytics previousRecord;
 
 
     public Analytics() {
     }
 
-    public Analytics(Device device, Date date, Device.StateType previousState, Device.StateType newState, Analytics previousRecord) {
+    public Analytics(Device device, Date date, Device.StateType previousState, Device.StateType newState) {
         this.device = device;
-        this.date = new Date(); // in days, minutes and secs
+        this.date = date;
         this.previousState = previousState;
         this.newState = newState;
-        this.previousRecord = previousRecord;
     }
 
     public long getId() {
@@ -80,11 +77,4 @@ public class Analytics {
         this.newState = newState;
     }
 
-    public Analytics getPreviousRecord() {
-        return previousRecord;
-    }
-
-    public void setPreviousRecord(Analytics previousRecord) {
-        this.previousRecord = previousRecord;
-    }
 }
