@@ -158,11 +158,11 @@
             <header>
                 <h1 class="h3 display">Pedidos pendientes : </h1>
             </header>
-            {{^orders}}
+            {{^ordersCount}}
             <header>
                 <h1 class="h3 display">No tienes pedidos pendientes de confirmar.</h1>
             </header>
-            {{/orders}}
+            {{/ordersCount}}
             {{#orders}}
             <div class="row">
                 <div class="col-lg-12" id="orders">
@@ -171,6 +171,7 @@
                 <button id="moreOrders" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más
                 </button>
             </div>
+            {{/orders}}
         </div>
 
     </section>

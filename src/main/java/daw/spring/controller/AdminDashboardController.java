@@ -121,7 +121,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-
+        model.addAttribute("ordersCount", orderRequestService.findNotCompletedOrdersAll());
         Page<OrderRequest> orders = orderRequestService.findAll(new PageRequest(0, 5));
         model.addAttribute("orders", orders);
 

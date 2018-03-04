@@ -51,7 +51,11 @@ public class OrderRequestService {
 	public Page<OrderRequest> findAll(PageRequest pageRequest) {
 		return orderRequestRepository.findAll(pageRequest);
 	}
-    
+
+	public List<OrderRequest> findNotCompletedOrdersAll() {
+		return orderRequestRepository.findByCompletedIsFalse();
+	}
+
     public List<OrderRequest> findNotCompletedOrders (List<Home> homes){
     		return orderRequestRepository.findByCompletedIsFalseAndHomeIn(homes);
     }
