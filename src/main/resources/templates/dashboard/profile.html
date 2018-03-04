@@ -71,11 +71,11 @@
 					<li><a href="/dashboard/index"> <i class="icon-home"></i>Inicio
 					</a></li>
 					<li><a href="/dashboard/shop"><i class="fa fa-shopping-cart"></i>Tienda</a></li>
+					<li><a href="/dashboard/see"> <i class="fa fa-bar-chart"></i>Mis pedidos</a></li>
 				</ul>
 				<h5 class="sidenav-heading">Gráficas</h5>
 				<ul id="side-main-menu2" class="side-menu list-unstyled">
-					<li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos
-					</a></li>
+					<!--<li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos</a></li>-->
 					<li><a href="/dashboard/homes"> <i
 							class="icon-interface-windows"></i>Casas OCH
 					</a></li>
@@ -103,9 +103,9 @@
 								</div>
 							</a>
 						</div>
-						<!-- <ul
+						 <ul
 							class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-							<li class="nav-item dropdown"><a id="notifications"
+							<!--<li class="nav-item dropdown"><a id="notifications"
 								rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false" class="nav-link"><i
 									class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
@@ -278,6 +278,14 @@
 												class="form-control" value="{{lastName}}">
 										</div>
 									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label">Teléfono :
+										</label>
+										<div class="col-sm-10">
+											<input required name="phone" type="text"
+												class="form-control" value="{{phone}}">
+										</div>
+									</div>
 									<div class="line"></div>
 									<div class="form-group row">
 										<label class="col-sm-2 form-control-label">Email : </label>
@@ -300,7 +308,7 @@
 										<label class="col-sm-2 form-control-label">Confirmación
 											contraseña : </label>
 										<div class="col-sm-10">
-											<input required type="password" name="password"
+											<input required type="password" name="passwordConfirm"
 												class="form-control" value="{{password}}">
 										</div>
 									</div>

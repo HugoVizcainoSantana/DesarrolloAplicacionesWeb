@@ -46,7 +46,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/")
     public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("ordersIndex", orderRequestService.homesOrders());
+        model.addAttribute("ordersIndex", orderRequestService.homesOrdersList());
         return "adminDashboard/index";
     }
 
@@ -61,7 +61,6 @@ public class AdminDashboardController implements CurrentUserInfo {
         model.addAttribute("product", productService.findAllProducts());
         return "adminDashboard/inventory";
     }
-
 
     /*@RequestMapping( value ="/inventory", method = RequestMethod.POST)
     public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
@@ -118,18 +117,33 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "listItemsPage";
     }
 
-    /*@RequestMapping(value = "/moreUsers/?page=1&size=4", method = RequestMethod.GET)
-    public Page<User> moreUsersPage(Pageable page){
-        return userRepository.findAll(page);
-    }*/
-
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+        model.addAttribute("ordersCount", orderRequestService.findNotCompletedOrdersAll());
+        model.addAttribute("ordersCompletedCount", orderRequestService.findCompletedOrdersAll());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        model.addAttribute("orders", orders);
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        model.addAttribute("ordersCompleted", ordersCompleted);
         return "adminDashboard/orders";
     }
 
+    @RequestMapping(value = "/moreOrders", method = RequestMethod.GET)
+    public String moreOrdersPage(Model model, @RequestParam int page) {
+        Page<OrderRequest> orderList = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(page, 5));
+        model.addAttribute("itemsOrder", orderList);
+        return "listOrdersPage";
+    }
+
+    @RequestMapping(value = "/moreordersCompleted", method = RequestMethod.GET)
+    public String moreOrdersCompletedPage(Model model, @RequestParam int page) {
+        Page<OrderRequest> orderListCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(page, 5));
+        model.addAttribute("itemsOrderCompleted", orderListCompleted);
+        return "listOrdersCompletedPage";
+    }
+
+    //@RequestMapping("/detail/{id}")
     @RequestMapping(value ="/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id){
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
@@ -142,7 +156,10 @@ public class AdminDashboardController implements CurrentUserInfo {
         model.addAttribute("userHome", homeUser);
         String messageConfirm="Pedido "+id+" confirmado correctamente.";
         model.addAttribute("messageConfirm", messageConfirm);
-        return "adminDashboard/orders";
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        //return "adminDashboard/orders";
+        return "redirect:/adminDashboard/orders";
     }
     @RequestMapping(value ="/detail/{id}", params = "cancel")
     public String deleteOrder(Model model, Principal principal, @PathVariable long id){
@@ -156,7 +173,10 @@ public class AdminDashboardController implements CurrentUserInfo {
         model.addAttribute("userHome", homeUser);
         String messageConfirm="Pedido "+id+" eliminado correctamente.";
         model.addAttribute("messageConfirm", messageConfirm);
-        return "adminDashboard/orders";
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        //return "adminDashboard/orders";
+        return "redirect:/adminDashboard/orders";
     }
 
     @RequestMapping("/orders/{id}")
@@ -175,7 +195,10 @@ public class AdminDashboardController implements CurrentUserInfo {
     public String confirmDevice(Model model, Principal principal, @PathVariable long orderId,  @PathVariable long deviceId,  @RequestParam(required = false) String serialNumberInput){
         deviceService.activeOneDevice(deviceId, serialNumberInput);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+        //model.addAttribute("orders", orderRequestService.homesOrdersList());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+
         return "redirect:/adminDashboard/orders";
     }
 
@@ -190,7 +213,9 @@ public class AdminDashboardController implements CurrentUserInfo {
         deviceList2.remove(deviceCancel);
         deviceService.cancelOneDevice(deviceId);  //Delete device
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+        //model.addAttribute("orders", orderRequestService.homesOrdersList());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
         return "adminDashboard/orders";
     }
 
