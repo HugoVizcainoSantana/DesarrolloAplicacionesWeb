@@ -130,7 +130,7 @@ public class UserDashboardController implements CurrentUserInfo {
         }
         if (observation.isEmpty()) {
     		observation = "Sin observaciones";
-    }
+        }
         Double totalPrice = (double) (blindQuantity * 20 + lightQuantity * 30);
         List<Device> deviceList = new ArrayList<>();
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
