@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +50,12 @@ public class AnalyticsService {
 
     public Page<Analytics> findAllAnalyticsPage(PageRequest pageRequest) {
         return analyticsRepository.findAll(pageRequest);
+    }
+
+    public List<Analytics> findAllByDate() {
+        Date oneDayAgo = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
+
+        return analyticsRepository.findAllByDateAfter(oneDayAgo);
     }
 
 }

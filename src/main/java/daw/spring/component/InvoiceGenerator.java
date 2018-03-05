@@ -18,9 +18,6 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -119,7 +116,7 @@ public class InvoiceGenerator {
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Identificador"));
+        c1 = new PdfPCell(new Phrase("Número de serie"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
@@ -148,71 +145,83 @@ public class InvoiceGenerator {
             p3.setAlignment(Element.ALIGN_CENTER);
             serialNumberCell.addElement(p3);
             serialNumberCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-            serialNumberCell.setBorder(Rectangle.BODY);
+            serialNumberCell.setBorder(Rectangle.BOX);
             table.addCell(serialNumberCell);
         }
         return table;
     }
 
     private PdfPTable addAnalytic() throws DocumentException {
-        // TESTING CODE
-        Date oneDayAgo = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
-        List<Analytics> analyticsList = new ArrayList<>();
+        List<Analytics> analyticsList;
+        analyticsList = analyticsService.findAllByDate();
 
-        for (Device d : currentHome.getDeviceList()) {
-            analyticsList = analyticsService.findAnalyticsByDevice(d, oneDayAgo);
-        }
-
-        Analytics analytic;
-        for (int i = 0; i < analyticsList.size(); i++) {
-            analytic = analyticsList.get(i);
-            log.info("ANALYTIC: " + analytic.toString());
-        }
-
-        // TODO WIP
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100);
-        table.setWidths(new int[]{1, 1, 1});
+        table.setWidths(new int[]{1, 1, 1, 1, 1});
 
-        PdfPCell c1 = new PdfPCell(new Phrase("Dispositivo"));
+        PdfPCell c1 = new PdfPCell(new Phrase("Identificador"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Tipo"));
+        c1 = new PdfPCell(new Phrase("Estado Inicial"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Coste"));
+        c1 = new PdfPCell(new Phrase("Estado Final"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Dispositivo"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Hora"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         table.setHeaderRows(1);
 
-        for (Device d : currentHome.getDeviceList()) {
+        for (Analytics a : analyticsList) {
 
-            PdfPCell descriptionCell = new PdfPCell();
-            Paragraph p1 = new Paragraph(d.getDescription());
+            PdfPCell idCell = new PdfPCell();
+            Paragraph p1 = new Paragraph("" + a.getId());
             p1.setAlignment(Element.ALIGN_CENTER);
-            descriptionCell.addElement(p1);
-            descriptionCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-            descriptionCell.setBorder(Rectangle.BODY);
-            table.addCell(descriptionCell);
+            idCell.addElement(p1);
+            idCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            idCell.setBorder(Rectangle.BODY);
+            table.addCell(idCell);
 
-            PdfPCell typeCell = new PdfPCell();
-            Paragraph p2 = new Paragraph(d.getType().name(), redFont);
+            PdfPCell pStateCell = new PdfPCell();
+            Paragraph p2 = new Paragraph("" + a.getPreviousState());
             p2.setAlignment(Element.ALIGN_CENTER);
-            typeCell.addElement(p2);
-            typeCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-            typeCell.setBorder(Rectangle.BODY);
-            table.addCell(typeCell);
+            pStateCell.addElement(p2);
+            pStateCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            pStateCell.setBorder(Rectangle.BODY);
+            table.addCell(pStateCell);
 
-            PdfPCell serialNumberCell = new PdfPCell();
-            Paragraph p3 = new Paragraph("" + d.getCost());
+            PdfPCell nStateCell = new PdfPCell();
+            Paragraph p3 = new Paragraph("" + a.getNewState());
             p3.setAlignment(Element.ALIGN_CENTER);
-            serialNumberCell.addElement(p3);
-            serialNumberCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-            serialNumberCell.setBorder(Rectangle.BODY);
-            table.addCell(serialNumberCell);
+            nStateCell.addElement(p3);
+            nStateCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            nStateCell.setBorder(Rectangle.BODY);
+            table.addCell(nStateCell);
+
+            PdfPCell deviceCell = new PdfPCell();
+            Paragraph p4 = new Paragraph("" + a.getDevice().getDescription());
+            p3.setAlignment(Element.ALIGN_CENTER);
+            deviceCell.addElement(p4);
+            deviceCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            deviceCell.setBorder(Rectangle.BODY);
+            table.addCell(deviceCell);
+
+            PdfPCell dateCell = new PdfPCell();
+            Paragraph p5 = new Paragraph("" + a.getDate());
+            p3.setAlignment(Element.ALIGN_CENTER);
+            dateCell.addElement(p5);
+            dateCell.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+            dateCell.setBorder(Rectangle.BOX);
+            table.addCell(dateCell);
         }
         return table;
     }
