@@ -72,12 +72,11 @@
 					</a></li>
 					<li><a href="/dashboard/shop"><i
 							class="fa fa-shopping-cart"></i>Tienda</a></li>
+					<li><a href="/dashboard/see"> <i class="fa fa-bar-chart"></i>Mis pedidos</a></li>
 				</ul>
 				<h5 class="sidenav-heading">Gráficas</h5>
 				<ul id="side-main-menu2" class="side-menu list-unstyled">
-					<li><a href="/dashboard/charts"> <i
-							class="fa fa-bar-chart"></i>Consumos
-					</a></li>
+					<!--<li><a href="/dashboard/charts"> <i class="fa fa-bar-chart"></i>Consumos</a></li>-->
 					<li><a href="/dashboard/homes"> <i
 							class="icon-interface-windows"></i>Casas OCH
 					</a></li>
@@ -106,9 +105,9 @@
 								</div>
 							</a>
 						</div>
-						<!--  <ul
+						  <ul
 							class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-							<li class="nav-item dropdown"><a id="notifications"
+							<!--<li class="nav-item dropdown"><a id="notifications"
 								rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false" class="nav-link"><i
 									class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
@@ -235,20 +234,23 @@
 		</section>
 		<div class="container py-4">
 			<div class="card bg-light">
-			{{#ListRequest}}
-				<div class="card-header">Pedidos</div>
-			{{/ListRequest}}
 			{{^orderList}}
-			<h5 class="alert alert-info">No tienes pedidos</h5>
+				<h5 class="alert alert-info">No tienes pedidos pendientes</h5>
 			{{/orderList}}
+				{{#existPending}}
+				<h3>Pedidos pendientes de confirmar</h3>
+				{{/existPending}}
 			{{#orderList}}
 				<div class="card-body">
-					<p>Pedido {{-index}}</p>
+					<p>Pedido {{id}}</p>
 					<table class="table table-bordered table-striped my-4">
 						<thead class="thead-inverse">
 							<tr>
+								<th>Estado</th>
+								<th>Fecha</th>
 								<th>Dirección</th>
 								<th>Codigo postal</th>
+								<th>Observaciones</th>
 								<th>Coste</th>
 							</tr>
 						</thead>
@@ -256,8 +258,13 @@
 						<tbody>
 						{{#home}}
 							<tr>
+								<td>{{#completed}}Aceptado{{/completed}}{{^completed}}Pendiente de
+									aceptación{{/completed}}
+								</td>
+								<td>{{date}}</td>
 								<td>{{address}}</td>
 								<td>{{postCode}}</td>
+								<td>{{observation}}</td>
 								<td>{{cost}}€</td>
 							</tr>
 						{{/home}}
@@ -267,6 +274,43 @@
 					</table>
 				</div>
 			{{/orderList}}
+				{{#existAll}}
+				<h3>Histórico de pedidos</h3>
+				{{/existAll}}
+				{{#orderListAll}}
+				<div class="card-body">
+					<p>Pedido {{id}}</p>
+					<table class="table table-bordered table-striped my-4">
+						<thead class="thead-inverse">
+						<tr>
+							<th>Estado</th>
+							<th>Fecha</th>
+							<th>Dirección</th>
+							<th>Codigo postal</th>
+							<th>Observaciones</th>
+							<th>Coste</th>
+						</tr>
+						</thead>
+
+						<tbody>
+						{{#home}}
+						<tr>
+							<td>{{#completed}}Aceptado{{/completed}}{{^completed}}Pendiente de
+								aceptación{{/completed}}
+							</td>
+							<td>{{date}}</td>
+							<td>{{address}}</td>
+							<td>{{postCode}}</td>
+							<td>{{observation}}</td>
+							<td>{{cost}}€</td>
+						</tr>
+						{{/home}}
+						</tbody>
+
+
+					</table>
+				</div>
+				{{/orderListAll}}
 			</div>
 		</div>
 
