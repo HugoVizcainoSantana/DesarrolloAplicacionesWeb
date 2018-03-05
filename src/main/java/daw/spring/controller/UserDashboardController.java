@@ -73,7 +73,7 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("user", user);
         List<Device> favoriteDevices = userService.getUserFavoriteDevices(user);
         model.addAttribute("favoriteDevices", favoriteDevices);
-        List<Home> allHomesWithDevices = user.getHomeList();
+        List<Home> allHomesWithDevices = userService.getUserHomesActivated(user);
         model.addAttribute("allHomesWithDevices", allHomesWithDevices);
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
