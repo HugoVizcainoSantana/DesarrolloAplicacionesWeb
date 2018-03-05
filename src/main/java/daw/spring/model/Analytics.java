@@ -77,4 +77,8 @@ public class Analytics {
         this.newState = newState;
     }
 
+    @Override
+    public String toString() {
+        return "Gráfica: " + getId() + " con " + getPreviousState() + getNewState() + getDevice().getType().toString() + getDate();
+    }
 }
