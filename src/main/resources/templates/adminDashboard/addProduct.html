@@ -165,25 +165,27 @@
                           enctype="multipart/form-data">
                         <!-- Title -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Editando Producto</h4>
+                            <h4 class="modal-title">Añadir Producto</h4>
                         </div>
                         <!-- End Title -->
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <label class="col-sm-4 form-control-label">Modelo: </label>
-                                <input type="text" placeholder="Tipo " id="type"
-                                       name="defDescription" class="col-md-8 form-control"
-                                       value="Añade auí la descripción." style="text-align: left;">
-                            </div>
-                        </div>
+                        <!--           <div class="col-sm-12">
+                                       <div class="row">
+                                           <label class="col-sm-4 form-control-label">Modelo: </label>
+                                           <input type="text" placeholder="Tipo " id="type"
+                                                  name="defDescription" class="col-md-8 form-control"
+                                                  value="Añade auí la descripción." style="text-align: left;">
+                                       </div>
+                                   </div>  -->
+                        <br>
                         <div class="col-sm-12">
                             <div class="row">
                                 <label class="col-sm-4 form-control-label">Descripcion: </label>
                                 <input type="text" placeholder="Descripcion " id="defDescription"
                                        name="defDescription" class="col-md-8 form-control"
-                                       value="Añade auí la descripción." style="text-align: left;">
+                                       value="Añade aquí la descripción." style="text-align: left;">
                             </div>
                         </div>
+                        <br>
                         <div class="col-sm-12">
                             <div class="row">
                                 <label class="col-sm-4 form-control-label">Coste unitario: </label>
@@ -192,6 +194,7 @@
                                        style="text-align: right;">
                             </div>
                         </div>
+                        <br>
                         <div class="col-sm-12">
                             <div class="row">
                                 <label class="col-sm-4 form-control-label">Stock Disponible: </label>
@@ -200,29 +203,30 @@
                                        style="text-align: right;">
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 form-control-label" for="file">Cambiar
-                                imagen : </label>
-                            <div class="col-sm-10">
-                                <label class="file"> <input type="file" name="file"
-                                                            id="file" class="file-input"> <span
-                                        class="file-control"></span>
-                                </label>
+                        <br>
+                        <!--                   <div class="form-group row">                -->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-3 form-control-label" for="file">Cambiar imagen : </label>
+                                <div class="col-sm-8">
+                                    <label class="file"> <input type="file" name="file" id="file" class="file-input">
+                                        <span class="file-control"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Button to aplicate changed -->
                         <div class="col-md-12">
-                            <input type="submit" class="active btn btn-primary btn-lg btn-block"
+                            <input type="submit" name="add" class="active btn btn-primary btn-lg btn-block"
                                    value="Agregar Producto"/>
                         </div>
                         <br>
                         <!-- End aplicated changes -->
                         <!-- Button close don´t save -->
                         <div class="col-md-12">
-                            <button type="button" name="cancelar" class="btn btn-danger btn-lg btn-block"><a
-                                    href="/adminDashboard/inventory">Cancelar</a></button>
+                            <input type="submit" name="cancel" class="cancel btn btn-danger btn-lg btn-block"
+                                   value="Cancelar">
                         </div>
                         <!-- End Button close don´t save -->
                     </form>
