@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,13 +86,12 @@ public class Application {
         /*
             Default Analytics
             · Dates are manually modified to show graphs functionality
-            · -1900 is due to starting year
         */
-            Analytics analytics1 = new Analytics(device1, new Date(), Device.StateType.OFF, Device.StateType.ON, null);
-            analytics1.setDate(new Date(2018 - 1900, 2, 25, 12, 0, 0));
+            Analytics analytics1 = new Analytics(device4, new Date(), Device.StateType.OFF, Device.StateType.ON);
+            analytics1.setDate(Date.from(Instant.now().minus(2, ChronoUnit.HOURS)));
             analyticsService.saveAnalytics(analytics1);
-            Analytics analytics2 = new Analytics(device1, new Date(), Device.StateType.ON, Device.StateType.OFF, analytics1);
-            analytics2.setDate(new Date(2018 - 1900, 1, 25, 16, 0, 0));
+            Analytics analytics2 = new Analytics(device4, new Date(), Device.StateType.ON, Device.StateType.OFF);
+            analytics2.setDate(Date.from(Instant.now().minus(1, ChronoUnit.HOURS)));
             analyticsService.saveAnalytics(analytics2);
 
         /*
@@ -101,6 +102,7 @@ public class Application {
             Home home2 = new Home(21111, "c/ole", false, null);
             homeService.saveHome(home2);
             List<Device> home3_deviceList1 = new ArrayList<>();
+            home3_deviceList1.add(device1);
             home3_deviceList1.add(device3);
             home3_deviceList1.add(device4);
             Home home3 = new Home(28007, "c/hugo", true, home3_deviceList1);
