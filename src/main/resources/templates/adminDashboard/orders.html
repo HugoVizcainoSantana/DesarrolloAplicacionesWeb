@@ -171,9 +171,9 @@
 
             </div>
             {{/orders}}
-            {{#ordersCount}}
+            {{#ordersPageable}}
             <button id="moreOrders" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más</button>
-            {{/ordersCount}}
+            {{/ordersPageable}}
 
 
             <header>
@@ -191,8 +191,11 @@
                 </div>
 
             </div>
-            <button id="moreordersCompleted" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más</button>
             {{/ordersCompleted}}
+
+            {{#ordersCompletePageable}}
+            <button id="moreOrdersCompleted" type="button" class="btn btn-primary btn-lg btn-block btn-view-more">Ver más</button>
+            {{/ordersCompletePageable}}
 
 
 

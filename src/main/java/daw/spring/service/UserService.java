@@ -75,4 +75,24 @@ public class UserService {
         return userRepository.findUserByHomeListEquals(home);
     }
 
+    public List<Home> getUserHomesActivated(User user){
+        List<Home> homesListOut= new ArrayList<>();
+        List<Home> homesListIn = user.getHomeList();
+        for (Home homeI:homesListIn){
+            if (homeI.getActivated()==true){
+                List<Device> devicesListIn= new ArrayList<>();
+                List<Device> devicesListOut= new ArrayList<>();
+                devicesListIn=homeI.getDeviceList();
+                for (Device deviceI:devicesListIn){
+                    if(deviceI.isActivated()==true){
+                        devicesListOut.add(deviceI);
+                    }
+                }
+                homeI.setDeviceList(devicesListOut);
+                homesListOut.add(homeI);
+            }
+        }
+        return homesListOut;
+    }
+
 }
