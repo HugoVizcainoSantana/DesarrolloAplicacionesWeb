@@ -67,7 +67,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     }
 
 
-    @RequestMapping(value = "/editProducts", method = RequestMethod.POST)
+    @RequestMapping(value = "/editProducts", params = "add" /*method = RequestMethod.POST*/)
     public String modStock(Model model, @RequestParam("id") long id, @RequestParam("numberStock") long stock, @RequestParam("numberCost") double cost, @RequestParam("defDescription") String description, Principal principal) {
         productService.updateStockProduct(id, stock, cost, description);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
@@ -224,7 +224,7 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/addProduct";
     }
 
-    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+    @RequestMapping(value = "/addProduct", params = "add" /*method = RequestMethod.POST*/)
     public String addProduct(Model model,
                              @RequestParam("file") MultipartFile photo,
                              @RequestParam("numberStock") long stock,
@@ -256,4 +256,13 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "redirect:/adminDashboard/inventory";
     }
 
+    @RequestMapping(value = "/addProduct", params = "cancel")
+    public String cancelAddProduct() {
+        return "redirect:/adminDashboard/inventory";
+    }
+
+    @RequestMapping(value = "/editProducts", params = "cancel")
+    public String cancelEditProduct() {
+        return "redirect:/adminDashboard/inventory";
+    }
 }

@@ -183,7 +183,7 @@
                                     <label class="col-sm-4 form-control-label">Descripcion: </label>
                                     <input type="text" placeholder="{{description}}" id="defDescription"
                                            name="defDescription" class="col-md-8 form-control"
-                                           value="Añade auí la descripción." style="text-align: left;">
+                                           value="{{description}}" style="text-align: left;">
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -206,15 +206,15 @@
 
                         <!-- Button to aplicate changed -->
                         <div class="col-md-12">
-                            <input type="submit" class="active btn btn-primary btn-lg btn-block"
+                            <input type="submit" name="add" class="active btn btn-primary btn-lg btn-block"
                                    value="Aplicar cambios"/>
                         </div>
                         <br>
                         <!-- End aplicated changes -->
                         <!-- Button close don´t save -->
                         <div class="col-md-12">
-                            <button type="button" name="cancelar" class="btn btn-danger btn-lg btn-block"><a
-                                    href="/adminDashboard/inventory">Cancelar</a></button>
+                            <input type="submit" name="cancel" class="cancel btn btn-danger btn-lg btn-block"
+                                   value="Cancelar"/>
                         </div>
                         <!-- End Button close don´t save -->
                     </form>
