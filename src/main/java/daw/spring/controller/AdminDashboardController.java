@@ -1,10 +1,7 @@
 package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
-import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.OrderRequest;
-import daw.spring.model.User;
+import daw.spring.model.*;
 import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/adminDashboard")
@@ -62,13 +66,6 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/inventory";
     }
 
-    /*@RequestMapping( value ="/inventory", method = RequestMethod.POST)
-    public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
-        productService.updateStockProduct(id,stock,cost);
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("product", productService.findAllProducts());
-        return "adminDashboard/inventory";
-    }*/
 
     @RequestMapping(value = "/editProducts", method = RequestMethod.POST)
     public String modStock(Model model, @RequestParam("id") long id, @RequestParam("numberStock") long stock, @RequestParam("numberCost") double cost, @RequestParam("defDescription") String description, Principal principal) {
@@ -219,6 +216,48 @@ public class AdminDashboardController implements CurrentUserInfo {
         Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
         Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
         return "adminDashboard/orders";
+    }
+
+    @RequestMapping("/addProduct")
+    public String shop(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        return "adminDashboard/addProduct";
+    }
+
+    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+    public String addProduct(Model model,
+                             @RequestParam("file") MultipartFile photo,
+                             @RequestParam("numberStock") long stock,
+                             @RequestParam("numberCost") double cost,
+                             @RequestParam("defDescription") String description,
+                             Principal principal) {
+        Product product = new Product(description, cost, null, null, stock);
+        if (!photo.isEmpty()) {
+            log.info("ha entrado en el primer if");
+            if (product.getImg() != null && product.getImg().length() > 0) {
+                Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
+                File file = rootPath.toFile();
+                if (file.exists() && file.canRead()) {
+                    file.delete();
+                }
+            }
+            log.info("va a crear el nombre ");
+            String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
+            Path rootPath = Paths.get("upload").resolve(uniqueFilname);
+            Path rootAbsolutePath = rootPath.toAbsolutePath();
+            log.info("rootPath: " + rootPath);
+            log.info("rootAbsolutePath: " + rootAbsolutePath);
+            try {
+                Files.copy(photo.getInputStream(), rootAbsolutePath);
+                product.setImg(uniqueFilname);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        productService.saveProduct(product);
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        return "redirect:/adminDashboard/inventory";
     }
 
 }
