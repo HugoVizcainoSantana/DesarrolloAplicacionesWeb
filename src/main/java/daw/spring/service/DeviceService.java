@@ -58,5 +58,9 @@ public class DeviceService {
     public void cancelOneDevice(long deviceId) {
         deviceRepository.delete(deviceId);
     }
+    
+    public int findCost(String type) {
+    		return deviceRepository.findCostByType(type);
+    }
 
 }
