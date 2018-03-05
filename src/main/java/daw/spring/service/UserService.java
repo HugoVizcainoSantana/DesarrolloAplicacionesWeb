@@ -85,6 +85,11 @@ public class UserService {
                 devicesListIn=homeI.getDeviceList();
                 for (Device deviceI:devicesListIn){
                     if(deviceI.isActivated()==true){
+                        if ((deviceI.getStatus().toString()=="UP")||(deviceI.getStatus().toString()=="ON")){
+                            deviceI.setActivatedStatus(true);
+                        }else{
+                            deviceI.setActivatedStatus(false);
+                        }
                         devicesListOut.add(deviceI);
                     }
                 }

@@ -325,10 +325,11 @@
             <div class="row">
                 <!-- All Devices Widget -->
                 {{#allHomesWithDevices}}
+                <input type="hidden" id="allHomesWithDevices" name="allHomesWithDevices" value="{{allHomesWithDevices}}"/>
                 <div class="col-lg-4 col-md-6">
                     <div class="card updates recent-updated">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{-index}}</a></h2>
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{id}}</a></h2>
                             <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                         </div>
                         <div role="tabpanel" class="collapse show">
@@ -343,7 +344,7 @@
                                         <!--
                                         <div class="right-col text-right">
                                         <form name="interaction" action="/dashboard/index" method="post">-->
-                                        <form name="interactionDev" action="/dashboard/index/{{id}}" method="post" id="interactionDev" >
+                                        <form name="interactionDev{{id}}" action="/dashboard/index/{{id}}" method="post" id="interactionDev{{id}}" >
                                             <p>DEVICE ID:{{id}}</p>
                                             <p>estatus :{{status}}</p>
 
@@ -356,27 +357,21 @@
                                                     <span>On</span>
                                                 </span>
                                             </div>-->
-
+                                            {{#activatedStatus}}
                                             <div class="switch">
-                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload='setStatus("{{status}}")' onclick='cheeked("{{id}}")'>
+                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onload='setStatus("{{status}}","{{id}}")' onclick='cheeked("{{status}}","{{id}}")' checked >
                                                 <label for="controlarDevice{{id}}"></label>
                                             </div>
+                                            {{/activatedStatus}}
+                                            {{^activatedStatus}}
+                                                <div class="switch">
+                                                    <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onload='setStatus("{{status}}","{{id}}")' onclick='cheeked("{{status}}","{{id}}")' >
+                                                    <label for="controlarDevice{{id}}"></label>
+                                                </div>
+                                            {{/activatedStatus}}
 
-                                            <!--<input id="controlarDevice" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload="setStatus('{{status}}')">
 
-                                            <input id="controlarDevice" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice" onload="setStatus('{{status}}')">
-                                            <input type="checkbox-inline"  data-toggle="toggle"  onload="setStatus('{{status}}')">
-                                                    <span>
-                                                        <span><a class="btn btn-primary" href="/dashboard/index/{{id}}"></a></span>
-                                                    </span>
-                                            <p>{{-index}}</p>
-                                            <input  class="cmn-toggle cmn-toggle-round-flat" type="checkbox"   /> data-on="On" data-off="Off"
-                                            <button class="btn btn-primary"><a href="/dashboard/index/{{id}}">{{status}}</a></button>
 
-                                            <div class="switch">
-                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
-                                                <label for="btn-toggle1"></label>
-                                            </div>-->
                                         </form>
                                     </div>
                                 </li>
@@ -430,23 +425,40 @@
 
 <script>
 
-
-    function cheeked(id) { //id
-        console.log("LLAMA " +id); //+id); // $('#btn-toggle1')
-        //$('input[name=""]').attr('checked', true); // #btn-toggle1
-        document.getElementById('interactionDev').submit;
-
+    function cheeked(status, id) { //id
+        console.log("LLAMA, estado : "+ status +" , id : "+id); //+id); // $('#btn-toggle1')
+        var formInput ="#interactionDev"+id.toString();
+        $(formInput).submit();
     }
 
-    function setStatus(status) {
-        console.log(status);
-        if ((status==Device.StateType.ON)||(status==Device.StateType.UP)){
-            $('input[name="controlarDevice"]').attr('checked', '');
+    function setStatus(status, id) {
+        console.log("LLAMA2, estado : "+ status +" , id : "+id);
+
+        var nameInputDevice='#controlarDevice'+id;
+        if ((status.toString()=='ON')||(status.toString()=='UP')){
+            $(nameInputDevice).attr('checked', '');
+
         }else{
-            $('input[name="controlarDevice"]').removeAttr('checked');
+            $(nameInputDevice).removeAttr('checked');
+
         }
 
     }
+
+    $(document).ready(function(){
+        console.log("cargando página");
+        //var modelAttr = ${modelAttribute}.val();
+        //var modelAttr = [[${allHomesWithDevices}]];
+        //var modelAttr =$('#allHomesWithDevices').getValues();
+        //$.each(modelAttr, function(index,value){
+        //    console.log("data i: "+ modelAttr.toString());
+        //});
+
+        console.log("data : "+ modelAttr);
+        //alert(modelAttr);
+        var nameInputTest='#controlarDevice';
+        //$(nameInputTest).attr('checked', '');
+    });
 </script>
 
 </body>
