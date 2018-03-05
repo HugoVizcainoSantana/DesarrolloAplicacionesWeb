@@ -131,7 +131,9 @@ public class UserDashboardController implements CurrentUserInfo {
         if (observation.isEmpty()) {
     		observation = "Sin observaciones";
         }
-        Double totalPrice = (double) (blindQuantity * 20 + lightQuantity * 30);
+        int costBlind = deviceService.findCost("BLIND");
+        int costLight = deviceService.findCost("LIGHT");
+        Double totalPrice = (double) (blindQuantity * costBlind + lightQuantity * costLight);
         List<Device> deviceList = new ArrayList<>();
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         for (int i = 0; i < blindQuantity; i++) {
