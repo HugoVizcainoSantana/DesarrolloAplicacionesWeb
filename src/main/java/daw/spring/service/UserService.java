@@ -1,16 +1,16 @@
 package daw.spring.service;
 
-import daw.spring.model.*;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.Roles;
+import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -75,4 +75,25 @@ public class UserService {
         return userRepository.findUserByHomeListEquals(home);
     }
 
+    public boolean userIsOwnerOf(User user, Home home) {
+        for (Home h : user.getHomeList()) {
+            if (home.getId() == h.getId())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean userIsOwnerOf(User user, Device device) {
+        for (Home home : user.getHomeList()) {
+            for (Device d : home.getDeviceList()) {
+                if (device.getId() == d.getId())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public List<User> getAllAdmins() {
+        return userRepository.findAllByRolesEquals(Roles.ADMIN);
+    }
 }

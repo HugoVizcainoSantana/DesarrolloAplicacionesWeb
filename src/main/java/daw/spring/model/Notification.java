@@ -1,6 +1,7 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Notification {
@@ -13,7 +14,7 @@ public class Notification {
 
     private String title;
     private String description;
-    private String date;
+    private Date date;
 
     @ManyToOne
     private User userNotification; // The notification always need to have a user attached to it
@@ -21,13 +22,7 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String title, User userNotification) {
-        this.title = title;
-        this.userNotification = userNotification;
-    }
-
-    public Notification(long id, String title, String description, String date, User userNotification) {
-        this.id = id;
+    public Notification(String title, String description, Date date, User userNotification) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -58,11 +53,11 @@ public class Notification {
         this.description = description;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

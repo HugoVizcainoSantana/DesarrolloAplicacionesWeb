@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -49,6 +48,8 @@ public class UserDashboardController implements CurrentUserInfo {
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
     private final AnalyticsService analyticsService;
+    private final NotificationService notificationService;
+
     private final BCryptPasswordEncoder encoder;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -56,7 +57,7 @@ public class UserDashboardController implements CurrentUserInfo {
 
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService,BCryptPasswordEncoder encoder) {
+    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder, NotificationService notificationService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
@@ -65,6 +66,7 @@ public class UserDashboardController implements CurrentUserInfo {
         this.orderRequestService = orderRequestService;
         this.analyticsService = analyticsService;
         this.encoder = encoder;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("/")
@@ -80,49 +82,56 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/index";
     }
 
-    @RequestMapping("/index/{id}") //value = "/index/{id}", params = "inputInteraction"
-    public String addInteraction(Principal principal, Model model, @PathVariable long id) { // @PathVariable long id
+    @RequestMapping("/index/{id}")
+    public String addInteraction(Principal principal, Model model, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+
         // create a new device from user's clicked one
         Device d = deviceService.findOneById(id);
-        Analytics analytics;
+        // Security check
+        if (userService.userIsOwnerOf(user, d)) {
+            Analytics analytics;
+            // handle types
+            if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
+                if (d.getStatus() == Device.StateType.OFF) {
+                    // if OFF and button is clicked, turn ON
+                    d.setStatus(Device.StateType.ON);
+                    deviceService.saveDevice(d);
 
-        // handle types
-        if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
-            if (d.getStatus() == Device.StateType.OFF) {
-                // if OFF and button is clicked, turn ON
-                d.setStatus(Device.StateType.ON);
-                deviceService.saveDevice(d);
+                    // create a new analytic when status = ON
+                    analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
+                    // and save it
+                    analyticsService.saveAnalytics(analytics);
+                } else {
+                    // if ON, only turn OFF and save
+                    d.setStatus(Device.StateType.OFF);
+                    deviceService.saveDevice(d);
+                }
+            } else if (d.getType() == Device.DeviceType.BLIND) {
+                if (d.getStatus() == Device.StateType.UP) {
+                    d.setStatus(Device.StateType.DOWN);
+                    deviceService.saveDevice(d);
 
-                // create a new analytic when status = ON
-                analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
-                // and save it
-                analyticsService.saveAnalytics(analytics);
-            } else {
-                // if ON, only turn OFF and save
-                d.setStatus(Device.StateType.OFF);
-                deviceService.saveDevice(d);
+                    // create a new analytic when status = UP
+                    analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
+                    // and save it
+                    analyticsService.saveAnalytics(analytics);
+                } else {
+                    // if DOWN, UP and save
+                    d.setStatus(Device.StateType.UP);
+                    deviceService.saveDevice(d);
+                }
             }
-        } else if (d.getType() == Device.DeviceType.BLIND) {
-            if (d.getStatus() == Device.StateType.UP) {
-                d.setStatus(Device.StateType.DOWN);
-                deviceService.saveDevice(d);
 
-                // create a new analytic when status = UP
-                analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
-                // and save it
-                analyticsService.saveAnalytics(analytics);
-            } else {
-                // if DOWN, UP and save
-                d.setStatus(Device.StateType.UP);
-                deviceService.saveDevice(d);
-            }
+            model.addAttribute("user", user);
+            model.addAttribute("title", "Dashboard");
+
+            return "redirect:/dashboard/";
+        } else {
+            notificationService.alertAdmin(user);
+            return "redirect:/dashboard/";
         }
 
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("title", "Dashboard");
-        index(model, principal);
-
-        return "redirect:";
 
     }
 
