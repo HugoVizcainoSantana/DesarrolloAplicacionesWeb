@@ -1,10 +1,7 @@
 package daw.spring.controller;
 
 import daw.spring.component.CurrentUserInfo;
-import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.OrderRequest;
-import daw.spring.model.User;
+import daw.spring.model.*;
 import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/adminDashboard")
@@ -46,6 +50,7 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/")
     public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("ordersIndex", orderRequestService.homesOrdersList());
         return "adminDashboard/index";
     }
 
@@ -62,12 +67,20 @@ public class AdminDashboardController implements CurrentUserInfo {
     }
 
 
-    @RequestMapping( value ="/inventory", method = RequestMethod.POST)
-    public String modStock(Model model, @RequestParam("id") long id ,  @RequestParam("numberStock") long stock ,  @RequestParam("numberCost") double cost ,Principal principal){
-        productService.updateStockProduct(id,stock,cost);
+    @RequestMapping(value = "/editProducts", params = "add" /*method = RequestMethod.POST*/)
+    public String modStock(Model model, @RequestParam("id") long id, @RequestParam("numberStock") long stock, @RequestParam("numberCost") double cost, @RequestParam("defDescription") String description, Principal principal) {
+        productService.updateStockProduct(id, stock, cost, description);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("product", productService.findAllProducts());
         return "adminDashboard/inventory";
+    }
+
+    @RequestMapping("/inventory/{id}")
+    public String showEditProduct(Model model, Principal principal, @PathVariable long id) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        model.addAttribute("productEdit", productService.findOneById(id));
+        return "adminDashboard/editProducts";
     }
 
     @RequestMapping("/users")
@@ -104,23 +117,34 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping("/orders")
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-
-        Page<OrderRequest> orders = orderRequestService.findAll(new PageRequest(0, 5));
+        model.addAttribute("ordersCount", !orderRequestService.findNotCompletedOrdersAll().isEmpty());
+        model.addAttribute("ordersPageable", orderRequestService.findNotCompletedOrdersAll().size()>5);
+        model.addAttribute("ordersCompletePageable", orderRequestService.findCompletedOrdersAll().size()>5);
+        model.addAttribute("ordersCompletedCount", !orderRequestService.findCompletedOrdersAll().isEmpty());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
         model.addAttribute("orders", orders);
-
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        model.addAttribute("ordersCompleted", ordersCompleted);
         return "adminDashboard/orders";
     }
 
     @RequestMapping(value = "/moreOrders", method = RequestMethod.GET)
     public String moreOrdersPage(Model model, @RequestParam int page) {
-        Page<OrderRequest> orderList = orderRequestService.findAll(new PageRequest(page, 5));
+        Page<OrderRequest> orderList = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(page, 5));
         model.addAttribute("itemsOrder", orderList);
         return "listOrdersPage";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String confirmOrder(Model model, Principal principal, @PathVariable long id){
+    @RequestMapping(value = "/moreOrdersCompleted", method = RequestMethod.GET)
+    public String moreOrdersCompletedPage(Model model, @RequestParam int page) {
+        Page<OrderRequest> orderListCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(page, 5));
+        model.addAttribute("itemsOrderCompleted", orderListCompleted);
+        return "listOrdersCompletedPage";
+    }
 
+    //@RequestMapping("/detail/{id}")
+    @RequestMapping(value ="/detail/{id}", params = "activate")
+    public String confirmOrder(Model model, Principal principal, @PathVariable long id){
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
         orderRequestService.confirmOrder(id);
@@ -129,7 +153,29 @@ public class AdminDashboardController implements CurrentUserInfo {
         homeService.activeHome(homeOrder);
         User homeUser=userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
-        return "adminDashboard/detail";
+        String messageConfirm="Pedido "+id+" confirmado correctamente.";
+        model.addAttribute("messageConfirm", messageConfirm);
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        //return "adminDashboard/orders";
+        return "redirect:/adminDashboard/orders";
+    }
+    @RequestMapping(value ="/detail/{id}", params = "cancel")
+    public String deleteOrder(Model model, Principal principal, @PathVariable long id){
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        OrderRequest orderDt = orderRequestService.finOneById(id);
+        orderRequestService.deleteOrder(id);
+        model.addAttribute("orderDetail", orderDt);
+        Home homeOrder=orderDt.getHome();
+        homeService.activeHome(homeOrder);
+        User homeUser=userService.findUserByHomeId(homeOrder);
+        model.addAttribute("userHome", homeUser);
+        String messageConfirm="Pedido "+id+" eliminado correctamente.";
+        model.addAttribute("messageConfirm", messageConfirm);
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+        //return "adminDashboard/orders";
+        return "redirect:/adminDashboard/orders";
     }
 
     @RequestMapping("/orders/{id}")
@@ -148,7 +194,10 @@ public class AdminDashboardController implements CurrentUserInfo {
     public String confirmDevice(Model model, Principal principal, @PathVariable long orderId,  @PathVariable long deviceId,  @RequestParam(required = false) String serialNumberInput){
         deviceService.activeOneDevice(deviceId, serialNumberInput);
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+        //model.addAttribute("orders", orderRequestService.homesOrdersList());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
+
         return "redirect:/adminDashboard/orders";
     }
 
@@ -163,8 +212,57 @@ public class AdminDashboardController implements CurrentUserInfo {
         deviceList2.remove(deviceCancel);
         deviceService.cancelOneDevice(deviceId);  //Delete device
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("orders", orderRequestService.homesOrders());
+        //model.addAttribute("orders", orderRequestService.homesOrdersList());
+        Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
+        Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
         return "adminDashboard/orders";
     }
 
+    @RequestMapping("/addProduct")
+    public String shop(Model model, Principal principal) {
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        return "adminDashboard/addProduct";
+    }
+
+    @RequestMapping(value = "/addProduct", params = "add" /*method = RequestMethod.POST*/)
+    public String addProduct(Model model,
+                             @RequestParam("file") MultipartFile photo,
+                             @RequestParam("numberStock") long stock,
+                             @RequestParam("numberCost") double cost,
+                             @RequestParam("defDescription") String description,
+                             Principal principal) {
+        Product product = new Product(description, cost, null, null, stock);
+        if (!photo.isEmpty()) {
+            if (product.getImg() != null && product.getImg().length() > 0) {
+                Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
+                File file = rootPath.toFile();
+                if (file.exists() && file.canRead()) {
+                    file.delete();
+                }
+            }
+            String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
+            Path rootPath = Paths.get("upload").resolve(uniqueFilname);
+            Path rootAbsolutePath = rootPath.toAbsolutePath();
+            try {
+                Files.copy(photo.getInputStream(), rootAbsolutePath);
+                product.setImg(uniqueFilname);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        productService.saveProduct(product);
+        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
+        model.addAttribute("product", productService.findAllProducts());
+        return "redirect:/adminDashboard/inventory";
+    }
+
+    @RequestMapping(value = "/addProduct", params = "cancel")
+    public String cancelAddProduct() {
+        return "redirect:/adminDashboard/inventory";
+    }
+
+    @RequestMapping(value = "/editProducts", params = "cancel")
+    public String cancelEditProduct() {
+        return "redirect:/adminDashboard/inventory";
+    }
 }

@@ -73,9 +73,8 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("user", user);
         List<Device> favoriteDevices = userService.getUserFavoriteDevices(user);
         model.addAttribute("favoriteDevices", favoriteDevices);
-        List<Home> allHomesWithDevices = user.getHomeList();
+        List<Home> allHomesWithDevices = userService.getUserHomesActivated(user);
         model.addAttribute("allHomesWithDevices", allHomesWithDevices);
-
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
     }
@@ -85,7 +84,7 @@ public class UserDashboardController implements CurrentUserInfo {
         // create a new device from user's clicked one
         Device d = deviceService.findOneById(id);
         Analytics analytics;
-
+        log.info("---add interaction---");
         // handle types
         if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
             if (d.getStatus() == Device.StateType.OFF) {
