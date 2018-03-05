@@ -233,7 +233,6 @@ public class AdminDashboardController implements CurrentUserInfo {
                              Principal principal) {
         Product product = new Product(description, cost, null, null, stock);
         if (!photo.isEmpty()) {
-            log.info("ha entrado en el primer if");
             if (product.getImg() != null && product.getImg().length() > 0) {
                 Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
                 File file = rootPath.toFile();
@@ -241,12 +240,9 @@ public class AdminDashboardController implements CurrentUserInfo {
                     file.delete();
                 }
             }
-            log.info("va a crear el nombre ");
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
             Path rootPath = Paths.get("upload").resolve(uniqueFilname);
             Path rootAbsolutePath = rootPath.toAbsolutePath();
-            log.info("rootPath: " + rootPath);
-            log.info("rootAbsolutePath: " + rootAbsolutePath);
             try {
                 Files.copy(photo.getInputStream(), rootAbsolutePath);
                 product.setImg(uniqueFilname);
