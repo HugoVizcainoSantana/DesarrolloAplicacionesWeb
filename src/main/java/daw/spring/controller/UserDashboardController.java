@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -225,6 +224,7 @@ public class UserDashboardController implements CurrentUserInfo {
         try {
             OutputStream out = response.getOutputStream();
             byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id), user);
+            log.info("UserDash" + homeService.findOneById(id).getId());
             out.write(pdf);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
