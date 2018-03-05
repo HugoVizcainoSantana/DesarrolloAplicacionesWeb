@@ -84,7 +84,7 @@ public class UserDashboardController implements CurrentUserInfo {
         // create a new device from user's clicked one
         Device d = deviceService.findOneById(id);
         Analytics analytics;
-
+        log.info("---add interaction---");
         // handle types
         if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
             if (d.getStatus() == Device.StateType.OFF) {
