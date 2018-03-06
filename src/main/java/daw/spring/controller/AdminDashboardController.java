@@ -34,23 +34,26 @@ public class AdminDashboardController implements CurrentUserInfo {
     private final HomeService homeService;
     private final ProductService productService;
     private final OrderRequestService orderRequestService;
+    private final NotificationService notificationService;
 
 
     private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
     @Autowired
-    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderRequestService orderRequestService) {
+    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
         this.userService = userService;
         this.deviceService = deviceService;
         this.homeService = homeService;
         this.productService = productService;
         this.orderRequestService = orderRequestService;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("/")
     public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("ordersIndex", orderRequestService.homesOrdersList());
+        model.addAttribute("alerts", notificationService.loadFirstAdminNotifications());
         return "adminDashboard/index";
     }
 
@@ -118,8 +121,8 @@ public class AdminDashboardController implements CurrentUserInfo {
     public String orders(Model model, Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("ordersCount", !orderRequestService.findNotCompletedOrdersAll().isEmpty());
-        model.addAttribute("ordersPageable", orderRequestService.findNotCompletedOrdersAll().size()>5);
-        model.addAttribute("ordersCompletePageable", orderRequestService.findCompletedOrdersAll().size()>5);
+        model.addAttribute("ordersPageable", orderRequestService.findNotCompletedOrdersAll().size() > 5);
+        model.addAttribute("ordersCompletePageable", orderRequestService.findCompletedOrdersAll().size() > 5);
         model.addAttribute("ordersCompletedCount", !orderRequestService.findCompletedOrdersAll().isEmpty());
         Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
         model.addAttribute("orders", orders);
@@ -142,8 +145,7 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "listOrdersCompletedPage";
     }
 
-    //@RequestMapping("/detail/{id}")
-    @RequestMapping(value ="/detail/{id}", params = "activate")
+    @RequestMapping(value = "/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id){
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
@@ -153,24 +155,25 @@ public class AdminDashboardController implements CurrentUserInfo {
         homeService.activeHome(homeOrder);
         User homeUser=userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
-        String messageConfirm="Pedido "+id+" confirmado correctamente.";
+        String messageConfirm = "Pedido " + id + " confirmado correctamente.";
         model.addAttribute("messageConfirm", messageConfirm);
         Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
         Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
         //return "adminDashboard/orders";
         return "redirect:/adminDashboard/orders";
     }
-    @RequestMapping(value ="/detail/{id}", params = "cancel")
-    public String deleteOrder(Model model, Principal principal, @PathVariable long id){
+
+    @RequestMapping(value = "/detail/{id}", params = "cancel")
+    public String deleteOrder(Model model, Principal principal, @PathVariable long id) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         OrderRequest orderDt = orderRequestService.finOneById(id);
         orderRequestService.deleteOrder(id);
         model.addAttribute("orderDetail", orderDt);
-        Home homeOrder=orderDt.getHome();
+        Home homeOrder = orderDt.getHome();
         homeService.activeHome(homeOrder);
-        User homeUser=userService.findUserByHomeId(homeOrder);
+        User homeUser = userService.findUserByHomeId(homeOrder);
         model.addAttribute("userHome", homeUser);
-        String messageConfirm="Pedido "+id+" eliminado correctamente.";
+        String messageConfirm = "Pedido " + id + " eliminado correctamente.";
         model.addAttribute("messageConfirm", messageConfirm);
         Page<OrderRequest> orders = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(0, 5));
         Page<OrderRequest> ordersCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(0, 5));
@@ -264,5 +267,11 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping(value = "/editProducts", params = "cancel")
     public String cancelEditProduct() {
         return "redirect:/adminDashboard/inventory";
+    }
+
+    @RequestMapping(value = "/issues/{id}")
+    public String issueViewed(@PathVariable long id) {
+        notificationService.deleteNotification(notificationService.findOneById(id));
+        return "redirect:/adminDashboard/";
     }
 }

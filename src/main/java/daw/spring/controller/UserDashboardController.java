@@ -48,14 +48,15 @@ public class UserDashboardController implements CurrentUserInfo {
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
     private final AnalyticsService analyticsService;
+    private final NotificationService notificationService;
+
     private final BCryptPasswordEncoder encoder;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-    
 
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService,BCryptPasswordEncoder encoder) {
+    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder, NotificationService notificationService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
@@ -64,6 +65,7 @@ public class UserDashboardController implements CurrentUserInfo {
         this.orderRequestService = orderRequestService;
         this.analyticsService = analyticsService;
         this.encoder = encoder;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("/")
@@ -78,49 +80,55 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/index";
     }
 
-    @RequestMapping("/index/{id}") //value = "/index/{id}", params = "inputInteraction"
-    public String addInteraction(Principal principal, Model model, @PathVariable long id) { // @PathVariable long id
-        // create a new device from user's clicked one
+    @RequestMapping("/index/{id}")
+    public String addInteraction(Principal principal, Model model, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         Device d = deviceService.findOneById(id);
-        Analytics analytics;
-        log.info("---add interaction---");
-        // handle types
-        if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
-            if (d.getStatus() == Device.StateType.OFF) {
-                // if OFF and button is clicked, turn ON
-                d.setStatus(Device.StateType.ON);
-                deviceService.saveDevice(d);
+        // Security check
+        if (userService.userIsOwnerOf(user, d)) {
+            Analytics analytics;
+            log.info("---add interaction---");
+            // handle types
+            if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
+                if (d.getStatus() == Device.StateType.OFF) {
+                    // if OFF and button is clicked, turn ON
+                    d.setStatus(Device.StateType.ON);
+                    deviceService.saveDevice(d);
 
-                // create a new analytic when status = ON
-                analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
-                // and save it
-                analyticsService.saveAnalytics(analytics);
-            } else {
-                // if ON, only turn OFF and save
-                d.setStatus(Device.StateType.OFF);
-                deviceService.saveDevice(d);
-            }
-        } else if (d.getType() == Device.DeviceType.BLIND) {
-            if (d.getStatus() == Device.StateType.UP) {
-                d.setStatus(Device.StateType.DOWN);
-                deviceService.saveDevice(d);
+                    // create a new analytic when status = ON
+                    analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
+                    // and save it
+                    analyticsService.saveAnalytics(analytics);
+                } else {
+                    // if ON, only turn OFF and save
+                    d.setStatus(Device.StateType.OFF);
+                    deviceService.saveDevice(d);
+                }
+            } else if (d.getType() == Device.DeviceType.BLIND) {
+                if (d.getStatus() == Device.StateType.UP) {
+                    d.setStatus(Device.StateType.DOWN);
+                    deviceService.saveDevice(d);
 
-                // create a new analytic when status = UP
-                analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
-                // and save it
-                analyticsService.saveAnalytics(analytics);
-            } else {
-                // if DOWN, UP and save
-                d.setStatus(Device.StateType.UP);
-                deviceService.saveDevice(d);
+                    // create a new analytic when status = UP
+                    analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
+                    // and save it
+                    analyticsService.saveAnalytics(analytics);
+                } else {
+                    // if DOWN, UP and save
+                    d.setStatus(Device.StateType.UP);
+                    deviceService.saveDevice(d);
+                }
             }
+
+            model.addAttribute("user", user);
+            model.addAttribute("title", "Dashboard");
+
+            return "redirect:/dashboard/";
+        } else {
+            notificationService.alertAdmin(user);
+            return "redirect:/dashboard/";
         }
 
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("title", "Dashboard");
-        index(model, principal);
-
-        return "redirect:";
 
     }
 
@@ -145,7 +153,7 @@ public class UserDashboardController implements CurrentUserInfo {
                            @RequestParam(name = "postCode") long postCode,
                            @RequestParam(name = "blind", required = false) Integer blindQuantity,
                            @RequestParam(name = "light", required = false) Integer lightQuantity,
-                           @RequestParam(name= "observation", required= false) String observation) {
+                           @RequestParam(name = "observation", required = false) String observation) {
         if (blindQuantity == null) {
             blindQuantity = 0;
         }
@@ -153,7 +161,7 @@ public class UserDashboardController implements CurrentUserInfo {
             lightQuantity = 0;
         }
         if (observation.isEmpty()) {
-    		observation = "Sin observaciones";
+            observation = "Sin observaciones";
         }
         int costBlind = deviceService.findCost("BLIND");
         int costLight = deviceService.findCost("LIGHT");
@@ -205,31 +213,49 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping("/homes/{id}")
     public String homeDetail(Model model, Principal principal, @PathVariable long id) {
-        model.addAttribute("title", "Casa");
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         Home home = homeService.findOneById(id);
-        model.addAttribute("homeInfo", home);
-        if (home.getDeviceList().isEmpty())
-            model.addAttribute("hasDevices", false);
-        else
-            model.addAttribute("hasDevices", true);
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        return "dashboard/home-detail";
+        //Security Check
+        if (userService.userIsOwnerOf(user, home)) {
+            model.addAttribute("homeInfo", home);
+            if (home.getDeviceList().isEmpty())
+                model.addAttribute("hasDevices", false);
+            else
+                model.addAttribute("hasDevices", true);
+            model.addAttribute("user", user);
+            model.addAttribute("title", "Casa");
+            return "dashboard/home-detail";
+        } else {
+            notificationService.alertAdmin(user);
+            return "redirect:/dashboard/";
+        }
     }
 
     @GetMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf")
     public void generateInvoice(Principal principal, @PathVariable long id, HttpServletResponse response) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-        //Generate and send pdf
-        try {
-            OutputStream out = response.getOutputStream();
-            byte[] pdf = invoiceGenerator.generateInvoiceAsStream(homeService.findOneById(id), user);
-            log.info("UserDash" + homeService.findOneById(id).getId());
-            out.write(pdf);
-            response.setContentType("application/pdf");
-            response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
-            response.flushBuffer();
-        } catch (IOException | DocumentException e) {
-            e.printStackTrace();
+        Home home = homeService.findOneById(id);
+        //Security Check
+        if (userService.userIsOwnerOf(user, home)) {//Generate and send pdf
+            try {
+                OutputStream out = response.getOutputStream();
+                byte[] pdf = invoiceGenerator.generateInvoiceAsStream(home, user);
+                log.info("UserDash" + homeService.findOneById(id).getId());
+                out.write(pdf);
+                response.setContentType("application/pdf");
+                response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
+                response.flushBuffer();
+            } catch (IOException | DocumentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            notificationService.alertAdmin(user);
+            //After alerting to admin, redirect user to dashboard
+            try {
+                response.sendRedirect("/dashboard/");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -241,18 +267,18 @@ public class UserDashboardController implements CurrentUserInfo {
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String saveProfile(Model model, @RequestParam("file") MultipartFile photo,
-    										  @RequestParam("password") String password, 
-    										  @RequestParam("email") String email, 
-    										  @RequestParam("phone") String phone,Principal principal) {
+                              @RequestParam("password") String password,
+                              @RequestParam("email") String email,
+                              @RequestParam("phone") String phone, Principal principal) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
-        		if (user.getPhoto() != null && user.getPhoto().length()>0) {
-        			Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
-        			File file = rootPath.toFile();
-        			if(file.exists() && file.canRead()) {
-        				file.delete();
-        			}
-        		}
+            if (user.getPhoto() != null && user.getPhoto().length() > 0) {
+                Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
+                File file = rootPath.toFile();
+                if (file.exists() && file.canRead()) {
+                    file.delete();
+                }
+            }
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
             Path rootPath = Paths.get("upload").resolve(uniqueFilname);
             Path rootAbsolutePath = rootPath.toAbsolutePath();
@@ -265,16 +291,22 @@ public class UserDashboardController implements CurrentUserInfo {
                 e.printStackTrace();
             }
         }
-        if(!email.isEmpty()) {
-        		if(user.getEmail() !=null && user.getEmail().length()>0) {
-        			user.setEmail(email);	
+        if (!password.isEmpty()) {
+        		if(user.getPasswordHash()!=null && user.getPasswordHash().length() > 0) {
+        			String newPass = encoder.encode(password);
+        			user.setPasswordHash(newPass);
         		}
         }
-        if(!phone.isEmpty()) {
-    		if(user.getPhone() !=null && user.getPhone().length()>0) {
-    			user.setPhone(phone);	
-    		}
-    }
+        if (!email.isEmpty()) {
+            if (user.getEmail() != null && user.getEmail().length() > 0) {
+                user.setEmail(email);
+            }
+        }
+        if (!phone.isEmpty()) {
+            if (user.getPhone() != null && user.getPhone().length() > 0) {
+                user.setPhone(phone);
+            }
+        }
         userService.saveUser(user);
         return "redirect:created";
     }

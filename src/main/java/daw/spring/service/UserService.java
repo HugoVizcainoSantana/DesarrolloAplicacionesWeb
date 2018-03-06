@@ -1,44 +1,43 @@
 package daw.spring.service;
 
-import daw.spring.model.*;
+import daw.spring.model.Device;
+import daw.spring.model.Home;
+import daw.spring.model.Roles;
+import daw.spring.model.User;
 import daw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-   /* private final BCryptPasswordEncoder encoder;
-    private final OrderRequestService orderRequestService;
-    private final HomeService homeService;
-    private final DeviceService deviceService;*/
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        
     }
 
     public User findOneById(Long id) {
         return userRepository.findOne(id);
     }
 
-    public List<User> findAll() { return userRepository.findAll();}
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
     public Page<User> findAll(PageRequest pageRequest) {
         return userRepository.findAll(pageRequest);
     }
 
-    public long countAllUsers(){ return userRepository.count(); }
+    public long countAllUsers() {
+        return userRepository.count();
+    }
 
     public void saveUser(User user) {
         userRepository.save(user);
@@ -53,51 +52,71 @@ public class UserService {
     }
 
     public void saveHomeUser(Home home, User user) {
-    		List<Home> listHome= user.getHomeList();
-    		listHome.add(home);
-    		//user.setHomeList(listHome);
-    		saveUser(user);
+        List<Home> listHome = user.getHomeList();
+        listHome.add(home);
+        //user.setHomeList(listHome);
+        saveUser(user);
     }
-    
-    public List<Device> getUserFavoriteDevices(User user){
-    		List<Device> favoriteDevices= new ArrayList<>();
-    		for (Home home : user.getHomeList()) {
-				for (Device device : home.getDeviceList()) {
-					if(device.isFavorite())
-						favoriteDevices.add(device);
-				}
-			}
-    		return favoriteDevices;
+
+    public List<Device> getUserFavoriteDevices(User user) {
+        List<Device> favoriteDevices = new ArrayList<>();
+        for (Home home : user.getHomeList()) {
+            for (Device device : home.getDeviceList()) {
+                if (device.isFavorite())
+                    favoriteDevices.add(device);
+            }
+        }
+        return favoriteDevices;
     }
-    
+
 
     public User findUserByHomeId(Home home) {
         return userRepository.findUserByHomeListEquals(home);
     }
 
-    public List<Home> getUserHomesActivated(User user){
-        List<Home> homesListOut= new ArrayList<>();
+    public List<Home> getUserHomesActivated(User user) {
         List<Home> homesListIn = user.getHomeList();
-        for (Home homeI:homesListIn){
-            if (homeI.getActivated()==true){
-                List<Device> devicesListIn= new ArrayList<>();
-                List<Device> devicesListOut= new ArrayList<>();
-                devicesListIn=homeI.getDeviceList();
-                for (Device deviceI:devicesListIn){
-                    if(deviceI.isActivated()==true){
-                        if ((deviceI.getStatus().toString()=="UP")||(deviceI.getStatus().toString()=="ON")){
-                            deviceI.setActivatedStatus(true);
-                        }else{
-                            deviceI.setActivatedStatus(false);
+        List<Home> homesListOut = new ArrayList<>();
+        for (Home home : homesListIn) {
+            if (home.getActivated()) {
+                List<Device> devicesOfHome = home.getDeviceList();
+                List<Device> devicesListOut = new ArrayList<>();
+                for (Device device : devicesOfHome) {
+                    if (device.isActivated()) {
+                        if ((device.getStatus() == Device.StateType.UP) || (device.getStatus() == Device.StateType.ON)) {
+                            device.setActivatedStatus(true);
+                        } else {
+                            device.setActivatedStatus(false);
                         }
-                        devicesListOut.add(deviceI);
+                        devicesListOut.add(device);
                     }
                 }
-                homeI.setDeviceList(devicesListOut);
-                homesListOut.add(homeI);
+                home.setDeviceList(devicesListOut);
+                homesListOut.add(home);
             }
         }
         return homesListOut;
     }
 
+    public boolean userIsOwnerOf(User user, Home home) {
+        for (Home h : user.getHomeList()) {
+            if (home.getId() == h.getId())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean userIsOwnerOf(User user, Device device) {
+        for (Home home : user.getHomeList()) {
+            for (Device d : home.getDeviceList()) {
+                if (device.getId() == d.getId())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public List<User> getAllAdmins() {
+        return userRepository.findAllByRolesEquals(Roles.ADMIN.getRoleName());
+    }
 }

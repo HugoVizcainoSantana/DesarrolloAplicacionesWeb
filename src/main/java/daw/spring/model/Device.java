@@ -25,8 +25,6 @@ public class Device {
     }
 
 
-
-
     public Device(String description, double cost, DeviceType type, StateType status, String img, boolean activated, String serialNumber, boolean favorite) {
         this.description = description;
         this.cost = cost;
@@ -120,11 +118,11 @@ public class Device {
         ON, OFF, UP, DOWN
     }
 
-    public void setActivatedStatus(boolean activatedStatus) {
-        this.activatedStatus = activatedStatus;
-    }
-
     public boolean isActivatedStatus() {
         return activatedStatus;
+    }
+
+    public void setActivatedStatus(boolean activatedStatus) {
+        this.activatedStatus = activatedStatus;
     }
 }

@@ -345,16 +345,16 @@
                                         <p>Estado:{{status}}</p>
                                         <br>
                                         <p>
-                                        <form name="interactionDev{{id}}" action="/dashboard/index/{{id}}" method="post" id="interactionDev{{id}}" >
+                                        <form name="interactionDev{{id}}" action="/dashboard/index/{{id}}" method="post" id="interactionDev{{id}}">
                                             {{#activatedStatus}}
                                             <div class="switch">
-                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}"  onclick='cheeked("{{status}}","{{id}}")' checked >
+                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onclick='cheeked("{{status}}","{{id}}")' checked>
                                                 <label for="controlarDevice{{id}}">{{status}}</label>
                                             </div>
                                             {{/activatedStatus}}
                                             {{^activatedStatus}}
                                             <div class="switch">
-                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}"  onclick='cheeked("{{status}}","{{id}}")' >
+                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onclick='cheeked("{{status}}","{{id}}")'>
                                                 <label for="controlarDevice{{id}}">{{status}}</label>
                                             </div>
                                             {{/activatedStatus}}
@@ -409,8 +409,8 @@
 <script>
 
     function cheeked(status, id) { //id
-        console.log("LLAMA, estado : "+ status +" , id : "+id); //+id); // $('#btn-toggle1')
-        var formInput ="#interactionDev"+id.toString();
+        console.log("LLAMA, estado : " + status + " , id : " + id); //+id); // $('#btn-toggle1')
+        var formInput = "#interactionDev" + id.toString();
         $(formInput).submit();
     }
 
@@ -418,10 +418,10 @@
     //    console.log("LLAMA2, estado : "+ status +" , id : "+id);
     //    var nameInputDevice='#controlarDevice'+id;
     //    if ((status.toString()=='ON')||(status.toString()=='UP')){
-     //       $(nameInputDevice).attr('checked', '');
-     //   }else{
+    //       $(nameInputDevice).attr('checked', '');
+    //   }else{
     //        $(nameInputDevice).removeAttr('checked');
-     //   }
+    //   }
     //}
 </script>
 

@@ -4,11 +4,9 @@ package daw.spring.repository;
 import daw.spring.model.Home;
 import daw.spring.model.OrderRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.List;
 public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long> {
 
     List<OrderRequest> findByCompletedIsFalseOrCompletedIsFalse();
+
     List<OrderRequest> findByCompletedIsTrueOrCompletedIsTrue();
 
     List<OrderRequest> findByCompletedIsFalseAndHomeIn(Collection<Home> homes);
@@ -27,5 +26,6 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 
 
     Page<OrderRequest> findAllByCompletedIsFalse(Pageable pageRequest);
+
     Page<OrderRequest> findAllByCompletedIsTrue(Pageable pageRequest);
 }
