@@ -194,17 +194,23 @@
                                 {{#ordersIndex}}
                                 <li>
                                     <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>6:00 am</span><span class="text-info">6 hours ago</span></div>
+                                        <div class="col-5">
+                                        <div class="icon"><i class="icon-clock"></i> Fecha : </div>
+                                        <br>
+                                        <div class="date"><span class="text-info">{{date}}</span></div>
+
                                         </div>
-                                        <div class="col-8 content"><strong>Pedido Nº {{id}}</strong>
-                                            <strong>"Descripcion :"</strong>
+                                        <div class="col-7 "><strong>Pedido Nº : {{id}}</strong>
+                                            <br>
+                                            <strong>"Detalles :"</strong>
+                                            <br>
                                             {{#home}}
-                                            <strong>"Direccion : " </strong>
-                                            <p>{{address}}</p>
+                                                <strong>"Direccion : " </strong>
+                                                <br>
+                                                <p>{{address}}</p>
                                             {{/home}}
                                             <strong>"Elementos :"</strong>
+                                            <br>
                                             {{#deviceList}}
                                             <p>{{type}}</p>
                                             {{/deviceList}}
