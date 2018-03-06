@@ -1,6 +1,7 @@
 package daw.spring.service;
 
 import daw.spring.model.Notification;
+import daw.spring.model.Roles;
 import daw.spring.model.User;
 import daw.spring.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,9 @@ public class NotificationService {
                             admin)
             );
         }
+    }
 
+    public Page<Notification> loadFirstAdminNotifications() {
+        return notificationRepository.findAllByUserNotificationRoles(new PageRequest(0, 5), Roles.ADMIN.getRoleName());
     }
 }

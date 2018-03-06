@@ -1,6 +1,7 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -59,6 +60,11 @@ public class Notification {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        return format.format(date);
     }
 
     public User getUserNotification() {

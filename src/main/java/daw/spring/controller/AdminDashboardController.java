@@ -34,23 +34,26 @@ public class AdminDashboardController implements CurrentUserInfo {
     private final HomeService homeService;
     private final ProductService productService;
     private final OrderRequestService orderRequestService;
+    private final NotificationService notificationService;
 
 
     private final Logger log = LoggerFactory.getLogger("AdminDashbpard");
 
     @Autowired
-    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderRequestService orderRequestService) {
+    public AdminDashboardController(UserService userService, DeviceService deviceService, HomeService homeService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
         this.userService = userService;
         this.deviceService = deviceService;
         this.homeService = homeService;
         this.productService = productService;
         this.orderRequestService = orderRequestService;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("/")
     public String index(Model model , Principal principal) {
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
         model.addAttribute("ordersIndex", orderRequestService.homesOrdersList());
+        model.addAttribute("alerts", notificationService.loadFirstAdminNotifications());
         return "adminDashboard/index";
     }
 

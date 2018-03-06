@@ -156,51 +156,25 @@
                 <div class="col-lg-4 col-md-6">
                     <div id="new-updates" class="card updates recent-updated">
                         <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Futuras Incidencias</a></h2>
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Incidencias Registradas</a></h2>
                             <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                         </div>
                         <div id="updates-box" role="tabpanel" class="collapse show">
                             <ul class="activities list-unstyled">
-                                <!-- Item-->
-                                <!-- 1 Item-->
+                                {{#alerts}}
                                 <li>
                                     <div class="row">
-                                        <div class="col-4 date-holder text-right">
+                                        <div class="col-5 date-holder">
                                             <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>6:00 am</span><span class="text-info">6 hours ago</span></div>
+                                            <div class="date"><span>{{dateAsString}}</span></div>
+                                            <div><span class="text-info">ID: {{id}}</span></div>
                                         </div>
-                                        <div class="col-8 content"><strong>Incidencia Nº 0001</strong>
-                                            <p>"Descripcion de la incidencia"</p>
+                                        <div class="col-7 content"><strong>{{title}}</strong>
+                                            <p>{{description}}</p>
                                         </div>
                                     </div>
                                 </li>
-                                <!-- End 1 Item -->
-                                <!-- 2 Item-->
-                                <li>
-                                    <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
-                                        </div>
-                                        <div class="col-8 content"><strong>Incidencia Nº 0002</strong>
-                                            <p>"Descripcion de la incidencia"</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- End 2 Item -->
-                                <!-- 3 Item-->
-                                <li>
-                                    <div class="row">
-                                        <div class="col-4 date-holder text-right">
-                                            <div class="icon"><i class="icon-clock"></i></div>
-                                            <div class="date"><span>5:00 am</span><span class="text-info">7 hours ago</span></div>
-                                        </div>
-                                        <div class="col-8 content"><strong>Incidencia Nº 0003</strong>
-                                            <p>"Descripcion de la incidencia"</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- End Item-->
+                                {{/alerts}}
                             </ul>
                         </div>
                     </div>
