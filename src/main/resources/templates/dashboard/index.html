@@ -325,10 +325,11 @@
             <div class="row">
                 <!-- All Devices Widget -->
                 {{#allHomesWithDevices}}
-                <div class="col-lg-4 col-md-6">
+                <input type="hidden" id="allHomesWithDevices" name="allHomesWithDevices" value="{{allHomesWithDevices}}"/>
+                <div class="col-lg-5 col-md-7">
                     <div class="card updates recent-updated">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{-index}}</a></h2>
+                            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Elementos de la casa {{id}}</a></h2>
                             <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                         </div>
                         <div role="tabpanel" class="collapse show">
@@ -336,19 +337,29 @@
                                 <!-- Item-->
                                 {{#deviceList}}
                                 <li class="d-flex justify-content-between">
-                                    <div class="left-col d-flex">
-                                        <div class="title"><strong>{{description}}</strong></div>
-                                    </div>
-                                    <div class="right-col text-right">
-                                        <form name="interaction" action="/dashboard/index" method="post">
-                                            <p>DEVICE ID:{{id}}</p>
-                                            <button><a href="/dashboard/index/{{id}}">{{status}}</a></button>
-                                            <!--<p>{{-index}}</p>
+                                    <div class="row">
+                                        <div class="title"><strong>Tipo: {{description}}</strong></div>
+                                        <br>
+                                        <p>Device Id:{{id}}</p>
+                                        <br>
+                                        <p>Estado:{{status}}</p>
+                                        <br>
+                                        <p>
+                                        <form name="interactionDev{{id}}" action="/dashboard/index/{{id}}" method="post" id="interactionDev{{id}}">
+                                            {{#activatedStatus}}
                                             <div class="switch">
-                                                <input id="btn-toggle1" class="cmn-toggle cmn-toggle-round-flat" onclick="myFunction(document.getElementById(btn-toggle1).addClass('selected'))" type="submit" name="inputInteraction" value="Activar">
-                                                <label for="btn-toggle1"></label>
-                                            </div>-->
+                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onclick='cheeked("{{status}}","{{id}}")' checked>
+                                                <label for="controlarDevice{{id}}">{{status}}</label>
+                                            </div>
+                                            {{/activatedStatus}}
+                                            {{^activatedStatus}}
+                                            <div class="switch">
+                                                <input id="controlarDevice{{id}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" name="controlarDevice{{id}}" onclick='cheeked("{{status}}","{{id}}")'>
+                                                <label for="controlarDevice{{id}}">{{status}}</label>
+                                            </div>
+                                            {{/activatedStatus}}
                                         </form>
+                                        </p>
                                     </div>
                                 </li>
                                 {{/deviceList}}
@@ -397,5 +408,26 @@
 <script src="/dashboardBootstrap/js/appWeather.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
+
+
+<script>
+
+    function cheeked(status, id) { //id
+        console.log("LLAMA, estado : " + status + " , id : " + id); //+id); // $('#btn-toggle1')
+        var formInput = "#interactionDev" + id.toString();
+        $(formInput).submit();
+    }
+
+    //function setStatus(status, id) {
+    //    console.log("LLAMA2, estado : "+ status +" , id : "+id);
+    //    var nameInputDevice='#controlarDevice'+id;
+    //    if ((status.toString()=='ON')||(status.toString()=='UP')){
+    //       $(nameInputDevice).attr('checked', '');
+    //   }else{
+    //        $(nameInputDevice).removeAttr('checked');
+    //   }
+    //}
+</script>
+
 </body>
 </html>

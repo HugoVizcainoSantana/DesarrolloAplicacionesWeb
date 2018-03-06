@@ -28,8 +28,8 @@ public class OrderRequestService {
 		return orderRequestRepository.findOne(id);
 	}
 
-	public List<OrderRequest> homesOrders() {
-		return orderRequestRepository.findByCompletedIsFalse();
+    public List<OrderRequest> homesOrdersList() {
+        return orderRequestRepository.findByCompletedIsFalseOrCompletedIsFalse();
 	}
 
     public void confirmOrder(long id) {
@@ -51,7 +51,25 @@ public class OrderRequestService {
 	public Page<OrderRequest> findAll(PageRequest pageRequest) {
 		return orderRequestRepository.findAll(pageRequest);
 	}
-    
+
+
+    public Page<OrderRequest> findNotCompletedOrdersAllPage(PageRequest pageRequest) {
+        return orderRequestRepository.findAllByCompletedIsFalse(pageRequest);
+    }
+
+    public Page<OrderRequest> findCompletedOrdersAllPage(PageRequest pageRequest) {
+        return orderRequestRepository.findAllByCompletedIsTrue(pageRequest);
+    }
+
+
+    public List<OrderRequest> findNotCompletedOrdersAll() {
+        return orderRequestRepository.findByCompletedIsFalseOrCompletedIsFalse();
+    }
+
+    public List<OrderRequest> findCompletedOrdersAll() {
+        return orderRequestRepository.findByCompletedIsTrueOrCompletedIsTrue();
+    }
+
     public List<OrderRequest> findNotCompletedOrders (List<Home> homes){
     		return orderRequestRepository.findByCompletedIsFalseAndHomeIn(homes);
     }

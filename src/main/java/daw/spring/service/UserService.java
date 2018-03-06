@@ -17,28 +17,27 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-   /* private final BCryptPasswordEncoder encoder;
-    private final OrderRequestService orderRequestService;
-    private final HomeService homeService;
-    private final DeviceService deviceService;*/
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        
     }
 
     public User findOneById(Long id) {
         return userRepository.findOne(id);
     }
 
-    public List<User> findAll() { return userRepository.findAll();}
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
     public Page<User> findAll(PageRequest pageRequest) {
         return userRepository.findAll(pageRequest);
     }
 
-    public long countAllUsers(){ return userRepository.count(); }
+    public long countAllUsers() {
+        return userRepository.count();
+    }
 
     public void saveUser(User user) {
         userRepository.save(user);
@@ -53,26 +52,50 @@ public class UserService {
     }
 
     public void saveHomeUser(Home home, User user) {
-    		List<Home> listHome= user.getHomeList();
-    		listHome.add(home);
-    		//user.setHomeList(listHome);
-    		saveUser(user);
+        List<Home> listHome = user.getHomeList();
+        listHome.add(home);
+        //user.setHomeList(listHome);
+        saveUser(user);
     }
-    
-    public List<Device> getUserFavoriteDevices(User user){
-    		List<Device> favoriteDevices= new ArrayList<>();
-    		for (Home home : user.getHomeList()) {
-				for (Device device : home.getDeviceList()) {
-					if(device.isFavorite())
-						favoriteDevices.add(device);
-				}
-			}
-    		return favoriteDevices;
+
+    public List<Device> getUserFavoriteDevices(User user) {
+        List<Device> favoriteDevices = new ArrayList<>();
+        for (Home home : user.getHomeList()) {
+            for (Device device : home.getDeviceList()) {
+                if (device.isFavorite())
+                    favoriteDevices.add(device);
+            }
+        }
+        return favoriteDevices;
     }
-    
+
 
     public User findUserByHomeId(Home home) {
         return userRepository.findUserByHomeListEquals(home);
+    }
+
+    public List<Home> getUserHomesActivated(User user) {
+        List<Home> homesListIn = user.getHomeList();
+        List<Home> homesListOut = new ArrayList<>();
+        for (Home home : homesListIn) {
+            if (home.getActivated()) {
+                List<Device> devicesOfHome = home.getDeviceList();
+                List<Device> devicesListOut = new ArrayList<>();
+                for (Device device : devicesOfHome) {
+                    if (device.isActivated()) {
+                        if ((device.getStatus() == Device.StateType.UP) || (device.getStatus() == Device.StateType.ON)) {
+                            device.setActivatedStatus(true);
+                        } else {
+                            device.setActivatedStatus(false);
+                        }
+                        devicesListOut.add(device);
+                    }
+                }
+                home.setDeviceList(devicesListOut);
+                homesListOut.add(home);
+            }
+        }
+        return homesListOut;
     }
 
     public boolean userIsOwnerOf(User user, Home home) {

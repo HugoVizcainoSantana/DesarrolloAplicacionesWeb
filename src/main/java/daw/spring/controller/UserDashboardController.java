@@ -75,9 +75,8 @@ public class UserDashboardController implements CurrentUserInfo {
         model.addAttribute("user", user);
         List<Device> favoriteDevices = userService.getUserFavoriteDevices(user);
         model.addAttribute("favoriteDevices", favoriteDevices);
-        List<Home> allHomesWithDevices = user.getHomeList();
+        List<Home> allHomesWithDevices = userService.getUserHomesActivated(user);
         model.addAttribute("allHomesWithDevices", allHomesWithDevices);
-
         model.addAttribute("title", "Dashboard");
         return "dashboard/index";
     }
@@ -91,6 +90,7 @@ public class UserDashboardController implements CurrentUserInfo {
         // Security check
         if (userService.userIsOwnerOf(user, d)) {
             Analytics analytics;
+            log.info("---add interaction---");
             // handle types
             if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
                 if (d.getStatus() == Device.StateType.OFF) {
