@@ -1,7 +1,6 @@
 package daw.spring.repository;
 
 import daw.spring.model.Home;
-import daw.spring.model.Roles;
 import daw.spring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -20,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserByHomeListEquals(Home home);
 
-    List<User> findAllByRolesEquals(Roles roles);
+    List<User> findAllByRolesEquals(String roles);
 
 }

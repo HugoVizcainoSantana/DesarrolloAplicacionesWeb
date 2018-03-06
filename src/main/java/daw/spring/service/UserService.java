@@ -117,6 +117,6 @@ public class UserService {
     }
 
     public List<User> getAllAdmins() {
-        return userRepository.findAllByRolesEquals(Roles.ADMIN);
+        return userRepository.findAllByRolesEquals(Roles.ADMIN.getRoleName());
     }
 }
