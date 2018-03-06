@@ -54,7 +54,8 @@
             </div>
             {{/user}}
             <!-- Small Brand information, appears on minimized sidebar-->
-            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong class="text-primary">OCH</strong></a></div>
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong
+                    class="text-primary">OCH</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
@@ -76,8 +77,10 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
-                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
-                        <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong class="text-primary">Home</strong></div>
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i
+                            class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
+                        <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong
+                                class="text-primary">Home</strong></div>
                     </a></div>
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                         <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a>
@@ -89,57 +92,77 @@
     </header>
 
 
-
-
     <!-- Header Section-->
     <section class="mt-30px mb-30px container-fluid">
         <div class="container">
             <div class="row ">
-                <!--<div class="col-lg-6">
-                <img src="/images/raspberry-pie.jpg" alt="..." class="img-fluid col- ">
-                </div>-->
-                {{#product}}
-                <div class="col-lg-4">
-                    <form action="/adminDashboard/inventory/{{id}}" method="post" id="frmProduct" name="frmProduct">
+                {{#productEdit}}
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8 ">
+                    <form action="/adminDashboard/editProducts/" method="post" id="frmProductEdit"
+                          name="frmProductEdit">
+                        <!-- Title -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Editando Producto</h4>
+                        </div>
+                        <!-- End Title -->
                         <div class="form-group">
                             <label class="col-sm-12 form-control-label">Modelo: {{type}}</label>
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <label class="col-sm-12 form-control-label">Id : {{id}}</label>
-                                </div>
-                            </div>
-                            <label class="col-sm-12 form-control-label">{{description}}</label>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <label class="col-sm-12 form-control-label">Coste unitario: {{cost}} €</label>
+                                    <label class="col-sm-4 form-control-label">Id : </label>
+                                    <input type="text" id="id" name="id" value="{{id}}" readonly class="col-sm-1"
+                                           style="text-align: right;">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <label class="col-md-12 form-control-label">Stock Disponible: {{stock}} Uds.</label>
+                                    <label class="col-sm-4 form-control-label">Descripcion: </label>
+                                    <input type="text" placeholder="{{description}}" id="defDescription"
+                                           name="defDescription" class="col-md-8 form-control"
+                                           value="{{description}}" style="text-align: left;">
                                 </div>
                             </div>
-                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar"/>
-
-                            <!--       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar" />
-                                   <a href="/adminDashboard/inventory/{{id}}" class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                   <button onclick="myFunction('{{id}}')">Try it</button>
-                                   <a href="/adminDashboard/inventory/{{id}}/"+document.getElementById(numberInput{{id}}).value class="btn btn-success btn-lg btn-block">Aplicar cambios producto {{-index}}</a>
-                                   <button type="submit" onClick="visibilidadDiv('contentForm')" class="btn btn-success btn-lg btn-block" data-dismiss="modal"> OK</button>
-                                   -->
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-4 form-control-label">Coste unitario: </label>
+                                    <input type="number" placeholder="{{cost}}" id="numberCost" name="numberCost"
+                                           class="col-md-2 form-control" min="0" value={{cost}} step="0.01"
+                                           style="text-align: right;">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-4 form-control-label">Stock Disponible: </label>
+                                    <input type="number" placeholder="{{stock}}" id="numberStock" name="numberStock"
+                                           class="col-md-2 form-control" min="0" value={{stock}}
+                                           style="text-align: right;">
+                                </div>
+                            </div>
                         </div>
-                    </form>
 
+                        <!-- Button to aplicate changed -->
+                        <div class="col-md-12">
+                            <input type="submit" name="add" class="active btn btn-primary btn-lg btn-block"
+                                   value="Aplicar cambios"/>
+                        </div>
+                        <br>
+                        <!-- End aplicated changes -->
+                        <!-- Button close don´t save -->
+                        <div class="col-md-12">
+                            <input type="submit" name="cancel" class="cancel btn btn-danger btn-lg btn-block"
+                                   value="Cancelar"/>
+                        </div>
+                        <!-- End Button close don´t save -->
+                    </form>
                 </div>
-                {{/product}}
+                {{/productEdit}}
             </div>
         </div>
-
-        <form action="/adminDashboard/addProduct" id="addProduct" name="addProduct">
-            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Añadir Producto"/>
-        </form>
-
     </section>
+
+
+    <!-- Section Footer-->
 
     <footer class="main-footer">
         <div class="container-fluid">
@@ -150,6 +173,8 @@
             </div>
         </div>
     </footer>
+    <!-- End Section Footer-->
+
 </div>
 
 
@@ -165,14 +190,6 @@
 <script src="/dashboardBootstrap/js/charts-home.js"></script>
 <!-- Main File-->
 <script src="/dashboardBootstrap/js/front.js"></script>
-
-<script>
-    function myFunction(id) {
-        var campo="numberInput"+id;
-        console.log(document.getElementById(campo).value);
-
-    }
-</script>
 
 </body>
 

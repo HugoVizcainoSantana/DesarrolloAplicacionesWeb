@@ -82,4 +82,29 @@ public class UserService {
 		return userRepository.findByResetToken(resetToken);
 	}
 
+    public List<Home> getUserHomesActivated(User user){
+        List<Home> homesListOut= new ArrayList<>();
+        List<Home> homesListIn = user.getHomeList();
+        for (Home homeI:homesListIn){
+            if (homeI.getActivated()==true){
+                List<Device> devicesListIn= new ArrayList<>();
+                List<Device> devicesListOut= new ArrayList<>();
+                devicesListIn=homeI.getDeviceList();
+                for (Device deviceI:devicesListIn){
+                    if(deviceI.isActivated()==true){
+                        if ((deviceI.getStatus().toString()=="UP")||(deviceI.getStatus().toString()=="ON")){
+                            deviceI.setActivatedStatus(true);
+                        }else{
+                            deviceI.setActivatedStatus(false);
+                        }
+                        devicesListOut.add(deviceI);
+                    }
+                }
+                homeI.setDeviceList(devicesListOut);
+                homesListOut.add(homeI);
+            }
+        }
+        return homesListOut;
+    }
+
 }

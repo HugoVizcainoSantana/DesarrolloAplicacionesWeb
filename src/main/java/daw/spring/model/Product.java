@@ -53,6 +53,10 @@ public class Product {
         this.cost = cost;
     }
 
+    public String setDescription() {
+        return description;
+    }
+
     public ProductType getType() {
         return type;
     }
