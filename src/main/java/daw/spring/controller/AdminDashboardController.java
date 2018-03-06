@@ -145,7 +145,6 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "listOrdersCompletedPage";
     }
 
-    //@RequestMapping("/detail/{id}")
     @RequestMapping(value = "/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id){
         model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
@@ -268,5 +267,11 @@ public class AdminDashboardController implements CurrentUserInfo {
     @RequestMapping(value = "/editProducts", params = "cancel")
     public String cancelEditProduct() {
         return "redirect:/adminDashboard/inventory";
+    }
+
+    @RequestMapping(value = "/issues/{id}")
+    public String issueViewed(@PathVariable long id) {
+        notificationService.deleteNotification(notificationService.findOneById(id));
+        return "redirect:/adminDashboard/";
     }
 }

@@ -168,6 +168,7 @@
                                             <div class="icon"><i class="icon-clock"></i></div>
                                             <div class="date"><span>{{dateAsString}}</span></div>
                                             <div><span class="text-info">ID: {{id}}</span></div>
+                                            <div class="text-center"><a href="/adminDashboard/issues/{{id}}" class="btn btn-primary">Resuelta</a></div>
                                         </div>
                                         <div class="col-7 content"><strong>{{title}}</strong>
                                             <p>{{description}}</p>
@@ -195,9 +196,9 @@
                                 <li>
                                     <div class="row">
                                         <div class="col-5">
-                                        <div class="icon"><i class="icon-clock"></i> Fecha : </div>
-                                        <br>
-                                        <div class="date"><span class="text-info">{{date}}</span></div>
+                                            <div class="icon"><i class="icon-clock"></i> Fecha :</div>
+                                            <br>
+                                            <div class="date"><span class="text-info">{{date}}</span></div>
 
                                         </div>
                                         <div class="col-7 "><strong>Pedido Nº : {{id}}</strong>
@@ -205,9 +206,9 @@
                                             <strong>"Detalles :"</strong>
                                             <br>
                                             {{#home}}
-                                                <strong>"Direccion : " </strong>
-                                                <br>
-                                                <p>{{address}}</p>
+                                            <strong>"Direccion : " </strong>
+                                            <br>
+                                            <p>{{address}}</p>
                                             {{/home}}
                                             <strong>"Elementos :"</strong>
                                             <br>
