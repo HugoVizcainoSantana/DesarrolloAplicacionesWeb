@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OCH</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/dashboardBootstrap/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/dashboardBootstrap/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="/dashboardBootstrap/css/fontastic.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <!-- jQuery Circle-->
+    <link rel="stylesheet" href="/dashboardBootstrap/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <!-- Custom Scrollbar-->
+    <link rel="stylesheet" href="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/dashboardBootstrap/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/dashboardBootstrap/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/images/icono.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script type="text/javascript" src="/dashboardBootstrap/js/checked.js"></script>
+    <script type="text/javascript" src="/dashboardBootstrap/js/visibility.js"></script>
+</head>
+
+
+<body>
+
+<!-- Side Navbar -->
+<nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+            <!-- User Info-->
+            {{#user}}
+            <div class="sidenav-header-inner text-center">
+                {{#photo}}
+                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                {{^photo}}
+                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                {{/photo}}
+                <h2 class="h5">Administrador:</h2>
+                <span>{{firstName}}</span>
+            </div>
+            {{/user}}
+            <!-- Small Brand information, appears on minimized sidebar-->
+            <div class="sidenav-header-logo"><a href="/adminDashboard/" class="brand-small text-center"><strong
+                    class="text-primary">OCH</strong></a></div>
+        </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+            <h5 class="sidenav-heading">Menú</h5>
+            <ul id="side-main-menu1" class="side-menu list-unstyled">
+                <li><a href="/adminDashboard/"> <i class="icon-home"></i>Inicio</a></li>
+                <li><a href="/adminDashboard/inventory"><i class="fa fa-shopping-cart"></i>Inventario</a></li>
+                <li><a href="/adminDashboard/users"> <i class="icon-user"></i>Usuarios</a></li>
+                <li><a href="/adminDashboard/orders"> <i class="icon-interface-windows"></i>Pedidos</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page">
+
+    <!-- navbar-->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i
+                            class="icon-bars"> </i></a><a href="/adminDashboard/" class="navbar-brand">
+                        <div class="brand-text d-none d-md-inline-block"><span>OnControl </span><strong
+                                class="text-primary">Home</strong></div>
+                    </a></div>
+                    <!--   <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                         <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                             <ul aria-labelledby="notifications" class="dropdown-menu">
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                                         <div class="notification-time">
+                                             <small>4 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item">
+                                     <div class="notification d-flex justify-content-between">
+                                         <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                                         <div class="notification-time">
+                                             <small>10 minutes ago</small>
+                                         </div>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications </strong></a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item dropdown"><a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                             <ul aria-labelledby="notifications" class="dropdown-menu">
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                     <div class="msg-profile"><img src="/images/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                     <div class="msg-body">
+                                         <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span>
+                                         <small>3 days ago at 7:58 pm - 10.06.2014</small>
+                                     </div>
+                                 </a></li>
+                                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages </strong></a></li>
+                    </ul>
+                    </li>-->
+                    <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Header Section-->
+    <section class="mt-30px mb-30px container-fluid">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8 ">
+                    <form action="/adminDashboard/addProduct" method="post" id="addProduct"
+                          enctype="multipart/form-data">
+                        <!-- Title -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Añadir Producto</h4>
+                        </div>
+                        <!-- End Title -->
+                        <!--           <div class="col-sm-12">
+                                       <div class="row">
+                                           <label class="col-sm-4 form-control-label">Modelo: </label>
+                                           <input type="text" placeholder="Tipo " id="type"
+                                                  name="defDescription" class="col-md-8 form-control"
+                                                  value="Añade auí la descripción." style="text-align: left;">
+                                       </div>
+                                   </div>  -->
+                        <br>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-4 form-control-label">Descripcion: </label>
+                                <input type="text" placeholder="Descripcion " id="defDescription"
+                                       name="defDescription" class="col-md-8 form-control"
+                                       value="Añade aquí la descripción." style="text-align: left;">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-4 form-control-label">Coste unitario: </label>
+                                <input type="number" placeholder="Coste " id="numberCost" name="numberCost"
+                                       class="col-md-2 form-control" min="0" step="0.01"
+                                       style="text-align: right;">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-4 form-control-label">Stock Disponible: </label>
+                                <input type="number" placeholder="Stock" id="numberStock" name="numberStock"
+                                       class="col-md-2 form-control" min="0"
+                                       style="text-align: right;">
+                            </div>
+                        </div>
+                        <br>
+                        <!--                   <div class="form-group row">                -->
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-3 form-control-label" for="file">Cambiar imagen : </label>
+                                <div class="col-sm-8">
+                                    <label class="file"> <input type="file" name="file" id="file" class="file-input">
+                                        <span class="file-control"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button to aplicate changed -->
+                        <div class="col-md-12">
+                            <input type="submit" name="add" class="active btn btn-primary btn-lg btn-block"
+                                   value="Agregar Producto"/>
+                        </div>
+                        <br>
+                        <!-- End aplicated changes -->
+                        <!-- Button close don´t save -->
+                        <div class="col-md-12">
+                            <input type="submit" name="cancel" class="cancel btn btn-danger btn-lg btn-block"
+                                   value="Cancelar">
+                        </div>
+                        <!-- End Button close don´t save -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section Footer-->
+
+    <footer class="main-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>OnControlHome &copy; 2018</p>
+                </div>
+                <div class="col-sm-6 text-right"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Section Footer-->
+
+</div>
+
+
+<!-- Javascript files-->
+<script src="/dashboardBootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/dashboardBootstrap/vendor/popper.js/umd/popper.min.js"></script>
+<script src="/dashboardBootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/dashboardBootstrap/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/dashboardBootstrap/vendor/chart.js/Chart.min.js"></script>
+<script src="/dashboardBootstrap/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="/dashboardBootstrap/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/dashboardBootstrap/js/charts-home.js"></script>
+<!-- Main File-->
+<script src="/dashboardBootstrap/js/front.js"></script>
+
+</body>
+
+
+</html>
