@@ -38,8 +38,8 @@ public class LoginController {
         return "chooseDashboard";
     }
 
-    @RequestMapping("/forgotPassword")
+   /* @RequestMapping("/forgotPasword")
     public String forgotPassword() {
-        return "forgotPassword";
-    }
+        return "forgotPasword";
+    }*/
 }

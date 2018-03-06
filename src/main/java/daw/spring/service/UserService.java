@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -74,5 +75,11 @@ public class UserService {
     public User findUserByHomeId(Home home) {
         return userRepository.findUserByHomeListEquals(home);
     }
+    public Optional findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+    public Optional findUserByResetToken(String resetToken) {
+		return userRepository.findByResetToken(resetToken);
+	}
 
 }

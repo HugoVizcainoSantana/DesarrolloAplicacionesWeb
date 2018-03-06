@@ -60,11 +60,11 @@
                             Inique su email para recuperar la contraseña
                         </p>
                         <div class="mt-4">
-                            <form action="" id="loginForm">
+                            <form action="/forgotPasword" id="loginForm" method="post" name="forgotPassword">
                                 <div class="form-group">
-                                    <input required type="email" class="form-control" id="email" value="" placeholder="Email">
+                                    <input required type="email" name="email" class="form-control" id="email" value="" placeholder="Email">
                                 </div>
-                                <button type="submit" class="btn btn-primary float-right" onClick="javascript: visibilidadDiv('content');">Enviar</button>
+                                <button type="submit" class="btn btn-primary float-right">Enviar</button>
                             </form>
                             <div class="clearfix"></div>
                             <p class="content-divider center mt-4"><span>o</span></p>
@@ -73,6 +73,9 @@
                             No tienes cuenta todavía? <a href="/register">Regístrate ahora
                         </a>
                         </p>
+                         {{#errorMessage}}
+                         <div class="alert alert-danger" role="alert">{{.}}</div>
+                         {{/errorMessage}}
                     </div>
                 </div>
             </div>
@@ -83,7 +86,8 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Email de recuperación de contraseña enviado.
+                   
+                    
                 </div>
                 <p class="text-white small text-center">
                     &copy; 2017 Login/Register Forms. Designed by <a href="https://twitter.com/attacomsian">URJC</a>

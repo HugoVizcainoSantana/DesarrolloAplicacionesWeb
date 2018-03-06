@@ -45,7 +45,7 @@ public class User {
     @OneToMany(cascade=CascadeType.ALL)
     private List<OrderRequest> orderList;
 
-    
+    private String resetToken;
 
 	public User() {
     }
@@ -152,6 +152,13 @@ public class User {
 
 	public void setOrderList(List<OrderRequest> orderList) {
 		this.orderList = orderList;
+	}
+	public String getResetToken() {
+		return resetToken;
+	}
+
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
 	}
 }
 
