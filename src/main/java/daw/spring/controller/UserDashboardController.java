@@ -236,11 +236,11 @@ public class UserDashboardController implements CurrentUserInfo {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         Home home = homeService.findOneById(id);
         //Security Check
-        if (userService.userIsOwnerOf(user, home)) {
-            //Generate and send pdf
+        if (userService.userIsOwnerOf(user, home)) {//Generate and send pdf
             try {
                 OutputStream out = response.getOutputStream();
                 byte[] pdf = invoiceGenerator.generateInvoiceAsStream(home, user);
+                log.info("UserDash" + homeService.findOneById(id).getId());
                 out.write(pdf);
                 response.setContentType("application/pdf");
                 response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
@@ -289,12 +289,6 @@ public class UserDashboardController implements CurrentUserInfo {
                 user.setPhoto(uniqueFilname);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-        if (!password.isEmpty()) {
-            if (user.getPasswordHash() != null && user.getPasswordHash().length() > 0) {
-                String passNew = encoder.encode(password);
-                user.setPasswordHash(passNew);
             }
         }
         if (!email.isEmpty()) {

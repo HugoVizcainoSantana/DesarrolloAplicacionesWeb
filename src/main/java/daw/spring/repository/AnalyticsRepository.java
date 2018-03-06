@@ -12,4 +12,6 @@ public interface AnalyticsRepository extends JpaRepository<Analytics, Long> {
     List<Analytics> findByDeviceOrderByDateAsc(Device device);
 
     List<Analytics> findByDeviceAndDateAfter(Device device, Date date);
+
+    List<Analytics> findAllByDateAfter(Date date);
 }
