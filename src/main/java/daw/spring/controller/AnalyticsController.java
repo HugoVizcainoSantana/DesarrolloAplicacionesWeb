@@ -12,12 +12,16 @@ import daw.spring.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -51,7 +55,7 @@ public class AnalyticsController implements CurrentUserInfo {
 
     @RequestMapping(value = "/analytics/{homeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<String, Double> getAnalytics(Principal principal, @PathVariable long homeId) throws ParseException {
+    public ResponseEntity getAnalytics(Principal principal, @PathVariable long homeId) throws ParseException {
         log.info("Requested Analytics for home " + homeId);
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         Home home = homeService.findOneById(homeId);
@@ -63,7 +67,7 @@ public class AnalyticsController implements CurrentUserInfo {
                 analyticsList.addAll(analyticsService.findAnalyticsByDevice(d, oneDayAgo));
             }
             if (analyticsList.isEmpty()) { //If it's empty, return empty map
-                return new HashMap<>();
+                return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
             } else {
                 analyticsList.sort(Comparator.comparing(Analytics::getDate));
                 LinkedList<Date> graphDomain = new LinkedList<>();
@@ -123,13 +127,17 @@ public class AnalyticsController implements CurrentUserInfo {
                 for (int i = 0; i < graphDomain.size(); i++) {
                     graphData.put(formatDomain(graphDomain.get(i)), graphValues.get(i));
                 }
-                return new TreeMap<>(graphData);
+                return new ResponseEntity<>(new TreeMap<>(graphData), HttpStatus.OK);
             }
-        } else {
-            notificationService.alertAdmin(user);
-            return "redirect:/dashboard/";
         }
-
+        //If security check doesn't pass
+        notificationService.alertAdmin(user);
+        try {
+            return ResponseEntity.badRequest().location(new URI("/dashboard/")).build();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("Error on analytics controller. Response not generated");
     }
 
     private String formatDomain(Date d) throws ParseException {
