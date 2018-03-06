@@ -265,12 +265,6 @@ public class UserDashboardController implements CurrentUserInfo {
                 e.printStackTrace();
             }
         }
-        if(!password.isEmpty()) {
-        		if(user.getPasswordHash() !=null && user.getPasswordHash().length()>0) {
-        			String passNew = encoder.encode(password);
-        			user.setPasswordHash(passNew);
-        		}
-        }
         if(!email.isEmpty()) {
         		if(user.getEmail() !=null && user.getEmail().length()>0) {
         			user.setEmail(email);	
