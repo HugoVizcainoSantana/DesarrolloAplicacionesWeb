@@ -20,7 +20,7 @@ public class OrderRequest {
 
     @OneToMany
     private List<Device> deviceList;
-    
+
     private String observation;
 
     public OrderRequest() {
@@ -84,11 +84,12 @@ public class OrderRequest {
     public void setDeviceList(List<Device> deviceList) {
         this.deviceList = deviceList;
     }
-    public String getObservation() {
-		return observation;
-	}
 
-	public void setObservation(String observation) {
-		this.observation = observation;
-	}
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
 }

@@ -34,16 +34,14 @@ import java.util.*;
 @RequestMapping("/dashboard")
 public class AnalyticsController implements CurrentUserInfo {
 
+    private static final double LIGHT_CONSUMPTION = 0.20;
+    private static final double BLIND_CONSUMPTION = 1;
+    private URI dashboardUri;
     private final AnalyticsService analyticsService;
     private final HomeService homeService;
     private final UserService userService;
     private final NotificationService notificationService;
-
     private final Logger log = LoggerFactory.getLogger(getClass());
-
-    private final double LIGHT_CONSUMPTION = 0.20;
-    private final double BLIND_CONSUMPTION = 1;
-    private final double RASPBERRY_CONSUMPTION = 5;
 
     @Autowired
     public AnalyticsController(AnalyticsService analyticsService, HomeService homeService, UserService userService, NotificationService notificationService) {
@@ -51,6 +49,11 @@ public class AnalyticsController implements CurrentUserInfo {
         this.homeService = homeService;
         this.userService = userService;
         this.notificationService = notificationService;
+        try {
+            dashboardUri = new URI("/dashboard/");
+        } catch (URISyntaxException e) {
+            log.error(e.getLocalizedMessage());
+        }
     }
 
     @RequestMapping(value = "/analytics/{homeId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -132,21 +135,14 @@ public class AnalyticsController implements CurrentUserInfo {
         }
         //If security check doesn't pass
         notificationService.alertAdmin(user);
-        try {
-            return ResponseEntity.badRequest().location(new URI("/dashboard/")).build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        throw new RuntimeException("Error on analytics controller. Response not generated");
+        return ResponseEntity.badRequest().location(dashboardUri).build();
     }
 
-    private String formatDomain(Date d) throws ParseException {
-        String date_s = d.toString();
-        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd HH:mm:ss");
-        Date date = dt.parse(date_s);
-        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm:ss a");
-
-        return dt1.format(date);
+    private String formatDomain(Date date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyy-mm-dd HH:mm:ss");
+        Date formattedDate = dateFormat.parse(date.toString());
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        return hourFormat.format(formattedDate);
     }
 
 }

@@ -20,10 +20,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /*private static final String FILES_FOLDER = ".\\src\\main\\resources\\static\\images";
-
-    private List<String> imageTitles = new ArrayList<>();*/
-
     @RequestMapping("index/products")
     public String indexConProductos(Model model) {
         model.addAttribute("products", productService.findAllProducts());

@@ -23,69 +23,45 @@ import java.util.List;
 
 @Component
 public class InvoiceGenerator {
-    private static String FILE = "c:/temp/FirstPdf.pdf";
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+    private static final String COMPANY_NAME = "OnControlHome";
+    private static final Logger log = LoggerFactory.getLogger(InvoiceGenerator.class);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-    private static User currentUser;
-    private static Home currentHome;
-    private final ResourceLoader resourceLoader;
+    private User currentUser;
+    private Home currentHome;
+    private AnalyticsService analyticsService;
     private URL logoPath;
 
-    private final Logger log = LoggerFactory.getLogger("InvoiceGenerator");
-
-    private final AnalyticsService analyticsService;
-
     @Autowired
-    public InvoiceGenerator(ResourceLoader resourceLoader, AnalyticsService analyticsService) {
-        this.resourceLoader = resourceLoader;
+    public InvoiceGenerator(ResourceLoader resourceLoader, AnalyticsService service) {
         try {
             logoPath = resourceLoader.getResource("classpath:static/images/icono.png").getURL();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         }
-        this.analyticsService = analyticsService;
+        analyticsService = service;
 
     }
 
-    private void addMetaData(Document document) {
-        document.addTitle("Factura OnControlHome");
-        document.addKeywords("OnControlHome");
-        document.addAuthor("OnControlHome");
-        document.addCreator("OnControlHome");
+    private static void addMetaData(Document document) {
+        document.addTitle("Factura " + COMPANY_NAME);
+        document.addKeywords(COMPANY_NAME);
+        document.addAuthor(COMPANY_NAME);
+        document.addCreator(COMPANY_NAME);
     }
 
-    private void addTitlePage(Document document) throws DocumentException, IOException {
-        //Add Logo and title
-        PdfPTable table = new PdfPTable(2);
-        table.setWidthPercentage(100);
-        table.setWidths(new int[]{1, 2});
-        table.addCell(createImageCell(logoPath));
-
-        PdfPCell titleCell = new PdfPCell();
-        Paragraph p = new Paragraph("Factura OnControlHome");
-        p.setAlignment(Element.ALIGN_LEFT);
-        titleCell.addElement(p);
-        titleCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-        titleCell.setBorder(Rectangle.NO_BORDER);
-        table.addCell(titleCell);
-        document.add(table);
-
-        Paragraph subtitle = new Paragraph();
-        addEmptyLine(subtitle, 1);
-        subtitle.add(new Paragraph("Factura para el usuario: " + currentUser.getFirstName() + " " + currentUser.getLastName() + ", creada el " + new Date(), smallBold));
-        subtitle.add(new Paragraph("Dirección: " + currentHome.getAddress(), smallBold));
-        subtitle.add(new Paragraph("Código postal : " + currentHome.getPostCode(), smallBold));
-        addEmptyLine(subtitle, 2);
-        document.add(subtitle);
-    }
-
-    private PdfPCell createImageCell(URL path) throws DocumentException, IOException {
+    private static PdfPCell createImageCell(URL path) throws DocumentException, IOException {
         Image img = Image.getInstance(path);
         PdfPCell cell = new PdfPCell(img, true);
         cell.setBorder(Rectangle.NO_BORDER);
         return cell;
+    }
+
+    private static void addEmptyLine(Paragraph paragraph, int number) {
+        for (int i = 0; i < number; i++) {
+            paragraph.add(new Paragraph(" "));
+        }
     }
 
     private void addContent(Document document) throws DocumentException {
@@ -226,10 +202,29 @@ public class InvoiceGenerator {
         return table;
     }
 
-    private void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
-        }
+    private void addTitlePage(Document document) throws DocumentException, IOException {
+        //Add Logo and title
+        PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(100);
+        table.setWidths(new int[]{1, 2});
+        table.addCell(createImageCell(logoPath));
+
+        PdfPCell titleCell = new PdfPCell();
+        Paragraph p = new Paragraph("Factura " + COMPANY_NAME);
+        p.setAlignment(Element.ALIGN_LEFT);
+        titleCell.addElement(p);
+        titleCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+        titleCell.setBorder(Rectangle.NO_BORDER);
+        table.addCell(titleCell);
+        document.add(table);
+
+        Paragraph subtitle = new Paragraph();
+        addEmptyLine(subtitle, 1);
+        subtitle.add(new Paragraph("Factura para el usuario: " + currentUser.getFirstName() + " " + currentUser.getLastName() + ", creada el " + new Date(), smallBold));
+        subtitle.add(new Paragraph("Dirección: " + currentHome.getAddress(), smallBold));
+        subtitle.add(new Paragraph("Código postal : " + currentHome.getPostCode(), smallBold));
+        addEmptyLine(subtitle, 2);
+        document.add(subtitle);
     }
 
     public byte[] generateInvoiceAsStream(Home home, User user) throws DocumentException, IOException {
@@ -245,7 +240,6 @@ public class InvoiceGenerator {
         addTitlePage(invoice);
         addContent(invoice);
         invoice.close();
-
         return stream.toByteArray();
     }
 

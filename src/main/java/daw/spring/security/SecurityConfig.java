@@ -9,8 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserAuthProvider authenticationProvider;
+
     @Autowired
-    public UserAuthProvider authenticationProvider;
+    public SecurityConfig(UserAuthProvider authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

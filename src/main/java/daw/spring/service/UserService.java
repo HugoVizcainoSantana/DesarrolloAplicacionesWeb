@@ -54,7 +54,6 @@ public class UserService {
     public void saveHomeUser(Home home, User user) {
         List<Home> listHome = user.getHomeList();
         listHome.add(home);
-        //user.setHomeList(listHome);
         saveUser(user);
     }
 

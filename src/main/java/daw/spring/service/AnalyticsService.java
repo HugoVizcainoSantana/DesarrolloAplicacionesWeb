@@ -21,7 +21,7 @@ public class AnalyticsService {
     @Autowired
     public AnalyticsService(AnalyticsRepository analyticsRepository) {
         this.analyticsRepository = analyticsRepository;
-        
+
     }
 
     public Analytics findOneById(long id) {

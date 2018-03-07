@@ -60,7 +60,7 @@ public class Application {
 
     @Bean
     public CommandLineRunner initDatabaseData() {
-        return (args) -> {
+        return args -> {
         /*
             Default Products
          */
@@ -120,22 +120,22 @@ public class Application {
         /*
             Default Users
          */
-            User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "9866363", null, null,null, Roles.ADMIN.getRoleName());
+            User user1 = new User("Amador", "Rivas", "amador@merengue.com", encoder.encode("1234"), null, "98663631", null, null, null, Roles.ADMIN.getRoleName());
             userService.saveUser(user1);
-            User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
+            User user2 = new User("Teodoro", "Rivas", "teodor69@merengue.com", encoder.encode("1234"), null, "98663632", null, null, null, Roles.USER.getRoleName());
             userService.saveUser(user2);
-            User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
+            User user3 = new User("ramon", "serrano", "ramon@ramon.com", encoder.encode("1234"), null, "98663633", null, null, null, Roles.USER.getRoleName());
             userService.saveUser(user3);
-            User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
+            User user4 = new User("dani", "maci", "dani@maci.com", encoder.encode("1234"), null, "98663634", null, null, null, Roles.USER.getRoleName());
             userService.saveUser(user4);
             List<Home> user5_homes = new ArrayList<>();
             user5_homes.add(home2);
             user5_homes.add(home3);
-            User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), user5_homes, "9866363", null, null, null, Roles.USER.getRoleName());
+            User user5 = new User("Hugo", "Santana", "hugo@santana.com", encoder.encode("1234"), user5_homes, "98663635", null, null, null, Roles.USER.getRoleName());
             userService.saveUser(user5);
-            User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.USER.getRoleName());
+            User user6 = new User("Jorge", "Bicho", "Jorge@gmail.com", encoder.encode("1234"), null, "98663636", null, null, null, Roles.USER.getRoleName());
             userService.saveUser(user6);
-            User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "9866363", null, null, null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
+            User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "98663637", null, null, null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
             userService.saveUser(userAdmin1);
         };
     }

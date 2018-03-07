@@ -10,22 +10,12 @@ public class Analytics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    /*
-    @OneToOne
-    private User user;
 
-    private ArrayList<String> domain; // And a domain in Years, Months, Weeks or Days
-
-    private ArrayList<Integer> data; // And the data itself with the average
-    private ArrayList<Integer> dataAverage;
-
-    */
     @ManyToOne
     private Device device;
     private Date date;
     private Device.StateType previousState;
     private Device.StateType newState;
-
 
     public Analytics() {
     }

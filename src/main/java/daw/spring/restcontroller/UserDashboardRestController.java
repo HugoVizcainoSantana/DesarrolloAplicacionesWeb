@@ -1,4 +1,4 @@
-package daw.spring.rest_controller;
+package daw.spring.restcontroller;
 
 import daw.spring.utilities.ApiRestController;
 import org.slf4j.Logger;
