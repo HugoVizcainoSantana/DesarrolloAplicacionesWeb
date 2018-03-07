@@ -21,8 +21,6 @@ public class UserComponent {
     }
 
     public void setLoggedUser(User user) {
-        if (user != null) {
-            this.user = user;
-        }
+        this.user = user;
     }
 }

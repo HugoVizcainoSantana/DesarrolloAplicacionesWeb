@@ -2,6 +2,7 @@ package daw.spring.restcontroller;
 
 import daw.spring.component.UserComponent;
 import daw.spring.model.User;
+import daw.spring.service.ProductService;
 import daw.spring.utilities.ApiRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @ApiRestController
 public class LoginRestController {
@@ -19,10 +22,12 @@ public class LoginRestController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginRestController.class);
     private final UserComponent userComponent;
+    private final ProductService productService;
 
     @Autowired
-    public LoginRestController(UserComponent userComponent) {
+    public LoginRestController(UserComponent userComponent, ProductService productService) {
         this.userComponent = userComponent;
+        this.productService = productService;
     }
 
     @RequestMapping(value = "/login")
@@ -39,16 +44,19 @@ public class LoginRestController {
     }
 
     @RequestMapping("/logout")
-    public ResponseEntity<Boolean> logout(HttpSession session) {
+    public ResponseEntity<Map<Boolean, User>> logout(HttpSession session) {
+
+        User loggedUser = userComponent.getLoggedUser();
+        Map<Boolean, User> map = new HashMap<>();
+        map.put(true, loggedUser);
 
         if (!userComponent.isLoggedUser()) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } else {
             session.invalidate();
             log.info("LOGOUT DONE");
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
-
     }
 
 }
