@@ -21,8 +21,8 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 
     List<OrderRequest> findAllByHomeIn(Collection<Home> homes);
 
-    @Query(value="SELECT * FROM order_request u WHERE u.home_id = ?1", nativeQuery = true)
-    OrderRequest findOrderRequest(long id );
+    @Query(value = "SELECT * FROM order_request u WHERE u.home_id = ?1", nativeQuery = true)
+    OrderRequest findOrderRequest(long id);
 
 
     Page<OrderRequest> findAllByCompletedIsFalse(Pageable pageRequest);

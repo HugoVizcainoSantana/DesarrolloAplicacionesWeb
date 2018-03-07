@@ -23,7 +23,6 @@ import java.util.List;
 
 @Component
 public class InvoiceGenerator {
-    private static String FILE = "c:/temp/FirstPdf.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
     private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
@@ -31,11 +30,9 @@ public class InvoiceGenerator {
     private static User currentUser;
     private static Home currentHome;
     private final ResourceLoader resourceLoader;
-    private URL logoPath;
-
     private final Logger log = LoggerFactory.getLogger("InvoiceGenerator");
-
     private final AnalyticsService analyticsService;
+    private URL logoPath;
 
     @Autowired
     public InvoiceGenerator(ResourceLoader resourceLoader, AnalyticsService analyticsService) {

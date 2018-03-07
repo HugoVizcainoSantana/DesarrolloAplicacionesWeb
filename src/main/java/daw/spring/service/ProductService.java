@@ -20,11 +20,11 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    
+
     @Transactional(readOnly = true)
-   public List<Product> findByNombre(String term){
-	   return productRepository.findByDescription(term);
-   }
+    public List<Product> findByNombre(String term) {
+        return productRepository.findByDescription(term);
+    }
 
     public Product findOneById(Long id) {
         return productRepository.findOne(id);
@@ -35,7 +35,7 @@ public class ProductService {
     }
 
     public void updateStockProduct(Long id, long stock, double cost, String description) {
-        Product productE=productRepository.findOne(id);
+        Product productE = productRepository.findOne(id);
         productE.setStock(stock);
         productE.setCost(cost);
         productE.setDescription(description);

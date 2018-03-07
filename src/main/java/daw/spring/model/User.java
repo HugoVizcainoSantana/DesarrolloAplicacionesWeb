@@ -41,13 +41,12 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
-    
-    @OneToMany(cascade=CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderRequest> orderList;
 
-    
 
-	public User() {
+    public User() {
     }
 
     public User(String firstName, String lastName, String email, String passwordHash, List<Home> homeList, String phone, List<Notification> notificationList, String photo, List<OrderRequest> orderList, String... roles) {
@@ -60,7 +59,7 @@ public class User {
         this.notificationList = notificationList;
         this.photo = photo;
         this.roles = new HashSet<>(Arrays.asList(roles));
-        this.orderList= orderList;
+        this.orderList = orderList;
     }
 
     public String getPhone() {
@@ -123,6 +122,10 @@ public class User {
         return roles;
     }
 
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
     public void setRoles(String... roles) {
         this.roles = new HashSet<>(Arrays.asList(roles));
     }
@@ -143,15 +146,12 @@ public class User {
         this.photo = photo;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
     public List<OrderRequest> getOrderList() {
-		return orderList;
-	}
+        return orderList;
+    }
 
-	public void setOrderList(List<OrderRequest> orderList) {
-		this.orderList = orderList;
-	}
+    public void setOrderList(List<OrderRequest> orderList) {
+        this.orderList = orderList;
+    }
 }
 

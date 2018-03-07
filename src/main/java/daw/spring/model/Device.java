@@ -100,22 +100,14 @@ public class Device {
     public void setActivated(boolean activated) {
         this.activated = activated;
     }
-    
+
     public boolean isFavorite() {
-		return favorite;
-	}
-
-
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
-	}
-
-    public enum DeviceType {
-        BLIND, LIGHT, RASPBERRYPI
+        return favorite;
     }
 
-    public enum StateType {
-        ON, OFF, UP, DOWN
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public boolean isActivatedStatus() {
@@ -124,5 +116,13 @@ public class Device {
 
     public void setActivatedStatus(boolean activatedStatus) {
         this.activatedStatus = activatedStatus;
+    }
+
+    public enum DeviceType {
+        BLIND, LIGHT, RASPBERRYPI
+    }
+
+    public enum StateType {
+        ON, OFF, UP, DOWN
     }
 }

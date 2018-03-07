@@ -40,16 +40,16 @@ public class DeviceService {
         return deviceRepository.findAll(pageRequest);
     }
 
-    public long countActivatedDevices(){
+    public long countActivatedDevices() {
         return deviceRepository.countDevicesByActivatedIsTrue();
     }
 
-    public long countNotActivatedDevices(){
+    public long countNotActivatedDevices() {
         return deviceRepository.countDevicesByActivatedIsFalse();
     }
 
     public void activeOneDevice(long deviceId, String serialNumber) {
-        Device deviceUpdate=deviceRepository.findOne(deviceId);
+        Device deviceUpdate = deviceRepository.findOne(deviceId);
         deviceUpdate.setActivated(true);
         deviceUpdate.setSerialNumber(serialNumber);
         saveDevice(deviceUpdate);
@@ -58,9 +58,9 @@ public class DeviceService {
     public void cancelOneDevice(long deviceId) {
         deviceRepository.delete(deviceId);
     }
-    
+
     public int findCost(String type) {
-    		return deviceRepository.findCostByType(type);
+        return deviceRepository.findCostByType(type);
     }
 
 }
