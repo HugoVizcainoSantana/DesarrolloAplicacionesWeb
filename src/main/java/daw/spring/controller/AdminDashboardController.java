@@ -240,7 +240,9 @@ public class AdminDashboardController implements CurrentUserInfo {
                 Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
-                    file.delete();
+                    if (!file.delete()) {
+                        throw new RuntimeException("File not deleted Properly");
+                    }
                 }
             }
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
@@ -250,7 +252,7 @@ public class AdminDashboardController implements CurrentUserInfo {
                 Files.copy(photo.getInputStream(), rootAbsolutePath);
                 product.setImg(uniqueFilname);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getLocalizedMessage());
             }
         }
         productService.saveProduct(product);

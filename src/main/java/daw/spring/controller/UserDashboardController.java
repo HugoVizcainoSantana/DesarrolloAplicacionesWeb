@@ -246,7 +246,7 @@ public class UserDashboardController implements CurrentUserInfo {
                 response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
                 response.flushBuffer();
             } catch (IOException | DocumentException e) {
-                e.printStackTrace();
+                log.error(e.getLocalizedMessage());
             }
         } else {
             notificationService.alertAdmin(user);
@@ -254,7 +254,7 @@ public class UserDashboardController implements CurrentUserInfo {
             try {
                 response.sendRedirect("/dashboard/");
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getLocalizedMessage());
             }
         }
     }
@@ -276,7 +276,9 @@ public class UserDashboardController implements CurrentUserInfo {
                 Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
-                    file.delete();
+                    if (!file.delete()) {
+                        throw new RuntimeException("File not deleted Properly");
+                    }
                 }
             }
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
@@ -288,7 +290,7 @@ public class UserDashboardController implements CurrentUserInfo {
                 Files.copy(photo.getInputStream(), rootAbsolutePath);
                 user.setPhoto(uniqueFilname);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getLocalizedMessage());
             }
         }
         if (!password.isEmpty()) {
@@ -345,12 +347,13 @@ public class UserDashboardController implements CurrentUserInfo {
         try {
             resource = new UrlResource(pathPhoto.toUri());
             if (!resource.exists() || !resource.isReadable()) {
-                throw new RuntimeException("Error no se ha podido cargar la imgen: " + pathPhoto.toString());
+                throw new NoSuchFieldException("Error no se ha podido cargar la imgen: " + pathPhoto.toString());
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
+        } catch (MalformedURLException | NoSuchFieldException exception) {
+            log.error(exception.getLocalizedMessage());
         }
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
+        return ResponseEntity.notFound().build();
     }
 
     @RequestMapping("/terms-Conditions")

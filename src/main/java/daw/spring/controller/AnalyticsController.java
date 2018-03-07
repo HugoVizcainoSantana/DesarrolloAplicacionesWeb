@@ -135,7 +135,7 @@ public class AnalyticsController implements CurrentUserInfo {
         try {
             return ResponseEntity.badRequest().location(new URI("/dashboard/")).build();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         }
         throw new RuntimeException("Error on analytics controller. Response not generated");
     }
@@ -144,7 +144,7 @@ public class AnalyticsController implements CurrentUserInfo {
         String date_s = d.toString();
         SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd HH:mm:ss");
         Date date = dt.parse(date_s);
-        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm:ss a");
+        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm:ss");
 
         return dt1.format(date);
     }

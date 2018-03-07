@@ -15,7 +15,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // TODO Auto-generated method stub
         super.addResourceHandlers(registry);
         String resourcePath = Paths.get("upload").toAbsolutePath().toUri().toString();
         log.info(resourcePath);
