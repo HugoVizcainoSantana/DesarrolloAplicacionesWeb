@@ -36,7 +36,7 @@ public class AnalyticsController implements CurrentUserInfo {
 
     private static final double LIGHT_CONSUMPTION = 0.20;
     private static final double BLIND_CONSUMPTION = 1;
-    private static URI dashboardUri;
+    private URI dashboardUri;
     private final AnalyticsService analyticsService;
     private final HomeService homeService;
     private final UserService userService;

@@ -10,11 +10,5 @@ public interface HomeRepository extends JpaRepository<Home, Long> {
 
     List<Home> findByActivatedIsFalse();
 
-
-    //@Query(value = "SELECT home_list_id FROM user_home_list WHERE user_id = ?1", nativeQuery = true)
-    //List<Long> findByUserId(long id);
-    //List<Long> findAllHomeIdByUserId(long id);
-
-
 }
 

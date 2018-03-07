@@ -122,12 +122,12 @@ public class User {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
     public void setRoles(String... roles) {
         this.roles = new HashSet<>(Arrays.asList(roles));
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 
     public List<Notification> getNotificationList() {

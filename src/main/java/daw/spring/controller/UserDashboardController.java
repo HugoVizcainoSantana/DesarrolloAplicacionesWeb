@@ -33,9 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-//import org.apache.catalina.startup.HomesUserDatabase;
-//import static org.hamcrest.CoreMatchers.instanceOf;
-//import static org.mockito.Mockito.after;
+
 
 @Controller
 @RequestMapping("/dashboard")
@@ -44,7 +42,6 @@ public class UserDashboardController implements CurrentUserInfo {
     private final UserService userService;
     private final HomeService homeService;
     private final InvoiceGenerator invoiceGenerator;
-    private final ProductService productService;
     private final DeviceService deviceService;
     private final OrderRequestService orderRequestService;
     private final AnalyticsService analyticsService;
@@ -56,11 +53,10 @@ public class UserDashboardController implements CurrentUserInfo {
 
 
     @Autowired
-    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, ProductService productService, DeviceService deviceService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder, NotificationService notificationService) {
+    public UserDashboardController(UserService userService, HomeService homeService, AnalyticsService analyticsService, InvoiceGenerator invoiceGenerator, DeviceService deviceService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder, NotificationService notificationService) {
         this.userService = userService;
         this.homeService = homeService;
         this.invoiceGenerator = invoiceGenerator;
-        this.productService = productService;
         this.deviceService = deviceService;
         this.orderRequestService = orderRequestService;
         this.analyticsService = analyticsService;
@@ -181,7 +177,6 @@ public class UserDashboardController implements CurrentUserInfo {
         Home home = new Home(postCode, address, false, deviceList);
         homeService.saveHome(home);
         userService.saveHomeUser(home, user);
-        //Order order = new Order(total, false, home);
         OrderRequest order = new OrderRequest(totalPrice, false, new Date(), home, deviceList, observation); //added date
         orderRequestService.saveOrder(order);
         user.getOrderList().add(order);
@@ -266,19 +261,17 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String saveProfile(Model model, @RequestParam("file") MultipartFile photo,
+    public String saveProfile(@RequestParam("file") MultipartFile photo,
                               @RequestParam("password") String password,
                               @RequestParam("email") String email,
-                              @RequestParam("phone") String phone, Principal principal) {
+                              @RequestParam("phone") String phone, Principal principal) throws IOException {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
             if (user.getPhoto() != null && user.getPhoto().length() > 0) {
                 Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
-                    if (!file.delete()) {
-                        throw new RuntimeException("File not deleted Properly");
-                    }
+                    Files.delete(file.toPath());
                 }
             }
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
@@ -340,10 +333,10 @@ public class UserDashboardController implements CurrentUserInfo {
     }
 
     @GetMapping(value = "/upload/{filename:.+}")
-    public ResponseEntity<Resource> seePhoto(@PathVariable String fileName) {
-        Path pathPhoto = Paths.get("upload").resolve(fileName).toAbsolutePath();
+    public ResponseEntity<Resource> seePhoto(@PathVariable String filename) {
+        Path pathPhoto = Paths.get("upload").resolve(filename).toAbsolutePath();
         log.info("Pathphoto: " + pathPhoto);
-        Resource resource = null;
+        Resource resource;
         try {
             resource = new UrlResource(pathPhoto.toUri());
             if (!resource.exists() || !resource.isReadable()) {

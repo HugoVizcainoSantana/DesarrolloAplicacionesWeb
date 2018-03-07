@@ -219,16 +219,14 @@ public class AdminDashboardController implements CurrentUserInfo {
                              @RequestParam("numberStock") long stock,
                              @RequestParam("numberCost") double cost,
                              @RequestParam("defDescription") String description,
-                             Principal principal) {
+                             Principal principal) throws IOException {
         Product product = new Product(description, cost, null, null, stock);
         if (!photo.isEmpty()) {
             if (product.getImg() != null && product.getImg().length() > 0) {
                 Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
-                    if (!file.delete()) {
-                        throw new RuntimeException("File not deleted Properly");
-                    }
+                    Files.delete(file.toPath());
                 }
             }
             String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
