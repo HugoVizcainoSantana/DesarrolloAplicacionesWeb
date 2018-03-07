@@ -1,1 +1,1 @@
-java -Dserver.port=$PORT -Dspring.profiles.active=heroku $JAVA_OPTS -jar target/spring-0.0.3-DAW.jar
+java -Dserver.port=$PORT $JAVA_OPTS -jar target/spring-0.0.3-DAW.jar -Dspring.profiles.active=heroku
