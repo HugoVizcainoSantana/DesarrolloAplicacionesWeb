@@ -1,7 +1,9 @@
 package daw.spring.restcontroller;
 
 import daw.spring.model.Product;
+import daw.spring.model.User;
 import daw.spring.service.ProductService;
+import daw.spring.service.UserService;
 import daw.spring.utilities.ApiRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @ApiRestController
+@RequestMapping("/adminDashboard")
 public class AdminDashboarRestController {
 
     private final ProductService productService;
+    private final UserService userService;
 
     @Autowired
-    public AdminDashboarRestController(ProductService productService) {
-        //this.userService = userService;
+    public AdminDashboarRestController(UserService userService, ProductService productService) {
+        this.userService = userService;
         //this.deviceService = deviceService;
         //this.homeService = homeService;
         this.productService = productService;
@@ -31,6 +35,16 @@ public class AdminDashboarRestController {
     @RequestMapping(value="/inventory", method= RequestMethod.GET)
     public List<Product> getInventory() {
         return productService.findAllProducts();
+    }
+
+    @RequestMapping(value="/users", method= RequestMethod.GET)
+    public List<User> getUsers() {
+        return userService.findAll();
+    }
+
+    @RequestMapping(value="/user/{id}", method= RequestMethod.GET)
+    public User getUser(@PathVariable long id) {
+        return userService.findOneById(id);
     }
 
 }
