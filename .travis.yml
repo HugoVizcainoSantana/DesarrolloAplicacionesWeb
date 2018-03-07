@@ -28,6 +28,11 @@ addons:
     organization: "oncontrolhome"
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
+    # Github token so sonar can comment on pull request
+    github_token:
+          secure: Fcx4NvPGHerOyAM3rqB2gfkxl49qts1otY4R2FCqymGt0kPrEw+rwU5i8Ew50kLSUCs833BxDAZRO+XWvNOycEiwaOGZ3cXHYIcMoDfQj4wq8IBCzeykd2he/LaJh8oi59heDJMSHzIHxzYNap6vnfjNWV5BYq0jeK00xCnhxGogkhtpuVSrU3RwvBZs8B31VUaGlFfHhLYcXODpdih85P0Mi68tS4C6gUv1V7WOXWH7dlISiavN6wtkMDNRgWz80rg7Gc2YOQoEgvJRiqXtGQjvL6XP0mjqFkvHPRCjPsCA/vELaRrAAjbjdF+vRnhqq2yr5Sg17LEXO20dukwsAoplXrk1VDxVxNlWAUdXdi36MpkTE/5nazrwwCizaot6nqioc5d1eybc9o2ykaYj9dmJxj5XJMLX945viE4Qm6xmtxZytPgi4/7/kuw3vCcpZe75EqnemJN01J0H7JAXTbegGnFby/tTM8lUc0GN65GtWKf2K7EmBQ2FOeTOQqFNyQkmdfZHc+Cg4ClFj/2tzkaohzc6pMYEg0mDRk0Jitdf7L5+v6hcVO3AS/bJLXNxn/wwfle8VBTpxFC14EO0VGh6XsudMmP7Hjtq3C2uRq9J9yZmh5zcITmlnlMsGX9BQUFz0l5HjCU2vGsZjtlcYwMZNTkNYLXzoU/gwj23Oc4=
+
+
 script:
   # Builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
