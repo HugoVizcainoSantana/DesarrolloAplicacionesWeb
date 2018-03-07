@@ -37,4 +37,5 @@ public class LoginRestController {
     // TODO add interfaces for represent the api here and @JsonView (using interfaces) on attributes
 
     // TODO login and logOut methods using RequestMapping
+
 }
