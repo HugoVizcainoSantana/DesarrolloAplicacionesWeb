@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class Application {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+
+    public static final Path IMAGES_PATH = Paths.get("images");
 
 
     public static void main(String[] args) {

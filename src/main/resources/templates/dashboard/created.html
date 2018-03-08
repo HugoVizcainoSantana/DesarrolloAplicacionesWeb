@@ -44,7 +44,7 @@
                 <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
                 {{/photo}}
                 {{^photo}}
-                <img src="/images/avatar.png" alt="person" class="img-fluid rounded-circle">
+                <img src="/images/users/default.png" alt="person" class="img-fluid rounded-circle">
                 {{/photo}}
                 <h2 class="h5">Usuario:</h2>
                 <span>{{firstName}}</span>
@@ -209,8 +209,8 @@
 						{{#photo}} <img class="img-thumbnail rounded float-left"
 							style="max-width: 25%;" src="/upload/{{photo}}" /> {{/photo}}
 						{{^photo}} <img class="img-thumbnail rounded float-left"
-							style="max-width: 15%;" src="/images/avatar.png" alt="person"
-							class="img-fluid rounded-circle"> {{/photo}}
+                                        style="max-width: 15%;" src="/images/users/default.png" alt="person"
+                                        class="img-fluid rounded-circle"> {{/photo}}
 						<ul class="list-group">
 							<li class="list-group-item">{{firstName}}</li>
 							<li class="list-group-item">{{lastName}}</li>
