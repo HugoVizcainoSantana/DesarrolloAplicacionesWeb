@@ -163,7 +163,7 @@ public class Application {
         try {
             Path originalPhotoPath = resourceLoader.getResource("classpath:static/images/" + original).getFile().toPath();
             //Check if folder exists, if not, create it
-            if (!Utilities.checkIfPathExists(PRODUCTS_IMAGES_PATH)) {
+            if (Utilities.checkIfPathNotExists(PRODUCTS_IMAGES_PATH)) {
                 Utilities.createFolder(PRODUCTS_IMAGES_PATH);
             }
             Path targetPhotoPath = Application.PRODUCTS_IMAGES_PATH.resolve(target).toAbsolutePath();

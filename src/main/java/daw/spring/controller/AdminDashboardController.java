@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/adminDashboard")
@@ -217,26 +216,20 @@ public class AdminDashboardController implements CurrentUserInfo {
     public String addProduct(@RequestParam("file") MultipartFile photo,
                              @RequestParam("numberStock") long stock,
                              @RequestParam("numberCost") double cost,
-                             @RequestParam("defDescription") String description) throws IOException {
+                             @RequestParam("defDescription") String description) {
         Product product = new Product(description, cost, null, null, stock);
+        productService.saveProduct(product);
         if (!photo.isEmpty()) {
-            if (product.getImg() != null && product.getImg().length() > 0) {
-                Path oldImgPath = Application.UPLOADED_FILES_PATH.resolve(product.getImg()).toAbsolutePath();
-                File oldImg = oldImgPath.toFile();
-                if (oldImg.exists() && oldImg.canRead()) {
-                    Files.delete(oldImg.toPath());
-                }
-            }
-            String filename = "product-" + UUID.randomUUID();
-            Path photoPath = Application.UPLOADED_FILES_PATH.resolve("products").resolve(filename).toAbsolutePath();
+            String filename = "product-" + product.getId();
+            Path photoPath = Application.PRODUCTS_IMAGES_PATH.resolve(filename).toAbsolutePath();
             try {
-                Files.copy(photo.getInputStream(), photoPath);
+                Files.copy(photo.getInputStream(), photoPath, StandardCopyOption.REPLACE_EXISTING);
                 product.setImg(filename);
+                productService.saveProduct(product);
             } catch (IOException e) {
                 log.error(e.toString());
             }
         }
-        productService.saveProduct(product);
         return "redirect:/adminDashboard/inventory";
     }
 

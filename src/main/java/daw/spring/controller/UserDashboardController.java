@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -260,21 +260,20 @@ public class UserDashboardController implements CurrentUserInfo {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
             if (user.getPhoto() != null && user.getPhoto().length() > 0) {
-                Path photoPath = Application.UPLOADED_FILES_PATH.resolve(user.getPhoto()).toAbsolutePath();
-                File file = photoPath.toFile();
-                if (file.exists() && file.canRead()) {
-                    Files.delete(file.toPath());
+                Path oldPhoto = Application.UPLOADED_FILES_PATH.resolve(user.getPhoto()).toAbsolutePath();
+                if (Files.exists(oldPhoto)) {
+                    Files.delete(oldPhoto);
                 }
             }
             String filename = "user-" + user.getId();
             //Check if folder exists, if not, create it
-            if (!Utilities.checkIfPathExists(Application.USERS_IMAGES_PATH)) {
+            if (Utilities.checkIfPathNotExists(Application.USERS_IMAGES_PATH)) {
                 Utilities.createFolder(Application.USERS_IMAGES_PATH);
             }
             Path imagePath = Application.USERS_IMAGES_PATH.resolve(filename).toAbsolutePath();
             log.info("imagePath: " + imagePath);
             try {
-                Files.copy(photo.getInputStream(), imagePath);
+                Files.copy(photo.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
                 user.setPhoto(filename);
             } catch (IOException e) {
                 log.error(e.toString());
