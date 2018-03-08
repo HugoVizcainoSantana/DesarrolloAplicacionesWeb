@@ -5,8 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Utilities {
+
+    private Utilities() {
+    }
+
     public static boolean checkIfPathNotExists(Path path) {
-        return !Files.exists(path);
+        return !path.toFile().exists();
     }
 
     public static void createFolder(Path path) throws IOException {

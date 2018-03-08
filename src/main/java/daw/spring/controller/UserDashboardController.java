@@ -260,8 +260,8 @@ public class UserDashboardController implements CurrentUserInfo {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
             if (user.getPhoto() != null && user.getPhoto().length() > 0) {
-                Path oldPhoto = Application.UPLOADED_FILES_PATH.resolve(user.getPhoto()).toAbsolutePath();
-                if (Files.exists(oldPhoto)) {
+                Path oldPhoto = Application.USERS_IMAGES_PATH.resolve(user.getPhoto()).toAbsolutePath();
+                if (oldPhoto.toFile().exists()) {
                     Files.delete(oldPhoto);
                 }
             }
