@@ -59,8 +59,8 @@
 				<!-- User Info-->
 				{{#userDetail}}
 				<div class="sidenav-header-inner text-center">
-					{{#photo}} <img src="/upload/{{photo}}" alt="person"
-						class="img-fluid rounded-circle"> {{/photo}} {{^photo}} <img
+                    {{#photo}} <img src="/uploaded/users/{{photo}}" alt="person"
+                                    class="img-fluid rounded-circle"> {{/photo}} {{^photo}} <img
                         src="/images/users/default.png" alt="person"
                         class="img-fluid rounded-circle"> {{/photo}}
 					<h2 class="h5">Usuario:</h2>
@@ -232,8 +232,8 @@
 									method="post" enctype="multipart/form-data">
 									{{#photo}}
 									<div class="form-group row">
-										<img src="/upload/{{photo}}" alt="person"
-											class="img-fluid rounded-circle">
+                                        <img src="/uploaded/users/{{photo}}" alt="person"
+                                             class="img-fluid rounded-circle">
 									</div>
 									{{/photo}} {{^photo}}
 									<div class="form-group row">

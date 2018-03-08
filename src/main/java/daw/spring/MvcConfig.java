@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.nio.file.Paths;
-
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
@@ -16,9 +14,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        String resourcePath = Paths.get("upload").toAbsolutePath().toUri().toString();
+        String resourcePath = Application.UPLOADED_FILES_PATH.toAbsolutePath().toUri().toString();
         log.info(resourcePath);
-        registry.addResourceHandler("/upload/**").addResourceLocations(resourcePath);
+        registry.addResourceHandler("/uploaded/**/*.*").addResourceLocations(resourcePath);
     }
 
 

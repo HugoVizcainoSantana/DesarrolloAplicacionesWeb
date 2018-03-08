@@ -27,10 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/h2").permitAll();
         http.headers().frameOptions().sameOrigin();
         //Resources (CSS & JS & Images)
-        http.authorizeRequests().antMatchers("/dashboardBootstrap/**").permitAll();
         http.authorizeRequests().antMatchers("/publicBootstrap/**").permitAll();
         http.authorizeRequests().antMatchers("/images/**").permitAll();
-        http.authorizeRequests().antMatchers("/upload/**").permitAll();
+        http.authorizeRequests().antMatchers("/uploaded/**").permitAll();
+        http.authorizeRequests().antMatchers("/dashboardBootstrap/**").authenticated();
+        http.authorizeRequests().antMatchers("/uploaded/users/**").authenticated();
         // Private pages
         http.authorizeRequests().antMatchers("/login/redirect").hasAnyRole("USER", "ADMIN");
         http.authorizeRequests().antMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN");

@@ -1,5 +1,6 @@
 package daw.spring.controller;
 
+import daw.spring.Application;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.*;
 import daw.spring.service.*;
@@ -20,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
@@ -213,35 +213,30 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/addProduct";
     }
 
-    @RequestMapping(value = "/addProduct", params = "add" /*method = RequestMethod.POST*/)
-    public String addProduct(Model model,
-                             @RequestParam("file") MultipartFile photo,
+    @RequestMapping(value = "/addProduct", params = "add")
+    public String addProduct(@RequestParam("file") MultipartFile photo,
                              @RequestParam("numberStock") long stock,
                              @RequestParam("numberCost") double cost,
-                             @RequestParam("defDescription") String description,
-                             Principal principal) throws IOException {
+                             @RequestParam("defDescription") String description) throws IOException {
         Product product = new Product(description, cost, null, null, stock);
         if (!photo.isEmpty()) {
             if (product.getImg() != null && product.getImg().length() > 0) {
-                Path rootPath = Paths.get("upload").resolve(product.getImg()).toAbsolutePath();
-                File file = rootPath.toFile();
-                if (file.exists() && file.canRead()) {
-                    Files.delete(file.toPath());
+                Path oldImgPath = Application.UPLOADED_FILES_PATH.resolve(product.getImg()).toAbsolutePath();
+                File oldImg = oldImgPath.toFile();
+                if (oldImg.exists() && oldImg.canRead()) {
+                    Files.delete(oldImg.toPath());
                 }
             }
-            String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
-            Path rootPath = Paths.get("upload").resolve(uniqueFilname);
-            Path rootAbsolutePath = rootPath.toAbsolutePath();
+            String filename = "product-" + UUID.randomUUID();
+            Path photoPath = Application.UPLOADED_FILES_PATH.resolve("products").resolve(filename).toAbsolutePath();
             try {
-                Files.copy(photo.getInputStream(), rootAbsolutePath);
-                product.setImg(uniqueFilname);
+                Files.copy(photo.getInputStream(), photoPath);
+                product.setImg(filename);
             } catch (IOException e) {
-                log.error(e.getLocalizedMessage());
+                log.error(e.toString());
             }
         }
         productService.saveProduct(product);
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("product", productService.findAllProducts());
         return "redirect:/adminDashboard/inventory";
     }
 

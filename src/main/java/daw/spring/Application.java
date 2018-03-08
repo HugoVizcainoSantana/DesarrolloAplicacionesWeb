@@ -3,6 +3,9 @@ package daw.spring;
 import com.samskivert.mustache.Mustache;
 import daw.spring.model.*;
 import daw.spring.service.*;
+import daw.spring.utilities.Utilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,8 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mustache.MustacheEnvironmentCollector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -24,6 +30,10 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
 
+    public static final Path UPLOADED_FILES_PATH = Paths.get("uploaded");
+    public static final Path USERS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("users");
+    public static final Path PRODUCTS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("products");
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private ProductService productService;
     @Autowired
@@ -36,12 +46,10 @@ public class Application {
     private OrderRequestService orderRequestService;
     @Autowired
     private UserService userService;
-
     @Autowired
     private BCryptPasswordEncoder encoder;
-
-    public static final Path IMAGES_PATH = Paths.get("images");
-
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -65,14 +73,21 @@ public class Application {
     @Bean
     public CommandLineRunner initDatabaseData() {
         return args -> {
+            /*
+                Folder for uploaded images
+             */
+            log.error("Images path:" + UPLOADED_FILES_PATH);
         /*
             Default Products
          */
-            Product product1 = new Product("Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 15.50, Product.ProductType.LIGHT, "product-2.jpg", 36);
+            Product product1 = new Product("Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 15.50, Product.ProductType.LIGHT, "product-1.jpg", 36);
+            simulatePhotoUploaded("product-2.jpg", product1.getImg());
             productService.saveProduct(product1);
-            Product product2 = new Product("Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 32.50, Product.ProductType.BLIND, "product-1.jpg", 34);
+            Product product2 = new Product("Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.", 32.50, Product.ProductType.BLIND, "product-2.jpg", 34);
+            simulatePhotoUploaded("product-1.jpg", product2.getImg());
             productService.saveProduct(product2);
-            Product product3 = new Product("Raspberry pi programada para domótica. Así, podrás actuar desde la App, ya sea desde dispositivos móviles, ordenador sobre los diferentes elementos domóticos.", 32.50, Product.ProductType.RASPBERRYPI, "raspberry-pie.jpg", 67);
+            Product product3 = new Product("Raspberry pi programada para domótica. Así, podrás actuar desde la App, ya sea desde dispositivos móviles, ordenador sobre los diferentes elementos domóticos.", 32.50, Product.ProductType.RASPBERRYPI, "product-3.jpg", 67);
+            simulatePhotoUploaded("raspberry-pie.jpg", product3.getImg());
             productService.saveProduct(product3);
 
         /*
@@ -142,5 +157,19 @@ public class Application {
             User userAdmin1 = new User("Admin", "Root", "admin@admin.com", encoder.encode("1234"), null, "98663637", null, null, null, Roles.ADMIN.getRoleName(), Roles.USER.getRoleName());
             userService.saveUser(userAdmin1);
         };
+    }
+
+    private void simulatePhotoUploaded(String original, String target) {
+        try {
+            Path originalPhotoPath = resourceLoader.getResource("classpath:static/images/" + original).getFile().toPath();
+            //Check if folder exists, if not, create it
+            if (!Utilities.checkIfPathExists(PRODUCTS_IMAGES_PATH)) {
+                Utilities.createFolder(PRODUCTS_IMAGES_PATH);
+            }
+            Path targetPhotoPath = Application.PRODUCTS_IMAGES_PATH.resolve(target).toAbsolutePath();
+            Files.copy(originalPhotoPath, targetPhotoPath);
+        } catch (IOException e) {
+            log.error(e.toString());
+        }
     }
 }

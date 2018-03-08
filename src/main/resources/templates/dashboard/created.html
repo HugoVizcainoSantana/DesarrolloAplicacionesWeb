@@ -41,7 +41,7 @@
             {{#user}}
             <div class="sidenav-header-inner text-center">
                 {{#photo}}
-                <img src="/upload/{{photo}}" alt="person" class="img-fluid rounded-circle">
+                <img src="/uploaded/users/{{photo}}" alt="person" class="img-fluid rounded-circle">
                 {{/photo}}
                 {{^photo}}
                 <img src="/images/users/default.png" alt="person" class="img-fluid rounded-circle">
@@ -207,7 +207,7 @@
 						{{#user}}
 						<h1>{{firstName}}, has actualizado tus datos.</h1>
 						{{#photo}} <img class="img-thumbnail rounded float-left"
-							style="max-width: 25%;" src="/upload/{{photo}}" /> {{/photo}}
+                                        style="max-width: 25%;" src="/uploaded/users/{{photo}}"/> {{/photo}}
 						{{^photo}} <img class="img-thumbnail rounded float-left"
                                         style="max-width: 15%;" src="/images/users/default.png" alt="person"
                                         class="img-fluid rounded-circle"> {{/photo}}
