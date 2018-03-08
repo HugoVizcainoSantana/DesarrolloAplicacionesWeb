@@ -45,3 +45,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Ignoring server updated by users files
+uploaded/
