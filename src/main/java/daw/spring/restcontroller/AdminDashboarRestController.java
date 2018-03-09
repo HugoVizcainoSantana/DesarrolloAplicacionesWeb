@@ -1,8 +1,10 @@
 package daw.spring.restcontroller;
 
+import daw.spring.model.Notification;
 import daw.spring.model.OrderRequest;
 import daw.spring.model.Product;
 import daw.spring.model.User;
+import daw.spring.service.NotificationService;
 import daw.spring.service.OrderRequestService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
@@ -26,15 +28,16 @@ public class AdminDashboarRestController {
     private final ProductService productService;
     private final UserService userService;
     private final OrderRequestService orderRequestService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public AdminDashboarRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService) {
+    public AdminDashboarRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
         this.userService = userService;
         //this.deviceService = deviceService;
         //this.homeService = homeService;
         this.productService = productService;
         this.orderRequestService = orderRequestService;
-        //this.notificationService = notificationService;
+        this.notificationService = notificationService;
     }
 
 
@@ -66,6 +69,13 @@ public class AdminDashboarRestController {
         //listOut.add(listOrdersAreComplete);
         //return listOut;
         return ordersOut;
+    }
+
+    @RequestMapping(value = "/issues")
+    public List<Notification> issues(@PathVariable long id) {
+        List<Notification> listOutNotification = new ArrayList<>();
+        listOutNotification= notificationService.findAllNotifications();
+        return listOutNotification;
     }
 
 }
@@ -177,19 +187,7 @@ public class AdminDashboardController implements CurrentUserInfo {
         return "adminDashboard/orders";
     }
 
-    @RequestMapping(value = "/moreOrders", method = RequestMethod.GET)
-    public String moreOrdersPage(Model model, @RequestParam int page) {
-        Page<OrderRequest> orderList = orderRequestService.findNotCompletedOrdersAllPage(new PageRequest(page, 5));
-        model.addAttribute("itemsOrder", orderList);
-        return "listOrdersPage";
-    }
 
-    @RequestMapping(value = "/moreOrdersCompleted", method = RequestMethod.GET)
-    public String moreOrdersCompletedPage(Model model, @RequestParam int page) {
-        Page<OrderRequest> orderListCompleted = orderRequestService.findCompletedOrdersAllPage(new PageRequest(page, 5));
-        model.addAttribute("itemsOrderCompleted", orderListCompleted);
-        return "listOrdersCompletedPage";
-    }
 
     @RequestMapping(value = "/detail/{id}", params = "activate")
     public String confirmOrder(Model model, Principal principal, @PathVariable long id) {
