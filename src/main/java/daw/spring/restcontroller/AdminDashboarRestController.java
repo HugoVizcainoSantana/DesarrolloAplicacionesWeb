@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ApiRestController
 @RequestMapping("/adminDashboard")
@@ -53,13 +55,17 @@ public class AdminDashboarRestController {
 
 
     @RequestMapping("/orders")
-    public List<List<OrderRequest>> orders() {
-        List<List<OrderRequest>> listOut = new ArrayList<>();
+    public Map<String,List<OrderRequest>> orders() {
         List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
         List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
-        listOut.add(listOrdersNotcomplete);
-        listOut.add(listOrdersAreComplete);
-        return listOut;
+        Map<String,List<OrderRequest>> ordersOut = new HashMap<>();
+        ordersOut.put("OrdersNotComplete", listOrdersNotcomplete );
+        ordersOut.put("OrdersComplete", listOrdersAreComplete );
+        //List<List<OrderRequest>> listOut = new ArrayList<>();
+        //listOut.add(listOrdersNotcomplete);
+        //listOut.add(listOrdersAreComplete);
+        //return listOut;
+        return ordersOut;
     }
 
 }
