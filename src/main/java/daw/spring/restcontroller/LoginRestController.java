@@ -35,7 +35,7 @@ public class LoginRestController {
         }
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/logout")
     public ResponseEntity<Map<Boolean, User>> logout(HttpSession session) {
 
         Map<Boolean, User> map = new HashMap<>();
