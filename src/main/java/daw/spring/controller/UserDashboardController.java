@@ -1,10 +1,12 @@
 package daw.spring.controller;
 
 import com.itextpdf.text.DocumentException;
+import daw.spring.Application;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.*;
 import daw.spring.service.*;
+import daw.spring.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +21,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
 
 
 @Controller
@@ -64,7 +63,7 @@ public class UserDashboardController implements CurrentUserInfo {
         this.notificationService = notificationService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = {"", "/", "/index"})
     public String index(Model model, Principal principal) {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         model.addAttribute("user", user);
@@ -126,13 +125,6 @@ public class UserDashboardController implements CurrentUserInfo {
         }
 
 
-    }
-
-    @RequestMapping("/index")
-    public void index2(Model model, Principal principal) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        model.addAttribute("title", "Dashboard");
-        index(model, principal);
     }
 
     @RequestMapping("/shop")
@@ -241,7 +233,7 @@ public class UserDashboardController implements CurrentUserInfo {
                 response.addHeader("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf");
                 response.flushBuffer();
             } catch (IOException | DocumentException e) {
-                log.error(e.getLocalizedMessage());
+                log.error(e.toString());
             }
         } else {
             notificationService.alertAdmin(user);
@@ -249,7 +241,7 @@ public class UserDashboardController implements CurrentUserInfo {
             try {
                 response.sendRedirect("/dashboard/");
             } catch (IOException e) {
-                log.error(e.getLocalizedMessage());
+                log.error(e.toString());
             }
         }
     }
@@ -268,22 +260,23 @@ public class UserDashboardController implements CurrentUserInfo {
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if (!photo.isEmpty()) {
             if (user.getPhoto() != null && user.getPhoto().length() > 0) {
-                Path rootPath = Paths.get("upload").resolve(user.getPhoto()).toAbsolutePath();
-                File file = rootPath.toFile();
-                if (file.exists() && file.canRead()) {
-                    Files.delete(file.toPath());
+                Path oldPhoto = Application.USERS_IMAGES_PATH.resolve(user.getPhoto()).toAbsolutePath();
+                if (oldPhoto.toFile().exists()) {
+                    Files.delete(oldPhoto);
                 }
             }
-            String uniqueFilname = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
-            Path rootPath = Paths.get("upload").resolve(uniqueFilname);
-            Path rootAbsolutePath = rootPath.toAbsolutePath();
-            log.info("rootPath: " + rootPath);
-            log.info("rootAbsolutePath: " + rootAbsolutePath);
+            String filename = "user-" + user.getId();
+            //Check if folder exists, if not, create it
+            if (Utilities.checkIfPathNotExists(Application.USERS_IMAGES_PATH)) {
+                Utilities.createFolder(Application.USERS_IMAGES_PATH);
+            }
+            Path imagePath = Application.USERS_IMAGES_PATH.resolve(filename).toAbsolutePath();
+            log.info("imagePath: " + imagePath);
             try {
-                Files.copy(photo.getInputStream(), rootAbsolutePath);
-                user.setPhoto(uniqueFilname);
+                Files.copy(photo.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+                user.setPhoto(filename);
             } catch (IOException e) {
-                log.error(e.getLocalizedMessage());
+                log.error(e.toString());
             }
         }
         if (!password.isEmpty()) {
@@ -332,15 +325,20 @@ public class UserDashboardController implements CurrentUserInfo {
         return "dashboard/see";
     }
 
-    @GetMapping(value = "/upload/{filename:.+}")
+    /***
+     * Path value should be "/{@link Application#UPLOADED_FILES_PATH}/{filename:.+}"
+     * Filename uses regex to match everything
+     */
+    @GetMapping(value = "/uploaded/{filename:.+}")
     public ResponseEntity<Resource> seePhoto(@PathVariable String filename) {
-        Path pathPhoto = Paths.get("upload").resolve(filename).toAbsolutePath();
+        log.error("inside #seePhoto()");
+        Path pathPhoto = Application.UPLOADED_FILES_PATH.resolve(filename).toAbsolutePath();
         log.info("Pathphoto: " + pathPhoto);
         Resource resource;
         try {
             resource = new UrlResource(pathPhoto.toUri());
             if (!resource.exists() || !resource.isReadable()) {
-                throw new NoSuchFieldException("Error no se ha podido cargar la imgen: " + pathPhoto.toString());
+                throw new NoSuchFieldException("Error no se ha podido cargar la imagen: " + pathPhoto.toString());
             }
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"").body(resource);
         } catch (MalformedURLException | NoSuchFieldException exception) {
