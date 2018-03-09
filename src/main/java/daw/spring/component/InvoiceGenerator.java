@@ -38,7 +38,7 @@ public class InvoiceGenerator {
         try {
             logoPath = resourceLoader.getResource("classpath:static/images/icono.png").getURL();
         } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
+            log.error(e.toString());
         }
         analyticsService = service;
 
