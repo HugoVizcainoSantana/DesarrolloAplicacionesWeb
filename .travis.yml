@@ -13,13 +13,13 @@ before_install:
   - sudo service mysql restart
 
 ### HEROKU DEPLOYMENT
-deploy:
-  provider: heroku
-  api_key:
-    secure: SOjKDt7xeB8+XCCE40RC2CoV1fdkp3Vmpj+Mg01YH8+NxnTrK9Y/FpwG3rF2oC8yuCSHT7IIpbZ7uk0E4tzC39LTDBMQsY1ArACjb6DLV3e4+ey34RvyWxiHlUGSL1ysE/baTizHVSiaY2K7+t9EFGCgtGRPlEY6wFnCvDm1BVGUPZYmU5qp06KGoaJY6Sk0dkVgmMAW/jOHIc8cqHDZerqaT3tmGmZuM/sY9vQbz0HNMBqgynGh6eqIwfmEvqkfIRUi14gK8mncHoM3i9y1g5M2CP/M+ShsxvsbLQTVFZhFWirtnOk41JzCPNrjkDEI/y1YTOSMT6SkzHifXlccg7sUKBLoccnGd3U5prVvGifCJayXqWfry+GMIeiWA/cfTO/rBDfP5+lr0/TlcUqD/yYyywPBApH6i5mkif7ezkya+7YId4A8Wh08W+91XbPgAVLmLm8iVHGJYkV9todm+e/+wmXhB179gLs+IpHS2wAKFt0m/d2UdtwLct+8xlXnC7avypmnMkDsaUaRBA3ZnbQEG2p6LJAdA4Y1Hynv/p6cZARtaxjW/AU9QqTkPkuyB/Ndz0luaNf7wxu0J38zY9iFLhzpFUpXPJADT7m7JBI2C9m4EgkBSG5Y97SnMEyG5ko2yx1nOkDYcZ11VlJ1T6Tc5ZuIcumz7ZQ5xNdgCjI=
-  app: on-control-home
-  on:
-    repo: Hgmoa/DesarrolloAplicacionesWeb
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: SOjKDt7xeB8+XCCE40RC2CoV1fdkp3Vmpj+Mg01YH8+NxnTrK9Y/FpwG3rF2oC8yuCSHT7IIpbZ7uk0E4tzC39LTDBMQsY1ArACjb6DLV3e4+ey34RvyWxiHlUGSL1ysE/baTizHVSiaY2K7+t9EFGCgtGRPlEY6wFnCvDm1BVGUPZYmU5qp06KGoaJY6Sk0dkVgmMAW/jOHIc8cqHDZerqaT3tmGmZuM/sY9vQbz0HNMBqgynGh6eqIwfmEvqkfIRUi14gK8mncHoM3i9y1g5M2CP/M+ShsxvsbLQTVFZhFWirtnOk41JzCPNrjkDEI/y1YTOSMT6SkzHifXlccg7sUKBLoccnGd3U5prVvGifCJayXqWfry+GMIeiWA/cfTO/rBDfP5+lr0/TlcUqD/yYyywPBApH6i5mkif7ezkya+7YId4A8Wh08W+91XbPgAVLmLm8iVHGJYkV9todm+e/+wmXhB179gLs+IpHS2wAKFt0m/d2UdtwLct+8xlXnC7avypmnMkDsaUaRBA3ZnbQEG2p6LJAdA4Y1Hynv/p6cZARtaxjW/AU9QqTkPkuyB/Ndz0luaNf7wxu0J38zY9iFLhzpFUpXPJADT7m7JBI2C9m4EgkBSG5Y97SnMEyG5ko2yx1nOkDYcZ11VlJ1T6Tc5ZuIcumz7ZQ5xNdgCjI=
+#  app: on-control-home
+#  on:
+#    repo: Hgmoa/DesarrolloAplicacionesWeb
 
 
 ### SonarCloud Metrics
