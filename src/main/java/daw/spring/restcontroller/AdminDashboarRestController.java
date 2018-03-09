@@ -1,7 +1,9 @@
 package daw.spring.restcontroller;
 
+import daw.spring.model.OrderRequest;
 import daw.spring.model.Product;
 import daw.spring.model.User;
+import daw.spring.service.OrderRequestService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import daw.spring.utilities.ApiRestController;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApiRestController
@@ -20,14 +23,15 @@ public class AdminDashboarRestController {
 
     private final ProductService productService;
     private final UserService userService;
+    private final OrderRequestService orderRequestService;
 
     @Autowired
-    public AdminDashboarRestController(UserService userService, ProductService productService) {
+    public AdminDashboarRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService) {
         this.userService = userService;
         //this.deviceService = deviceService;
         //this.homeService = homeService;
         this.productService = productService;
-        //this.orderRequestService = orderRequestService;
+        this.orderRequestService = orderRequestService;
         //this.notificationService = notificationService;
     }
 
@@ -45,6 +49,17 @@ public class AdminDashboarRestController {
     @RequestMapping(value="/user/{id}", method= RequestMethod.GET)
     public User getUser(@PathVariable long id) {
         return userService.findOneById(id);
+    }
+
+
+    @RequestMapping("/orders")
+    public List<List<OrderRequest>> orders() {
+        List<List<OrderRequest>> listOut = new ArrayList<>();
+        List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
+        List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
+        listOut.add(listOrdersNotcomplete);
+        listOut.add(listOrdersAreComplete);
+        return listOut;
     }
 
 }
