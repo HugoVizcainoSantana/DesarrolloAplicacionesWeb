@@ -52,7 +52,7 @@ public class AnalyticsController implements CurrentUserInfo {
         try {
             dashboardUri = new URI("/dashboard/");
         } catch (URISyntaxException e) {
-            log.error(e.getLocalizedMessage());
+            log.error(e.toString());
         }
     }
 
