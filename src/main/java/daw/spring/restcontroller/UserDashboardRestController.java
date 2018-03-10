@@ -89,16 +89,16 @@ public class UserDashboardRestController {
         map.put("Test1", 1L);
         return map;
     }
-    
-    //Guardar Order OK
+    //++++++++++++++++++++++++++++++++++++++++ Order+++++++++++++++++++++++++++++++++++
+    //Crear Order OK
     @RequestMapping(value = "/shop", method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     public OrderRequest addOrder(@RequestBody OrderRequest orderRequest) {
         orderService.saveOrder(orderRequest);
         return orderRequest;
     }
-    
-    //Orden por id
+
+    //Obtener Orden por id
     @RequestMapping(value="/shop/{id}", method=GET)
     public ResponseEntity<OrderRequest> getOrder (@PathVariable long id) {
     		OrderRequest orderRequest = orderService.finOneById(id);
@@ -109,7 +109,41 @@ public class UserDashboardRestController {
     		}
     		
     }
-    //Lista de casas 
+  //Obtenemos una lista de ordenes
+  	@RequestMapping(value="/shop", method= GET)
+  	public ResponseEntity<List<OrderRequest>>getAllOrders(){
+  		List<OrderRequest>ordersRequest = orderService.findAllOrder();
+  		if(ordersRequest!=null){
+  			return new ResponseEntity<>(ordersRequest,HttpStatus.OK);
+  		}else{
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  		}	
+  	}
+  	
+  	//Borrar una orden 
+  	@RequestMapping(value="/shop/{id}", method = DELETE)
+	public ResponseEntity<OrderRequest> deleteOrderRequest(@PathVariable Integer id){
+  		OrderRequest orderRequest = orderService.finOneById(id);
+		if(orderRequest != null){
+			orderService.deleteOrder(id);
+			return new ResponseEntity<>(orderRequest,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(orderRequest,HttpStatus.NOT_FOUND);
+			
+		}
+	}
+    //++++++++++++++++++++++++++++++++++++++++ Order+++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ Home+++++++++++++++++++++++++++++++++++
+   
+  	//crear una casa
+  	@RequestMapping(value="/",method= POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public Home postHome(@RequestBody Home home){
+		homeService.saveHome(home);
+		return home;
+	}
+  	
+  	//Lista de casas 
     @RequestMapping(value="/homes", method= GET)
     public List<Home> homes() {
         return homeService.findAllHomes();
@@ -127,19 +161,35 @@ public class UserDashboardRestController {
             return new ResponseEntity<>(home, HttpStatus.NOT_FOUND);
         }
     }
-    //Actualiza perfil por id
-    @RequestMapping(value = "/profile/{id}", method = PUT)
-    public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, @PathVariable long id)  {
-        User user = userService.findOneById(id);
-        if (user != null && user.getId() != updateUser.getId()) {
-        		userService.saveUser(user);
-        		return new ResponseEntity<> (user, HttpStatus.OK);
-        }else {
-        		return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
-        }
-        
-    }
     
+    //Eliminar una casa
+  	@RequestMapping(value="/homes/{id}", method = DELETE)
+  	public ResponseEntity<Home> deleteHome(@PathVariable long id){
+  		Home homeSelcted = homeService.findOneById(id);
+  		if(homeSelcted != null){
+  			homeService.deleteHome(homeSelcted);
+  			return new ResponseEntity<>(homeSelcted,HttpStatus.OK);
+  		}else{
+  			return new ResponseEntity<>(homeSelcted,HttpStatus.NOT_FOUND);
+  			
+  		}
+  	}
+  	
+  	//Editamos una casa
+  	@RequestMapping(value="/homes/{id}", method= PUT)
+  	public ResponseEntity<Home> putHome(@PathVariable long id,@RequestBody Home homeUpdated){
+  		
+  		Home homeSelcted = homeService.findOneById(id);
+  		if((homeSelcted!=null) && (homeSelcted.getId() )== homeUpdated.getId()){
+  			homeService.saveHome(homeSelcted);
+  			return new ResponseEntity<>(homeUpdated,HttpStatus.OK);
+  		}else{
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  			
+  		}
+  	}
+    //++++++++++++++++++++++++++++++++++++++++ Home+++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ profile+++++++++++++++++++++++++++++++++++
     //Obtener perfil por id
     //@JsonView() 
     @RequestMapping(value="/profile/{id}", method = GET)
@@ -152,7 +202,57 @@ public class UserDashboardRestController {
     		}
     }
     
-   
+    
+    //Obtener todos los perfiles
+	@RequestMapping(value="/profile", method= GET)
+	public ResponseEntity<List<User>>getAllUser(){
+		List<User>users = userService.findAll();
+		if(users != null){
+			return new ResponseEntity<>(users,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+    //Actualiza perfil por id
+    @RequestMapping(value = "/profile/{id}", method = PUT)
+    public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, @PathVariable long id)  {
+        User user = userService.findOneById(id);
+        if (user != null && user.getId() != updateUser.getId()) {
+        		userService.saveUser(user);
+        		return new ResponseEntity<> (user, HttpStatus.OK);
+        }else {
+        		return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        }
+        
+    }
+
+    //Borrar perfil
+    @RequestMapping(value="/profile/{id}", method = DELETE)
+	public ResponseEntity<User> deleteProfile(@PathVariable long id){
+    	User user = userService.findOneById(id);
+		if(user != null){
+			userService.deleteUser(id);
+			return new ResponseEntity<>(user,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(user,HttpStatus.NOT_FOUND);
+			
+		}
+	}
+    
+    //editar un perfil
+    @RequestMapping(value="/profile/{id}", method= PUT)
+	public ResponseEntity<User> putResource(@PathVariable long id,@RequestBody User userUpdated){
+		
+		User user = userService.findOneById(id);
+		if((user!=null) && (user.getId() )== userUpdated.getId()){
+			userService.saveUser(userUpdated);
+			return new ResponseEntity<>(userUpdated,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			
+		}
+	}
+    //++++++++++++++++++++++++++++++++++++++++ profile+++++++++++++++++++++++++++++++++++
 }
 
 /*
