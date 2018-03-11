@@ -10,8 +10,6 @@ import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
 import daw.spring.utilities.ApiRestController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +36,28 @@ public class AdminDashboarRestController {
         this.productService = productService;
         this.orderRequestService = orderRequestService;
         this.notificationService = notificationService;
+    }
+
+
+    @RequestMapping(value="/", method= RequestMethod.GET)
+    public Map<String, List<Object>> index() {
+        Map<String,List<OrderRequest>> indexOut = new HashMap<>();
+        long id=1;
+        List<User> userData = new ArrayList<>();
+        List<OrderRequest> listOrders = new ArrayList<>();
+        List<Notification> listNotifications = new ArrayList<>();
+        userData.add(userService.findOneById(id));
+        listOrders = orderRequestService.homesOrdersList();
+        listNotifications = notificationService.findAllNotifications();
+        indexOut.put("userData", userData);
+        indexOut.put("listOrders", listOrders );
+        indexOut.put("listNotifications", listNotifications );
+        return indexOut;
+    }
+
+    @RequestMapping(value="/index", method= RequestMethod.GET)
+    public Map<String,List<Object>> index2() {
+        return index();
     }
 
 
