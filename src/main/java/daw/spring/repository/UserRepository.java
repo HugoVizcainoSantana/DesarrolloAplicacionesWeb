@@ -20,5 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByHomeListEquals(Home home);
 
     List<User> findAllByRolesEquals(String roles);
+    
+    
 
 }
