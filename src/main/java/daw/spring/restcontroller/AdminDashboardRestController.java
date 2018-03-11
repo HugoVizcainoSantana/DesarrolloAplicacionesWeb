@@ -8,20 +8,16 @@ import daw.spring.service.NotificationService;
 import daw.spring.service.OrderRequestService;
 import daw.spring.service.ProductService;
 import daw.spring.service.UserService;
-import daw.spring.utilities.ApiRestController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@ApiRestController
-@RequestMapping("/adminDashboard")
-public class AdminDashboarRestController {
+@RestController
+@RequestMapping("/api/adminDashboard")
+public class AdminDashboardRestController {
 
     private final ProductService productService;
     private final UserService userService;
@@ -29,7 +25,7 @@ public class AdminDashboarRestController {
     private final NotificationService notificationService;
 
     @Autowired
-    public AdminDashboarRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
+    public AdminDashboardRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
         this.userService = userService;
         //this.deviceService = deviceService;
         //this.homeService = homeService;
@@ -39,51 +35,53 @@ public class AdminDashboarRestController {
     }
 
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
+    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, List<Object>> index() {
-        Map<String,List<OrderRequest>> indexOut = new HashMap<>();
-        long id=1;
-        List<User> userData = new ArrayList<>();
-        List<OrderRequest> listOrders = new ArrayList<>();
-        List<Notification> listNotifications = new ArrayList<>();
-        userData.add(userService.findOneById(id));
-        listOrders = orderRequestService.homesOrdersList();
-        listNotifications = notificationService.findAllNotifications();
-        indexOut.put("userData", userData);
-        indexOut.put("listOrders", listOrders );
-        indexOut.put("listNotifications", listNotifications );
+        Map<String, List<Object>> indexOut = new HashMap<>();
+        long id = 1;
+        List<OrderRequest> listOrders = orderRequestService.homesOrdersList();
+        List<Notification> listNotifications = notificationService.findAllNotifications();
+        User user = userService.findOneById(id);
+        indexOut.put("userData", Collections.singletonList(user));
+        indexOut.put("listOrders", Collections.unmodifiableList(listOrders));
+        indexOut.put("listNotifications", Collections.unmodifiableList(listNotifications));
         return indexOut;
     }
 
-    @RequestMapping(value="/index", method= RequestMethod.GET)
-    public Map<String,List<Object>> index2() {
-        return index();
-    }
-
-
-    @RequestMapping(value="/inventory", method= RequestMethod.GET)
-    public List<Product> getInventory() {
+    @RequestMapping(value = "/inventory", method = RequestMethod.GET)
+    public List<Product> inventory() {
         return productService.findAllProducts();
     }
 
-    @RequestMapping(value="/users", method= RequestMethod.GET)
+    @RequestMapping(value = "/inventory/{id}", method = RequestMethod.GET)
+    public Product productInfo(@PathVariable long id) {
+        return productService.findOneById(id);
+    }
+
+    @RequestMapping(value = "/inventory", method = RequestMethod.POST)
+    public ResponseEntity newProduct(@RequestBody Product product) {
+        productService.saveProduct(product);
+        return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getUsers() {
         return userService.findAll();
     }
 
-    @RequestMapping(value="/user/{id}", method= RequestMethod.GET)
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable long id) {
         return userService.findOneById(id);
     }
 
-
-    @RequestMapping("/orders")
-    public Map<String,List<OrderRequest>> orders() {
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public Map<String, List<OrderRequest>> orders() {
         List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
         List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
-        Map<String,List<OrderRequest>> ordersOut = new HashMap<>();
-        ordersOut.put("OrdersNotComplete", listOrdersNotcomplete );
-        ordersOut.put("OrdersComplete", listOrdersAreComplete );
+        Map<String, List<OrderRequest>> ordersOut = new HashMap<>();
+        ordersOut.put("OrdersNotComplete", listOrdersNotcomplete);
+        ordersOut.put("OrdersComplete", listOrdersAreComplete);
         //List<List<OrderRequest>> listOut = new ArrayList<>();
         //listOut.add(listOrdersNotcomplete);
         //listOut.add(listOrdersAreComplete);
@@ -91,10 +89,15 @@ public class AdminDashboarRestController {
         return ordersOut;
     }
 
+    @RequestMapping("/orders")
+    public ResponseEntity<?> newOrder() {
+        return ResponseEntity.ok("");
+    }
+
     @RequestMapping(value = "/issues")
     public List<Notification> issues(@PathVariable long id) {
         List<Notification> listOutNotification = new ArrayList<>();
-        listOutNotification= notificationService.findAllNotifications();
+        listOutNotification = notificationService.findAllNotifications();
         return listOutNotification;
     }
 
@@ -324,4 +327,5 @@ public class AdminDashboardController implements CurrentUserInfo {
         notificationService.deleteNotification(notificationService.findOneById(id));
         return "redirect:/adminDashboard/";
     }
-}  */
+}
+*/
