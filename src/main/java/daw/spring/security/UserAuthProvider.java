@@ -1,5 +1,6 @@
 package daw.spring.security;
 
+import daw.spring.component.UserComponent;
 import daw.spring.model.User;
 import daw.spring.service.UserService;
 import org.slf4j.Logger;
@@ -22,12 +23,14 @@ public class UserAuthProvider implements AuthenticationProvider {
 
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
+    private final UserComponent userComponent;
     private Logger log = LoggerFactory.getLogger("UserAuthProvider");
 
     @Autowired
-    public UserAuthProvider(UserService userService, BCryptPasswordEncoder encoder) {
+    public UserAuthProvider(UserService userService, BCryptPasswordEncoder encoder, UserComponent userComponent) {
         this.userService = userService;
         this.encoder = encoder;
+        this.userComponent = userComponent;
     }
 
     @Override
@@ -40,6 +43,9 @@ public class UserAuthProvider implements AuthenticationProvider {
         if (!encoder.matches(password, user.getPasswordHash())) {
             throw new BadCredentialsException("Wrong password");
         }
+        // added user logged to user component to check api
+        userComponent.setLoggedUser(user);
+
         log.info("Succesful login from " + user.getEmail());
         List<GrantedAuthority> roles = new ArrayList<>();
         for (String role : user.getRoles()) {
