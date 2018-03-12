@@ -32,7 +32,7 @@ public class User {
     @Email
     private String email;
 
-    @JsonView(Basic.class)
+    @JsonIgnore
     @NotEmpty
     private String passwordHash;
 
