@@ -63,4 +63,10 @@ public class DeviceService {
         return deviceRepository.findCostByType(type);
     }
 
+    public void activeOneDevice(Device device) {
+        Device deviceUpdate = deviceRepository.findOne(device.getId());
+        deviceUpdate.setActivated(true);
+        deviceUpdate.setSerialNumber(device.getSerialNumber());
+        saveDevice(deviceUpdate);
+    }
 }
