@@ -62,6 +62,7 @@ public class AdminDashboardRestController {
         return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
     }
 
+
     @RequestMapping(value = "/inventory/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void editProduct(@PathVariable long id, @RequestBody Product product) {
