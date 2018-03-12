@@ -1,10 +1,7 @@
 package daw.spring.restcontroller;
 
 import daw.spring.model.*;
-import daw.spring.service.NotificationService;
-import daw.spring.service.OrderRequestService;
-import daw.spring.service.ProductService;
-import daw.spring.service.UserService;
+import daw.spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,17 +23,18 @@ public class AdminDashboardRestController {
     private final UserService userService;
     private final OrderRequestService orderRequestService;
     private final NotificationService notificationService;
+    private final DeviceService deviceService;
+    private final HomeService homeService;
 
     @Autowired
-    public AdminDashboardRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService) {
+    public AdminDashboardRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService, DeviceService deviceService , HomeService homeService) {
         this.userService = userService;
-        //this.deviceService = deviceService;
-        //this.homeService = homeService;
+        this.deviceService = deviceService;
+        this.homeService = homeService;
         this.productService = productService;
         this.orderRequestService = orderRequestService;
         this.notificationService = notificationService;
     }
-
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -71,10 +69,12 @@ public class AdminDashboardRestController {
         return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/editProducts", method = RequestMethod.PUT )
+    @RequestMapping(value = "/inventory/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public String modStock(@RequestParam("id") long id, @RequestParam("numberStock") long stock, @RequestParam("numberCost") double cost, @RequestParam("defDescription") String description) {
-        productService.updateStockProduct(id, stock, cost, description);
+    public void editProduct(@PathVariable long id, @RequestBody Product product) {
+        if (product.getId()==id){
+            productService.updateProduct(product);
+        }
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -101,8 +101,8 @@ public class AdminDashboardRestController {
         return ordersOut;
     }
 
-
     @RequestMapping("/orders/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, List<Object>> getOrderDetail( @PathVariable long id) {
         Map<String, List<Object>> OrderDetailOut = new HashMap<>();
         OrderRequest orderDt = orderRequestService.finOneById(id);
@@ -113,17 +113,16 @@ public class AdminDashboardRestController {
         return OrderDetailOut;
     }
 
-    /*
-    @RequestMapping(value = "/orders/{orderId}/{deviceId}", params = "activate")
-    public String confirmDevice(Model model, Principal principal, @PathVariable long orderId, @PathVariable long deviceId, @RequestParam(required = false) String serialNumberInput) {
-        deviceService.activeOneDevice(deviceId, serialNumberInput);
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        return "redirect:/adminDashboard/orders/" + orderId;
+    @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void confirmDevice( @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        deviceService.activeOneDevice(device);
     }
 
-    @RequestMapping(value = "/orders/{orderId}/{deviceId}", params = "cancel")
-    public String cancelDevice(@PathVariable long orderId, @PathVariable long deviceId) {
-        Device deviceCancel = deviceService.findOneById(deviceId);  //Scan device
+    @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void cancelDevice( @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        Device deviceCancel = deviceService.findOneById(device.getId());  //Scan device
         OrderRequest orderDt = orderRequestService.finOneById(orderId);  //Delete device from order
         List<Device> deviceList = orderDt.getDeviceList();
         deviceList.remove(deviceCancel);
@@ -131,40 +130,27 @@ public class AdminDashboardRestController {
         List<Device> deviceList2 = homeDt.getDeviceList();
         deviceList2.remove(deviceCancel);
         deviceService.cancelOneDevice(deviceId);  //Delete device
-        return "redirect:/adminDashboard/orders/" + orderId;
     }
 
-    @RequestMapping(value = "/detail/{id}", params = "activate")
-    public String confirmOrder(Model model, Principal principal, @PathVariable long id) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        OrderRequest orderDt = orderRequestService.finOneById(id);
-        orderRequestService.confirmOrder(id);
-        model.addAttribute("orderDetail", orderDt);
-        Home homeOrder = orderDt.getHome();
-        homeService.activeHome(homeOrder);
-        User homeUser = userService.findUserByHomeId(homeOrder);
-        model.addAttribute("userHome", homeUser);
-        String messageConfirm = "Pedido " + id + " confirmado correctamente.";
-        model.addAttribute("messageConfirm", messageConfirm);
-        return "redirect:/adminDashboard/orders";
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void confirmOrder( @PathVariable long id, @RequestBody OrderRequest order) {
+        if(id == order.getId()){
+            orderRequestService.confirmOrder(order.getId());
+            Home homeOrder = order.getHome();
+            homeService.activeHome(homeOrder);
+        }
     }
 
-    @RequestMapping(value = "/detail/{id}", params = "cancel")
-    public String deleteOrder(Model model, Principal principal, @PathVariable long id) {
-        model.addAttribute("user", userService.findOneById(getIdFromPrincipalName(principal.getName())));
-        OrderRequest orderDt = orderRequestService.finOneById(id);
-        orderRequestService.deleteOrder(id);
-        model.addAttribute("orderDetail", orderDt);
-        Home homeOrder = orderDt.getHome();
-        homeService.activeHome(homeOrder);
-        User homeUser = userService.findUserByHomeId(homeOrder);
-        model.addAttribute("userHome", homeUser);
-        String messageConfirm = "Pedido " + id + " eliminado correctamente.";
-        model.addAttribute("messageConfirm", messageConfirm);
-        return "redirect:/adminDashboard/orders";
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteOrder(@PathVariable long id, @RequestBody OrderRequest order) {
+        if(id == order.getId()){
+            orderRequestService.deleteOrder(order.getId());
+            Home homeOrder = order.getHome();
+            homeService.deleteHome(homeOrder);
+        }
     }
-    * */
-
 
     @RequestMapping(value = "/issues", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -182,19 +168,3 @@ public class AdminDashboardRestController {
 
 
 }
-
-/*  Cosas del controller normal
-
-Las operaciones se codifican como métodos http
- GET: Devuelve el recurso, generalmente codificado en
-JSON. No envían información en el cuerpo de la petición.
- DELETE: Borra el recurso. No envían información en el
-cuerpo de la petición.
- POST: Añade un nuevo recurso. Envía el recurso en el cuerpo
-de la petición.
- PUT: Modifica el recurso. Habitualmente se envía el recurso
-obtenido con GET pero modificando los campos que se
-consideren (existen optimizaciones)
-
-}
-*/
