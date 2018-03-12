@@ -6,13 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 @RestController
@@ -104,13 +97,13 @@ public class AdminDashboardRestController {
     @RequestMapping("/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Map<String, List<Object>> getOrderDetail( @PathVariable long id) {
-        Map<String, List<Object>> OrderDetailOut = new HashMap<>();
+        Map<String, List<Object>> orderDetailOut = new HashMap<>();
         OrderRequest orderDt = orderRequestService.finOneById(id);
         Home homeOrder = orderDt.getHome();
         User homeUser = userService.findUserByHomeId(homeOrder);
-        OrderDetailOut.put("userHomeData", Collections.singletonList(homeUser));
-        OrderDetailOut.put("orderData", Collections.singletonList(orderDt));
-        return OrderDetailOut;
+        orderDetailOut.put("userHomeData", Collections.singletonList(homeUser));
+        orderDetailOut.put("orderData", Collections.singletonList(orderDt));
+        return orderDetailOut;
     }
 
     @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.PUT)
@@ -155,9 +148,7 @@ public class AdminDashboardRestController {
     @RequestMapping(value = "/issues", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Notification> issues(@PathVariable long id) {
-        List<Notification> listOutNotification = new ArrayList<>();
-        listOutNotification = notificationService.findAllNotifications();
-        return listOutNotification;
+        return notificationService.findAllNotifications();
     }
 
     @RequestMapping(value = "/issues/{id}", method = RequestMethod.DELETE)
