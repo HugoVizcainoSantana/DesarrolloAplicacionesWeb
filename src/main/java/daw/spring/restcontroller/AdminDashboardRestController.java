@@ -35,6 +35,9 @@ public class AdminDashboardRestController implements CurrentUserInfo {
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity index(Principal principal) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             Map<String, List<Object>> indexOut = new HashMap<>();
@@ -46,47 +49,60 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             indexOut.put("listNotifications", Collections.unmodifiableList(listNotifications));
             return ResponseEntity.ok(indexOut) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity inventory(Principal principal) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             return ResponseEntity.ok(productService.findAllProducts()) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/inventory/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity productInfo(Principal principal, @PathVariable long id) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             return ResponseEntity.ok(productService.findOneById(id)) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity newProduct(Principal principal, @RequestBody Product product) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        product.setId(null);
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             productService.saveProduct(product);
             return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/inventory/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity editProduct(Principal principal ,@PathVariable long id, @RequestBody Product product) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             if (product.getId()==id){
@@ -94,18 +110,21 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             }
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity getUsers(Principal principal) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             return ResponseEntity.ok(userService.findAll()) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
@@ -113,17 +132,23 @@ public class AdminDashboardRestController implements CurrentUserInfo {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity getUser(Principal principal, @PathVariable long id) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             return ResponseEntity.ok(userService.findOneById(id)) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity orders(Principal principal) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
@@ -133,13 +158,16 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             ordersOut.put("OrdersComplete", listOrdersAreComplete);
             return ResponseEntity.ok(ordersOut) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping("/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity getOrderDetail(Principal principal, @PathVariable long id) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             Map<String, List<Object>> orderDetailOut = new HashMap<>();
@@ -150,25 +178,31 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             orderDetailOut.put("orderData", Collections.singletonList(orderDt));
             return ResponseEntity.ok(orderDetailOut) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity confirmDevice(Principal principal, @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             deviceService.activeOneDevice(device);
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity cancelDevice(Principal principal,  @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             Device deviceCancel = deviceService.findOneById(device.getId());  //Scan device
@@ -181,13 +215,16 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             deviceService.cancelOneDevice(deviceId);  //Delete device
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity confirmOrder(Principal principal, @PathVariable long id, @RequestBody OrderRequest order) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             if(id == order.getId()){
@@ -197,13 +234,16 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             }
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity deleteOrder(Principal principal, @PathVariable long id, @RequestBody OrderRequest order) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             if(id == order.getId()){
@@ -213,30 +253,36 @@ public class AdminDashboardRestController implements CurrentUserInfo {
             }
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/issues", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity issues(Principal principal) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             return ResponseEntity.ok(notificationService.loadFirstAdminNotifications()) ;
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/issues/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity issueViewed(Principal principal, @PathVariable long id) {
+        if (principal==null){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
             notificationService.deleteNotification(notificationService.findOneById(id));
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
 
