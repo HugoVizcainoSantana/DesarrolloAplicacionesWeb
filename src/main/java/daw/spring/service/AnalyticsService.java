@@ -57,5 +57,9 @@ public class AnalyticsService {
 
         return analyticsRepository.findAllByDateAfter(oneDayAgo);
     }
+    
+    public List<Analytics> findAllByDeviceAndId (Device device, long id){
+    		return analyticsRepository.findAllByDeviceAndId(device, id);
+    }
 
 }
