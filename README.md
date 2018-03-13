@@ -135,7 +135,7 @@ Perfil del usuario donde puede modificar sus datos y su imagen de avatar
 
 
 
-###Diagrama de base de datos
+### Diagrama de base de datos
 ![database](/pantallazosFase3/diagramabasedatos.png)
 La entidad con la base de datos están relacionadas de la forma que los usuario tienen una entidad 
 que se guarda en la base de datos, donde tendrán su identificador generado automaticamente, guardando su nombre, apellidos, email, contraseña, telefono, listas de casas junto con los roles, 
@@ -143,7 +143,7 @@ que estos últimos son los que se utilizan para la seguridad con Spring.
 ###Diagrama de clases
 ![class](/pantallazosFase3/esquemaclases.png)
 
-###Entorno de desarrollo
+### Entorno de desarrollo
 Para poder instalar y desarrollar una aplicación con Spring Boot, desde cualquier editor de código podrás abrir la aplicaciónl, pero se recomienda abrir la aplciación con STSsource-tool-suite (http://spring.io/tools/sts/all)
 También es obligatorio el uso de una base de datos MySQL Workbenck (https://dev.mysql.com/downloads/workbench/), con la siguiente configuración.
 localhost:3306
@@ -152,7 +152,7 @@ localhost:3306
 | --- | --- | --- |
 | oncontrolhome        | root      | root |
 
-###Diagrama de clases y template
+### Diagrama de clases y template
 ![diagram](/pantallazosFase3/Main2.jpg)
 Diagrama de clases y template donde se muestra la relación de los controladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
