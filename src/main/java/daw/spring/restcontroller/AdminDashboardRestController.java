@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/adminDashboard")
+@RequestMapping("/api")
 public class AdminDashboardRestController {
 
     private final ProductService productService;
