@@ -1,16 +1,19 @@
 package daw.spring.restcontroller;
 
+import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.*;
 import daw.spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api")
-public class AdminDashboardRestController {
+@RequestMapping("/api/adminDashboard")
+public class AdminDashboardRestController implements CurrentUserInfo {
 
     private final ProductService productService;
     private final UserService userService;
@@ -31,131 +34,210 @@ public class AdminDashboardRestController {
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<Object>> index() {
-        Map<String, List<Object>> indexOut = new HashMap<>();
-        long id = 1;
-        List<OrderRequest> listOrders = orderRequestService.homesOrdersList();
-        List<Notification> listNotifications = notificationService.findAllNotifications();
-        User user = userService.findOneById(id);
-        indexOut.put("userData", Collections.singletonList(user));
-        indexOut.put("listOrders", Collections.unmodifiableList(listOrders));
-        indexOut.put("listNotifications", Collections.unmodifiableList(listNotifications));
-        return indexOut;
+    public ResponseEntity index(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            Map<String, List<Object>> indexOut = new HashMap<>();
+            List<OrderRequest> listOrders = orderRequestService.homesOrdersList();
+            List<Notification> listNotifications = notificationService.findAllNotifications();
+            user = userService.findOneById(user.getId());
+            indexOut.put("userData", Collections.singletonList(user));
+            indexOut.put("listOrders", Collections.unmodifiableList(listOrders));
+            indexOut.put("listNotifications", Collections.unmodifiableList(listNotifications));
+            return ResponseEntity.ok(indexOut) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> inventory() {
-        return productService.findAllProducts();
+    public ResponseEntity inventory(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            return ResponseEntity.ok(productService.findAllProducts()) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/inventory/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Product productInfo(@PathVariable long id) {
-        return productService.findOneById(id);
+    public ResponseEntity productInfo(Principal principal, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            return ResponseEntity.ok(productService.findOneById(id)) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity newProduct(@RequestBody Product product) {
-        productService.saveProduct(product);
-        return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
+    public ResponseEntity newProduct(Principal principal, @RequestBody Product product) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            productService.saveProduct(product);
+            return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
-
 
     @RequestMapping(value = "/inventory/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void editProduct(@PathVariable long id, @RequestBody Product product) {
-        if (product.getId()==id){
-            productService.updateProduct(product);
+    public ResponseEntity editProduct(Principal principal ,@PathVariable long id, @RequestBody Product product) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            if (product.getId()==id){
+                productService.updateProduct(product);
+            }
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsers() {
-        return userService.findAll();
+    public ResponseEntity getUsers(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            return ResponseEntity.ok(userService.findAll()) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public User getUser(@PathVariable long id) {
-        return userService.findOneById(id);
+    public ResponseEntity getUser(Principal principal, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            return ResponseEntity.ok(userService.findOneById(id)) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<OrderRequest>> orders() {
-        List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
-        List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
-        Map<String, List<OrderRequest>> ordersOut = new HashMap<>();
-        ordersOut.put("OrdersNotComplete", listOrdersNotcomplete);
-        ordersOut.put("OrdersComplete", listOrdersAreComplete);
-        return ordersOut;
+    public ResponseEntity orders(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
+            List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
+            Map<String, List<OrderRequest>> ordersOut = new HashMap<>();
+            ordersOut.put("OrdersNotComplete", listOrdersNotcomplete);
+            ordersOut.put("OrdersComplete", listOrdersAreComplete);
+            return ResponseEntity.ok(ordersOut) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping("/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<Object>> getOrderDetail( @PathVariable long id) {
-        Map<String, List<Object>> orderDetailOut = new HashMap<>();
-        OrderRequest orderDt = orderRequestService.finOneById(id);
-        Home homeOrder = orderDt.getHome();
-        User homeUser = userService.findUserByHomeId(homeOrder);
-        orderDetailOut.put("userHomeData", Collections.singletonList(homeUser));
-        orderDetailOut.put("orderData", Collections.singletonList(orderDt));
-        return orderDetailOut;
+    public ResponseEntity getOrderDetail(Principal principal, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            Map<String, List<Object>> orderDetailOut = new HashMap<>();
+            OrderRequest orderDt = orderRequestService.finOneById(id);
+            Home homeOrder = orderDt.getHome();
+            User homeUser = userService.findUserByHomeId(homeOrder);
+            orderDetailOut.put("userHomeData", Collections.singletonList(homeUser));
+            orderDetailOut.put("orderData", Collections.singletonList(orderDt));
+            return ResponseEntity.ok(orderDetailOut) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void confirmDevice( @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
-        deviceService.activeOneDevice(device);
+    public ResponseEntity confirmDevice(Principal principal, @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            deviceService.activeOneDevice(device);
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/orders/{orderId}/{deviceId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void cancelDevice( @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
-        Device deviceCancel = deviceService.findOneById(device.getId());  //Scan device
-        OrderRequest orderDt = orderRequestService.finOneById(orderId);  //Delete device from order
-        List<Device> deviceList = orderDt.getDeviceList();
-        deviceList.remove(deviceCancel);
-        Home homeDt = homeService.findOneById(orderDt.getHome().getId());  //Delete device from home
-        List<Device> deviceList2 = homeDt.getDeviceList();
-        deviceList2.remove(deviceCancel);
-        deviceService.cancelOneDevice(deviceId);  //Delete device
+    public ResponseEntity cancelDevice(Principal principal,  @PathVariable long orderId, @PathVariable long deviceId,  @RequestBody Device device) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            Device deviceCancel = deviceService.findOneById(device.getId());  //Scan device
+            OrderRequest orderDt = orderRequestService.finOneById(orderId);  //Delete device from order
+            List<Device> deviceList = orderDt.getDeviceList();
+            deviceList.remove(deviceCancel);
+            Home homeDt = homeService.findOneById(orderDt.getHome().getId());  //Delete device from home
+            List<Device> deviceList2 = homeDt.getDeviceList();
+            deviceList2.remove(deviceCancel);
+            deviceService.cancelOneDevice(deviceId);  //Delete device
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void confirmOrder( @PathVariable long id, @RequestBody OrderRequest order) {
-        if(id == order.getId()){
-            orderRequestService.confirmOrder(order.getId());
-            Home homeOrder = order.getHome();
-            homeService.activeHome(homeOrder);
+    public ResponseEntity confirmOrder(Principal principal, @PathVariable long id, @RequestBody OrderRequest order) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            if(id == order.getId()){
+                orderRequestService.confirmOrder(order.getId());
+                Home homeOrder = order.getHome();
+                homeService.activeHome(homeOrder);
+            }
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteOrder(@PathVariable long id, @RequestBody OrderRequest order) {
-        if(id == order.getId()){
-            orderRequestService.deleteOrder(order.getId());
-            Home homeOrder = order.getHome();
-            homeService.deleteHome(homeOrder);
+    public ResponseEntity deleteOrder(Principal principal, @PathVariable long id, @RequestBody OrderRequest order) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            if(id == order.getId()){
+                orderRequestService.deleteOrder(order.getId());
+                Home homeOrder = order.getHome();
+                homeService.deleteHome(homeOrder);
+            }
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @RequestMapping(value = "/issues", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<Notification> issues(@PathVariable long id) {
-        return notificationService.findAllNotifications();
+    public ResponseEntity issues(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            return ResponseEntity.ok(notificationService.loadFirstAdminNotifications()) ;
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @RequestMapping(value = "/issues/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void issueViewed(@PathVariable long id) {
-        notificationService.deleteNotification(notificationService.findOneById(id));
+    public ResponseEntity issueViewed(Principal principal, @PathVariable long id) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+        if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
+            notificationService.deleteNotification(notificationService.findOneById(id));
+            return ResponseEntity.ok().build();
+        }else{
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 
 
