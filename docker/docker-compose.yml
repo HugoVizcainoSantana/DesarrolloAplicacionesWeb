@@ -1,8 +1,10 @@
-version: '3'
+version: '2.3'
 services:
   mysql:
     container_name: och-mysql
     image: mysql:5.6.26
+    volumes:
+      - ./app/db:/app/db
     environment:
        - MYSQL_ROOT_PASSWORD=root
        - MYSQL_DATABASE=oncontrolhome
@@ -10,12 +12,19 @@ services:
       - "3306:3306"
     logging:
       driver: json-file
+    healthcheck:
+      test: mysqladmin ping -h localhost
+      timeout: 5s
+      retries: 100
 
   app:
     container_name: och-server
     image: hgmoa/oncontrolhome:latest
+    volumes:
+      - ./app/data:/app/data
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - "8443:8443"
     environment:
