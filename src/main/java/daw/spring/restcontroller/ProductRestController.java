@@ -54,6 +54,7 @@ public class ProductRestController {
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        productService.deleteProduct(productService.findOneById(id));
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
