@@ -14,6 +14,12 @@ import java.util.Set;
 @Entity
 public class User {
 
+
+    @JsonIgnore
+    public void setRoles(String... roles) {
+        this.roles = new HashSet<>(Arrays.asList(roles));
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(Basic.class)
@@ -32,12 +38,9 @@ public class User {
     @Email
     private String email;
 
-    @JsonIgnore
     @NotEmpty
     private String passwordHash;
 
-    //@JsonView(Home.class)
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Home> homeList;
@@ -45,8 +48,6 @@ public class User {
     @JsonView(Basic.class)
     private String phone;
 
-    //@JsonView(Notification.class)
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Notification> notificationList;
@@ -54,14 +55,9 @@ public class User {
     @JsonView(Basic.class)
     private String photo;
 
-
-    //@JsonView(Basic.class)
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
-    //@JsonView(OrderRequest.class)
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderRequest> orderList;
@@ -143,12 +139,12 @@ public class User {
         return roles;
     }
 
-    public void setRoles(String... roles) {
-        this.roles = new HashSet<>(Arrays.asList(roles));
-    }
-
+    @JsonIgnore
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public interface Basic {
     }
 
     public List<Notification> getNotificationList() {
