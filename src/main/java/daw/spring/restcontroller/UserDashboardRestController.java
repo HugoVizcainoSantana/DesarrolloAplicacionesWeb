@@ -1,6 +1,7 @@
 package daw.spring.restcontroller;
 
 
+import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.Analytics;
 import daw.spring.model.Device;
@@ -13,10 +14,10 @@ import daw.spring.service.HomeService;
 import daw.spring.service.NotificationService;
 import daw.spring.service.OrderRequestService;
 import daw.spring.service.UserService;
-import daw.spring.utilities.ApiRestController;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itextpdf.text.DocumentException;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,9 +40,10 @@ import java.util.List;
 import java.util.Map;
 
 
+
 @RestController
 @RequestMapping("/api/dashboard")
-public class UserDashboardRestController {
+public class UserDashboardRestController implements CurrentUserInfo {
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -51,9 +54,10 @@ public class UserDashboardRestController {
 	private final NotificationService notificationService;
 	private final DeviceService deviceService;
 	private final AnalyticsService analitycsService;
+	private final OrderRequestService orderRequestService;
     
     @Autowired
-    public  UserDashboardRestController( HomeService homeService, OrderRequestService orderService, UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,DeviceService deviceService, AnalyticsService analitycsService) {
+    public  UserDashboardRestController( HomeService homeService, OrderRequestService orderService, UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,DeviceService deviceService, AnalyticsService analitycsService, OrderRequestService orderRequestService) {
 		
 		this.homeService=homeService;
 		this.orderService = orderService;
@@ -62,6 +66,7 @@ public class UserDashboardRestController {
 		this.notificationService = notificationService;
 		this.deviceService = deviceService;
 		this.analitycsService = analitycsService;
+		this.orderRequestService = orderRequestService;
 	}
 
     @RequestMapping("/test")
@@ -82,13 +87,19 @@ public class UserDashboardRestController {
 
     //Obtener Orden por id
     @RequestMapping(value="/orders/{id}", method=GET)
-    public ResponseEntity<OrderRequest> getOrder (@PathVariable long id) {
+    public ResponseEntity<OrderRequest> getOrder (Principal principal, @PathVariable long id) {
+    		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+    		List<Home> homeList = homeService.getHomesFromUser(user);
+    	     // orders not completed yet
+    	    List<OrderRequest> orderRequestList = orderRequestService.findNotCompletedOrders(homeList);
+    	     // orders completed or not
+    	    List<OrderRequest> orderRequestListAll = orderRequestService.findAllHomes(homeList);
     		OrderRequest orderRequest = orderService.finOneById(id);
-    		if(orderRequest!= null){
-    			return new ResponseEntity<>(orderRequest,HttpStatus.OK);
-    		}else{
-    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    		}
+	    		if(orderRequestList!=null && orderRequestListAll!= null){
+	    			return new ResponseEntity<>(orderRequest,HttpStatus.OK);
+	    		}else{
+	    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    		}
     		
     }
   //Obtenemos una lista de ordenes
@@ -115,18 +126,19 @@ public class UserDashboardRestController {
     
     //Casa por id
     @RequestMapping(value="/homes/{id}", method= GET)
-    public ResponseEntity<Home> homeDetail(@PathVariable long id) {
+    public ResponseEntity<Home> homeDetail(Principal principal, @PathVariable long id) {
+    		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
     		Home home = homeService.findOneById(id);
         //Security Check
-        if (home != null) {
-            return new ResponseEntity<>(home, HttpStatus.OK);
-        } else {
-            //notificationService.alertAdmin(user);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    		if (userService.userIsOwnerOf(user, home) && (home != null) ) {    
+	            return new ResponseEntity<>(home, HttpStatus.OK);   
+    		}else {
+	            //notificationService.alertAdmin(user);
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
     }
     
-    //Eliminar una casa
+    //Eliminar una casa en l aparte de seguridad ningun usuario puede borrar 
   	@RequestMapping(value="/homes/{id}", method = DELETE)
   	public ResponseEntity<Home> deleteHome(@PathVariable long id){
   		Home homeSelcted = homeService.findOneById(id);
@@ -139,46 +151,47 @@ public class UserDashboardRestController {
   		}
   	}
   	
-  	//Editamos una casa
+  	//Editamos una casa 
   	@RequestMapping(value="/homes/{id}", method= PUT)
-  	public ResponseEntity<Home> putHome(@PathVariable long id,@RequestBody Home homeUpdated){
-  		
+  	public ResponseEntity<Home> putHome(Principal principal, @PathVariable long id,@RequestBody Home homeUpdated){
+  		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
   		Home homeSelcted = homeService.findOneById(id);
-  		if((homeSelcted!=null) && (homeSelcted.getId() )== homeUpdated.getId()){
-  			homeService.saveHome(homeSelcted);
-  			return new ResponseEntity<>(homeUpdated,HttpStatus.OK);
-  		}else{
-  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-  			
+  		ResponseEntity<Home> responseHome =null; 
+  		//security check
+  		if (userService.userIsOwnerOf(user, homeSelcted) && (homeSelcted != null) ) {    
+	  		if((homeSelcted.getId())== homeUpdated.getId()){
+	  			homeService.saveHome(homeSelcted);
+	  			responseHome= new ResponseEntity<>(homeUpdated,HttpStatus.OK);
+	  		}else{
+	  			responseHome= new ResponseEntity<>(HttpStatus.NOT_FOUND);	
+	  		}
   		}
+  		return responseHome;
   	}
     //++++++++++++++++++++++++++++++++++++++++ Home  ok+++++++++++++++++++++++++++++++++++
     //++++++++++++++++++++++++++++++++++++++++ profile ok a espera de seguridad+++++++++++++++++++++++++++++++++++
-    //Obtener perfil por id
+    //Obtener perfil
     //@JsonView() 
     @RequestMapping(value="/me", method = GET)
-    public ResponseEntity<User> getUser (@PathVariable long id){
-    		User user = userService.findOneById(id);
+    public ResponseEntity<User> getUser (Principal principal){
+    		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));	
     		if (user != null) {
     			return new ResponseEntity<>(user, HttpStatus.OK);
     		}else {
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
     }
-    
-    
-    
+  
     //Actualiza perfil por id
     @RequestMapping(value = "/me", method = PUT)
-    public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, @PathVariable long id)  {
-        User user = userService.findOneById(id);
+    public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, Principal principal)  {
+    		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));	
         if (user != null && user.getId() != updateUser.getId()) {
         		userService.saveUser(user);
         		return new ResponseEntity<> (user, HttpStatus.OK);
         }else {
         		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        
     }
 
  
@@ -279,7 +292,6 @@ public class UserDashboardRestController {
       
     //+++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++
 }
-
 
 
 /*

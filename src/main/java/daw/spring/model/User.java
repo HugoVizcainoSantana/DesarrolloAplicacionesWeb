@@ -1,5 +1,7 @@
 package daw.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -14,34 +16,53 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Basic.class)
     private long id;
 
+    @JsonView(Basic.class)
     @NotEmpty
     private String firstName;
 
+    @JsonView(Basic.class)
     @NotEmpty
     private String lastName;
 
+    @JsonView(Basic.class)
     @NotEmpty
     @Email
     private String email;
 
+    @JsonIgnore
     @NotEmpty
     private String passwordHash;
 
+    //@JsonView(Home.class)
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Home> homeList;
 
+    @JsonView(Basic.class)
     private String phone;
 
+    //@JsonView(Notification.class)
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Notification> notificationList;
 
+    @JsonView(Basic.class)
     private String photo;
 
+
+    //@JsonView(Basic.class)
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
+    //@JsonView(OrderRequest.class)
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderRequest> orderList;
 
