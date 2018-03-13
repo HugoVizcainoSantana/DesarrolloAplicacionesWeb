@@ -118,4 +118,7 @@ public class UserService {
     public List<User> getAllAdmins() {
         return userRepository.findAllByRolesEquals(Roles.ADMIN.getRoleName());
     }
+    public void deleteUser(long id) {
+    		userRepository.delete(id);
+    }
 }
