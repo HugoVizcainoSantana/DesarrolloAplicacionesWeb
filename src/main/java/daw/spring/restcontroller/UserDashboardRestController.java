@@ -1,7 +1,6 @@
 package daw.spring.restcontroller;
 
-import daw.spring.Application;
-import daw.spring.component.CurrentUserInfo;
+
 import daw.spring.component.InvoiceGenerator;
 import daw.spring.model.Analytics;
 import daw.spring.model.Device;
@@ -15,48 +14,32 @@ import daw.spring.service.NotificationService;
 import daw.spring.service.OrderRequestService;
 import daw.spring.service.UserService;
 import daw.spring.utilities.ApiRestController;
-import daw.spring.utilities.Utilities;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.itextpdf.text.DocumentException;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.security.Principal;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-@ApiRestController
+@RestController
+@RequestMapping("/api/dashboard")
 public class UserDashboardRestController {
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
@@ -64,22 +47,21 @@ public class UserDashboardRestController {
 	private final HomeService homeService;
 	private final OrderRequestService orderService;
 	private final UserService userService;
-	//private final BCryptPasswordEncoder encoder;
-/*
-	private final UserService userService;
-	private final HomeService homeService;
-	//private final UserComponent userComponent;
-	private final CurrentUserInfo currentUserInfo;
-	
-
-   */ 
+	private final InvoiceGenerator invoiceGenerator;
+	private final NotificationService notificationService;
+	private final DeviceService deviceService;
+	private final AnalyticsService analitycsService;
     
     @Autowired
-    public  UserDashboardRestController( HomeService homeService, OrderRequestService orderService, UserService userService) {
+    public  UserDashboardRestController( HomeService homeService, OrderRequestService orderService, UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,DeviceService deviceService, AnalyticsService analitycsService) {
 		
 		this.homeService=homeService;
 		this.orderService = orderService;
 		this.userService = userService;
+		this.invoiceGenerator = invoiceGenerator;
+		this.notificationService = notificationService;
+		this.deviceService = deviceService;
+		this.analitycsService = analitycsService;
 	}
 
     @RequestMapping("/test")
@@ -89,7 +71,7 @@ public class UserDashboardRestController {
         map.put("Test1", 1L);
         return map;
     }
-    //++++++++++++++++++++++++++++++++++++++++ Order+++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ Order ok+++++++++++++++++++++++++++++++++++
     //Crear Order OK
     @RequestMapping(value = "/shop", method = POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -99,18 +81,18 @@ public class UserDashboardRestController {
     }
 
     //Obtener Orden por id
-    @RequestMapping(value="/shop/{id}", method=GET)
+    @RequestMapping(value="/orders/{id}", method=GET)
     public ResponseEntity<OrderRequest> getOrder (@PathVariable long id) {
     		OrderRequest orderRequest = orderService.finOneById(id);
     		if(orderRequest!= null){
     			return new ResponseEntity<>(orderRequest,HttpStatus.OK);
     		}else{
-    			return new ResponseEntity<>(orderRequest,HttpStatus.NOT_FOUND);
+    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
     		
     }
   //Obtenemos una lista de ordenes
-  	@RequestMapping(value="/shop", method= GET)
+  	@RequestMapping(value="/orders", method= GET)
   	public ResponseEntity<List<OrderRequest>>getAllOrders(){
   		List<OrderRequest>ordersRequest = orderService.findAllOrder();
   		if(ordersRequest!=null){
@@ -120,28 +102,10 @@ public class UserDashboardRestController {
   		}	
   	}
   	
-  	//Borrar una orden 
-  	@RequestMapping(value="/shop/{id}", method = DELETE)
-	public ResponseEntity<OrderRequest> deleteOrderRequest(@PathVariable Integer id){
-  		OrderRequest orderRequest = orderService.finOneById(id);
-		if(orderRequest != null){
-			orderService.deleteOrder(id);
-			return new ResponseEntity<>(orderRequest,HttpStatus.OK);
-		}else{
-			return new ResponseEntity<>(orderRequest,HttpStatus.NOT_FOUND);
-			
-		}
-	}
-    //++++++++++++++++++++++++++++++++++++++++ Order+++++++++++++++++++++++++++++++++++
-    //++++++++++++++++++++++++++++++++++++++++ Home+++++++++++++++++++++++++++++++++++
+  	
+    //++++++++++++++++++++++++++++++++++++++++ Order ok +++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ Home  ok+++++++++++++++++++++++++++++++++++
    
-  	//crear una casa
-  	@RequestMapping(value="/",method= POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Home postHome(@RequestBody Home home){
-		homeService.saveHome(home);
-		return home;
-	}
   	
   	//Lista de casas 
     @RequestMapping(value="/homes", method= GET)
@@ -158,7 +122,7 @@ public class UserDashboardRestController {
             return new ResponseEntity<>(home, HttpStatus.OK);
         } else {
             //notificationService.alertAdmin(user);
-            return new ResponseEntity<>(home, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     
@@ -170,7 +134,7 @@ public class UserDashboardRestController {
   			homeService.deleteHome(homeSelcted);
   			return new ResponseEntity<>(homeSelcted,HttpStatus.OK);
   		}else{
-  			return new ResponseEntity<>(homeSelcted,HttpStatus.NOT_FOUND);
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   			
   		}
   	}
@@ -188,72 +152,135 @@ public class UserDashboardRestController {
   			
   		}
   	}
-    //++++++++++++++++++++++++++++++++++++++++ Home+++++++++++++++++++++++++++++++++++
-    //++++++++++++++++++++++++++++++++++++++++ profile+++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ Home  ok+++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++ profile ok a espera de seguridad+++++++++++++++++++++++++++++++++++
     //Obtener perfil por id
     //@JsonView() 
-    @RequestMapping(value="/profile/{id}", method = GET)
+    @RequestMapping(value="/me", method = GET)
     public ResponseEntity<User> getUser (@PathVariable long id){
     		User user = userService.findOneById(id);
     		if (user != null) {
     			return new ResponseEntity<>(user, HttpStatus.OK);
     		}else {
-    			return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
     }
     
     
-    //Obtener todos los perfiles
-	@RequestMapping(value="/profile", method= GET)
-	public ResponseEntity<List<User>>getAllUser(){
-		List<User>users = userService.findAll();
-		if(users != null){
-			return new ResponseEntity<>(users,HttpStatus.OK);
-		}else{
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    
     //Actualiza perfil por id
-    @RequestMapping(value = "/profile/{id}", method = PUT)
+    @RequestMapping(value = "/me", method = PUT)
     public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, @PathVariable long id)  {
         User user = userService.findOneById(id);
         if (user != null && user.getId() != updateUser.getId()) {
         		userService.saveUser(user);
         		return new ResponseEntity<> (user, HttpStatus.OK);
         }else {
-        		return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
     }
 
-    //Borrar perfil
-    @RequestMapping(value="/profile/{id}", method = DELETE)
-	public ResponseEntity<User> deleteProfile(@PathVariable long id){
-    	User user = userService.findOneById(id);
-		if(user != null){
-			userService.deleteUser(id);
-			return new ResponseEntity<>(user,HttpStatus.OK);
-		}else{
-			return new ResponseEntity<>(user,HttpStatus.NOT_FOUND);
-			
-		}
-	}
+ 
+    //++++++++++++++++++++++++++++++++++++++++ profile ok+++++++++++++++++++++++++++++++++++
     
-    //editar un perfil
-    @RequestMapping(value="/profile/{id}", method= PUT)
-	public ResponseEntity<User> putResource(@PathVariable long id,@RequestBody User userUpdated){
-		
-		User user = userService.findOneById(id);
-		if((user!=null) && (user.getId() )== userUpdated.getId()){
-			userService.saveUser(userUpdated);
-			return new ResponseEntity<>(userUpdated,HttpStatus.OK);
-		}else{
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
-		}
-	}
-    //++++++++++++++++++++++++++++++++++++++++ profile+++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++ invoice ok +++++++++++++++++++++++++++++++++++++++
+    
+    @RequestMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf", method=GET)
+    public ResponseEntity<?> generateInvoice(@PathVariable long id) {
+        //User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+    		User user1= userService.findOneById(5l);
+        Home home = homeService.findOneById(id);
+        //Security Check
+        if (userService.userIsOwnerOf(user1, home)) {//Generate and send pdf
+            try {
+                byte[] pdf = invoiceGenerator.generateInvoiceAsStream(home, user1);
+                return ResponseEntity.ok()
+                		.header("Content-Disposition", "attachment; filename=factura-" + Date.from(Instant.now()) + ".pdf")
+                		.contentLength(pdf.length).contentType(MediaType.APPLICATION_PDF).body(pdf);
+            } catch (DocumentException | IOException e) {
+                log.error(e.toString());
+            }
+        } else {
+            notificationService.alertAdmin(user1);
+            //After alerting to admin, redirect user to dashboard
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+  //+++++++++++++++++++++++++++++++++++++ invoice ok +++++++++++++++++++++++++++++++++++++++
+  //+++++++++++++++++++++++++++++++++++++++ device ++++++++++++++++++++++++++++++++++++++++++    
+  //Lista de device 
+    @RequestMapping(value="/device", method= GET)
+    public List<Device> device() {
+        return deviceService.findAllDevices();
+    }
+    
+    //Device por id
+    @RequestMapping(value="/device/{id}", method= GET)
+    public ResponseEntity<Device> deviceDetail(@PathVariable long id) {
+    		Device device = deviceService.findOneById(id);
+        //Security Check
+        if (device != null) {
+            return new ResponseEntity<>(device, HttpStatus.OK);
+        } else {
+            //notificationService.alertAdmin(user);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    
+    //Actualiza device por id
+    @RequestMapping(value = "/device", method = PUT)
+    public ResponseEntity<Device> upadateDevice(@RequestBody Device updateDevice, @PathVariable long id)  {
+        Device device = deviceService.findOneById(id);
+        if (device != null && device.getId() != updateDevice.getId()) {
+        		deviceService.saveDevice(device);
+        		return new ResponseEntity<> (device, HttpStatus.OK);
+        }else {
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+    }
+    
+  //+++++++++++++++++++++++++++++++++++++++ device ++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++    
+    //Lista de analitycs 
+      @RequestMapping(value="/analitycs", method= GET)
+      public List<Analytics> analitycs() {
+          return analitycsService.findAllAnalytics();
+      }
+      
+      //analitycs por id
+      @RequestMapping(value="/analitycs/{id}", method= GET)
+      public ResponseEntity<Analytics> analitycsDetail(@PathVariable long id) {
+      		Analytics analitycs = analitycsService.findOneById(id);
+          //Security Check
+          if (analitycs != null) {
+              return new ResponseEntity<>(analitycs, HttpStatus.OK);
+          } else {
+              //notificationService.alertAdmin(user);
+              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+          }
+      }
+      
+      
+      //Actualiza analitycs por id
+      @RequestMapping(value = "/analitycs", method = PUT)
+      public ResponseEntity<Analytics> upadateAnalitycs(@RequestBody User updateAnalitycs, @PathVariable long id)  {
+    	  	Analytics analitycs = analitycsService.findOneById(id);
+          if (analitycs != null && analitycs.getId() != updateAnalitycs.getId()) {
+        	  analitycsService.saveAnalytics(analitycs);
+          		return new ResponseEntity<> (analitycs, HttpStatus.OK);
+          }else {
+          		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+          }
+          
+      }
+      
+    //+++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++
 }
+
+
 
 /*
 @Controller
