@@ -16,6 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,6 +34,26 @@ public class Application {
     public static final Path UPLOADED_FILES_PATH = Paths.get("uploaded");
     public static final Path USERS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("users");
     public static final Path PRODUCTS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("products");
+
+    /*static {
+        //Docker folders
+        File appDir = new File(Paths.get("./").toAbsolutePath().toUri());
+        if (appDir.exists() && appDir.isDirectory()) {
+            // array for files and sub-directories
+            // of directory pointed by maindir
+            File arr[] = appDir.listFiles();
+
+            System.out.println("**********************************************");
+            System.out.println("Files from main directory : " + appDir);
+            System.out.println("**********************************************");
+
+            // Calling recursive method
+            if (arr != null) {
+                recursivePrint(arr, 0);
+            }
+        }
+    }*/
+
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private ProductService productService;
@@ -53,6 +74,24 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    private static void recursivePrint(File[] arr, int level) {
+        // for-each loop for main directory files
+        for (File f : arr) {
+            // tabs for internal levels
+            for (int i = 0; i < level; i++) {
+                System.out.print("\t");
+            }
+            if (f.isFile()) {
+                System.out.println(f.getName());
+            } else if (f.isDirectory()) {
+                System.out.println("[" + f.getName() + "]");
+
+                // recursion for sub-directories
+                recursivePrint(f.listFiles(), level + 1);
+            }
+        }
     }
 
     @Bean
@@ -77,6 +116,7 @@ public class Application {
                 Folder for uploaded images
              */
             log.error("Images path:" + UPLOADED_FILES_PATH);
+
         /*
             Default Products
          */

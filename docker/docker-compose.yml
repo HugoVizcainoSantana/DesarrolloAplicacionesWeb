@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysql:
+    container_name: och-mysql
+    image: mysql:5.6.26
+    environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=oncontrolhome
+    ports:
+      - "3306:3306"
+    logging:
+      driver: json-file
+
+  app:
+    container_name: och-server
+    image: hgmoa/oncontrolhome:latest
+    depends_on:
+      - mysql
+    ports:
+      - "8443:8443"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/oncontrolhome?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=create
+    links:
+      - mysql:mysql
+    logging:
+      driver: json-file
