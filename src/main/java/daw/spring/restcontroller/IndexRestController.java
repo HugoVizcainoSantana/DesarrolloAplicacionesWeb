@@ -25,7 +25,6 @@ public class IndexRestController {
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.findAllProducts();
-
         if (products == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
