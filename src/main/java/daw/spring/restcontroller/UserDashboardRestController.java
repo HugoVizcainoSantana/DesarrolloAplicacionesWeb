@@ -242,19 +242,17 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		if (device != null) {
 			return new ResponseEntity<>(device, HttpStatus.OK);
 		} else {
-			// notificationService.alertAdmin(user);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	// TODO what is the output?
-	// Device for id
+	// Update device for id
 	@RequestMapping(value = "/device/{id}", method = PUT)
 	public ResponseEntity<Device> changeDeviceStatus(Principal principal, @PathVariable long id) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Device d = deviceService.findOneById(id);
 		// Security check
-		if (userService.userIsOwnerOf(user, d)) {
+		if (userService.userIsOwnerOf(user, d) && (d != null)) {
 			Analytics analytics;
 			log.info("---add interaction---");
 			// handle types
