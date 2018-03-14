@@ -264,46 +264,47 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	}
 
 	// Update device for id
+	//TODO work in progress
 	@RequestMapping(value = "/device/{id}", method = PUT)
-	public ResponseEntity<Device> changeDeviceStatus(Principal principal, @PathVariable long id) {
+	public ResponseEntity<Device> changeDeviceStatus(Principal principal, @PathVariable long id, @RequestBody Device updateDevice) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-		Device d = deviceService.findOneById(id);
+		Device device = deviceService.findOneById(id);
 		// Security check
-		if (userService.userIsOwnerOf(user, d) && (d != null)) {
+		if (userService.userIsOwnerOf(user, device) && (device != null) && updateDevice.getId()==id) {
 			Analytics analytics;
 			log.info("---add interaction---");
 			// handle types
-			if ((d.getType() == Device.DeviceType.LIGHT) || (d.getType() == Device.DeviceType.RASPBERRYPI)) {
-				if (d.getStatus() == Device.StateType.OFF) {
+			if ((device.getType() == Device.DeviceType.LIGHT) || (device.getType() == Device.DeviceType.RASPBERRYPI)) {
+				if (device.getStatus() == Device.StateType.OFF) {
 					// if OFF and button is clicked, turn ON
-					d.setStatus(Device.StateType.ON);
-					deviceService.saveDevice(d);
+					updateDevice.setStatus(Device.StateType.ON);
+					deviceService.saveDevice(updateDevice);
 
 					// create a new analytic when status = ON
-					analytics = new Analytics(d, new Date(), Device.StateType.OFF, Device.StateType.ON);
+					analytics = new Analytics(updateDevice, new Date(), Device.StateType.OFF, Device.StateType.ON);
 					// and save it
 					analitycsService.saveAnalytics(analytics);
 				} else {
 					// if ON, only turn OFF and save
-					d.setStatus(Device.StateType.OFF);
-					deviceService.saveDevice(d);
+					updateDevice.setStatus(Device.StateType.OFF);
+					deviceService.saveDevice(updateDevice);
 				}
-			} else if (d.getType() == Device.DeviceType.BLIND) {
-				if (d.getStatus() == Device.StateType.UP) {
-					d.setStatus(Device.StateType.DOWN);
-					deviceService.saveDevice(d);
+			} else if (device.getType() == Device.DeviceType.BLIND) {
+				if (device.getStatus() == Device.StateType.UP) {
+					updateDevice.setStatus(Device.StateType.DOWN);
+					deviceService.saveDevice(updateDevice);
 
 					// create a new analytic when status = UP
-					analytics = new Analytics(d, new Date(), Device.StateType.UP, Device.StateType.DOWN);
+					analytics = new Analytics(updateDevice, new Date(), Device.StateType.UP, Device.StateType.DOWN);
 					// and save it
 					analitycsService.saveAnalytics(analytics);
 				} else {
 					// if DOWN, UP and save
-					d.setStatus(Device.StateType.UP);
-					deviceService.saveDevice(d);
+					updateDevice.setStatus(Device.StateType.UP);
+					deviceService.saveDevice(updateDevice);
 				}
 			}
-			return new ResponseEntity<>(d, HttpStatus.OK);
+			return new ResponseEntity<>(updateDevice, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
