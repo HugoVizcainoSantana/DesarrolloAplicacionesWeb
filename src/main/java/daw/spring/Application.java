@@ -33,7 +33,14 @@ public class Application {
     public static final Path UPLOADED_FILES_PATH = Paths.get("uploaded");
     public static final Path USERS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("users");
     public static final Path PRODUCTS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("products");
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
+
+    static {
+        log.info(UPLOADED_FILES_PATH.toAbsolutePath().toString());
+        log.info(USERS_IMAGES_PATH.toAbsolutePath().toString());
+        log.info(PRODUCTS_IMAGES_PATH.toAbsolutePath().toString());
+    }
+
     @Autowired
     private ProductService productService;
     @Autowired
@@ -54,6 +61,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
 
     @Bean
     public Mustache.Compiler mustacheCompiler(Mustache.TemplateLoader templateLoader, Environment environment) {
@@ -77,6 +85,7 @@ public class Application {
                 Folder for uploaded images
              */
             log.error("Images path:" + UPLOADED_FILES_PATH);
+
         /*
             Default Products
          */

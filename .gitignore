@@ -48,3 +48,5 @@ nbdist/
 
 ### Ignoring server updated by users files
 uploaded/
+### Ignore docker-composed volume files
+docker/app/
