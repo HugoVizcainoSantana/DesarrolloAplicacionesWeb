@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,11 +38,12 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	private final DeviceService deviceService;
 	private final AnalyticsService analitycsService;
 	private final OrderRequestService orderRequestService;
+	private final BCryptPasswordEncoder encoder;
 
 	@Autowired
 	public UserDashboardRestController(HomeService homeService, OrderRequestService orderService,
 			UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,
-			DeviceService deviceService, AnalyticsService analitycsService, OrderRequestService orderRequestService) {
+			DeviceService deviceService, AnalyticsService analitycsService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder) {
 
 		this.homeService = homeService;
 		this.orderService = orderService;
@@ -50,6 +53,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		this.deviceService = deviceService;
 		this.analitycsService = analitycsService;
 		this.orderRequestService = orderRequestService;
+		this.encoder = encoder;
 	}
 
 	// ++++++++++++++++++++++++++++++++++++++++ Order ok+++++++++++++++++++++++++++++++++++
@@ -146,8 +150,9 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		ResponseEntity<Home> responseHome;
 		// security check
 		if (userService.userIsOwnerOf(user, homeSelected) && (homeSelected != null)) {
-			if ((homeSelected.getId()) == homeUpdated.getId()) {
-				homeService.saveHome(homeSelected);
+			if (homeUpdated.getId()==id) {
+				//homeSelected = homeUpdated;
+				homeService.saveHome(homeUpdated);
 				responseHome = new ResponseEntity<>(homeUpdated, HttpStatus.OK);
 			} else {
 				responseHome = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -178,13 +183,13 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		} else {
-
 			User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-
-			if (user != null && user.getId() != updateUser.getId()) {
-				userService.saveUser(user);
-				return new ResponseEntity<>(user, HttpStatus.OK);
-			} else {
+				if(updateUser.getId() == user.getId()) {
+					updateUser.setPasswordHash(encoder.encode(updateUser.getPasswordHash()));
+					userService.saveUser(updateUser);
+					return new ResponseEntity<>(updateUser, HttpStatus.OK);
+				}
+			 else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
@@ -224,26 +229,38 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	// +++++++++++++++++++++++++++++++++++++++ device ++++++++++++++++++++++++++++++++++++++++++
 	// List of device
 	@RequestMapping(value = "/device", method = GET)
-	public ResponseEntity<List<Device>> device() {
-		List<Device> devices = deviceService.findAllDevices();
-
-		if (devices != null) {
-			return new ResponseEntity<>(devices, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Device>> device(Principal principal) {
+		if(principal == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
+		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+		List<Home> homeList = user.getHomeList();
+		List<Device> devicesList = new ArrayList<>();
+		for (int i=0; i<homeList.size(); i++) {
+			devicesList.addAll(homeList.get(i).getDeviceList());  
+		}
+
+		//ListDevice always full
+		return new ResponseEntity<>(devicesList, HttpStatus.OK);
 	}
 
 	// Device for id
 	@RequestMapping(value = "/device/{id}", method = GET)
-	public ResponseEntity<Device> deviceDetail(@PathVariable long id) {
-		Device device = deviceService.findOneById(id);
-		// Security Check
-		if (device != null) {
-			return new ResponseEntity<>(device, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<Device> deviceDetail(@PathVariable long id, Principal principal) {
+		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+		List<Home> homeList = user.getHomeList();
+		List<Device> deviceList = new ArrayList<>();
+		for (int i=0; i<homeList.size(); i++) {
+			if (userService.userIsOwnerOf(user, homeList.get(i))) {
+				deviceList=homeList.get(i).getDeviceList();
+			}
 		}
+		for(int i=0; i<deviceList.size(); i++) {
+			if(deviceList.get(i).getId()== id) {
+				return new ResponseEntity<>(deviceList.get(i), HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	// Update device for id
