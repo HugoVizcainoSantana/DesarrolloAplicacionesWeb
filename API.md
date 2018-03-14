@@ -20,7 +20,7 @@ Igual que el usuario registrado, solo puede enviar solicitudes GET.
 Un usuario administrador, puede enviar cualquier solicitud de las opciones posibles de Productos.
 Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 seguido de la URL de solicitud contenida en las siguientes tablas.
 
-### Métodos GET
+##### Métodos GET
 
 | Tipo | Solicitud de descripción | URL de solicitud | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- |
@@ -29,8 +29,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 borrar| 3 | Muestra la imagen del recurso (en Base64 String) | / api / files / resource / id | Base64 String y OK (200). | NOT_FOUND (404) |
 
 [1]
-````
-[
+```
     {
         "id": 1,
         "description": "Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
@@ -55,8 +54,9 @@ borrar| 3 | Muestra la imagen del recurso (en Base64 String) | / api / files / r
         "img": "product-3.jpg",
         "stock": 67
     }
-]
-``
+
+````
+
 [2]	
 ```
 {
@@ -66,9 +66,11 @@ borrar| 3 | Muestra la imagen del recurso (en Base64 String) | / api / files / r
     "type": "LIGHT",
     "img": "product-1.jpg",
     "stock": 36
-}```
+}
+```
 
-### Método POST
+
+##### Método POST
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Crea un nuevo producto. | /api/adminDashboard/inventory/id | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
@@ -84,12 +86,13 @@ borrar| 3 | Muestra la imagen del recurso (en Base64 String) | / api / files / r
 }
 ```
 
-### Método PUT
+##### Método PUT
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Modifica un recurso existente (puede modificar atributos limitados como precio, cantidad, descripción e imagen). | /api/adminDashboard/inventory | Vea abajo | Recurso modificado y OK (200) | NOT_FOUND (404) |
 [1] (ejemplo usando ID 4)
-``
+
+```
 {
     "timestamp": 1521046668016,
     "status": 400,
@@ -99,3 +102,42 @@ borrar| 3 | Muestra la imagen del recurso (en Base64 String) | / api / files / r
     "path": "/api/adminDashboard/inventory/4"
 }
 ```
+
+
+### Usuarios
+La API de los usuarios tiene métodos GET, POST, PUT. 
+Un usuario registrado, puede enviar solicitudes POST y puede modificar sus datos con PUT. 
+Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de solicitud se pueden enviar escribiendo http: //localhost:8443 seguido de la URL de solicitud containt en las siguientes tablas.
+
+#### Métodos GET
+| Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Respuesta de éxito | Respuesta de error |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Administración | Muestra a todos los usuarios. | /api/userDashboard/user | Lista de usuario y OK (200). | NOT_FOUND (404) |
+| 2	| Administración | Muestra un usuario determinado. | /api/adminDashboard/users/id |	Usuario y OK (200). | NOT_FOUND (404) |
+| 3	| Usuario |	Muestra información sobre su cuenta. | /api/adminDashboard/users/id	| Usuario y OK (200). | NOT_FOUND (404) |
+
+#### Método POST
+| Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
+| 1 | Crea un nuevo usuario | /api/register | Vea abajo | Nuevo usuario y CREADO (201) | NOT_FOUND (404) |
+[1]
+```
+{		
+	"firstName": "JorgePrueba",
+    "lastName": "Bicho",
+    "email": "Jorge@gmail.com",
+    "passwordHash": "1234"
+}
+```
+
+#### Método PUT
+| Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
+| 1 | Modifica un usuario existente (puede modificar nombre, correo electrónico ...). | /api/userDashboar/id/profile | Vea abajo | Usuario modificado y OK (200) | NOT_FOUND (404) |
+[1]
+```
+{		
+	"firstName": "modifiName",
+    "lastName": "modifiLastName",
+    "email": "modifyEmail",
+    "passwordHash": "modifiPassword"
+}
+``
