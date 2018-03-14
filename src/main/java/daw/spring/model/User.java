@@ -1,5 +1,7 @@
 package daw.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,16 +14,26 @@ import java.util.Set;
 @Entity
 public class User {
 
+
+    @JsonIgnore
+    public void setRoles(String... roles) {
+        this.roles = new HashSet<>(Arrays.asList(roles));
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Basic.class)
     private long id;
 
+    @JsonView(Basic.class)
     @NotEmpty
     private String firstName;
 
+    @JsonView(Basic.class)
     @NotEmpty
     private String lastName;
 
+    @JsonView(Basic.class)
     @NotEmpty
     @Email
     private String email;
@@ -29,19 +41,24 @@ public class User {
     @NotEmpty
     private String passwordHash;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Home> homeList;
 
+    @JsonView(Basic.class)
     private String phone;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany
     private List<Notification> notificationList;
 
+    @JsonView(Basic.class)
     private String photo;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderRequest> orderList;
 
@@ -122,12 +139,12 @@ public class User {
         return roles;
     }
 
-    public void setRoles(String... roles) {
-        this.roles = new HashSet<>(Arrays.asList(roles));
-    }
-
+    @JsonIgnore
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public interface Basic {
     }
 
     public List<Notification> getNotificationList() {

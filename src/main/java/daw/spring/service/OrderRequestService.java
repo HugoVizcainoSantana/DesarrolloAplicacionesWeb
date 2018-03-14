@@ -78,4 +78,8 @@ public class OrderRequestService {
     public List<OrderRequest> findAllHomes(List<Home> homes) {
         return orderRequestRepository.findAllByHomeIn(homes);
     }
+    public List<OrderRequest> findAllOrder() {
+        return orderRequestRepository.findAll();
+    }
+   
 }

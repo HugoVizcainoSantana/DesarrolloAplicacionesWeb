@@ -53,4 +53,10 @@ public class ProductService {
     public Page<Product> findAllProductPage(PageRequest pageRequest) {
         return productRepository.findAll(pageRequest);
     }
+
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
+
+
 }

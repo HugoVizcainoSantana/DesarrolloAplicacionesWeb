@@ -33,7 +33,7 @@ public class Product {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -80,6 +80,7 @@ public class Product {
     public void setImg(String img) {
         this.img = img;
     }
+
 
     public enum ProductType {
         BLIND, LIGHT, RASPBERRYPI
