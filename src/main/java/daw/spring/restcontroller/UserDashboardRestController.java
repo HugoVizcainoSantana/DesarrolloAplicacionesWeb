@@ -1,46 +1,26 @@
 package daw.spring.restcontroller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.itextpdf.text.DocumentException;
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.component.InvoiceGenerator;
-import daw.spring.model.Analytics;
-import daw.spring.model.Device;
-import daw.spring.model.Home;
-import daw.spring.model.OrderRequest;
-import daw.spring.model.User;
-import daw.spring.service.AnalyticsService;
-import daw.spring.service.DeviceService;
-import daw.spring.service.HomeService;
-import daw.spring.service.NotificationService;
-import daw.spring.service.OrderRequestService;
-import daw.spring.service.UserService;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-
+import daw.spring.model.*;
+import daw.spring.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonView;
-import com.itextpdf.text.DocumentException;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -70,14 +50,6 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		this.deviceService = deviceService;
 		this.analitycsService = analitycsService;
 		this.orderRequestService = orderRequestService;
-	}
-
-	@RequestMapping("/test")
-	public Map<String, Long> test() {
-		log.error("Test");
-		Map<String, Long> map = new HashMap<>();
-		map.put("Test1", 1L);
-		return map;
 	}
 
 	// ++++++++++++++++++++++++++++++++++++++++ Order ok+++++++++++++++++++++++++++++++++++
@@ -129,8 +101,14 @@ public class UserDashboardRestController implements CurrentUserInfo {
 
 	// List home
 	@RequestMapping(value = "/homes", method = GET)
-	public List<Home> homes() {
-		return homeService.findAllHomes();
+	public ResponseEntity<List<Home>> homes() {
+		List<Home> homes = homeService.findAllHomes();
+
+		if (homes != null) {
+			return new ResponseEntity<>(homes, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	// home for id
@@ -149,26 +127,27 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	// delete home, only admin
 	@RequestMapping(value = "/homes/{id}", method = DELETE)
 	public ResponseEntity<Home> deleteHome(@PathVariable long id) {
-		Home homeSelcted = homeService.findOneById(id);
-		if (homeSelcted != null) {
-			homeService.deleteHome(homeSelcted);
-			return new ResponseEntity<>(homeSelcted, HttpStatus.OK);
+		Home homeSelected = homeService.findOneById(id);
+
+		if (homeSelected != null) {
+			homeService.deleteHome(homeSelected);
+			return new ResponseEntity<>(homeSelected, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 		}
 	}
 
-	// Editamos una casa
+	// edit a home
 	@RequestMapping(value = "/homes/{id}", method = PUT)
 	public ResponseEntity<Home> putHome(Principal principal, @PathVariable long id, @RequestBody Home homeUpdated) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-		Home homeSelcted = homeService.findOneById(id);
-		ResponseEntity<Home> responseHome = null;
+		Home homeSelected = homeService.findOneById(id);
+		ResponseEntity<Home> responseHome;
 		// security check
-		if (userService.userIsOwnerOf(user, homeSelcted) && (homeSelcted != null)) {
-			if ((homeSelcted.getId()) == homeUpdated.getId()) {
-				homeService.saveHome(homeSelcted);
+		if (userService.userIsOwnerOf(user, homeSelected) && (homeSelected != null)) {
+			if ((homeSelected.getId()) == homeUpdated.getId()) {
+				homeService.saveHome(homeSelected);
 				responseHome = new ResponseEntity<>(homeUpdated, HttpStatus.OK);
 			} else {
 				responseHome = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -195,12 +174,13 @@ public class UserDashboardRestController implements CurrentUserInfo {
 
 	// update profile
 	@RequestMapping(value = "/me", method = PUT)
-	public ResponseEntity<User> upadateProfile(@RequestBody User updateUser, Principal principal) {
+	public ResponseEntity<User> updateProfile(@RequestBody User updateUser, Principal principal) {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		} else {
 
 			User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+
 			if (user != null && user.getId() != updateUser.getId()) {
 				userService.saveUser(user);
 				return new ResponseEntity<>(user, HttpStatus.OK);
@@ -244,8 +224,14 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	// +++++++++++++++++++++++++++++++++++++++ device ++++++++++++++++++++++++++++++++++++++++++
 	// List of device
 	@RequestMapping(value = "/device", method = GET)
-	public List<Device> device() {
-		return deviceService.findAllDevices();
+	public ResponseEntity<List<Device>> device() {
+		List<Device> devices = deviceService.findAllDevices();
+
+		if (devices != null) {
+			return new ResponseEntity<>(devices, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	// Device for id
@@ -261,6 +247,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		}
 	}
 
+	// TODO what is the output?
 	// Device for id
 	@RequestMapping(value = "/device/{id}", method = PUT)
 	public ResponseEntity<Device> changeDeviceStatus(Principal principal, @PathVariable long id) {
@@ -309,17 +296,20 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++ device++++++++++++++++++++++++++++++++++++++++++
-	// +++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++
-	
-	// List analitycs for device for id
-	@RequestMapping(value = "/analitycs/devices/{id}", method = GET)
-	public ResponseEntity<Analytics> analitycs(@PathVariable long id, Device device, Principal principal) {
+	// +++++++++++++++++++++++++++++++++++++++ analytics ++++++++++++++++++++++++++++++++++++++++++
+
+	// List analytics for device and id
+	@RequestMapping(value = "/analytic/device/{id}", method = GET)
+	public ResponseEntity<List<Analytics>> getAllAnalytics(@PathVariable long id, Device device, Principal principal) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Device d = deviceService.findOneById(id);
-		if (userService.userIsOwnerOf(user, d)) {
-			return new  analitycsService.findAllByDeviceAndId(device, id);
+		List<Analytics> analyticsList = analitycsService.findAllByDeviceAndId(device, id);
+
+		if ((userService.userIsOwnerOf(user, d)) && (analyticsList != null)) {
+			return new ResponseEntity<>(analyticsList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++
