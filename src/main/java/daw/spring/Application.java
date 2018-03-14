@@ -30,7 +30,7 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
 
-    public static final Path UPLOADED_FILES_PATH = Paths.get("./uploaded");
+    public static final Path UPLOADED_FILES_PATH = Paths.get("uploaded");
     public static final Path USERS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("users");
     public static final Path PRODUCTS_IMAGES_PATH = UPLOADED_FILES_PATH.resolve("products");
     private static final Logger log = LoggerFactory.getLogger(Application.class);
