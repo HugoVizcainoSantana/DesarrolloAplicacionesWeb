@@ -36,14 +36,14 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	private final InvoiceGenerator invoiceGenerator;
 	private final NotificationService notificationService;
 	private final DeviceService deviceService;
-	private final AnalyticsService analitycsService;
+    private final AnalyticsService analyticsService;
 	private final OrderRequestService orderRequestService;
 	private final BCryptPasswordEncoder encoder;
 
 	@Autowired
 	public UserDashboardRestController(HomeService homeService, OrderRequestService orderService,
-			UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,
-			DeviceService deviceService, AnalyticsService analitycsService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder) {
+                                       UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,
+                                       DeviceService deviceService, AnalyticsService analyticsService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder) {
 
 		this.homeService = homeService;
 		this.orderService = orderService;
@@ -51,28 +51,34 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		this.invoiceGenerator = invoiceGenerator;
 		this.notificationService = notificationService;
 		this.deviceService = deviceService;
-		this.analitycsService = analitycsService;
+        this.analyticsService = analyticsService;
 		this.orderRequestService = orderRequestService;
 		this.encoder = encoder;
 	}
 
-	// ++++++++++++++++++++++++++++++++++++++++ Order ok+++++++++++++++++++++++++++++++++++
 	// Create Order OK
 	@RequestMapping(value = "/shop", method = POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public OrderRequest addOrder(Principal principal, @RequestBody OrderRequest orderRequest, @RequestBody Home home) {
-		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
-		homeService.saveHome(home);
-		userService.saveHomeUser(home, user);
-		orderService.saveOrder(orderRequest);
-		return orderRequest;
+    public ResponseEntity<OrderRequest> addOrder(Principal principal, @RequestBody OrderRequest orderRequest, @RequestBody Home home) {
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            // get user
+            User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+            // save new home when order is done and attach to the user
+            homeService.saveHome(home);
+            userService.saveHomeUser(home, user);
+            // save new order and return OK
+            orderService.saveOrder(orderRequest);
+            return new ResponseEntity<>(orderRequest, HttpStatus.OK);
+        }
 	}
 
 	// order for id
 	@RequestMapping(value = "/orders/{id}", method = GET)
 	public ResponseEntity<OrderRequest> getOrder(Principal principal, @PathVariable long id) {
 		if(principal == null) {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}else {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		List<Home> homeList = homeService.getHomesFromUser(user);
@@ -100,16 +106,21 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		}
 	}
 
-	// ++++++++++++++++++++++++++++++++++++++++ Order ok +++++++++++++++++++++++++++++++++++
-	// ++++++++++++++++++++++++++++++++++++++++ Home ok+++++++++++++++++++++++++++++++++++
-
 	// List home
 	@RequestMapping(value = "/homes", method = GET)
-	public ResponseEntity<List<Home>> homes() {
+    public ResponseEntity<List<Home>> homes(Principal principal) {
+        User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		List<Home> homes = homeService.findAllHomes();
+        List<Home> homesUser = new ArrayList<>();
 
-		if (homes != null) {
-			return new ResponseEntity<>(homes, HttpStatus.OK);
+        for (Home h : homes) {
+            if (userService.userIsOwnerOf(user, h)) {
+                homesUser.add(h);
+            }
+        }
+
+        if (homes != null && homesUser != null) {
+            return new ResponseEntity<>(homesUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -120,6 +131,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	public ResponseEntity<Home> homeDetail(Principal principal, @PathVariable long id) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Home home = homeService.findOneById(id);
+
 		// Security Check
 		if (userService.userIsOwnerOf(user, home) && (home != null)) {
 			return new ResponseEntity<>(home, HttpStatus.OK);
@@ -133,6 +145,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	public ResponseEntity<Home> deleteHome(@PathVariable long id) {
 		Home homeSelected = homeService.findOneById(id);
 
+        // Security check
 		if (homeSelected != null) {
 			homeService.deleteHome(homeSelected);
 			return new ResponseEntity<>(homeSelected, HttpStatus.OK);
@@ -148,7 +161,8 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Home homeSelected = homeService.findOneById(id);
 		ResponseEntity<Home> responseHome;
-		// security check
+
+        // Security check
 		if (userService.userIsOwnerOf(user, homeSelected) && (homeSelected != null)) {
 			if (homeUpdated.getId()==id) {
 				//homeSelected = homeUpdated;
@@ -158,18 +172,18 @@ public class UserDashboardRestController implements CurrentUserInfo {
 				responseHome = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}else {
-			responseHome = new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            responseHome = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		return responseHome;
 	}
 
-	// ++++++++++++++++++++++++++++++++++++++++ Home ok+++++++++++++++++++++++++++++++++++
-	// ++++++++++++++++++++++++++++++++++++++++ profile ok +++++++++++++++++++++++++++++++++++
 	// profile
 	@JsonView(User.Basic.class)
 	@RequestMapping(value = "/me", method = GET)
 	public ResponseEntity<User> getUser(Principal principal) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+
+        // Security check
 		if (user != null) {
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
@@ -181,7 +195,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	@RequestMapping(value = "/me", method = PUT)
 	public ResponseEntity<User> updateProfile(@RequestBody User updateUser, Principal principal) {
 		if (principal == null) {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
 			User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 				if(updateUser.getId() == user.getId()) {
@@ -195,10 +209,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		}
 	}
 
-	// ++++++++++++++++++++++++++++++++++++++++ profile ok+++++++++++++++++++++++++++++++++++
-
-	// +++++++++++++++++++++++++++++++++++++ invoice ok +++++++++++++++++++++++++++++++++++++++
-
+    // generate invoice pdf
 	@RequestMapping(value = "/homes/{id}/generateInvoice", produces = "application/pdf", method = GET)
 	public ResponseEntity<?> generateInvoice(@PathVariable long id, Principal principal) {
 		ResponseEntity<?> response = null;
@@ -219,19 +230,17 @@ public class UserDashboardRestController implements CurrentUserInfo {
 					log.error(e.toString());
 				}
 			} else {
-				response =  new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                response = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 		}
 		return response;
 	}
 
-	// +++++++++++++++++++++++++++++++++++++ invoice ok+++++++++++++++++++++++++++++++++++++++
-	// +++++++++++++++++++++++++++++++++++++++ device ++++++++++++++++++++++++++++++++++++++++++
 	// List of device
 	@RequestMapping(value = "/device", method = GET)
 	public ResponseEntity<List<Device>> device(Principal principal) {
 		if(principal == null) {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		List<Home> homeList = user.getHomeList();
@@ -250,6 +259,10 @@ public class UserDashboardRestController implements CurrentUserInfo {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		List<Home> homeList = user.getHomeList();
 		List<Device> deviceList = new ArrayList<>();
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
 		for (int i=0; i<homeList.size(); i++) {
 			if (userService.userIsOwnerOf(user, homeList.get(i))) {
 				deviceList=homeList.get(i).getDeviceList();
@@ -264,13 +277,14 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	}
 
 	// Update device for id
-	//TODO work in progress
 	@RequestMapping(value = "/device/{id}", method = PUT)
 	public ResponseEntity<Device> changeDeviceStatus(Principal principal, @PathVariable long id, @RequestBody Device updateDevice) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Device device = deviceService.findOneById(id);
 		// Security check
-		if (userService.userIsOwnerOf(user, device) && (device != null) && updateDevice.getId()==id) {
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else if (userService.userIsOwnerOf(user, device) && (device != null) && updateDevice.getId() == id) {
 			Analytics analytics;
 			log.info("---add interaction---");
 			// handle types
@@ -283,7 +297,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 					// create a new analytic when status = ON
 					analytics = new Analytics(updateDevice, new Date(), Device.StateType.OFF, Device.StateType.ON);
 					// and save it
-					analitycsService.saveAnalytics(analytics);
+                    analyticsService.saveAnalytics(analytics);
 				} else {
 					// if ON, only turn OFF and save
 					updateDevice.setStatus(Device.StateType.OFF);
@@ -297,7 +311,7 @@ public class UserDashboardRestController implements CurrentUserInfo {
 					// create a new analytic when status = UP
 					analytics = new Analytics(updateDevice, new Date(), Device.StateType.UP, Device.StateType.DOWN);
 					// and save it
-					analitycsService.saveAnalytics(analytics);
+                    analyticsService.saveAnalytics(analytics);
 				} else {
 					// if DOWN, UP and save
 					updateDevice.setStatus(Device.StateType.UP);
@@ -311,23 +325,20 @@ public class UserDashboardRestController implements CurrentUserInfo {
 
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++ device++++++++++++++++++++++++++++++++++++++++++
-	// +++++++++++++++++++++++++++++++++++++++ analytics ++++++++++++++++++++++++++++++++++++++++++
-
 	// List analytics for device and id
 	@RequestMapping(value = "/analytic/device/{id}", method = GET)
 	public ResponseEntity<List<Analytics>> getAllAnalytics(@PathVariable long id, Device device, Principal principal) {
 		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
 		Device d = deviceService.findOneById(id);
-		List<Analytics> analyticsList = analitycsService.findAllByDeviceAndId(device, id);
+        List<Analytics> analyticsList = analyticsService.findAnalyticsByDevice(device);
 
-		if ((userService.userIsOwnerOf(user, d)) && (analyticsList != null)) {
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else if ((userService.userIsOwnerOf(user, d)) && (analyticsList != null)) {
 			return new ResponseEntity<>(analyticsList, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-	// +++++++++++++++++++++++++++++++++++++++ analitycs ++++++++++++++++++++++++++++++++++++++++++
 }
 
