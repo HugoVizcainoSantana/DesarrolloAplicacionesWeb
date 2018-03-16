@@ -23,8 +23,8 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 
 ###### Métodos GET
 
-| Tipo |  Permisos | Solicitud de descripción | URL de solicitud | Respuesta de éxito | Respuesta de error |
-| --- | --- | --- | --- | --- |
+| Tipo | Permisos | Solicitud de descripción | URL de solicitud | Respuesta de éxito | Respuesta de error |
+| --- | --- | --- | --- | --- | --- |
 | 1 | Usuario sin registrar | Muestra todos los productos. | /api/products | Lista de productos y OK (200). | NOT_FOUND (404) |
 | 2 | Usuario sin registrar |Muestra un producto determinado. | /api/products/id | Producto y OK (200). | NOT_FOUND (404) |
 | 3 | Usuario Registrado | Muestra todos los productos adquiridos | /dashboard/ | Lista de productos adquiridos y OK (200). | NOT_FOUND (404) |
@@ -76,6 +76,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Administrador | Crea un nuevo producto. | /api//adminDashboard/addProduct? | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
+
 [1]
 ```
 {
@@ -91,7 +92,8 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ###### Método PUT
 | Tipo | Permisos |Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Administrador | Modifica un recurso existente (puede modificar atributos limitados como precio, cantidad, descripción e imagen). | /api/adminDashboard/inventory/id | Vea abajo | Recurso modificado y OK (200) | NOT_FOUND (404) |
+| 1 | Administrador | Modifica un recurso existente (puede modificar precio, cantidad, descripción e imagen). | /api/adminDashboard/inventory/id | Vea abajo | Recurso modificado y OK (200) | NOT_FOUND (404) |
+
 [1] (ejemplo usando ID 4)
 
 ```
@@ -124,6 +126,7 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Crea un nuevo usuario | /api/register | Vea abajo | Nuevo usuario y CREADO (201) | NOT_FOUND (404) |
+
 [1]
 ```
 {		
@@ -138,6 +141,7 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Modifica un usuario existente (puede modificar nombre, correo electrónico ...). | /dashboard/profile | Vea abajo | Usuario modificado y OK (200) | NOT_FOUND (404) |
+
 [1]
 ```
 {		
@@ -167,6 +171,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1	| Crea un nuevo pedido | /dashboard/shop | Vea abajo | Nuevo pedido y CREADO (201) | NOT_FOUND(404) |
+
 [1]
 ```
 FALTA EL CODIGO
@@ -192,6 +197,7 @@ FALTA EL CODIGO
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1	 | Modifica el pedido con el numero de serie. |	/adminDashboard/orders/id  | Vea abajo	| Pedido modificado y OK (200) | NOT_FOUND (404) |
+
 [1]
 
 ```
@@ -244,6 +250,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Crea ua nueva casa. | /api/dashboard/shop | Vea abajo | Nuevo casa y CREADO (201) | NOT_FOUND (404) |
+
 [1]
 ````
 FALTA CODIGO
@@ -272,6 +279,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Crea ua nueva factura. | /api/dashboard/homes | Vea abajo | Nueva factura y CREADO (201) | - |
+
 [1]
 ````
 FALTA CODIGO
