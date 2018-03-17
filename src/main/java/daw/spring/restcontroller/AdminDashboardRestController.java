@@ -2,8 +2,13 @@ package daw.spring.restcontroller;
 
 import daw.spring.component.CurrentUserInfo;
 import daw.spring.model.*;
+import daw.spring.repository.OrderRequestRepository;
+import daw.spring.repository.ProductRepository;
+import daw.spring.repository.UserRepository;
 import daw.spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +26,21 @@ public class AdminDashboardRestController implements CurrentUserInfo {
     private final NotificationService notificationService;
     private final DeviceService deviceService;
     private final HomeService homeService;
+    private final OrderRequestRepository orderRequestRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public AdminDashboardRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService, DeviceService deviceService , HomeService homeService) {
+    public AdminDashboardRestController(UserService userService, ProductService productService, OrderRequestService orderRequestService, NotificationService notificationService, DeviceService deviceService, HomeService homeService, OrderRequestRepository orderRequestRepository, UserRepository userRepository, ProductRepository productRepository) {
         this.userService = userService;
         this.deviceService = deviceService;
         this.homeService = homeService;
         this.productService = productService;
         this.orderRequestService = orderRequestService;
         this.notificationService = notificationService;
+        this.orderRequestRepository = orderRequestRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
@@ -55,13 +66,14 @@ public class AdminDashboardRestController implements CurrentUserInfo {
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity inventory(Principal principal) {
+    public ResponseEntity<Page<Product>> inventory(Principal principal , Pageable page) {
         if (principal==null){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
-            return ResponseEntity.ok(productService.findAllProducts()) ;
+            Page<Product> listProducts = productRepository.findAllByIdNotNull(page);
+            return new ResponseEntity<>(listProducts, HttpStatus.OK);
         }else{
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
@@ -116,13 +128,14 @@ public class AdminDashboardRestController implements CurrentUserInfo {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity getUsers(Principal principal) {
+    public ResponseEntity<Page<User>> getUsers(Principal principal, Pageable page) {
         if (principal==null){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
-            return ResponseEntity.ok(userService.findAll()) ;
+            Page<User> listusers = userRepository.findAllByIdNotNull(page);
+            return new ResponseEntity<>(listusers, HttpStatus.OK);
         }else{
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
@@ -145,18 +158,19 @@ public class AdminDashboardRestController implements CurrentUserInfo {
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity orders(Principal principal) {
+    public ResponseEntity<Map<String, Page<OrderRequest>>> orders(Principal principal, Pageable page) {
         if (principal==null){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
         if ( user.getRoles().contains(Roles.ADMIN.getRoleName())){
-            List<OrderRequest> listOrdersNotcomplete = orderRequestService.findNotCompletedOrdersAll();
-            List<OrderRequest> listOrdersAreComplete = orderRequestService.findCompletedOrdersAll();
-            Map<String, List<OrderRequest>> ordersOut = new HashMap<>();
+            Page<OrderRequest> listOrdersNotcomplete = orderRequestRepository.findAllByCompletedIsFalse(page);
+            Page<OrderRequest> listOrdersAreComplete = orderRequestRepository.findAllByCompletedIsFalse(page);
+            Map<String, Page<OrderRequest>> ordersOut = new HashMap<>();
             ordersOut.put("OrdersNotComplete", listOrdersNotcomplete);
             ordersOut.put("OrdersComplete", listOrdersAreComplete);
-            return ResponseEntity.ok(ordersOut) ;
+            //return ResponseEntity.ok(ordersOut) ;
+            return new ResponseEntity<>(ordersOut, HttpStatus.OK);
         }else{
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
