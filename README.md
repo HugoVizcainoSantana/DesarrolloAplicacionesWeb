@@ -158,11 +158,11 @@ Diagrama de clases y template donde se muestra la relación de los controladores
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
 ## FASE 3
-### Documentación de la API : |[api](/API.md)
+### Documentación de la API : [api](API.md)
 
 ### Diagrama de clases y template [@restController]
 ![diagram](/pantallazosFase4/Main4.jpg)
-Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores y RestControler con los 
+Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores con sus archivos HTML. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestControler con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
 ### Instrucciones de ejecución de la aplicación dokerizada usando el docker-compose.yml

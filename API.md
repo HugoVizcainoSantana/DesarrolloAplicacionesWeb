@@ -28,7 +28,7 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | 1 | Usuario sin registrar | Muestra todos los productos. | /api/products | Lista de productos y OK (200). | NOT_FOUND (404) |
 | 2 | Usuario sin registrar |Muestra un producto determinado. | /api/products/id | Producto y OK (200). | NOT_FOUND (404) |
 | 3 | Usuario Registrado | Muestra todos los productos adquiridos | /dashboard/ | Lista de productos adquiridos y OK (200). | NOT_FOUND (404) |
-| 4 | Administrador | Muestra todos los productos | adminDashboard/inventory | Lista de productos y OK (200). | NOT_FOUND (404) |
+| 4 | Administrador | Muestra todos los productos | api/adminDashboard/inventory/?page=1&size=1 | Lista de productos y OK (200). | NOT_FOUND (404) |
 
 [1]
 ```
@@ -59,15 +59,27 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 
 ```
 
-[2]	
+[4]	
 ```
 {
-    "id": 1,
-    "description": "Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
-    "cost": 15.5,
-    "type": "LIGHT",
-    "img": "product-1.jpg",
-    "stock": 36
+    "content": [
+        {
+            "id": 2,
+            "description": "Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
+            "cost": 32.5,
+            "type": "BLIND",
+            "img": "product-2.jpg",
+            "stock": 34
+        }
+    ],
+    "last": false,
+    "totalElements": 3,
+    "totalPages": 3,
+    "size": 1,
+    "number": 1,
+    "sort": null,
+    "numberOfElements": 1,
+    "first": false
 }
 ```
 
@@ -116,11 +128,50 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 ###### Métodos GET
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Administración | Muestra a todos los usuarios. | /api/adminDashboard/users | Lista de usuario y OK (200). | NOT_FOUND (404) |
+| 1 | Administración | Muestra a todos los usuarios. | /api/adminDashboard/users/?page=0&size=2 | Lista de usuario y OK (200). | NOT_FOUND (404) |
 | 2	| Administración | Muestra un usuario determinado. | /api/adminDashboard/users/id |	Usuario y OK (200). | NOT_FOUND (404) |
 | 3	| Usuario |	Muestra información sobre su cuenta. | /api/dashboard/profile	| Usuario y OK (200). | NOT_FOUND (404) |
 | 4	| Usuario |	Muestra información sobre su cuenta. | /dashboard/see	| Usuario con sus casas y OK (200). | NOT_FOUND (404) |
+[2]
+```
+{
+    "content": [
+        {
+            "id": 1,
+            "firstName": "Amador",
+            "lastName": "Rivas",
+            "email": "amador@merengue.com",
+            "passwordHash": "$2a$10$AVnpgYcf/YU69DTXPd8rqOA2imoicuUndgRkTotWNQ7OQ4V2N9qEe",
+            "homeList": [],
+            "phone": "98663631",
+            "notificationList": [],
+            "photo": null,
+            "orderList": []
+        },
+        {
+            "id": 2,
+            "firstName": "Teodoro",
+            "lastName": "Rivas",
+            "email": "teodor69@merengue.com",
+            "passwordHash": "$2a$10$ELiXVX0Vr3L/ZefW8VWkduWLAmAv6UYbeP3WqS4YnVas47CLfjvHu",
+            "homeList": [],
+            "phone": "98663632",
+            "notificationList": [],
+            "photo": null,
+            "orderList": []
+        }
+    ],
+    "last": false,
+    "totalElements": 7,
+    "totalPages": 4,
+    "size": 2,
+    "number": 0,
+    "sort": null,
+    "numberOfElements": 2,
+    "first": true
+}
 
+```
 
 ###### Método POST
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
@@ -167,6 +218,120 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | 3 | Administrador |	Muestra un pedido determinado. | /api//adminDashboard/orders | Pedido y OK (200).	| NOT_FOUND (404) |
 | 4 | Usuario | Muestra todos los pedidos de los usuarios. | /dashboard/see | Lista de pedidos y OK (200). | NOT_FOUND (404) |
 
+[1]
+```
+{
+    "OrdersNotComplete": {
+        "content": [
+            {
+                "id": 1,
+                "cost": 31,
+                "completed": false,
+                "date": 1521311658000,
+                "home": {
+                    "id": 1,
+                    "postCode": 28045,
+                    "address": "c/montepinar",
+                    "activated": true,
+                    "deviceList": [],
+                    "deviceQuantity": 0
+                },
+                "deviceList": [
+                    {
+                        "id": 1,
+                        "description": "Actuador de bombilla",
+                        "cost": 30,
+                        "type": "LIGHT",
+                        "status": "ON",
+                        "img": null,
+                        "activated": false,
+                        "activatedStatus": false,
+                        "serialNumber": null,
+                        "favorite": false
+                    },
+                    {
+                        "id": 2,
+                        "description": "Actuador de persiana",
+                        "cost": 150,
+                        "type": "BLIND",
+                        "status": "UP",
+                        "img": null,
+                        "activated": false,
+                        "activatedStatus": false,
+                        "serialNumber": null,
+                        "favorite": false
+                    }
+                ],
+                "observation": "Mi observacion",
+                "dateAsString": "2018-34-17 19:34:18"
+            }
+        ],
+        "last": true,
+        "totalElements": 1,
+        "totalPages": 1,
+        "size": 20,
+        "number": 0,
+        "sort": null,
+        "numberOfElements": 1,
+        "first": true
+    },
+    "OrdersComplete": {
+        "content": [
+            {
+                "id": 1,
+                "cost": 31,
+                "completed": false,
+                "date": 1521311658000,
+                "home": {
+                    "id": 1,
+                    "postCode": 28045,
+                    "address": "c/montepinar",
+                    "activated": true,
+                    "deviceList": [],
+                    "deviceQuantity": 0
+                },
+                "deviceList": [
+                    {
+                        "id": 1,
+                        "description": "Actuador de bombilla",
+                        "cost": 30,
+                        "type": "LIGHT",
+                        "status": "ON",
+                        "img": null,
+                        "activated": false,
+                        "activatedStatus": false,
+                        "serialNumber": null,
+                        "favorite": false
+                    },
+                    {
+                        "id": 2,
+                        "description": "Actuador de persiana",
+                        "cost": 150,
+                        "type": "BLIND",
+                        "status": "UP",
+                        "img": null,
+                        "activated": false,
+                        "activatedStatus": false,
+                        "serialNumber": null,
+                        "favorite": false
+                    }
+                ],
+                "observation": "Mi observacion",
+                "dateAsString": "2018-34-17 19:34:18"
+            }
+        ],
+        "last": true,
+        "totalElements": 1,
+        "totalPages": 1,
+        "size": 20,
+        "number": 0,
+        "sort": null,
+        "numberOfElements": 1,
+        "first": true
+    }
+}
+
+```
 ###### Método POST
 | Tipo | Solicitud de descripción | URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
