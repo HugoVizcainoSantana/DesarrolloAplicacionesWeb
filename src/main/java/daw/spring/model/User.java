@@ -14,10 +14,7 @@ import java.util.Set;
 @Entity
 public class User {
 
-
-    @JsonIgnore
-    public void setRoles(String... roles) {
-        this.roles = new HashSet<>(Arrays.asList(roles));
+	public interface Basic {
     }
 
     @Id
@@ -144,7 +141,9 @@ public class User {
         this.roles = roles;
     }
 
-    public interface Basic {
+    @JsonIgnore
+    public void setRoles(String... roles) {
+        this.roles = new HashSet<>(Arrays.asList(roles));
     }
 
     public List<Notification> getNotificationList() {
