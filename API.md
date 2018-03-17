@@ -75,13 +75,13 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ###### Método POST
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Administrador | Crea un nuevo producto. | /api//adminDashboard/addProduct? | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
+| 1 | Administrador | Crea un nuevo producto. | /api/adminDashboard/addProduct? | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
 
 [1]
 ```
 {
     "timestamp": 1521046055861,
-    "status": 405,
+    "status": 404,
     "error": "Method Not Allowed",
     "exception": "org.springframework.web.HttpRequestMethodNotSupportedException",
     "message": "Request method 'POST' not supported",
@@ -201,32 +201,53 @@ FALTA EL CODIGO
 [1]
 
 ```
-FALTA CODIGO
-{   
-   " id " : 1 ,
-   " dateLoanInit " : 1489411423000 ,
-   " dateLoanGiven " : null ,
-   " dateLoanReturn " : null ,
-   " copy " : {
-     " id " : 1 ,
-     " locationCode " : " 1GaCi1 " ,
-     " resource " : {
-       "id " : 1,
-       " título " : " Cien años de soledad " ,
-       " autor " : " Gabriel García Márquez " ,
-       " editorial " : " Editorial Sudamericana " ,
-       " foto " : " 1.jpg " ,
-       " noReservedCopies " : [
-         " 1GaCi3 "
-      ],
-      " avaiblereserve " : cierto ,
-       " descripción " : " Cien años de soledad es ... "
-    }
-  },
-  " usuario " : {
-     " id " : 1 ,
-     " nombre " : " carlosv "
-  }
+{
+    "orderData": [
+        {
+            "id": 1,
+            "cost": 31,
+            "completed": false,
+            "date": 1521244071000,
+            "home": {
+                "id": 1,
+                "postCode": 28045,
+                "address": "c/montepinar",
+                "activated": true,
+                "deviceList": [],
+                "deviceQuantity": 0
+            },
+            "deviceList": [
+                {
+                    "id": 1,
+                    "description": "Actuador de bombilla",
+                    "cost": 30,
+                    "type": "LIGHT",
+                    "status": "ON",
+                    "img": null,
+                    "activated": false,
+                    "activatedStatus": false,
+                    "serialNumber": null,
+                    "favorite": false
+                },
+                {
+                    "id": 2,
+                    "description": "Actuador de persiana",
+                    "cost": 150,
+                    "type": "BLIND",
+                    "status": "UP",
+                    "img": null,
+                    "activated": false,
+                    "activatedStatus": false,
+                    "serialNumber": null,
+                    "favorite": false
+                }
+            ],
+            "observation": "Mi observacion"
+        }
+    ],
+    "userHomeData": [
+        null
+    ]
 }
 ```
 

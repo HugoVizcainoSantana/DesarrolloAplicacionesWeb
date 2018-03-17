@@ -94,8 +94,8 @@ Cliente sin registrar:
 Cliente registrado:
 ![Navegacion con registro](/pantalalzosFase2/dasboard/NavegacionDasboard.jpg "Esquema con registrar") 
 
-##FASE 3
-###Capturas de pantalla
+## FASE 3
+### Capturas de pantalla
 DASHBOARD ADMINISTRADOR
 ![choose](/pantallazosFase3/ChooseDashboard.png)
 Inicio de la pantalla de la parte del usuario administrador donde puede elegir entre admin Dashboard o user Dashboard 
@@ -140,7 +140,7 @@ Perfil del usuario donde puede modificar sus datos y su imagen de avatar
 La entidad con la base de datos están relacionadas de la forma que los usuario tienen una entidad 
 que se guarda en la base de datos, donde tendrán su identificador generado automaticamente, guardando su nombre, apellidos, email, contraseña, telefono, listas de casas junto con los roles, 
 que estos últimos son los que se utilizan para la seguridad con Spring.
-###Diagrama de clases
+### Diagrama de clases
 ![class](/pantallazosFase3/esquemaclases.png)
 
 ### Entorno de desarrollo
@@ -157,3 +157,31 @@ localhost:3306
 Diagrama de clases y template donde se muestra la relación de los controladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
+## FASE 3
+### Documentación de la API : |[api](/API.md)
+
+### Diagrama de clases y template [@restController]
+![diagram](/pantallazosFase4/Main4.jpg)
+Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores y RestControler con los 
+servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
+
+### Instrucciones de ejecución de la aplicación dokerizada usando el docker-compose.yml
+| Nº Paso | Instrucción |
+| --- | --- |
+| 1 | | 
+| 2 | |
+| 3 | |
+
+### Preparación del entorno de desarrollo
+| Nº Paso | Instrucción |
+| --- | --- |
+| 1 | | 
+| 2 | |
+| 3 | |
+
+### Instrucciones de desarrollo
+| Nº Paso | Instrucción |
+| --- | --- |
+| 1 | | 
+| 2 | |
+| 3 | |
