@@ -34,7 +34,6 @@ public class UserDashboardRestController implements CurrentUserInfo {
 	private final OrderRequestService orderService;
 	private final UserService userService;
 	private final InvoiceGenerator invoiceGenerator;
-	private final NotificationService notificationService;
 	private final DeviceService deviceService;
     private final AnalyticsService analyticsService;
 	private final OrderRequestService orderRequestService;
@@ -42,14 +41,13 @@ public class UserDashboardRestController implements CurrentUserInfo {
 
 	@Autowired
 	public UserDashboardRestController(HomeService homeService, OrderRequestService orderService,
-                                       UserService userService, InvoiceGenerator invoiceGenerator, NotificationService notificationService,
+                                       UserService userService, InvoiceGenerator invoiceGenerator,
                                        DeviceService deviceService, AnalyticsService analyticsService, OrderRequestService orderRequestService, BCryptPasswordEncoder encoder) {
 
 		this.homeService = homeService;
 		this.orderService = orderService;
 		this.userService = userService;
 		this.invoiceGenerator = invoiceGenerator;
-		this.notificationService = notificationService;
 		this.deviceService = deviceService;
         this.analyticsService = analyticsService;
 		this.orderRequestService = orderRequestService;
@@ -166,7 +164,6 @@ public class UserDashboardRestController implements CurrentUserInfo {
         // Security check
 		if (userService.userIsOwnerOf(user, homeSelected) && (homeSelected != null)) {
 			if (homeUpdated.getId()==id) {
-				//homeSelected = homeUpdated;
 				homeService.saveHome(homeUpdated);
 				responseHome = new ResponseEntity<>(homeUpdated, HttpStatus.OK);
 			} else {
