@@ -124,7 +124,6 @@ public class UserDashboardController implements CurrentUserInfo {
             return "redirect:/dashboard/";
         }
 
-
     }
 
     @RequestMapping("/shop")
