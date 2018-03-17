@@ -97,8 +97,9 @@ public class UserDashboardRestController implements CurrentUserInfo {
 
 	// list orders
 	@RequestMapping(value = "/orders", method = GET)
-	public ResponseEntity<List<OrderRequest>> getAllOrders() {
-		List<OrderRequest> ordersRequest = orderService.findAllOrder();
+	public ResponseEntity<List<OrderRequest>> getAllOrders(Principal principal) {
+		User user = userService.findOneById(getIdFromPrincipalName(principal.getName()));
+		List<OrderRequest> ordersRequest =user.getOrderList();
 		if (ordersRequest != null) {
 			return new ResponseEntity<>(ordersRequest, HttpStatus.OK);
 		} else {

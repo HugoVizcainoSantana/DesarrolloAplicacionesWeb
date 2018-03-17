@@ -3,6 +3,8 @@ package daw.spring.repository;
 
 import daw.spring.model.Home;
 import daw.spring.model.OrderRequest;
+import daw.spring.model.User;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +30,14 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
     Page<OrderRequest> findAllByCompletedIsFalse(Pageable pageRequest);
 
     Page<OrderRequest> findAllByCompletedIsTrue(Pageable pageRequest);
+    
+    //Page<OrderRequest> findAll(Page page);
+    
+    public Page<OrderRequest> findAll(Pageable pageable);
+   
+   
+    
+    
+    //Page<OrderRequest> findAllHomePage(Collection<Home> homes, Pageable pageable);
+    
 }
