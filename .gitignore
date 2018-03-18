@@ -50,3 +50,5 @@ nbdist/
 uploaded/
 ### Ignore docker-composed volume files
 docker/app/
+### Ignore maven cache for building project
+maven-cache/
