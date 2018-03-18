@@ -180,11 +180,9 @@ servicios y repositorios. Por tanto para realizar la relación en su proyecto de
 | Nº Paso | Instrucción |
 | --- | --- |
 | 1 | Descargar Postman. | 
-| 2 | Generar solicitudes cambiando el método en posman a uno de los siguientesGET, POST, PUT y DELETE.|
+| 2 | Generar solicitudes cambiando el método en Postman a uno de los siguientes GET, POST, PUT y DELETE.|
 | 3 | Nuestra API tiene un lado público donde puedes ver la información de quienes somos, lo que hacemos y nuestros productos. |
-| 4 | Dos partes privadas. La primera como cliente registrado puediendo ver tus facturas, graficas, consumos y pedidos, para ello 
-debes iniciar sesión como usuario. Una segunda parte privada que es como administrador, que tienes acceso a los pedidos y a las 
-características de los usuarios, para ello tienes que registrarte con los permisos de administrador. |
+| 4 | Dos partes privadas. La primera como cliente registrado puediendo ver tus facturas, graficas, consumos y pedidos, para ello debes iniciar sesión como usuario. Una segunda parte privada que es como administrador, que tienes acceso a los pedidos y a las características de los usuarios, para ello tienes que registrarte con los permisos de administrador. |
 | 5 | Una vez que haya iniciado sesión o sin iniciarla, puede enviar todas las solicitudes que desee (siempre siguiendo nuestras reglas). |
 | 6 | Si quieres terminar tu sesión, usa logout. |
 
