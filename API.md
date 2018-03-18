@@ -132,6 +132,7 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 | 2	| Administrador | Muestra un usuario determinado. | /api/adminDashboard/users/id |	Usuario y OK (200). | NOT_FOUND (404) |
 | 3	| Usuario |	Muestra información sobre su cuenta. | /api/dashboard/profile	| Usuario y OK (200). | NOT_FOUND (404) |
 | 4	| Usuario |	Muestra información sobre su cuenta. | /dashboard/see	| Usuario con sus casas y OK (200). | NOT_FOUND (404) |
+
 [2]
 ```
 {

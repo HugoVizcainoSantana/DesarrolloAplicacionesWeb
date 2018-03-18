@@ -161,8 +161,12 @@ servicios y repositorios. Por tanto para realizar la relación en su proyecto de
 ### Documentación de la API : [api](API.md)
 
 ### Diagrama de clases y template [@restController]
-![diagram](/pantallazosFase4/Main4.jpg)
-Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores con sus archivos HTML. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestControler con los 
+Nuevos Rescontroles y sus dependencias.
+![diagram](/pantallazosFase4/diagrama1.jpg)
+Nuevos rescontroles con sus dependencias y sus métodos.
+![diagram](/pantallazosFase4/diagrama2.jpg)
+
+Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestControler con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
 ### Instrucciones de ejecución de la aplicación dokerizada usando el docker-compose.yml
@@ -175,9 +179,14 @@ servicios y repositorios. Por tanto para realizar la relación en su proyecto de
 ### Preparación del entorno de desarrollo
 | Nº Paso | Instrucción |
 | --- | --- |
-| 1 | | 
-| 2 | |
-| 3 | |
+| 1 | Descargar Postman. | 
+| 2 | Generar solicitudes cambiando el método en posman a uno de los siguientesGET, POST, PUT y DELETE.|
+| 3 | Nuestra API tiene un lado público donde puedes ver la información de quienes somos, lo que hacemos y nuestros productos. |
+| 4 | Dos partes privadas. La primera como cliente registrado puediendo ver tus facturas, graficas, consumos y pedidos, para ello 
+debes iniciar sesión como usuario. Una segunda parte privada que es como administrador, que tienes acceso a los pedidos y a las 
+características de los usuarios, para ello tienes que registrarte con los permisos de administrador. |
+| 5 | Una vez que haya iniciado sesión o sin iniciarla, puede enviar todas las solicitudes que desee (siempre siguiendo nuestras reglas). |
+| 6 | Si quieres terminar tu sesión, usa logout. |
 
 ### Instrucciones de desarrollo
 | Nº Paso | Instrucción |
