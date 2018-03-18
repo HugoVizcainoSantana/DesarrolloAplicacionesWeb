@@ -92,12 +92,12 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 [1]
 ```
 {
-    "timestamp": 1521046055861,
-    "status": 404,
-    "error": "Method Not Allowed",
-    "exception": "org.springframework.web.HttpRequestMethodNotSupportedException",
-    "message": "Request method 'POST' not supported",
-    "path": "/api/adminDashboard/inventory/1"
+"id": 2,
+    "description": "Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
+    "cost": 32.5,
+    "type": "BLIND",
+    "img": "product-2.jpg",
+     "stock": 34
 }
 ```
 
@@ -106,16 +106,16 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Administrador | Modifica un recurso existente (puede modificar precio, cantidad, descripción e imagen). | /api/adminDashboard/inventory/id | Vea abajo | Recurso modificado y OK (200) | NOT_FOUND (404) |
 
-[1] (ejemplo usando ID 4)
+[1] (ejemplo usando ID 1)
 
 ```
 {
-    "timestamp": 1521046668016,
-    "status": 400,
-    "error": "Bad Request",
-    "exception": "org.springframework.http.converter.HttpMessageNotReadableException",
-    "message": "Required request body is missing: public void daw.spring.restcontroller.AdminDashboardRestController.editProduct(long,daw.spring.model.Product)",
-    "path": "/api/adminDashboard/inventory/4"
+    "id": 1,
+    "description": "Actuador de bombilla para domótica.  Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
+    "cost": 20,
+    "type": "LIGHT",
+    "img": "product-1.jpg",
+    "stock": 40
 }
 ```
 
@@ -128,8 +128,8 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 ###### Métodos GET
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Administración | Muestra a todos los usuarios. | /api/adminDashboard/users/?page=0&size=2 | Lista de usuario y OK (200). | NOT_FOUND (404) |
-| 2	| Administración | Muestra un usuario determinado. | /api/adminDashboard/users/id |	Usuario y OK (200). | NOT_FOUND (404) |
+| 1 | Administrador | Muestra a todos los usuarios. | /api/adminDashboard/users/?page=0&size=2 | Lista de usuario y OK (200). | NOT_FOUND (404) |
+| 2	| Administrador | Muestra un usuario determinado. | /api/adminDashboard/users/id |	Usuario y OK (200). | NOT_FOUND (404) |
 | 3	| Usuario |	Muestra información sobre su cuenta. | /api/dashboard/profile	| Usuario y OK (200). | NOT_FOUND (404) |
 | 4	| Usuario |	Muestra información sobre su cuenta. | /dashboard/see	| Usuario con sus casas y OK (200). | NOT_FOUND (404) |
 [2]
@@ -180,11 +180,14 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 
 [1]
 ```
-{		
-	"firstName": "Persona",
-    "lastName": "prueba",
-    "email": "personaprueba@gmail.com",
-    "passwordHash": "1234"
+
+{
+   "id": 8,
+   "firstName": "Persona",
+   "lastName": "prueba",
+   "email": "personaprueba@gmail.com",
+   "phone": null,
+   "photo": null
 }
 ```
 
@@ -195,12 +198,16 @@ Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de sol
 
 [1]
 ```
-{		
-	"firstName": "modifiName",
-    "lastName": "modifiLastName",
-    "email": "modifyEmail",
-    "passwordHash": "modifiPassword"
+
+{
+   "id": 8,
+   "firstName": "Antonio",
+   "lastName": "prueba",
+   "email": "personaprueba@gmail.com",
+   "phone": 611111111,
+   "photo": null
 }
+
 ```
 
 ### Pedidos
@@ -339,18 +346,47 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 
 [1]
 ```
-FALTA EL CODIGO
-{
-   " copy " : {
-     " id " : idCopy ,
-     " locationCode " : locationCode ,
-     " resource " : {
-       " id " : idResource
-    }
-  },
-  " usuario " : {
-     " id " : idUser
-  }
+ {
+    "id": 1,
+        "cost": 31,
+        "completed": false,
+        "date": 1521311658000,
+        "home": {
+            "id": 1,
+                "postCode": 28045,
+                "address": "c/montepinar",
+                "activated": true,
+                "deviceList": [],
+                "deviceQuantity": 0
+          },
+                "deviceList": [
+          {
+                "id": 1,
+                "description": "Actuador de bombilla",
+                "cost": 30,
+                "type": "LIGHT",
+                "status": "ON",
+                "img": null,
+                "activated": false,
+                "activatedStatus": false,
+                "serialNumber": null,
+                "favorite": false
+           },
+           {
+                "id": 2,
+                "description": "Actuador de persiana",
+                "cost": 150,
+                "type": "BLIND",
+                "status": "UP",
+                "img": null,
+                "activated": false,
+                "activatedStatus": false,
+                "serialNumber": null,
+                "favorite": false
+            }
+        ],
+    "observation": "Mi observacion",
+    "dateAsString": "2018-34-17 19:34:18"
 }
 ```
 ###### Método DELETE
@@ -391,7 +427,7 @@ FALTA EL CODIGO
                     "img": null,
                     "activated": false,
                     "activatedStatus": false,
-                    "serialNumber": null,
+                    "serialNumber": "A123Z",
                     "favorite": false
                 },
                 {
@@ -403,7 +439,7 @@ FALTA EL CODIGO
                     "img": null,
                     "activated": false,
                     "activatedStatus": false,
-                    "serialNumber": null,
+                    "serialNumber": "B111X",
                     "favorite": false
                 }
             ],
@@ -432,18 +468,71 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | 5	| Administrador | Muestra la casas junto al pedidos. | /api/adminDashboard/orders | Casas con pedidos y OK (200).	| NOT_FOUND (404) |
 | 6	| Administrador | Muestra la casa junto al pedido de un usuario concreto. | /api/adminDashboard/orders/id | Casa con su usuario y OK (200).	| NOT_FOUND (404) |
 
+[1]
+````
+[
+   {
+       "id": 2,
+       "postCode": 21111,
+       "address": "c/ole",
+       "activated": false,
+       "deviceList": [],
+       "deviceQuantity": 0
+   },
+   {
+       "id": 3,
+       "postCode": 28007,
+       "address": "c/hugo",
+       "activated": true,
+       "deviceList": [
+           {
+               "id": 1,
+               "description": "Actuador de bombilla",
+               "cost": 30,
+               "type": "LIGHT",
+               "status": "ON",
+               "img": null,
+               "activated": false,
+               "activatedStatus": false,
+               "serialNumber": null,
+               "favorite": false
+           },
+           {
+               "id": 3,
+               "description": "RaspberryPi",
+               "cost": 30,
+               "type": "RASPBERRYPI",
+               "status": "OFF",
+               "img": null,
+               "activated": false,
+               "activatedStatus": false,
+               "serialNumber": null,
+               "favorite": false
+           },
+           {
+               "id": 4,
+               "description": "Actuador de persiana",
+               "cost": 150,
+               "type": "BLIND",
+               "status": "UP",
+               "img": null,
+               "activated": true,
+               "activatedStatus": false,
+               "serialNumber": null,
+               "favorite": false
+           }
+       ],
+       "deviceQuantity": 3
+   }
+]
+
+````
+
 ###### Método POST
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Crea ua nueva casa. | /api/dashboard/shop | Vea abajo | Nuevo casa y CREADO (201) | NOT_FOUND (404) |
 
-[1]
-````
-FALTA CODIGO
-{
-   " nombre " : newGenreName 
-}
-````
 
 ## Estadísticas
 La API de géneros tiene métodos GET. 
@@ -453,8 +542,49 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ###### Métodos GET
 | Tipo | Solicitud de descripción |	URL de solicitud | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | 
-| 1  | Muestra las estadísticas con su casa asociada. | /api/dashboard/homes | Estadistica de cada casa y OK (200). | NOT_FOUND (404) |
+| 1  | Muestra las estadísticas con su casa asociada. | /api/dashboard/analytic/device/{id} | Estadistica de cada casa y OK (200). | NOT_FOUND (404) |
 
+[1]
+```
+[
+   {
+       "id": 1,
+       "device": {
+           "id": 4,
+           "description": "Actuador de persiana",
+           "cost": 150,
+           "type": "BLIND",
+           "status": "UP",
+           "img": null,
+           "activated": true,
+           "activatedStatus": false,
+           "serialNumber": null,
+           "favorite": false
+       },
+       "date": 1521399545000,
+       "previousState": "OFF",
+       "newState": "ON"
+   },
+   {
+       "id": 2,
+       "device": {
+           "id": 4,
+           "description": "Actuador de persiana",
+           "cost": 150,
+           "type": "BLIND",
+           "status": "DOWN",
+           "img": null,
+           "activated": true,
+           "activatedStatus": false,
+           "serialNumber": null,
+           "favorite": false
+       },
+       "date": 1521403145000,
+       "previousState": "ON",
+       "newState": "OFF"
+   }
+]
+```
 
 ### Facturas
 La API de géneros tiene métodos POST. 
@@ -464,12 +594,5 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ###### Método POST
 | Tipo | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Crea ua nueva factura. | /api/dashboard/homes | Vea abajo | Nueva factura y CREADO (201) | - |
+| 1 | Crea ua nueva factura. | /api/dashboard/homes/{id}/generateInvoice | Vea abajo | Nueva factura y CREADO (200) | UNAUTHORIZED |
 
-[1]
-````
-FALTA CODIGO
-{
-   " nombre " : newGenreName 
-}
-````
