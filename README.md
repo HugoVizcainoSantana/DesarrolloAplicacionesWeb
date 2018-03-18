@@ -109,7 +109,7 @@ Inventario donde el administrador puede cambiar el numero de dispositivos que te
 ![users](pantallazosFase3/UsuariosAdmin.png)
 Usuarios que estan dados de alta en nuestra aplciación
 
-![orders](pantallazosFase3/PedidosPendiente.png)
+![orders](pantallazosFase3/PedidosPendientes.png)
 Ordenes de instalacion de las diferentes casas de los usuarios
 
 ![profileUsers](pantallazosFase3/ConfirmarPedido2.png)
@@ -157,14 +157,14 @@ localhost:3306
 Diagrama de clases y template donde se muestra la relación de los controladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
-## FASE 3
+## FASE 4
 ### Documentación de la API : [api](API.md)
 
 ### Diagrama de clases y template [@restController]
 Nuevos Rescontroles y sus dependencias.
-![diagram](/pantallazosFase4/diagrama1.jpg)
+![diagram](/pantallazosFase4/diagrama1.png)
 Nuevos rescontroles con sus dependencias y sus métodos.
-![diagram](/pantallazosFase4/diagrama2.jpg)
+![diagram](/pantallazosFase4/diagrama2.png)
 
 Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestControler con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
