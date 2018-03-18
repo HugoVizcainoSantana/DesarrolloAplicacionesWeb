@@ -124,7 +124,7 @@
                                     <type>${project.packaging}</type>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>./docker</outputDirectory>
+                            <outputDirectory>docker</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
