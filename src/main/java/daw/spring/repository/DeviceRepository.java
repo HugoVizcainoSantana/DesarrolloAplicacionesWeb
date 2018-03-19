@@ -11,4 +11,6 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     @Query(value = "SELECT cost FROM device WHERE type = ?1 limit 1", nativeQuery = true)
     public int findCostByType(String type);
+    
+  
 }

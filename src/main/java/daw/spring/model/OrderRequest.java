@@ -1,6 +1,8 @@
 package daw.spring.model;
 
 import javax.persistence.*;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -91,5 +93,9 @@ public class OrderRequest {
 
     public void setObservation(String observation) {
         this.observation = observation;
+    }
+    public String getDateAsString() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        return format.format(date);
     }
 }
