@@ -45,62 +45,62 @@ https://github.com/Hgmoa/DesarrolloAplicacionesWeb/projects/1
 ## FASE 2
 ### 1.Capturas de Pantalla 
 SIN REGISTRAR
-![index](/pantalalzosFase2/cliente/index.jpg "Index")     
-![Nuestro Trabajo](/pantalalzosFase2/cliente/nuestroTrabajo.jpg "Nuestro Trabajo")  
-![Productos](/pantalalzosFase2/cliente/Productos.jpg "Productos")  
+![index](pantallazosFase2/cliente/index.jpg "Index")     
+![Nuestro Trabajo](pantallazosFase2/cliente/nuestroTrabajo.jpg "Nuestro Trabajo")  
+![Productos](pantallazosFase2/cliente/Productos.jpg "Productos")  
 Pagina principal, visualizacion para cualquier usuario, pudiendo ver apartados como, caracteristicas, quienes somo, tansolo con bajar con el raton, como pulsando el los propios nombres.(ejemplo nuestro trabajo y productos).
     
-![Login](/pantalalzosFase2/cliente/login.jpg "Login")
-Para poder entrarcomo usuario, pudiendo recordar contraseña, o registrate.
+![Login](pantallazosFase2/cliente/login.jpg "Login")
+Para poder entrar como usuario, pudiendo recordar contraseña, o registrate.
 
-![Recordar contraseña](/pantalalzosFase2/cliente/RecuerdoContrasena.jpg "Recordar Contraseña")     
+![Recordar contraseña](pantallazosFase2/cliente/RecuerdoContrasena.jpg "Recordar Contraseña")     
 Para introducir el correo y que te recuerden la contraseña.
 
-![Registro](/pantalalzosFase2/cliente/Registro.jpg "Registro")     
+![Registro](pantallazosFase2/cliente/Registro.jpg "Registro")     
 Página donde deves rellenar los datos más caracteristicos para registrarte en la página, puedes hacerlo via facebook, google...
 
-![Error 404](/pantalalzosFase2/cliente/Error404.jpg "Error 404")     
+![Error 404](pantallazosFase2/cliente/Error404.jpg "Error 404")     
 Página cuando hay error 404
 
-![Error 500](/pantalalzosFase2/cliente/Error500.jpg "Error 500")     
+![Error 500](pantallazosFase2/cliente/Error500.jpg "Error 500")     
 Página cuando hay error 500
 
 CON REGISTRO
 
-![index](/pantalalzosFase2/dasboard/IndexDasboard.png "Index") 
+![index](pantallazosFase2/dasboard/IndexDasboard.png "Index") 
 Desde esta pantalla controlaremos lo general de la casa. Luces persianas,...
 
-![profile](/pantalalzosFase2/dasboard/UserDasboard.png "profile") 
+![profile](pantallazosFase2/dasboard/UserDasboard.png "profile") 
 Perfil del cliente que está dado de alta en nuestro servicio con información general sobre el.
 
-![forms](/pantalalzosFase2/dasboard/FormDasboard.png "forms")
+![forms](pantallazosFase2/dasboard/FormDasboard.png "forms")
 Formularios para las diferentes aspectos de la aplicación.
 
-![charts](/pantalalzosFase2/dasboard/GraficDasboard.png "charts")
+![charts](pantallazosFase2/dasboard/GraficDasboard.png "charts")
 Graficas que muestran el consumo de la casa.
 
-![homes](/pantalalzosFase2/dasboard/HousesDasboard.png "homes")
+![homes](pantallazosFase2/dasboard/HousesDasboard.png "homes")
 Consumo de las diferentes casas que pueda tener un mismo usuario
 
-![terms-conditions](/pantalalzosFase2/dasboard/Term.png "terms-conditions")
+![terms-conditions](pantallazosFase2/dasboard/Term.png "terms-conditions")
 Terminios y condiciones legales
 
 
 
 ### 2. Diagrama de navegación
 Cliente sin registrar:
-![Navegacion sin registro](/pantalalzosFase2/cliente/sinRegistrar.jpg "Esquema sin registrar") 
+![Navegacion sin registro](pantallazosFase2/cliente/sinRegistrar.jpg "Esquema sin registrar") 
 
 Cliente registrado:
-![Navegacion con registro](/pantalalzosFase2/dasboard/NavegacionDasboard.jpg "Esquema con registrar") 
+![Navegacion con registro](pantallazosFase2/dasboard/NavegacionDasboard.jpg "Esquema con registrar") 
 
 ## FASE 3
 ### Capturas de pantalla
 DASHBOARD ADMINISTRADOR
-![choose](/pantallazosFase3/ChooseDashboard.png)
+![choose](pantallazosFase3/ChooseDashboard.png)
 Inicio de la pantalla de la parte del usuario administrador donde puede elegir entre admin Dashboard o user Dashboard 
 
-![index](/pantallazosFase3/IndexAdmin.png)
+![index](pantallazosFase3/IndexAdmin.png)
 Inicio de la parte de admin dashboard
 
 ![inventory](pantallazosFase3/Inventario.png)
@@ -118,34 +118,34 @@ Ordenes de instalacion donde se confirmarán o se ancelaran dando de alta los di
 
 
 DASHBOARD USUARIO
-![index](/pantallazosFase3/indexUser.png)
+![index](pantallazosFase3/indexUser.png)
 Inicio de la parte de usuar dashboard
 
-![shop](/pantallazosFase3/Shop.png)
+![shop](pantallazosFase3/Shop.png)
 Creacion de las ordenes de instalacion para las diferentes casas que tenga el cliente
 
-![charts](/pantallazosFase3/chart.png)
+![charts](pantallazosFase3/chart.png)
 Graficas del usuario que muestra como va su consumo propio y como va su consumo frente a los de otros usuarios de su zona
 
-![homes](/pantallazosFase3/home.png)
+![homes](pantallazosFase3/home.png)
 Casas contratadas del usuario 
 
-![profile](/pantallazosFase3/Profile.png)
+![profile](pantallazosFase3/Profile.png)
 Perfil del usuario donde puede modificar sus datos y su imagen de avatar
 
 
 
 ### Diagrama de base de datos
-![database](/pantallazosFase3/diagramabasedatos.png)
+![database](pantallazosFase3/diagramabasedatos.png)
 La entidad con la base de datos están relacionadas de la forma que los usuario tienen una entidad 
 que se guarda en la base de datos, donde tendrán su identificador generado automaticamente, guardando su nombre, apellidos, email, contraseña, telefono, listas de casas junto con los roles, 
 que estos últimos son los que se utilizan para la seguridad con Spring.
 ### Diagrama de clases
-![class](/pantallazosFase3/esquemaclases.png)
+![class](pantallazosFase3/esquemaclases.png)
 
 ### Entorno de desarrollo
-Para poder instalar y desarrollar una aplicación con Spring Boot, desde cualquier editor de código podrás abrir la aplicaciónl, pero se recomienda abrir la aplciación con STSsource-tool-suite (http://spring.io/tools/sts/all)
-También es obligatorio el uso de una base de datos MySQL Workbenck (https://dev.mysql.com/downloads/workbench/), con la siguiente configuración.
+Para poder instalar y desarrollar una aplicación con Spring Boot, desde cualquier editor de código podrás abrir la aplicaciónl, pero se recomienda abrir la aplciación con [STS](http://spring.io/tools/sts/all)
+También es obligatorio el uso de una base de datos [MySQL](https://dev.mysql.com/downloads/mysql/), con la siguiente configuración.
 localhost:3306
 
 | Nombre Base de datos | usuario | contraseña     |
@@ -153,7 +153,7 @@ localhost:3306
 | oncontrolhome        | root      | root |
 
 ### Diagrama de clases y template
-![diagram](/pantallazosFase3/Main2.jpg)
+![diagram](pantallazosFase3/Main2.jpg)
 Diagrama de clases y template donde se muestra la relación de los controladores con sus archivos HTML. Como se puede ver en las imágenes anteriores mostramos las relaciones entre los controladores con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
@@ -162,19 +162,23 @@ servicios y repositorios. Por tanto para realizar la relación en su proyecto de
 
 ### Diagrama de clases y template [@restController]
 Nuevos Rescontroles y sus dependencias.
-![diagram](/pantallazosFase4/diagrama1.png)
-Nuevos rescontroles con sus dependencias y sus métodos.
-![diagram](/pantallazosFase4/diagrama2.png)
+![diagram](pantallazosFase4/diagrama1.png)
 
-Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestControler con los 
+Nuevos rescontroles con sus dependencias y sus métodos.
+![diagram](pantallazosFase4/diagrama2.png)
+
+Diagrama de clases y template donde se muestra la relación de los nuevos RestControladores. Como se puede ver en la imágene anterior mostramos las relaciones entre los controladores y RestController con los 
 servicios y repositorios. Por tanto para realizar la relación en su proyecto debe de mirar en todas las imágenes para poder tener las mismas relaciones. 
 
 ### Instrucciones de ejecución de la aplicación dokerizada usando el docker-compose.yml
+Usamos docker-compose version 2.3 ya que nos permite comprobar mediante "[healthchecks](https://docs.docker.com/compose/compose-file/compose-file-v2/#healthcheck)" el estado de la base de datos para no permitir que la aplicacion de spring boot ejecute sin estar la misma lista.  
+Las rutas sobre los volumenes que utilizan los contenedores docker y las variables de entorno para el acceso y generacion de la base de datos se encuentran en el fichero [docker-compose.yml](docker/docker-compose.yml) pudiendose editar segun sea necesario.  
+
 | Nº Paso | Instrucción |
 | --- | --- |
-| 1 | | 
-| 2 | |
-| 3 | |
+| 1 | Clonar repositorio | 
+| 2 | Acceder por consola a la carpeta /docker del proyecto|
+| 3 | Ejecutar docker-compose up para levantar la base de datos y el servidor|
 
 ### Preparación del entorno de desarrollo
 | Nº Paso | Instrucción |
@@ -184,11 +188,15 @@ servicios y repositorios. Por tanto para realizar la relación en su proyecto de
 | 3 | Nuestra API tiene un lado público donde puedes ver la información de quienes somos, lo que hacemos y nuestros productos. |
 | 4 | Dos partes privadas. La primera como cliente registrado puediendo ver tus facturas, graficas, consumos y pedidos, para ello debes iniciar sesión como usuario. Una segunda parte privada que es como administrador, que tienes acceso a los pedidos y a las características de los usuarios, para ello tienes que registrarte con los permisos de administrador. |
 | 5 | Una vez que haya iniciado sesión o sin iniciarla, puede enviar todas las solicitudes que desee (siempre siguiendo nuestras reglas). |
-| 6 | Si quieres terminar tu sesión, usa logout. |
+| 6 | Si quieres terminar tu sesión, usa el endpoint  /api/logout. |
 
 ### Instrucciones de desarrollo
 | Nº Paso | Instrucción |
 | --- | --- |
-| 1 | | 
-| 2 | |
-| 3 | |
+| 1 | Clonar repositorio| 
+| 2 | Acceder por consola a la carpeta /docker del proyecto |
+| 3 | Editar el Dockerfile segun las necesidades del desarrollador (cambiar ruta o nombre del archivo, etc.)|
+| 4 | En el archivo create_image (.sh para unix, .bat para windows), modificar el tag de la imagen para referenciarla al repositorio propio |
+| 5 | Cambiar tambien en los ficheros publish_image.(bat/sh) y run_image.(bat/sh) el nombre y tag de la imagen al modificado anteriormente |
+| 6 | Realizar docker login en caso de no estar logueado, y ejecutar el fichero publish_image.(bat/sh) |
+| 7 | Referenciar en el fichero docker-compose.yml la imagen subida a su repositorio |

@@ -1,4 +1,4 @@
-# One Control Home - API REST System
+# On Control Home - API REST System
 
 ## Acerca de nuestra API:
 Lo que se encuentra en nuestra API Rest es información sobre nuestros usuarios, tanto administradores como clientes y sus datos adjuntos como nombres, apellidos, telefono..., los productos con sus características, precio y cantifades, las casas con sus direcciones, analíticas de consumos, facturas de los clientes y ordenes de pedidos.
@@ -27,8 +27,8 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 | --- | --- | --- | --- | --- | --- |
 | 1 | Usuario sin registrar | Muestra todos los productos. | /api/products | Lista de productos y OK (200). | NOT_FOUND (404) |
 | 2 | Usuario sin registrar |Muestra un producto determinado. | /api/products/id | Producto y OK (200). | NOT_FOUND (404) |
-| 3 | Usuario Registrado | Muestra todos los productos adquiridos | /dashboard/ | Lista de productos adquiridos y OK (200). | NOT_FOUND (404) |
-| 4 | Administrador | Muestra todos los productos | api/adminDashboard/inventory/?page=1&size=1 | Lista de productos y OK (200). | NOT_FOUND (404) |
+| 3 | Usuario Registrado | Muestra todos los productos adquiridos | /api/dashboard/ | Lista de productos adquiridos y OK (200). | NOT_FOUND (404) |
+| 4 | Administrador | Muestra todos los productos | /api/adminDashboard/inventory/?page=1&size=1 | Lista de productos y OK (200). | NOT_FOUND (404) |
 
 [1]
 ```
@@ -87,19 +87,29 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ###### Método POST
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Administrador | Crea un nuevo producto. | /api/adminDashboard/addProduct? | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
+| 1 | Administrador | Crea un nuevo producto. | /api/adminDashboard/addProduct | Vea abajo |	Nuevo recurso y CREADO (201) | NOT_FOUND (404)
 
-[1]
+[Solicitud 1]
 ```
 {
-"id": 2,
     "description": "Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
-    "cost": 32.5,
+    "cost": 80,
     "type": "BLIND",
     "img": "product-2.jpg",
-     "stock": 34
+    "stock": 12
 }
 ```
+[Respuesta 1]
+   ```
+   {
+       "id":4,
+       "description": "Motor actuador de persiana para domótica. Así, podrás subir o bajar las persianas desde la App, ya sea desde dispositivos móviles, ordenador o incluso hacer que estas persianas se bajen de forma automática.",
+       "cost": 80,
+       "type": "BLIND",
+       "img": "product-2.jpg",
+        "stock": 12
+   }
+   ```
 
 ###### Método PUT
 | Tipo | Permisos |Solicitud de descripción |	URL de solicitud | Solicitar cuerpo | Respuesta de éxito | Respuesta de error |
@@ -123,7 +133,8 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ### Usuarios
 La API de los usuarios tiene métodos GET, POST, PUT. 
 Un usuario registrado, puede enviar solicitudes POST y puede modificar sus datos con PUT. 
-Un usuario administrador, puede enviar cualquier solicitud. Todas las URL de solicitud se pueden enviar escribiendo http: //localhost:8443 seguido de la URL de solicitud containt en las siguientes tablas.
+Un usuario administrador, puede enviar cualquier solicitud.  
+Todas las URL de solicitud se pueden enviar escribiendo https://localhost:8443 seguido de la URL de solicitud indicada en las siguientes tablas.
 
 ###### Métodos GET
 | Tipo | Permisos | Solicitud de descripción |	URL de solicitud | Respuesta de éxito | Respuesta de error |
@@ -588,8 +599,8 @@ Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 se
 ```
 
 ### Facturas
-La API de géneros tiene métodos POST. 
-Un usuario registrado, solo puede enviar solicitudes POST. 
+La API de generar facturas solo tiene método GET. 
+Solo un usuario registrado puede enviar solicitudes a este endpoint especificando sobre que casa quiere la factura. 
 Todas las URL de solicitud se pueden enviar escribiendo http://localhost:8443 seguido de la URL de solicitud contenida en las siguientes tablas.
 
 ###### Método POST
